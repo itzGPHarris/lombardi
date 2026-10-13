@@ -1,0 +1,14 @@
+{
+  "title": "Demo controls",
+  "household": "Charlotte",
+  "moment": "C-03",
+  "reset": "Reset",
+  "phone": "Phone frame",
+  "responsive": "Responsive layout",
+  "time": "Demo time",
+  "close": "Back",
+  "times": [
+    "7:25 am",
+    "7:40 am"
+  ]
+}

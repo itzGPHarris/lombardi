@@ -1,0 +1,321 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Charlotte C-03 slice household",
+  "type": "object",
+  "required": [
+    "meta",
+    "people",
+    "children",
+    "schools",
+    "places",
+    "travel",
+    "calendar",
+    "planItems",
+    "rules",
+    "captures",
+    "requests",
+    "villageGroups",
+    "conversation",
+    "coachCards",
+    "recommended",
+    "moments"
+  ],
+  "properties": {
+    "people": {
+      "type": "array"
+    },
+    "children": {
+      "type": "array"
+    },
+    "schools": {
+      "type": "array"
+    },
+    "places": {
+      "type": "array"
+    },
+    "travel": {
+      "type": "array"
+    },
+    "planItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/item"
+      }
+    },
+    "rules": {
+      "type": "array"
+    },
+    "captures": {
+      "type": "array"
+    },
+    "requests": {
+      "type": "array"
+    },
+    "villageGroups": {
+      "type": "array"
+    },
+    "conversation": {
+      "type": "array"
+    },
+    "coachCards": {
+      "type": "array"
+    },
+    "recommended": {
+      "type": "array"
+    },
+    "moments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "time",
+          "opensOn",
+          "state",
+          "steps"
+        ],
+        "properties": {
+          "id": {
+            "const": "C-03"
+          },
+          "time": {
+            "$ref": "#/$defs/time"
+          },
+          "opensOn": {
+            "const": "today"
+          },
+          "state": {
+            "$ref": "#/$defs/state"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "time"
+              ],
+              "properties": {
+                "time": {
+                  "$ref": "#/$defs/time"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "id",
+        "fixturesVersion",
+        "invented"
+      ],
+      "properties": {
+        "id": {
+          "const": "charlotte"
+        },
+        "fixturesVersion": {
+          "const": "3.9"
+        },
+        "invented": {
+          "type": "array"
+        }
+      }
+    },
+    "calendar": {
+      "type": "object",
+      "required": [
+        "provider",
+        "name",
+        "events"
+      ],
+      "properties": {
+        "provider": {
+          "const": "google"
+        },
+        "events": {
+          "type": "array"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "time": {
+      "type": "object",
+      "required": [
+        "week",
+        "day",
+        "time"
+      ],
+      "properties": {
+        "week": {
+          "type": "integer"
+        },
+        "day": {
+          "enum": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun"
+          ]
+        },
+        "time": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": [
+        "id",
+        "time",
+        "title",
+        "owner",
+        "kind",
+        "status",
+        "marks",
+        "fromCalendar",
+        "source"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "time": {
+          "$ref": "#/$defs/time"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "Routine",
+            "This week"
+          ]
+        },
+        "status": {
+          "enum": [
+            null,
+            "Proposed",
+            "Asked",
+            "Accepted",
+            "Declined"
+          ]
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "Changed",
+              "Conflict"
+            ]
+          }
+        },
+        "fromCalendar": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "state": {
+      "type": "object",
+      "required": [
+        "planItems",
+        "departures",
+        "dayRows",
+        "dayGrid",
+        "coachCards",
+        "conversation",
+        "captures",
+        "requests",
+        "posts",
+        "checked",
+        "tasks"
+      ],
+      "properties": {
+        "planItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "departures": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "child",
+              "time",
+              "line",
+              "goingWith"
+            ],
+            "properties": {
+              "time": {
+                "$ref": "#/$defs/time"
+              },
+              "goingWith": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "text"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "dayRows": {
+          "type": "array",
+          "minItems": 4
+        },
+        "coachCards": {
+          "type": "array"
+        },
+        "requests": {
+          "type": "array"
+        },
+        "checked": {
+          "type": "object"
+        },
+        "tasks": {
+          "type": "array"
+        }
+      }
+    }
+  }
+}

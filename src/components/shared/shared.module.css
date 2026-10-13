@@ -1,0 +1,13 @@
+.icon { width: var(--size-icon); height: var(--size-icon); display: inline-flex; flex-shrink: 0; vertical-align: middle; }
+.icon svg { width: var(--size-icon); height: var(--size-icon); fill: currentColor; }
+.icon svg:global(.lucide) { fill: none; }
+.monogram { display: inline-flex; width: var(--size-monogram); height: var(--size-monogram); border-radius: var(--radius-pill); flex-shrink: 0; align-items: center; justify-content: center; border: var(--size-line) solid var(--color-border-strong); font: var(--type-display-sm); }
+.monogram[data-person="alexis"] { color: var(--color-lane-1-strong); background: var(--color-lane-1-tint); border-color: var(--color-lane-1-strong); }
+.monogram[data-person="mallory"] { color: var(--color-lane-2-strong); background: var(--color-lane-2-tint); border-color: var(--color-lane-2-strong); }
+.owner,.status,.source { display: inline-flex; gap: var(--space-4); align-items: center; font: var(--type-body-sm); }
+.owner { flex-shrink: 0; }
+.status { border: var(--size-line) solid var(--color-border-strong); border-radius: var(--radius-sm); padding: var(--space-4); }
+.source { color: var(--color-ink-muted); margin-top: var(--space-8); }
+.planItem { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-16); padding: var(--space-20); border: var(--size-line) solid var(--color-border-hairline); border-radius: var(--radius-md); background: var(--color-bg-card); }
+.planItem p { margin-top: var(--space-8); }
+.mono { font: var(--type-mono-caption); color: var(--color-ink-muted); }

@@ -1,0 +1,30 @@
+[
+  {
+    "width": 390,
+    "height": 844,
+    "errors": [],
+    "overflow": false,
+    "buttons": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "errors": [],
+    "overflow": false,
+    "buttons": []
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "errors": [],
+    "overflow": false,
+    "buttons": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "errors": [],
+    "overflow": false,
+    "buttons": []
+  }
+]

@@ -1,0 +1,17 @@
+:global(*) { box-sizing: border-box; }
+:global(body) { margin: var(--space-0); background: var(--color-bg-canvas); color: var(--color-ink-primary); font: var(--type-body-md); }
+:global(button), :global(input), :global(textarea) { font: inherit; }
+:global(button) { min-height: var(--size-tap-target); border: var(--size-line) solid var(--color-border-hairline); border-radius: var(--radius-md); padding: var(--space-8) var(--space-12); color: var(--color-interactive-pressed); background: var(--color-bg-card); cursor: pointer; }
+:global(button:hover:not(:disabled)) { background: var(--color-interactive-tint); }
+:global(button:disabled) { color: var(--color-ink-placeholder); border-style: dashed; background: var(--color-bg-subtle); cursor: not-allowed; }
+:global(button:focus-visible), :global(input:focus-visible), :global(textarea:focus-visible), :global([tabindex="0"]:focus-visible) { outline: var(--size-focus) solid var(--color-focus-ring); outline-offset: var(--space-4); }
+:global(input[type="checkbox"]) { width: var(--space-20); height: var(--space-20); margin: var(--space-0); flex-shrink: 0; accent-color: var(--color-interactive-pressed); }
+:global(h1), :global(h2), :global(h3), :global(p) { margin: var(--space-0); }
+:global(h1), :global(h2) { font: var(--type-display-sm); }
+:global(fieldset) { min-width: 0; }
+:global(svg) { display: block; }
+
+/* Token-colored native inputs retain semantic checkbox behavior. */
+:global(input[type="checkbox"]) { appearance: none; position: relative; border: var(--size-line) solid var(--color-border-strong); border-radius: var(--radius-sm); background: var(--color-bg-card); }
+:global(input[type="checkbox"]:checked) { background: var(--color-interactive-pressed); border-color: var(--color-interactive-pressed); }
+:global(input[type="checkbox"]:checked::after) { content: '✓'; position: absolute; inset: var(--space-0); text-align: center; color: var(--color-ink-on-accent); font: var(--type-body-sm-strong); }

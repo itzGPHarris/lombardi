@@ -1,0 +1,82 @@
+{
+  "product": "Most Valuable Parent",
+  "tabs": [
+    {
+      "id": "today",
+      "label": "Today"
+    },
+    {
+      "id": "coach",
+      "label": "Coach"
+    },
+    {
+      "id": "game-plan",
+      "label": "Game plan"
+    },
+    {
+      "id": "team",
+      "label": "Team"
+    },
+    {
+      "id": "kids",
+      "label": "Kids"
+    }
+  ],
+  "phase": {
+    "morning": "This morning",
+    "afternoon": "This afternoon",
+    "tonight": "Tonight"
+  },
+  "days": {
+    "mon": "Monday",
+    "tue": "Tuesday",
+    "wed": "Wednesday",
+    "thu": "Thursday",
+    "fri": "Friday",
+    "sat": "Saturday",
+    "sun": "Sunday"
+  },
+  "columns": [
+    "Morning",
+    "School",
+    "After school",
+    "Evening"
+  ],
+  "goingWith": "Going with",
+  "settings": "Settings",
+  "settingsLabel": "Settings and account",
+  "settingsHeadings": [
+    "Your account",
+    "Your calendar",
+    "Notifications",
+    "Your forwarding address",
+    "Language at home",
+    "Privacy"
+  ],
+  "back": "Back",
+  "add": "Add",
+  "captureChoices": [
+    "Take a photo",
+    "Attach a file",
+    "Talk or type"
+  ],
+  "to": "To",
+  "disclaimer": "You send this. MVP never sends anything for you.",
+  "handoff": "Send from WhatsApp",
+  "send": "Send",
+  "task": "Reply to the parents' group",
+  "jennaMessage": "Who can do Wednesday morning? I can't this week.",
+  "jenna": "Jenna Okafor",
+  "you": "You",
+  "nobody": "Nobody yet",
+  "calendar": "From your Google Calendar",
+  "recommended": "MVP RECOMMENDS",
+  "changed": "Changed",
+  "suggested": "Suggested",
+  "asked": "Asked",
+  "accepted": ": yes",
+  "declined": " can't",
+  "conflicts": "Conflicts with",
+  "seeReply": "See reply",
+  "notThisWeek": "Not this week"
+}

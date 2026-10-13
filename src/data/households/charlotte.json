@@ -1,0 +1,703 @@
+{
+  "meta": {
+    "id": "charlotte",
+    "fixturesVersion": "3.9",
+    "scope": "C-03",
+    "invented": [
+      {
+        "fact": "Ages",
+        "decision": "Charlotte 48, Edward 50, Alexis 10 in fourth grade, Mallory 6 in kindergarten",
+        "reason": "The adult ages are new."
+      },
+      {
+        "fact": "Schools",
+        "decision": "Alexis at Cedar Grove Elementary, 8:00 am to 2:45 pm, collected at the Oak Street gate. Mallory at Westview Kindergarten, 8:30 am to 2:30 pm, Room 3.",
+        "reason": "The girls attend different schools, and the different hours make both the morning and the afternoon real."
+      },
+      {
+        "fact": "Carpool",
+        "decision": "Mornings only. The Parks drive Monday, the Okafors Wednesday and Charlotte Friday, with Mallory riding along on Friday to Westview.",
+        "reason": "The WhatsApp message comes from Jenna Okafor, and Friday explains why Mallory leaves at 7:40 am that day."
+      },
+      {
+        "fact": "Edward's week",
+        "decision": "At the office Tuesday and Wednesday. Home Thursday, free from 1:15 pm until a 2:00 pm meeting is added on Wednesday.",
+        "reason": "Thursday has to be a day Edward is home so he can be asked, and the new meeting shows an accepted item reopening."
+      },
+      {
+        "fact": "Westview rotation",
+        "decision": "A six-day letter rotation, A to F. The demo week runs B to F from Monday to Friday, which puts the Tuesday after C-00 on an E day.",
+        "reason": "B, D and F are motor skills days, which is where Mallory's sneakers come from."
+      },
+      {
+        "fact": "The parents' WhatsApp group",
+        "decision": "Named \"Cedar Grove 4th Grade Parents\"",
+        "reason": "Gives the C-03 reply an address line."
+      },
+      {
+        "fact": "Her calendar",
+        "decision": "Charlotte uses Google Calendar and connects it during setup in C-00. It holds Alexis's therapy at Brightwater on Mondays at 3:30 pm, Alexis's dance at Studio Ten on Wednesdays at 3:45 pm and Mallory's ballet at Studio Ten on Thursdays at 4:15 pm, each as a repeating event.",
+        "reason": "Gives the coach something real to bring in at setup, and explains why those three items carry the calendar mark through the week. Google Calendar is the most common calendar to connect and the simplest to stage."
+      }
+    ]
+  },
+  "people": [
+    {
+      "id": "charlotte",
+      "name": "Charlotte",
+      "group": "parent",
+      "hasMVP": true
+    },
+    {
+      "id": "edward",
+      "name": "Edward",
+      "group": "inner",
+      "hasMVP": true
+    },
+    {
+      "id": "min-jung",
+      "name": "Min-jung Park",
+      "group": "village",
+      "hasMVP": true
+    },
+    {
+      "id": "jenna",
+      "name": "Jenna Okafor",
+      "group": "village",
+      "hasMVP": true
+    }
+  ],
+  "children": [
+    {
+      "id": "alexis",
+      "name": "Alexis",
+      "age": 10,
+      "grade": "Fourth grade",
+      "school": "cedar-grove",
+      "teacher": "Ms. Carter's class"
+    },
+    {
+      "id": "mallory",
+      "name": "Mallory",
+      "age": 6,
+      "grade": "Kindergarten",
+      "school": "westview",
+      "teacher": "Ms. Hollis, Room 3"
+    }
+  ],
+  "schools": [
+    {
+      "id": "cedar-grove",
+      "name": "Cedar Grove Elementary",
+      "shortName": "Cedar Grove"
+    },
+    {
+      "id": "westview",
+      "name": "Westview Kindergarten",
+      "shortName": "Westview",
+      "rotation": {
+        "mon": "B",
+        "tue": "C",
+        "wed": "D",
+        "thu": "E",
+        "fri": "F"
+      }
+    }
+  ],
+  "places": [
+    {
+      "id": "brightwater",
+      "name": "Brightwater Family Therapy"
+    },
+    {
+      "id": "studio-ten",
+      "name": "Studio Ten"
+    }
+  ],
+  "travel": [],
+  "calendar": {
+    "provider": "google",
+    "name": "Google Calendar",
+    "events": [
+      {
+        "id": "calendar-mon-4",
+        "title": "Alexis · Therapy, Brightwater",
+        "time": {
+          "week": 0,
+          "day": "mon",
+          "time": "15:30"
+        },
+        "weekly": true,
+        "planItem": "mon-4"
+      },
+      {
+        "id": "calendar-wed-9",
+        "title": "Alexis · Dance, Studio Ten",
+        "time": {
+          "week": 0,
+          "day": "wed",
+          "time": "15:45"
+        },
+        "weekly": true,
+        "planItem": "wed-9"
+      }
+    ]
+  },
+  "planItems": [
+    {
+      "id": "mon-0",
+      "time": {
+        "week": 0,
+        "day": "mon",
+        "time": "07:40"
+      },
+      "title": "Alexis · Carpool to Cedar Grove",
+      "owner": "min-jung",
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": false,
+      "source": "prepared-plan"
+    },
+    {
+      "id": "mon-1",
+      "time": {
+        "week": 0,
+        "day": "mon",
+        "time": "08:15"
+      },
+      "title": "Mallory · To Westview",
+      "owner": "charlotte",
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": false,
+      "source": "prepared-plan"
+    },
+    {
+      "id": "mon-2",
+      "time": {
+        "week": 0,
+        "day": "mon",
+        "time": "14:30"
+      },
+      "title": "Mallory · Pick up at Westview",
+      "owner": "charlotte",
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": false,
+      "source": "prepared-plan"
+    },
+    {
+      "id": "mon-3",
+      "time": {
+        "week": 0,
+        "day": "mon",
+        "time": "14:45"
+      },
+      "title": "Alexis · Pick up at Cedar Grove",
+      "owner": "charlotte",
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": false,
+      "source": "prepared-plan"
+    },
+    {
+      "id": "mon-4",
+      "time": {
+        "week": 0,
+        "day": "mon",
+        "time": "15:30"
+      },
+      "title": "Alexis · Therapy, Brightwater",
+      "owner": "charlotte",
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": true,
+      "source": "google-calendar"
+    },
+    {
+      "id": "wed-carpool",
+      "time": {
+        "week": 0,
+        "day": "wed",
+        "time": "07:40"
+      },
+      "title": "Alexis · Carpool to Cedar Grove",
+      "owner": null,
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": false,
+      "source": "prepared-plan"
+    },
+    {
+      "id": "wed-6",
+      "time": {
+        "week": 0,
+        "day": "wed",
+        "time": "08:15"
+      },
+      "title": "Mallory · To Westview",
+      "owner": "charlotte",
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": false,
+      "source": "prepared-plan"
+    },
+    {
+      "id": "wed-7",
+      "time": {
+        "week": 0,
+        "day": "wed",
+        "time": "14:30"
+      },
+      "title": "Mallory · Pick up at Westview",
+      "owner": "charlotte",
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": false,
+      "source": "prepared-plan"
+    },
+    {
+      "id": "wed-8",
+      "time": {
+        "week": 0,
+        "day": "wed",
+        "time": "14:45"
+      },
+      "title": "Alexis · Pick up at Cedar Grove",
+      "owner": "charlotte",
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": false,
+      "source": "prepared-plan"
+    },
+    {
+      "id": "wed-9",
+      "time": {
+        "week": 0,
+        "day": "wed",
+        "time": "15:45"
+      },
+      "title": "Alexis · Dance, Studio Ten",
+      "owner": "charlotte",
+      "kind": "Routine",
+      "status": null,
+      "marks": [],
+      "fromCalendar": true,
+      "source": "google-calendar"
+    }
+  ],
+  "rules": [],
+  "captures": [],
+  "requests": [
+    {
+      "id": "carpool-reply",
+      "to": "Cedar Grove 4th Grade Parents",
+      "text": "I can do Wednesday. Same time, 7:40?",
+      "channel": "Handoff",
+      "app": "WhatsApp",
+      "state": "Draft",
+      "items": [
+        "wed-carpool"
+      ]
+    }
+  ],
+  "villageGroups": [],
+  "conversation": [],
+  "coachCards": [
+    {
+      "id": "wednesday-carpool",
+      "day": "wed",
+      "text": "Jenna Okafor can't drive Wednesday morning and is asking the group. You are free at 7:40 on Wednesday, and a reply is ready if you want to take it.",
+      "actions": [
+        "See reply",
+        "Not this week"
+      ],
+      "link": "Open Wednesday in the game plan"
+    }
+  ],
+  "recommended": [
+    {
+      "article": "teacher-conference",
+      "reason": "Because Cedar Grove conferences are this week."
+    }
+  ],
+  "moments": [
+    {
+      "id": "C-03",
+      "label": "Getting both girls out of the house",
+      "time": {
+        "week": 0,
+        "day": "mon",
+        "time": "07:25"
+      },
+      "opensOn": "today",
+      "state": {
+        "planItems": [
+          {
+            "id": "mon-0",
+            "time": {
+              "week": 0,
+              "day": "mon",
+              "time": "07:40"
+            },
+            "title": "Alexis · Carpool to Cedar Grove",
+            "owner": "min-jung",
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": false,
+            "source": "prepared-plan"
+          },
+          {
+            "id": "mon-1",
+            "time": {
+              "week": 0,
+              "day": "mon",
+              "time": "08:15"
+            },
+            "title": "Mallory · To Westview",
+            "owner": "charlotte",
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": false,
+            "source": "prepared-plan"
+          },
+          {
+            "id": "mon-2",
+            "time": {
+              "week": 0,
+              "day": "mon",
+              "time": "14:30"
+            },
+            "title": "Mallory · Pick up at Westview",
+            "owner": "charlotte",
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": false,
+            "source": "prepared-plan"
+          },
+          {
+            "id": "mon-3",
+            "time": {
+              "week": 0,
+              "day": "mon",
+              "time": "14:45"
+            },
+            "title": "Alexis · Pick up at Cedar Grove",
+            "owner": "charlotte",
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": false,
+            "source": "prepared-plan"
+          },
+          {
+            "id": "mon-4",
+            "time": {
+              "week": 0,
+              "day": "mon",
+              "time": "15:30"
+            },
+            "title": "Alexis · Therapy, Brightwater",
+            "owner": "charlotte",
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": true,
+            "source": "google-calendar"
+          },
+          {
+            "id": "wed-carpool",
+            "time": {
+              "week": 0,
+              "day": "wed",
+              "time": "07:40"
+            },
+            "title": "Alexis · Carpool to Cedar Grove",
+            "owner": null,
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": false,
+            "source": "prepared-plan"
+          },
+          {
+            "id": "wed-6",
+            "time": {
+              "week": 0,
+              "day": "wed",
+              "time": "08:15"
+            },
+            "title": "Mallory · To Westview",
+            "owner": "charlotte",
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": false,
+            "source": "prepared-plan"
+          },
+          {
+            "id": "wed-7",
+            "time": {
+              "week": 0,
+              "day": "wed",
+              "time": "14:30"
+            },
+            "title": "Mallory · Pick up at Westview",
+            "owner": "charlotte",
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": false,
+            "source": "prepared-plan"
+          },
+          {
+            "id": "wed-8",
+            "time": {
+              "week": 0,
+              "day": "wed",
+              "time": "14:45"
+            },
+            "title": "Alexis · Pick up at Cedar Grove",
+            "owner": "charlotte",
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": false,
+            "source": "prepared-plan"
+          },
+          {
+            "id": "wed-9",
+            "time": {
+              "week": 0,
+              "day": "wed",
+              "time": "15:45"
+            },
+            "title": "Alexis · Dance, Studio Ten",
+            "owner": "charlotte",
+            "kind": "Routine",
+            "status": null,
+            "marks": [],
+            "fromCalendar": true,
+            "source": "google-calendar"
+          }
+        ],
+        "departures": [
+          {
+            "id": "alexis-departure",
+            "child": "alexis",
+            "time": {
+              "week": 0,
+              "day": "mon",
+              "time": "07:40"
+            },
+            "line": "Alexis leaves with the Parks",
+            "goingWith": [
+              {
+                "id": "alexis-lunch",
+                "text": "Lunch"
+              },
+              {
+                "id": "alexis-library",
+                "text": "Library book, due today"
+              },
+              {
+                "id": "alexis-water",
+                "text": "Water bottle"
+              }
+            ]
+          },
+          {
+            "id": "mallory-departure",
+            "child": "mallory",
+            "time": {
+              "week": 0,
+              "day": "mon",
+              "time": "08:15"
+            },
+            "line": "You take Mallory to Westview",
+            "goingWith": [
+              {
+                "id": "mallory-lunch",
+                "text": "Lunch"
+              },
+              {
+                "id": "mallory-sneakers",
+                "text": "Sneakers, it's a motor skills day"
+              },
+              {
+                "id": "mallory-folder",
+                "text": "Reading folder, signed"
+              }
+            ]
+          }
+        ],
+        "dayRows": [
+          {
+            "person": "alexis",
+            "name": "Alexis",
+            "cells": [
+              "Parks carpool, 7:40 am",
+              "Cedar Grove, 8:00 am to 2:45 pm",
+              "You collect, 2:45 pm · Brightwater, 3:30 pm",
+              "Home"
+            ]
+          },
+          {
+            "person": "mallory",
+            "name": "Mallory",
+            "cells": [
+              "With you, 8:15 am",
+              "Westview, 8:30 am to 2:30 pm · B day",
+              "You collect, 2:30 pm · Along to Brightwater",
+              "Home"
+            ]
+          },
+          {
+            "person": "charlotte",
+            "name": "You",
+            "cells": [
+              "Westview, 8:15 am",
+              "",
+              "Westview 2:30 pm · Cedar Grove 2:45 pm · Brightwater 3:30 pm",
+              "Home"
+            ]
+          },
+          {
+            "person": "edward",
+            "name": "Edward",
+            "cells": [
+              "Working from home",
+              "Working from home",
+              "Working from home",
+              "Home"
+            ]
+          }
+        ],
+        "coachCards": [
+          {
+            "id": "wednesday-carpool",
+            "day": "wed",
+            "text": "Jenna Okafor can't drive Wednesday morning and is asking the group. You are free at 7:40 on Wednesday, and a reply is ready if you want to take it.",
+            "actions": [
+              "See reply",
+              "Not this week"
+            ],
+            "link": "Open Wednesday in the game plan"
+          }
+        ],
+        "conversation": [],
+        "captures": [],
+        "requests": [
+          {
+            "id": "carpool-reply",
+            "to": "Cedar Grove 4th Grade Parents",
+            "text": "I can do Wednesday. Same time, 7:40?",
+            "channel": "Handoff",
+            "app": "WhatsApp",
+            "state": "Draft",
+            "items": [
+              "wed-carpool"
+            ]
+          }
+        ],
+        "posts": [],
+        "checked": {},
+        "tasks": [],
+        "dayGrid": {
+          "alexis": [
+            {
+              "start": "07:40",
+              "text": "Parks carpool, 7:40 am",
+              "level": 0
+            },
+            {
+              "start": "08:00",
+              "end": "14:45",
+              "text": "Cedar Grove, 8:00 am to 2:45 pm",
+              "level": 1
+            },
+            {
+              "start": "14:45",
+              "text": "You collect, 2:45 pm",
+              "level": 2
+            },
+            {
+              "start": "15:30",
+              "text": "Brightwater, 3:30 pm",
+              "calendar": true,
+              "level": 0
+            }
+          ],
+          "mallory": [
+            {
+              "start": "08:15",
+              "text": "With you, 8:15 am",
+              "level": 0
+            },
+            {
+              "start": "08:30",
+              "end": "14:30",
+              "text": "Westview, 8:30 am to 2:30 pm · B day",
+              "level": 1
+            },
+            {
+              "start": "14:30",
+              "text": "You collect, 2:30 pm",
+              "level": 2
+            },
+            {
+              "start": "15:30",
+              "text": "Along to Brightwater",
+              "riding": true,
+              "level": 0
+            }
+          ],
+          "charlotte": [
+            {
+              "start": "08:15",
+              "text": "Westview, 8:15 am",
+              "level": 0
+            },
+            {
+              "start": "14:30",
+              "text": "Westview 2:30 pm",
+              "level": 2
+            },
+            {
+              "start": "14:45",
+              "text": "Cedar Grove 2:45 pm",
+              "level": 1
+            },
+            {
+              "start": "15:30",
+              "text": "Brightwater 3:30 pm",
+              "level": 0
+            }
+          ]
+        }
+      },
+      "steps": [
+        {
+          "id": "alexis-departs",
+          "time": {
+            "week": 0,
+            "day": "mon",
+            "time": "07:40"
+          }
+        }
+      ]
+    }
+  ]
+}
