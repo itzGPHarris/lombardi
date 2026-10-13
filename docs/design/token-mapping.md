@@ -153,3 +153,80 @@ The presenter advances the fixture clock explicitly; no wall-clock timer drives 
 | `primitives/plum/100` | `--color-plum-100` | `#eae2e7` |
 | `semantic/lane/5/strong` | `--color-lane-5-strong` | `var(--color-plum-600)` |
 | `semantic/lane/5/tint` | `--color-lane-5-tint` | `var(--color-plum-100)` |
+
+## October 13, 2026 update: five type styles, people colors, Kids icon
+
+Source: the master library, re-exported on October 13. `src/tokens.css` keeps every
+earlier name. Deprecated tokens resolve through their replacement, so screens that
+still use them keep working. Backups of the files changed in this pass are in
+`.backup-2026-10-13/`.
+
+### Type
+
+| CSS property | Figma text style | Value |
+| --- | --- | --- |
+| `--type-display` | `display` | Fraunces 600, 44 / 1.0, tracking -0.02em |
+| `--type-title` | `title` | Inter 600, 17 / 1.35 |
+| `--type-voice` | `voice` | Fraunces 400, 17 / 1.45 |
+| `--type-voice-strong` | `voice-strong` | Fraunces 600, 17 / 1.45 (article titles) |
+| `--type-body` | `body` | Inter 400, 15 / 1.45 |
+| `--type-meta` | `meta` | Inter 500, 13 / 1.4, color `--color-ink-muted` |
+| `--type-header` | `header` (was `display/sm`) | Fraunces 600, 24 / 32px. Screen headers; outside the scale |
+| `--type-headline` | `headline` (was `display/lg`) | Fraunces 700, 38 / 40px. Onboarding and article headlines; outside the scale |
+| `--type-wordmark` | `wordmark` | unchanged; outside the scale |
+
+Deprecated, each resolving through its replacement:
+
+| Deprecated | Resolves to |
+| --- | --- |
+| `--type-display-sm` | `--type-header` |
+| `--type-display-lg` (and `-tracking`) | `--type-headline` (and `-tracking`) |
+| `--type-display-xl` (and `-tracking`), `--type-display-md` | `--type-display` (and `-tracking`) |
+| `--type-title-lg`, `--type-title-md`, `--type-title-md-strong` | `--type-title` |
+| `--type-body-lg`, `--type-body-md`, `--type-body-sm` and their `-strong` versions | `--type-body` |
+| `--type-label`, `--type-mono-caption`, `--type-mono-caption-strong` | `--type-meta` |
+| `--type-coach-body` | `--type-voice` |
+| `--type-label-tracking`, `--type-coach-body-tracking` | `0em` |
+
+The coach now speaks in Fraunces (`voice`). This reverses the October 8 note above
+that Fraunces is reserved for titles. `@fontsource/fraunces/latin-400.css` is
+imported in `src/main.jsx` for it.
+
+### Color
+
+| CSS property | Figma variable | Value |
+| --- | --- | --- |
+| `--color-kid` | `semantic/kid` | `var(--color-pine-600)`, `#2e7652` |
+| `--color-kid-bg` | `semantic/kid-bg` | `var(--color-pine-100)`, `#ddefe4` |
+| `--color-adult` | `semantic/adult` | `var(--color-ink-primary)` |
+| `--color-coach` | `semantic/coach` | `var(--color-amber-500)`, `#e39a2d` |
+| `--color-coach-ink` | `semantic/coach-ink` | `var(--color-amber-800)`, `#8a5208` |
+| `--color-coach-bg` | `semantic/coach-bg` | `var(--color-amber-100)`, `#fbebd3` |
+| `--color-ink-muted` | `semantic/ink/muted` | changed from `ink-500` `#4a4741` to `ink-400` `#6a655f` |
+
+Kid green is `#2e7652`, not the brief's `#2f7a55`, so chip text reaches 4.58:1 on its fill.
+Ink, page and action keep their existing names and values: `--color-ink-primary`,
+`--color-bg-canvas` and `--color-interactive-default` / `--color-interactive-tint`.
+
+Deprecated: `--color-lane-1-strong` to `--color-lane-5-strong` resolve to `--color-kid`,
+`--color-lane-1-tint` to `--color-lane-5-tint` resolve to `--color-kid-bg`, and
+`--color-coach-card-signal` resolves to `--color-coach`. Alexis and Mallory therefore
+share one green until their monograms are replaced by `ChildChip`.
+
+### Dimension
+
+`--size-chip` 26px, `--size-chip-small` 22px and `--space-10` 10px are published
+variables. `--size-avatar-line` 1.6px and `--weight-semibold` 600 are implementation
+values in the final block of `src/tokens.css`.
+
+### Components and icons
+
+| Library | Implementation |
+| --- | --- |
+| `ChildChip` (size, group, name) | `components/shared/ChildChip.jsx`, `.childChip` in `shared.module.css`. Group labels come from `childGroup` in `src/copy/interface.json` |
+| `AdultAvatar` (initial) | `components/shared/AdultAvatar.jsx`, `.adultAvatar` |
+| `icon/kids-heights` (Custom) | `components/shared/icons/kids-heights.svg`, used for the Kids tab |
+| Tab bar icons, Lucide source | `lucide-react`: `Calendar1`, `Whistle`, `TicTacToe`, `Users` |
+| Tab labels | `--type-meta` on phone and in the sidebar |
+
+Neither new component is placed on a screen yet. `Monogram` is unchanged and still in use.

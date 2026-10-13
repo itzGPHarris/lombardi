@@ -1,6 +1,6 @@
 .icon { width: var(--size-icon); height: var(--size-icon); display: inline-flex; flex-shrink: 0; vertical-align: middle; }
 .icon svg { width: var(--size-icon); height: var(--size-icon); fill: currentColor; }
-.icon svg:global(.lucide) { fill: none; }
+.icon svg:global(.lucide),.icon svg:global(.stroke-icon) { fill: none; }
 .monogram { display: inline-flex; width: var(--size-monogram); height: var(--size-monogram); border-radius: var(--radius-pill); flex-shrink: 0; align-items: center; justify-content: center; border: var(--size-line) solid var(--color-border-strong); font: var(--type-display-sm); }
 .monogram[data-person="alexis"] { color: var(--color-lane-1-strong); background: var(--color-lane-1-tint); border-color: var(--color-lane-1-strong); }
 .monogram[data-person="mallory"] { color: var(--color-lane-2-strong); background: var(--color-lane-2-tint); border-color: var(--color-lane-2-strong); }
@@ -11,3 +11,9 @@
 .planItem { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-16); padding: var(--space-20); border: var(--size-line) solid var(--color-border-hairline); border-radius: var(--radius-md); background: var(--color-bg-card); }
 .planItem p { margin-top: var(--space-8); }
 .mono { font: var(--type-mono-caption); color: var(--color-ink-muted); }
+
+/* People: children are filled chips, adults are outlined, so they stay distinct in grayscale.
+   Chip and avatar text is meta size at weight 600, not a sixth type style. */
+.childChip { display: inline-flex; flex-shrink: 0; align-items: center; height: var(--size-chip); padding-inline: var(--space-10); border-radius: var(--radius-pill); background: var(--color-kid-bg); color: var(--color-kid); font: var(--type-meta); font-weight: var(--weight-semibold); white-space: nowrap; }
+.childChip[data-size="small"] { height: var(--size-chip-small); padding-inline: var(--space-8); }
+.adultAvatar { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: var(--size-chip); height: var(--size-chip); border: var(--size-avatar-line) solid var(--color-adult); border-radius: var(--radius-pill); background: var(--color-bg-card); color: var(--color-adult); font: var(--type-meta); font-size: var(--text-12); font-weight: var(--weight-semibold); }

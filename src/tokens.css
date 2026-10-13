@@ -1,7 +1,8 @@
 /*
  * tokens.css — generated from the Figma library "mvp-design-library" (file A3SHbWiO5cyRDtIZ9sNNz7),
- * variable collection "Hearth", mode "Light", and its local text styles. Generated 2026-10-08.
+ * variable collection "Hearth", mode "Light", and its local text styles. Generated 2026-10-13.
  * Do not edit by hand: change the variable or text style in Figma and export again.
+ * Tokens marked deprecated still resolve, each through its replacement. Nothing was removed.
  */
 
 :root {
@@ -13,11 +14,17 @@
   --color-neutral-ink-900: #151412;
   --color-neutral-ink-700: #2B2925;
   --color-neutral-ink-500: #4A4741;
+  --color-neutral-ink-400: #6A655F;
   --color-neutral-ink-300: #6E6A62;
   --color-neutral-ink-100: #C8C3B8;
   --color-cerulean-100: #DCE9EF;
   --color-cerulean-600: #1B7498;
   --color-cerulean-700: #0A5570;
+  --color-pine-600: #2E7652;
+  --color-pine-100: #DDEFE4;
+  --color-amber-500: #E39A2D;
+  --color-amber-800: #8A5208;
+  --color-amber-100: #FBEBD3;
   --color-saffron: #E8A33C;
   --color-status-error: #A03A3A;
   --color-status-error-tint: #F6E4E4;
@@ -42,7 +49,7 @@
   --color-bg-subtle: var(--color-neutral-cream-50);
   --color-ink-primary: var(--color-neutral-ink-900);
   --color-ink-secondary: var(--color-neutral-ink-700);
-  --color-ink-muted: var(--color-neutral-ink-500);
+  --color-ink-muted: var(--color-neutral-ink-400);
   --color-ink-placeholder: var(--color-neutral-ink-300);
   --color-ink-on-accent: var(--color-neutral-paper);
   --color-border-hairline: var(--color-neutral-ink-100);
@@ -51,22 +58,32 @@
   --color-interactive-pressed: var(--color-cerulean-700);
   --color-interactive-tint: var(--color-cerulean-100);
   --color-focus-ring: var(--color-cerulean-600);
-  --color-coach-card-signal: var(--color-saffron);
-  --color-lane-1-strong: var(--color-green-600);
-  --color-lane-1-tint: var(--color-green-100);
-  --color-lane-2-strong: var(--color-indigo-600);
-  --color-lane-2-tint: var(--color-indigo-100);
-  --color-lane-3-strong: var(--color-berry-600);
-  --color-lane-3-tint: var(--color-berry-100);
-  --color-lane-4-strong: var(--color-teal-600);
-  --color-lane-4-tint: var(--color-teal-100);
-  --color-lane-5-strong: var(--color-plum-600);
-  --color-lane-5-tint: var(--color-plum-100);
+  --color-kid: var(--color-pine-600);
+  --color-kid-bg: var(--color-pine-100);
+  --color-adult: var(--color-ink-primary);
+  --color-coach: var(--color-amber-500);
+  --color-coach-ink: var(--color-amber-800);
+  --color-coach-bg: var(--color-amber-100);
+
+  /* semantic, deprecated: per-person lane colors and the old coach-card signal.
+     One color per kind of person now: kid, adult, coach. */
+  --color-coach-card-signal: var(--color-coach); /* deprecated */
+  --color-lane-1-strong: var(--color-kid); /* deprecated */
+  --color-lane-1-tint: var(--color-kid-bg); /* deprecated */
+  --color-lane-2-strong: var(--color-kid); /* deprecated */
+  --color-lane-2-tint: var(--color-kid-bg); /* deprecated */
+  --color-lane-3-strong: var(--color-kid); /* deprecated */
+  --color-lane-3-tint: var(--color-kid-bg); /* deprecated */
+  --color-lane-4-strong: var(--color-kid); /* deprecated */
+  --color-lane-4-tint: var(--color-kid-bg); /* deprecated */
+  --color-lane-5-strong: var(--color-kid); /* deprecated */
+  --color-lane-5-tint: var(--color-kid-bg); /* deprecated */
 
   /* dimension */
   --space-0: 0px;
   --space-4: 4px;
   --space-8: 8px;
+  --space-10: 10px;
   --space-12: 12px;
   --space-16: 16px;
   --space-20: 20px;
@@ -80,6 +97,8 @@
   --radius-lg: 20px;
   --radius-xl: 28px;
   --radius-pill: 999px;
+  --size-chip-small: 22px;
+  --size-chip: 26px;
   --size-tap-target: 44px;
   --layout-content-max: 1200px;
 
@@ -88,7 +107,13 @@
   --breakpoint-tablet: 768;
   --breakpoint-desktop: 1280;
 
-  /* type */
+  /* type
+     Five styles: display, title, voice (voice-strong for article titles), body, meta.
+     - No uppercase labels, no letter-spaced eyebrows, and no bold inside paragraphs.
+     - Times line up as a column in --type-meta, with font-variant-numeric: tabular-nums.
+     - Screen headers, such as "This morning", use --type-header. It is outside this scale.
+     - Onboarding headlines use --type-headline: Fraunces for the headline, Inter for everything else.
+     - Color: display, title, voice and body take --color-ink-primary; meta takes --color-ink-muted. */
   --font-display: "Fraunces";
   --font-body: "Inter";
   --font-mono: "JetBrains Mono";
@@ -102,30 +127,45 @@
   --text-24: 24px;
   --text-28: 28px;
   --text-38: 38px;
+  --text-44: 44px;
   --text-56: 56px;
 
-  --type-display-xl: 700 56px/60px var(--font-display);
-  --type-display-xl-tracking: -0.02em;
-  --type-display-lg: 700 38px/40px var(--font-display);
-  --type-display-lg-tracking: -0.01em;
-  --type-display-md: 600 28px/32px var(--font-display);
-  --type-display-sm: 600 24px/32px var(--font-display);
-  --type-coach-body: 400 15px/1.5 var(--font-body);
-  --type-coach-body-tracking: -0.01em;
-  --type-title-lg: 600 24px/24px var(--font-body);
-  --type-title-md: 500 16px/22px var(--font-body);
-  --type-title-md-strong: 800 16px/22px var(--font-body);
-  --type-body-lg: 400 17px/26px var(--font-body);
-  --type-body-lg-strong: 700 17px/26px var(--font-body);
-  --type-body-md: 400 15px/22px var(--font-body);
-  --type-body-md-strong: 700 15px/22px var(--font-body);
-  --type-body-sm: 400 13px/18px var(--font-body);
-  --type-body-sm-strong: 700 13px/18px var(--font-body);
-  --type-label: 600 11px/14px var(--font-body);
-  --type-label-tracking: 0.06em;
-  --type-mono-caption: 400 12px/16px var(--font-mono);
-  --type-mono-caption-strong: 800 14px/16px var(--font-mono);
+  --type-display: 600 44px/1 var(--font-display);
+  --type-display-tracking: -0.02em;
+  --type-title: 600 17px/1.35 var(--font-body);
+  --type-voice: 400 17px/1.45 var(--font-display);
+  --type-voice-strong: 600 17px/1.45 var(--font-display);
+  --type-body: 400 15px/1.45 var(--font-body);
+  --type-meta: 500 13px/1.4 var(--font-body);
+
+  /* type, outside the scale */
+  --type-header: 600 24px/32px var(--font-display);
+  --type-headline: 700 38px/40px var(--font-display);
+  --type-headline-tracking: -0.01em;
   --type-wordmark: 900 24px/24px var(--font-body);
+
+  /* type, deprecated: each resolves through its replacement */
+  --type-display-sm: var(--type-header); /* deprecated */
+  --type-display-lg: var(--type-headline); /* deprecated */
+  --type-display-lg-tracking: var(--type-headline-tracking); /* deprecated */
+  --type-display-xl: var(--type-display); /* deprecated */
+  --type-display-xl-tracking: var(--type-display-tracking); /* deprecated */
+  --type-display-md: var(--type-display); /* deprecated */
+  --type-title-lg: var(--type-title); /* deprecated */
+  --type-title-md: var(--type-title); /* deprecated */
+  --type-title-md-strong: var(--type-title); /* deprecated */
+  --type-body-lg: var(--type-body); /* deprecated */
+  --type-body-lg-strong: var(--type-body); /* deprecated */
+  --type-body-md: var(--type-body); /* deprecated */
+  --type-body-md-strong: var(--type-body); /* deprecated */
+  --type-body-sm: var(--type-body); /* deprecated */
+  --type-body-sm-strong: var(--type-body); /* deprecated */
+  --type-label: var(--type-meta); /* deprecated */
+  --type-label-tracking: 0em; /* deprecated */
+  --type-coach-body: var(--type-voice); /* deprecated */
+  --type-coach-body-tracking: 0em; /* deprecated */
+  --type-mono-caption: var(--type-meta); /* deprecated */
+  --type-mono-caption-strong: var(--type-meta); /* deprecated */
 }
 
 /* Implementation geometry: spec §§2, 5, 19 and wireframe 01.
@@ -140,6 +180,7 @@
   --size-line: 1px;
   --size-focus: 2px;
   --size-lane-line: 4px;
+  --size-avatar-line: 1.6px;
   --size-grid-min: 860px;
   --size-grid-label: 96px;
   --size-grid-row: 112px;
@@ -149,6 +190,7 @@
   --size-viewport: 100dvh;
   --weight-strong: 700;
   --weight-normal: 400;
+  --weight-semibold: 600;
   --z-nav: 10;
   --z-dialog: 20;
 }

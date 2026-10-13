@@ -68,6 +68,10 @@
   "jennaMessage": "Who can do Wednesday morning? I can't this week.",
   "jenna": "Jenna Okafor",
   "you": "You",
+  "childGroup": {
+    "2": "Both",
+    "3": "All three"
+  },
   "nobody": "Nobody yet",
   "calendar": "From your Google Calendar",
   "recommended": "MVP RECOMMENDS",
