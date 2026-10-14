@@ -67,8 +67,9 @@ retains work still required beyond C-03.
 
 [Design mapping](docs/design/token-mapping.md) documents the inspected Figma nodes,
 all variable aliases/values, icon mappings, reference PNGs, and implementation
-layout constraints. The current palette and coach typography are verified, not
-assumed from an earlier conflict report. Runtime assets and fonts are all local.
+layout constraints. Tokens were last regenerated from the library on October 13,
+2026, for the Today redesign: the type scale, one color per kind of person, and the
+coach in Fraunces. Runtime assets and fonts are all local.
 
 The tablet/desktop board has a full-day timeline, horizontally scrollable at
 narrow tablet widths. The scroll region is keyboard-focusable. Phone rows retain
@@ -79,7 +80,8 @@ meaning without relying on color. Interactive targets are at least 44px.
 
 - `src/tokens.css`: verified Figma export plus documented platform geometry.
 - `src/components/Today/`: departures, checklists, rows, timeline and coach card.
-- `src/components/shared/`: semantic Icon, monograms, owners, statuses and PlanItem.
+- `src/components/shared/`: semantic Icon and its custom SVGs, monograms, ChildChip,
+  AdultAvatar, owners, statuses and PlanItem.
 - `src/shell/`: bottom tabs/sidebar, header, Add sheet and presenter dialog.
 - `src/screens/`: the adjacent screens required for C-03.
 - `src/demo/`: pure session reducer, context, time helpers and presenter-only labels.
@@ -90,7 +92,7 @@ meaning without relying on color. Interactive targets are at least 44px.
 - `tests/`: content, reference, schema, reducer, lint and voicecheck regressions.
 
 The stack remains React/Vite, JavaScript/JSX, CSS modules, reducer/context,
-Material Symbols Outlined via SVGR, Lucide fallback marks, and the three local
+Material Symbols Outlined and custom SVGs via SVGR, Lucide icons, and the three local
 @fontsource families. No router, state library or UI component library was added.
 
 ## Validation
@@ -112,10 +114,14 @@ adding it as an application dependency. Visual evidence and the test record are 
 `docs/design/validation/`. The C-03 flow was exercised offline after initial load.
 Offline reload/PWA installation is outside this slice; there is no service worker.
 
+The project folder lives in iCloud Drive, and iCloud can leave most of `node_modules`
+in the cloud, which stalls the checks. Running them on a clone outside iCloud avoids
+that: clone the branch, run `npm ci`, then `npm run check`. Node 22 is the target.
+
 ## Sharing later
 
-The intended GitHub owner is `itzGPHarris`. No remote was created or connected,
-and nothing was published or deployed. When authorized, push the project and
-lockfile to the personal repository and import it into the personal Netlify
-account. `netlify.toml` builds with `npm run build` and publishes `dist` using
+The repository is https://github.com/itzGPHarris/lombardi (public). The project was
+first pushed on October 13, 2026, on the `today-redesign-tokens` branch, as pull
+request #1 against `main`. Nothing has been deployed. When authorized, import the
+repository into the personal Netlify account. `netlify.toml` builds with `npm run build` and publishes `dist` using
 Node 22.13.1. No environment variables or secrets are required for this slice.

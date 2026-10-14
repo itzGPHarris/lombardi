@@ -1,50 +1,109 @@
-# C-03 design-to-code mapping
+# Design-to-code mapping
 
-Verified with Figma MCP on October 8, 2026. Current fixtures v3.9 own content,
-spec v0.10 owns behavior, current grayscale wireframes own structure, and the
-master library owns visual values. No Figma file was edited.
+Verified against the Figma master library on October 13, 2026. Fixtures own content,
+the spec owns behavior, the grayscale wireframes own structure, and the master library
+owns visual values. `src/tokens.css` is generated from the library's Hearth variables
+and text styles; `figma-tokens.json` records the same export.
 
 ## References
 
-- [Master library / token proof](https://www.figma.com/design/A3SHbWiO5cyRDtIZ9sNNz7/mvp-design-library?node-id=117-160): Hearth Light variables and local text styles.
-- [Icons](https://www.figma.com/design/A3SHbWiO5cyRDtIZ9sNNz7/mvp-design-library?node-id=147-163): variant descriptions supply package mappings.
-- [01 / C-03 structure](https://www.figma.com/design/RK2JTfwao4mV4JgUA193M1/mvp-lombardi?node-id=2266-1436).
-- [1e / reply handoff](https://www.figma.com/design/RK2JTfwao4mV4JgUA193M1/mvp-lombardi?node-id=2266-1441).
-- [Current Ready for dev Today reference](https://www.figma.com/design/RK2JTfwao4mV4JgUA193M1/mvp-lombardi?node-id=2355-3630): inspected for card, navigation and typographic treatment. Despite its name, it contains afternoon content, a calendar date, two older articles and no C-03 coach decision. Those are not carried into this build.
+- [Master library / token proof sheet](https://www.figma.com/design/A3SHbWiO5cyRDtIZ9sNNz7/mvp-design-library?node-id=117-160): Hearth Light variables and local text styles.
+- [Icons](https://www.figma.com/design/A3SHbWiO5cyRDtIZ9sNNz7/mvp-design-library?node-id=147-163): each variant's description names its package and icon.
+- [Components](https://www.figma.com/design/A3SHbWiO5cyRDtIZ9sNNz7/mvp-design-library?node-id=150-183): Tab item, Tab Bar, ChildChip and AdultAvatar.
+- [Today redesign, day 2 morning](https://www.figma.com/design/RK2JTfwao4mV4JgUA193M1/mvp-lombardi?node-id=2486-1078): the screen these tokens were reviewed against.
+- [01 / C-03 structure](https://www.figma.com/design/RK2JTfwao4mV4JgUA193M1/mvp-lombardi?node-id=2266-1436) and [1e / reply handoff](https://www.figma.com/design/RK2JTfwao4mV4JgUA193M1/mvp-lombardi?node-id=2266-1441): the C-03 build references.
 
 Reference PNGs live alongside this document. They are documentation only, never
-runtime backgrounds. `figma-tokens.json` records the MCP values and text styles.
+runtime backgrounds.
 
-## Verification outcome
+## Current state
 
-The existing export now agrees with the current master library: paper is
-`#FCFBF8`, canvas `#F3F0EB`, primary ink `#151412`, and interactive cerulean
-`#1B7498`. Coach/body is Inter 400 at 15px / 150% with -1% tracking. Fraunces
-is reserved for titles. The old pure-white and coach-font conflicts are resolved.
-The coach role still aliases saffron; use `--color-coach-card-signal`, not the
-primitive directly. T3 remains a design sign-off question, not an implementation blocker.
+- **Type.** The scale is display, title, voice, body-large, body, body-small and meta,
+  with a strong option for voice, body and meta. Header, headline and wordmark sit
+  outside the scale. Rules: no uppercase labels, no letter-spaced eyebrows, no bold
+  inside paragraphs, and times line up in a column with tabular numerals.
+- **The coach speaks in Fraunces** (`voice`). This replaces the October 8 rule that
+  everything the coach says is set in Inter.
+- **People.** One color per kind of person: kid, adult and coach. Children are filled
+  chips, adults are outlined, and the coach is a solid dot, so the three stay distinct
+  in grayscale. The per-person lane colors are deprecated.
+- **Deprecated tokens still resolve** through their replacements, so existing screens
+  keep working, though they now render in the new styles. Nothing has been removed
+  from `src/tokens.css`.
+- **Checks.** `npm run check` passed on commit `ab33190`: lint, the voice check,
+  44 tests and the build.
 
-Children follow library ordering: Alexis uses lane 1, Mallory lane 2. Adults
-remain neutral. Names, monograms, stop shapes, labels, dashed riding-along marks
-and explicit status wording preserve meaning without color.
+## Type
+
+| CSS property | Figma text style | Value | Use |
+| --- | --- | --- | --- |
+| `--type-display` | `display` | Fraunces 600, 44 / 1.0, -0.02em | The one number that matters now |
+| `--type-title` | `title` | Inter 600, 17 / 1.35 | Section names and the next item's line |
+| `--type-voice` | `voice` | Fraunces 400, 17 / 1.45 | Anything the coach says |
+| `--type-voice-strong` | `voice-strong` | Fraunces 600, 17 / 1.45 | Article titles |
+| `--type-body-large` | `body-large` | Inter 400, 17 / 1.45 | Plan rows, checklist items, button labels |
+| `--type-body` | `body` | Inter 400, 15 / 1.45 | Default running text |
+| `--type-body-small` | `body-small` | Inter 400, 11 / 1.45 | Fine print, sparingly |
+| `--type-body-strong` | `body-strong` | Inter 800, 15 / 1.45 | Button labels, links, row headings; never inside a paragraph |
+| `--type-meta` | `meta` | Inter 500, 13 / 1.4 | Times, sources, counts, small labels; `--color-ink-muted` |
+| `--type-meta-strong` | `meta-strong` | JetBrains Mono 800, 13 / 1.4 | Card and alert labels |
+| `--type-header` | `header` | Fraunces 600, 24 / 32px | Screen headers such as "This morning"; outside the scale |
+| `--type-headline` | `headline` | Fraunces 700, 38 / 40px, -0.01em | Onboarding and article-page headlines; outside the scale |
+| `--type-wordmark` | `wordmark` | Inter 900, 24 / 24px | "Most Valuable Parent"; outside the scale |
+
+Deprecated type tokens. Their Figma styles were removed on October 13, so these
+aliases are kept in the generator until no code uses them.
+
+| Deprecated | Resolves to |
+| --- | --- |
+| `--type-display-sm` | `--type-header` |
+| `--type-display-lg` (and `-tracking`) | `--type-headline` (and `-tracking`) |
+| `--type-display-xl` (and `-tracking`), `--type-display-md` | `--type-display` (and `-tracking`) |
+| `--type-title-lg`, `--type-title-md`, `--type-title-md-strong` | `--type-title` |
+| `--type-body-lg` | `--type-body-large` |
+| `--type-body-md`, `--type-body-sm` | `--type-body` |
+| `--type-body-lg-strong`, `--type-body-md-strong`, `--type-body-sm-strong` | `--type-body-strong` |
+| `--type-label`, `--type-mono-caption` | `--type-meta` |
+| `--type-mono-caption-strong` | `--type-meta-strong` |
+| `--type-coach-body` | `--type-voice` |
+| `--type-label-tracking`, `--type-coach-body-tracking` | `0em` |
+
+## Color
+
+| CSS property | Value | Use |
+| --- | --- | --- |
+| `--color-kid`, `--color-kid-bg` | pine `#2e7652` on `#ddefe4` | Child chip text and fill; 4.58:1 |
+| `--color-adult` | `var(--color-ink-primary)` | Adult avatar outline and initial, on `--color-bg-card` |
+| `--color-coach` | amber `#e39a2d` | Coach dot and marks; never text |
+| `--color-coach-ink`, `--color-coach-bg` | `#8a5208` on `#fbebd3` | Coach label text and card fill; 5.45:1 |
+| `--color-ink-muted` | `#6a655f` | Meta text; changed on October 13 from `#4a4741` |
+
+Kid green is `#2e7652` rather than the brief's `#2f7a55`, so chip text reaches 4.5:1.
+Ink, page and action keep their existing names and values: `--color-ink-primary`,
+`--color-bg-canvas` and `--color-interactive-default` / `--color-interactive-tint`.
+`--color-lane-*` and `--color-coach-card-signal` are deprecated and resolve to the
+kid and coach tokens, so Alexis and Mallory now share one green.
 
 ## Component mapping
 
-| Reference | Implementation |
+| Library | Implementation |
 | --- | --- |
-| Library `icon/today`, `coach`, `game-plan`, `team`, `kids` | `components/shared/Icon.jsx`, Material Symbols Outlined `today`, `sports`, `strategy`, `groups`, `child_care` |
-| `phase-morning`, `phase-afternoon`, `phase-tonight` | `wb_twilight`, `light_mode`, `dark_mode` |
-| `calendar-mark`, `back`, `add`, `settings` | `calendar_today`, `arrow_back`, `add`, `settings` |
-| 01 departures and going-with lists | `components/Today/TodayTab.jsx`: Departure, GoingWithList |
-| 01 rows and wide timeline | DayRows, DayGrid, fixture-owned content and times |
-| 01 coach / Recommends | CoachCard / article card; coach Inter, article title Fraunces |
-| 1e draft / handoff / Wednesday | `screens/SliceScreens.jsx`, in-memory session reducer |
-| Library font styles | `--type-*` exports; font weights actually imported from local @fontsource packages |
+| Tab Bar / Tab item | `shell/Shell.jsx`, `shell.module.css`; labels use `--type-meta` |
+| `icon/today`, `icon/coach`, `icon/team` (Lucide source in the Tab Bar) | `lucide-react` `Calendar1`, `Whistle`, `Users` |
+| `icon/game-plan`, `icon/kids-heights` (Custom source in the Tab Bar) | `components/shared/icons/game-plan.svg`, `kids-heights.svg` |
+| `icon/reminder`, `icon/directions` | `lucide-react` `Bell`, `Navigation` |
+| `icon/update-calendar` (Custom) | `components/shared/icons/update-calendar.svg` |
+| `icon/phase-morning`, `phase-afternoon`, `phase-tonight` | Material Symbols `wb_twilight`, `light_mode`, `dark_mode` |
+| `icon/calendar-mark`, `back`, `add`, `settings`, `check` | Material Symbols `calendar_today`, `arrow_back`, `add`, `settings`, `check` |
+| `ChildChip` (name, group, family, small) | `components/shared/ChildChip.jsx`, `.childChip`; group labels from `childGroup` in `src/copy/interface.json` |
+| `AdultAvatar` (initial) | `components/shared/AdultAvatar.jsx`, `.adultAvatar` |
+| 01 departures, rows, timeline, coach card, Recommends | `components/Today/TodayTab.jsx` |
+| 1e draft, handoff, Wednesday | `screens/SliceScreens.jsx` |
 
-Icons use the exact named package assets through one Icon component and SVGR.
-The unowned/status fallback marks use Lucide shapes with visible labels; the
-library has no semantic status variants. No runtime Figma URL, remote font,
-photograph, generated illustration or external messaging link is used.
+All icons are drawn through one `Icon` component, which takes the library name.
+`ChildChip` and `AdultAvatar` are not placed on a screen yet; `Monogram` is still in
+use. No runtime Figma URL, remote font, photograph, generated illustration or external
+messaging link is used.
 
 ## Layout translation
 
@@ -63,7 +122,10 @@ The presenter advances the fixture clock explicitly; no wall-clock timer drives 
 
 ## Variable mapping
 
-| Figma variable | CSS property | Verified value / alias |
+Generated from the library on October 13, 2026: 105 variables in the
+Hearth collection, mode Light. Primitives are hidden from publishing.
+
+| Figma variable | CSS property | Value |
 | --- | --- | --- |
 | `primitives/neutral/cream-50` | `--color-neutral-cream-50` | `#f5f3ef` |
 | `primitives/neutral/cream-100` | `--color-neutral-cream-100` | `#f3f0eb` |
@@ -72,6 +134,7 @@ The presenter advances the fixture clock explicitly; no wall-clock timer drives 
 | `primitives/neutral/ink-700` | `--color-neutral-ink-700` | `#2b2925` |
 | `primitives/neutral/ink-500` | `--color-neutral-ink-500` | `#4a4741` |
 | `primitives/neutral/ink-300` | `--color-neutral-ink-300` | `#6e6a62` |
+| `primitives/neutral/ink-100` | `--color-neutral-ink-100` | `#c8c3b8` |
 | `primitives/neutral/paper` | `--color-neutral-paper` | `#fcfbf8` |
 | `primitives/saffron` | `--color-saffron` | `#e8a33c` |
 | `primitives/status/success` | `--color-status-success` | `#6b6b6b` |
@@ -80,6 +143,56 @@ The presenter advances the fixture clock explicitly; no wall-clock timer drives 
 | `primitives/status/error-tint` | `--color-status-error-tint` | `#f6e4e4` |
 | `primitives/status/warning-tint` | `--color-status-warning-tint` | `#f5ead2` |
 | `primitives/status/success-tint` | `--color-status-success-tint` | `#b4cdd4` |
+| `primitives/cerulean/100` | `--color-cerulean-100` | `#dce9ef` |
+| `primitives/cerulean/600` | `--color-cerulean-600` | `#1b7498` |
+| `primitives/cerulean/700` | `--color-cerulean-700` | `#0a5570` |
+| `primitives/green/600` | `--color-green-600` | `#46803d` |
+| `primitives/green/100` | `--color-green-100` | `#e3eade` |
+| `primitives/indigo/600` | `--color-indigo-600` | `#4a55a2` |
+| `primitives/indigo/100` | `--color-indigo-100` | `#e3e4ec` |
+| `primitives/berry/600` | `--color-berry-600` | `#a2456e` |
+| `primitives/berry/100` | `--color-berry-100` | `#efe2e5` |
+| `primitives/teal/600` | `--color-teal-600` | `#2f7a6b` |
+| `primitives/teal/100` | `--color-teal-100` | `#dfe9e4` |
+| `primitives/plum/600` | `--color-plum-600` | `#7a4a7e` |
+| `primitives/plum/100` | `--color-plum-100` | `#eae2e7` |
+| `primitives/pine/600` | `--color-pine-600` | `#2e7652` |
+| `primitives/pine/100` | `--color-pine-100` | `#ddefe4` |
+| `primitives/amber/500` | `--color-amber-500` | `#e39a2d` |
+| `primitives/amber/800` | `--color-amber-800` | `#8a5208` |
+| `primitives/amber/100` | `--color-amber-100` | `#fbebd3` |
+| `primitives/neutral/ink-400` | `--color-neutral-ink-400` | `#6a655f` |
+| `semantic/bg/canvas` | `--color-bg-canvas` | `var(--color-neutral-cream-100)` |
+| `semantic/bg/card` | `--color-bg-card` | `var(--color-neutral-paper)` |
+| `semantic/bg/subtle` | `--color-bg-subtle` | `var(--color-neutral-cream-50)` |
+| `semantic/ink/primary` | `--color-ink-primary` | `var(--color-neutral-ink-900)` |
+| `semantic/ink/secondary` | `--color-ink-secondary` | `var(--color-neutral-ink-700)` |
+| `semantic/ink/muted` | `--color-ink-muted` | `var(--color-neutral-ink-400)` |
+| `semantic/ink/placeholder` | `--color-ink-placeholder` | `var(--color-neutral-ink-300)` |
+| `semantic/ink/on-accent` | `--color-ink-on-accent` | `var(--color-neutral-paper)` |
+| `semantic/border/hairline` | `--color-border-hairline` | `var(--color-neutral-ink-100)` |
+| `semantic/border/strong` | `--color-border-strong` | `var(--color-neutral-ink-500)` |
+| `semantic/interactive/default` | `--color-interactive-default` | `var(--color-cerulean-600)` |
+| `semantic/interactive/pressed` | `--color-interactive-pressed` | `var(--color-cerulean-700)` |
+| `semantic/interactive/tint` | `--color-interactive-tint` | `var(--color-cerulean-100)` |
+| `semantic/focus/ring` | `--color-focus-ring` | `var(--color-cerulean-600)` |
+| `semantic/coach-card/signal` | `--color-coach-card-signal` | `var(--color-coach)` (deprecated) |
+| `semantic/lane/1/strong` | `--color-lane-1-strong` | `var(--color-kid)` (deprecated) |
+| `semantic/lane/1/tint` | `--color-lane-1-tint` | `var(--color-kid-bg)` (deprecated) |
+| `semantic/lane/2/strong` | `--color-lane-2-strong` | `var(--color-kid)` (deprecated) |
+| `semantic/lane/2/tint` | `--color-lane-2-tint` | `var(--color-kid-bg)` (deprecated) |
+| `semantic/lane/3/strong` | `--color-lane-3-strong` | `var(--color-kid)` (deprecated) |
+| `semantic/lane/3/tint` | `--color-lane-3-tint` | `var(--color-kid-bg)` (deprecated) |
+| `semantic/lane/4/strong` | `--color-lane-4-strong` | `var(--color-kid)` (deprecated) |
+| `semantic/lane/4/tint` | `--color-lane-4-tint` | `var(--color-kid-bg)` (deprecated) |
+| `semantic/lane/5/strong` | `--color-lane-5-strong` | `var(--color-kid)` (deprecated) |
+| `semantic/lane/5/tint` | `--color-lane-5-tint` | `var(--color-kid-bg)` (deprecated) |
+| `semantic/kid` | `--color-kid` | `var(--color-pine-600)` |
+| `semantic/kid-bg` | `--color-kid-bg` | `var(--color-pine-100)` |
+| `semantic/adult` | `--color-adult` | `var(--color-ink-primary)` |
+| `semantic/coach` | `--color-coach` | `var(--color-amber-500)` |
+| `semantic/coach-ink` | `--color-coach-ink` | `var(--color-amber-800)` |
+| `semantic/coach-bg` | `--color-coach-bg` | `var(--color-amber-100)` |
 | `dimension/space/0` | `--space-0` | `0` |
 | `dimension/space/8` | `--space-8` | `8` |
 | `dimension/space/12` | `--space-12` | `12` |
@@ -95,30 +208,14 @@ The presenter advances the fixture clock explicitly; no wall-clock timer drives 
 | `dimension/radius/lg` | `--radius-lg` | `20` |
 | `dimension/radius/xl` | `--radius-xl` | `28` |
 | `dimension/radius/pill` | `--radius-pill` | `999` |
-| `semantic/bg/canvas` | `--color-bg-canvas` | `var(--color-neutral-cream-100)` |
-| `semantic/bg/card` | `--color-bg-card` | `var(--color-neutral-paper)` |
-| `semantic/bg/subtle` | `--color-bg-subtle` | `var(--color-neutral-cream-50)` |
-| `semantic/ink/primary` | `--color-ink-primary` | `var(--color-neutral-ink-900)` |
-| `semantic/ink/secondary` | `--color-ink-secondary` | `var(--color-neutral-ink-700)` |
-| `semantic/ink/muted` | `--color-ink-muted` | `var(--color-neutral-ink-500)` |
-| `semantic/ink/placeholder` | `--color-ink-placeholder` | `var(--color-neutral-ink-300)` |
-| `semantic/ink/on-accent` | `--color-ink-on-accent` | `var(--color-neutral-paper)` |
-| `semantic/border/hairline` | `--color-border-hairline` | `var(--color-neutral-ink-100)` |
-| `semantic/border/strong` | `--color-border-strong` | `var(--color-neutral-ink-500)` |
-| `semantic/interactive/default` | `--color-interactive-default` | `var(--color-cerulean-600)` |
-| `semantic/interactive/pressed` | `--color-interactive-pressed` | `var(--color-cerulean-700)` |
-| `semantic/interactive/tint` | `--color-interactive-tint` | `var(--color-cerulean-100)` |
-| `semantic/focus/ring` | `--color-focus-ring` | `var(--color-cerulean-600)` |
-| `semantic/coach-card/signal` | `--color-coach-card-signal` | `var(--color-saffron)` |
-| `primitives/neutral/ink-100` | `--color-neutral-ink-100` | `#c8c3b8` |
-| `primitives/cerulean/100` | `--color-cerulean-100` | `#dce9ef` |
-| `primitives/cerulean/600` | `--color-cerulean-600` | `#1b7498` |
-| `primitives/cerulean/700` | `--color-cerulean-700` | `#0a5570` |
 | `dimension/space/4` | `--space-4` | `4` |
 | `dimension/size/tap-target` | `--size-tap-target` | `44` |
 | `dimension/layout/content-max` | `--layout-content-max` | `1200` |
 | `dimension/breakpoint/tablet` | `--breakpoint-tablet` | `768` |
 | `dimension/breakpoint/desktop` | `--breakpoint-desktop` | `1280` |
+| `dimension/size/chip` | `--size-chip` | `26` |
+| `dimension/size/chip-small` | `--size-chip-small` | `22` |
+| `dimension/space/10` | `--space-10` | `10` |
 | `type/family/display` | `--font-display` | `Fraunces` |
 | `type/family/body` | `--font-body` | `Inter` |
 | `type/family/mono` | `--font-mono` | `JetBrains Mono` |
@@ -133,113 +230,16 @@ The presenter advances the fixture clock explicitly; no wall-clock timer drives 
 | `type/size/28` | `--text-28` | `28` |
 | `type/size/38` | `--text-38` | `38` |
 | `type/size/56` | `--text-56` | `56` |
-| `primitives/green/600` | `--color-green-600` | `#46803d` |
-| `primitives/green/100` | `--color-green-100` | `#e3eade` |
-| `semantic/lane/1/strong` | `--color-lane-1-strong` | `var(--color-green-600)` |
-| `semantic/lane/1/tint` | `--color-lane-1-tint` | `var(--color-green-100)` |
-| `primitives/indigo/600` | `--color-indigo-600` | `#4a55a2` |
-| `primitives/indigo/100` | `--color-indigo-100` | `#e3e4ec` |
-| `semantic/lane/2/strong` | `--color-lane-2-strong` | `var(--color-indigo-600)` |
-| `semantic/lane/2/tint` | `--color-lane-2-tint` | `var(--color-indigo-100)` |
-| `primitives/berry/600` | `--color-berry-600` | `#a2456e` |
-| `primitives/berry/100` | `--color-berry-100` | `#efe2e5` |
-| `semantic/lane/3/strong` | `--color-lane-3-strong` | `var(--color-berry-600)` |
-| `semantic/lane/3/tint` | `--color-lane-3-tint` | `var(--color-berry-100)` |
-| `primitives/teal/600` | `--color-teal-600` | `#2f7a6b` |
-| `primitives/teal/100` | `--color-teal-100` | `#dfe9e4` |
-| `semantic/lane/4/strong` | `--color-lane-4-strong` | `var(--color-teal-600)` |
-| `semantic/lane/4/tint` | `--color-lane-4-tint` | `var(--color-teal-100)` |
-| `primitives/plum/600` | `--color-plum-600` | `#7a4a7e` |
-| `primitives/plum/100` | `--color-plum-100` | `#eae2e7` |
-| `semantic/lane/5/strong` | `--color-lane-5-strong` | `var(--color-plum-600)` |
-| `semantic/lane/5/tint` | `--color-lane-5-tint` | `var(--color-plum-100)` |
+| `type/size/44` | `--text-44` | `44` |
+| `type/size/10` | `--text-10` | `10` |
 
-## October 13, 2026 update: five type styles, people colors, Kids icon
+## History
 
-Source: the master library, re-exported on October 13. `src/tokens.css` keeps every
-earlier name. Deprecated tokens resolve through their replacement, so screens that
-still use them keep working. Backups of the files changed in this pass are in
-`.backup-2026-10-13/`.
-
-### Type
-
-| CSS property | Figma text style | Value |
-| --- | --- | --- |
-| `--type-display` | `display` | Fraunces 600, 44 / 1.0, tracking -0.02em |
-| `--type-title` | `title` | Inter 600, 17 / 1.35 |
-| `--type-voice` | `voice` | Fraunces 400, 17 / 1.45 |
-| `--type-voice-strong` | `voice-strong` | Fraunces 600, 17 / 1.45 (article titles) |
-| `--type-body-large` | `body-large` | Inter 400, 17 / 1.45. Plan rows, checklist items, button labels |
-| `--type-body` | `body` | Inter 400, 15 / 1.45 |
-| `--type-body-small` | `body-small` | Inter 400, 11 / 1.45. Fine print |
-| `--type-body-strong` | `body-strong` | Inter 800, 15 / 1.45. Button labels, links, row headings; never inside a paragraph |
-| `--type-meta` | `meta` | Inter 500, 13 / 1.4, color `--color-ink-muted` |
-| `--type-meta-strong` | `meta-strong` | JetBrains Mono 800, 13 / 1.4. Card and alert labels |
-| `--type-header` | `header` (was `display/sm`) | Fraunces 600, 24 / 32px. Screen headers; outside the scale |
-| `--type-headline` | `headline` (was `display/lg`) | Fraunces 700, 38 / 40px. Onboarding and article headlines; outside the scale |
-| `--type-wordmark` | `wordmark` | unchanged; outside the scale |
-
-Deprecated, each resolving through its replacement:
-
-| Deprecated | Resolves to |
-| --- | --- |
-| `--type-display-sm` | `--type-header` |
-| `--type-display-lg` (and `-tracking`) | `--type-headline` (and `-tracking`) |
-| `--type-display-xl` (and `-tracking`), `--type-display-md` | `--type-display` (and `-tracking`) |
-| `--type-title-lg`, `--type-title-md`, `--type-title-md-strong` | `--type-title` |
-| `--type-body-lg` | `--type-body-large` |
-| `--type-body-md`, `--type-body-sm` | `--type-body` |
-| `--type-body-lg-strong`, `--type-body-md-strong`, `--type-body-sm-strong` | `--type-body-strong` |
-| `--type-label`, `--type-mono-caption` | `--type-meta` |
-| `--type-mono-caption-strong` | `--type-meta-strong` |
-| `--type-coach-body` | `--type-voice` |
-| `--type-label-tracking`, `--type-coach-body-tracking` | `0em` |
-
-The coach now speaks in Fraunces (`voice`). This reverses the October 8 note above
-that Fraunces is reserved for titles. `@fontsource/fraunces/latin-400.css` is
-imported in `src/main.jsx` for it.
-
-### Color
-
-| CSS property | Figma variable | Value |
-| --- | --- | --- |
-| `--color-kid` | `semantic/kid` | `var(--color-pine-600)`, `#2e7652` |
-| `--color-kid-bg` | `semantic/kid-bg` | `var(--color-pine-100)`, `#ddefe4` |
-| `--color-adult` | `semantic/adult` | `var(--color-ink-primary)` |
-| `--color-coach` | `semantic/coach` | `var(--color-amber-500)`, `#e39a2d` |
-| `--color-coach-ink` | `semantic/coach-ink` | `var(--color-amber-800)`, `#8a5208` |
-| `--color-coach-bg` | `semantic/coach-bg` | `var(--color-amber-100)`, `#fbebd3` |
-| `--color-ink-muted` | `semantic/ink/muted` | changed from `ink-500` `#4a4741` to `ink-400` `#6a655f` |
-
-Kid green is `#2e7652`, not the brief's `#2f7a55`, so chip text reaches 4.58:1 on its fill.
-Ink, page and action keep their existing names and values: `--color-ink-primary`,
-`--color-bg-canvas` and `--color-interactive-default` / `--color-interactive-tint`.
-
-Deprecated: `--color-lane-1-strong` to `--color-lane-5-strong` resolve to `--color-kid`,
-`--color-lane-1-tint` to `--color-lane-5-tint` resolve to `--color-kid-bg`, and
-`--color-coach-card-signal` resolves to `--color-coach`. Alexis and Mallory therefore
-share one green until their monograms are replaced by `ChildChip`.
-
-### Dimension
-
-`--size-chip` 26px, `--size-chip-small` 22px and `--space-10` 10px are published
-variables. `--size-avatar-line` 1.6px and `--weight-semibold` 600 are implementation
-values in the final block of `src/tokens.css`.
-
-### Components and icons
-
-| Library | Implementation |
-| --- | --- |
-| `ChildChip` (size, group, name) | `components/shared/ChildChip.jsx`, `.childChip` in `shared.module.css`. Group labels come from `childGroup` in `src/copy/interface.json` |
-| `AdultAvatar` (initial) | `components/shared/AdultAvatar.jsx`, `.adultAvatar` |
-| `icon/kids-heights` (Custom) | `components/shared/icons/kids-heights.svg`, used for the Kids tab |
-| Tab bar icons | `lucide-react`: `Calendar1`, `Whistle`, `Users`; custom `icons/game-plan.svg` and `icons/kids-heights.svg` |
-| `icon/reminder`, `icon/directions`, `icon/update-calendar` | `lucide-react` `Bell` and `Navigation`; custom `icons/update-calendar.svg` |
-| Tab labels | `--type-meta` on phone and in the sidebar |
-
-Neither new component is placed on a screen yet. `Monogram` is unchanged and still in use.
-
-Later on October 13 the library gained `body-large`, `body-small`, `body-strong` and `meta-strong`,
-a family option on `ChildChip`, and 11px chip and 10px avatar text. The deprecated text styles were
-removed from Figma; their CSS names stay in `src/tokens.css` as aliases until no code uses them.
-`@fontsource/jetbrains-mono/latin-800.css` is imported for `meta-strong`.
+- **October 8, 2026.** First export from the cleaned-up Hearth library for the C-03
+  build: semantic colors, space, radius and an 18-style type set. Per-person lane
+  colors were added later that day.
+- **October 13, 2026.** Today redesign: the type scale, one color per kind of person,
+  ChildChip and AdultAvatar, and the new Kids icon. Later the same day the library
+  gained body-large, body-small, body-strong and meta-strong, the family chip, the
+  custom Game plan icon and three button icons. Deprecated text styles were removed
+  from Figma and kept as CSS aliases.
