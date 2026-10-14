@@ -108,15 +108,19 @@
   --breakpoint-desktop: 1280;
 
   /* type
-     Five styles: display, title, voice (voice-strong for article titles), body, meta.
+     The scale: display, title, voice, body-large, body, body-small and meta,
+     with a strong option for voice, body and meta.
      - No uppercase labels, no letter-spaced eyebrows, and no bold inside paragraphs.
-     - Times line up as a column in --type-meta, with font-variant-numeric: tabular-nums.
+       body-strong is for button labels, links and row headings.
+     - meta-strong is the card and alert label, set in JetBrains Mono.
+     - Times line up as a column, with font-variant-numeric: tabular-nums.
      - Screen headers, such as "This morning", use --type-header. It is outside this scale.
      - Onboarding headlines use --type-headline: Fraunces for the headline, Inter for everything else.
-     - Color: display, title, voice and body take --color-ink-primary; meta takes --color-ink-muted. */
+     - Color: text takes --color-ink-primary; meta takes --color-ink-muted. */
   --font-display: "Fraunces";
   --font-body: "Inter";
   --font-mono: "JetBrains Mono";
+  --text-10: 10px;
   --text-11: 11px;
   --text-12: 12px;
   --text-13: 13px;
@@ -135,8 +139,12 @@
   --type-title: 600 17px/1.35 var(--font-body);
   --type-voice: 400 17px/1.45 var(--font-display);
   --type-voice-strong: 600 17px/1.45 var(--font-display);
+  --type-body-large: 400 17px/1.45 var(--font-body);
   --type-body: 400 15px/1.45 var(--font-body);
+  --type-body-small: 400 11px/1.45 var(--font-body);
+  --type-body-strong: 800 15px/1.45 var(--font-body);
   --type-meta: 500 13px/1.4 var(--font-body);
+  --type-meta-strong: 800 13px/1.4 var(--font-mono);
 
   /* type, outside the scale */
   --type-header: 600 24px/32px var(--font-display);
@@ -144,7 +152,8 @@
   --type-headline-tracking: -0.01em;
   --type-wordmark: 900 24px/24px var(--font-body);
 
-  /* type, deprecated: each resolves through its replacement */
+  /* type, deprecated: each resolves through its replacement.
+     These styles were removed from Figma on 2026-10-13; the names stay here until no code uses them. */
   --type-display-sm: var(--type-header); /* deprecated */
   --type-display-lg: var(--type-headline); /* deprecated */
   --type-display-lg-tracking: var(--type-headline-tracking); /* deprecated */
@@ -154,18 +163,18 @@
   --type-title-lg: var(--type-title); /* deprecated */
   --type-title-md: var(--type-title); /* deprecated */
   --type-title-md-strong: var(--type-title); /* deprecated */
-  --type-body-lg: var(--type-body); /* deprecated */
-  --type-body-lg-strong: var(--type-body); /* deprecated */
+  --type-body-lg: var(--type-body-large); /* deprecated */
+  --type-body-lg-strong: var(--type-body-strong); /* deprecated */
   --type-body-md: var(--type-body); /* deprecated */
-  --type-body-md-strong: var(--type-body); /* deprecated */
+  --type-body-md-strong: var(--type-body-strong); /* deprecated */
   --type-body-sm: var(--type-body); /* deprecated */
-  --type-body-sm-strong: var(--type-body); /* deprecated */
+  --type-body-sm-strong: var(--type-body-strong); /* deprecated */
   --type-label: var(--type-meta); /* deprecated */
   --type-label-tracking: 0em; /* deprecated */
   --type-coach-body: var(--type-voice); /* deprecated */
   --type-coach-body-tracking: 0em; /* deprecated */
   --type-mono-caption: var(--type-meta); /* deprecated */
-  --type-mono-caption-strong: var(--type-meta); /* deprecated */
+  --type-mono-caption-strong: var(--type-meta-strong); /* deprecated */
 }
 
 /* Implementation geometry: spec §§2, 5, 19 and wireframe 01.

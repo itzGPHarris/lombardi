@@ -169,8 +169,12 @@ still use them keep working. Backups of the files changed in this pass are in
 | `--type-title` | `title` | Inter 600, 17 / 1.35 |
 | `--type-voice` | `voice` | Fraunces 400, 17 / 1.45 |
 | `--type-voice-strong` | `voice-strong` | Fraunces 600, 17 / 1.45 (article titles) |
+| `--type-body-large` | `body-large` | Inter 400, 17 / 1.45. Plan rows, checklist items, button labels |
 | `--type-body` | `body` | Inter 400, 15 / 1.45 |
+| `--type-body-small` | `body-small` | Inter 400, 11 / 1.45. Fine print |
+| `--type-body-strong` | `body-strong` | Inter 800, 15 / 1.45. Button labels, links, row headings; never inside a paragraph |
 | `--type-meta` | `meta` | Inter 500, 13 / 1.4, color `--color-ink-muted` |
+| `--type-meta-strong` | `meta-strong` | JetBrains Mono 800, 13 / 1.4. Card and alert labels |
 | `--type-header` | `header` (was `display/sm`) | Fraunces 600, 24 / 32px. Screen headers; outside the scale |
 | `--type-headline` | `headline` (was `display/lg`) | Fraunces 700, 38 / 40px. Onboarding and article headlines; outside the scale |
 | `--type-wordmark` | `wordmark` | unchanged; outside the scale |
@@ -183,8 +187,11 @@ Deprecated, each resolving through its replacement:
 | `--type-display-lg` (and `-tracking`) | `--type-headline` (and `-tracking`) |
 | `--type-display-xl` (and `-tracking`), `--type-display-md` | `--type-display` (and `-tracking`) |
 | `--type-title-lg`, `--type-title-md`, `--type-title-md-strong` | `--type-title` |
-| `--type-body-lg`, `--type-body-md`, `--type-body-sm` and their `-strong` versions | `--type-body` |
-| `--type-label`, `--type-mono-caption`, `--type-mono-caption-strong` | `--type-meta` |
+| `--type-body-lg` | `--type-body-large` |
+| `--type-body-md`, `--type-body-sm` | `--type-body` |
+| `--type-body-lg-strong`, `--type-body-md-strong`, `--type-body-sm-strong` | `--type-body-strong` |
+| `--type-label`, `--type-mono-caption` | `--type-meta` |
+| `--type-mono-caption-strong` | `--type-meta-strong` |
 | `--type-coach-body` | `--type-voice` |
 | `--type-label-tracking`, `--type-coach-body-tracking` | `0em` |
 
@@ -226,7 +233,13 @@ values in the final block of `src/tokens.css`.
 | `ChildChip` (size, group, name) | `components/shared/ChildChip.jsx`, `.childChip` in `shared.module.css`. Group labels come from `childGroup` in `src/copy/interface.json` |
 | `AdultAvatar` (initial) | `components/shared/AdultAvatar.jsx`, `.adultAvatar` |
 | `icon/kids-heights` (Custom) | `components/shared/icons/kids-heights.svg`, used for the Kids tab |
-| Tab bar icons, Lucide source | `lucide-react`: `Calendar1`, `Whistle`, `TicTacToe`, `Users` |
+| Tab bar icons | `lucide-react`: `Calendar1`, `Whistle`, `Users`; custom `icons/game-plan.svg` and `icons/kids-heights.svg` |
+| `icon/reminder`, `icon/directions`, `icon/update-calendar` | `lucide-react` `Bell` and `Navigation`; custom `icons/update-calendar.svg` |
 | Tab labels | `--type-meta` on phone and in the sidebar |
 
 Neither new component is placed on a screen yet. `Monogram` is unchanged and still in use.
+
+Later on October 13 the library gained `body-large`, `body-small`, `body-strong` and `meta-strong`,
+a family option on `ChildChip`, and 11px chip and 10px avatar text. The deprecated text styles were
+removed from Figma; their CSS names stay in `src/tokens.css` as aliases until no code uses them.
+`@fontsource/jetbrains-mono/latin-800.css` is imported for `meta-strong`.
