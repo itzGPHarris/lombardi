@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.10 · October 8, 2026*
+*Investor prototype · Version 0.11 · October 13, 2026*
 
 ## **Summary of this version**
+
+Version 0.11 follows the Today redesign and the type and color work in the Figma master library. The coach card is marked with the coach's fill, outline and dot, and the Coach Alert is added, which settles how the coach card is marked and retires saffron. The coach speaks in Fraunces on the Today coach card and in onboarding, and in Inter in the coach chat. Children appear as name chips in plan rows, and the parent's avatar replaces her monogram. The Recommends label line drops its capitals. Appendix A lists the changes.
 
 Version 0.10 changes three design rules. Everything the coach says is set in Inter, and Fraunces is reserved for headlines and titles. Icons come from Material Symbols first, then Lucide, then custom drawings, and each icon is named by its meaning. Olive is removed from Hearth, and cerulean is the anchor color.
 
@@ -84,9 +86,9 @@ The app has five tabs. On a phone they sit across the bottom of the screen, and 
 
 Tab labels are written as in fixtures section 4: Today · Coach · Game plan · Team · Kids.
 
-## **The monogram and Back**
+## **The avatar and Back**
 
-The parent's monogram sits at the top right of every tab's own screen, with the accessible label "Settings and account", and opens Settings (§13). At tablet width and above, Settings also sits at the bottom of the sidebar, below a rule. Pages opened inside a tab, such as a child page, a school card, an article or a draft, show a Back link in place of the monogram.
+The parent's avatar, an outlined circle with her initial, sits at the top right of every tab's own screen, with the accessible label "Settings and account", and opens Settings (§13). At tablet width and above, Settings also sits at the bottom of the sidebar, below a rule. Pages opened inside a tab, such as a child page, a school card, an article or a draft, show a Back link in place of the avatar.
 
 ## **Getting things in**
 
@@ -99,7 +101,7 @@ From tablet width up, the bottom tabs become a sidebar with the same five tabs i
 ### **Standing decisions**
 
 1. **Five tabs: Today, Coach, Game plan, Team and Kids.** Adults live on Team, and the children and the organizations around them live under Kids, so a parent can guess where anything is.
-2. **Kids replaces Settings as the fifth tab.** Parents look at their children's schools every week and at settings rarely, so Settings moves behind the monogram.
+2. **Kids replaces Settings as the fifth tab.** Parents look at their children's schools every week and at settings rarely, so Settings moves behind the avatar.
 3. **One way in to the coach.** Captures and questions go to the same coach, because the parent thinks of it as one helper rather than two tools. She never has to say which she is doing.
 4. **No tab for articles.** Articles arrive through Today and coach answers, because each one has to earn its place through something in her week.
 5. **No meals tab and no month view.** Dinner appears in a plan only when the schedule forces it to move. Meal planning and the shopping list are parked as F16, and the month view as F1.
@@ -185,7 +187,7 @@ The prototype does not read photos, so each thinking screen lasts two seconds an
 5. **Onboarding has no step for adding schools beyond naming them.** The first school card is built from the first capture (§11).
 6. **The village is not part of onboarding.** The adults on 0h join her inner circle. The coach introduces the village when a question needs other parents.
 7. **No pricing screen and no statistic.** Onboarding ends with the coach's introduction and her first board. The getting ready screen carries no percentage or figure.
-8. **Headlines are display type.** Every onboarding and setup headline is set in Fraunces. Fields, labels, helper lines, buttons and everything the coach says are set in Inter.
+8. **Headlines are display type.** Every onboarding and setup headline is set in Fraunces. Fields, labels, helper lines and buttons are set in Inter. What the coach says in onboarding is set in Fraunces, in the voice style.
 9. **"Time saved" is left out of the coach's introduction,** because nothing in the product measures it.
 
 ### **Open conditions**
@@ -268,10 +270,11 @@ The wireframes are 01 (C-03, Monday morning), 02b (C-06b, Wednesday afternoon, t
 
 | Block | Shows | Words |
 | ----- | ----- | ----- |
-| Header | The phase of the day with its icon, the day of the week on the same row aligned right, and the monogram. | Fixtures section 4, "Today" |
+| Header | The day of the week and the parent's avatar on one row, with a rule below it, then the phase of the day with its icon. A Coach Alert sits above them when one is showing. | Fixtures section 4, "Today" |
 | Next departure | The next departure at the top, with a countdown, and a going with list headed with the child's name. Further departures follow. | Each moment |
-| The day | One row per person through the day, children first, then the parent as "You", then the other adults. Columns are Morning, School, After school and Evening. | Each moment |
+| The day | One row per person through the day, children first, then the parent as "You", then the other adults. Columns are Morning, School, After school and Evening. Children appear as name chips and adults as outlined avatars, and "You" is plain text. | Each moment |
 | Coach card | The single most useful open decision, which can concern any day. | Each moment |
+| Coach Alert | One line naming a conflict the coach is holding, such as "Coach Alert: Conflict found with Edward". | Fixtures section 4 |
 | MVP Recommends | At most one article card, only when something in the week makes it useful. | Each moment |
 | Add | The capture button, floating above the tab bar. | Fixtures section 4 |
 
@@ -292,7 +295,7 @@ The word always appears with its icon, and the header is no taller than a plain 
 | Time | demo time | When they leave. |
 | Line | string | Who goes where with whom, such as "Alexis leaves with the Parks" or "You take Mallory to Westview". |
 | Countdown | derived | "in 15 min", or "in 1 hr 5 min" for anything an hour or more away. Shown only for today's departures. |
-| Child | reference | Shown as a monogram. |
+| Child | reference | Shown as a name chip (`ChildChip`). |
 | Letter day | string | The school's letter, such as "E day", when the child's school has a rotation. |
 | Going with | checklist | Headed "Going with" and the child's name. Ticked off at the door. |
 
@@ -306,8 +309,22 @@ The word always appears with its icon, and the header is no taller than a plain 
 * **The coach card is the one exception to showing only today.** If it were limited to today, a change to Thursday that arrives on Wednesday would stay invisible until Thursday morning, which is too late to act on. The card names the day it concerns, such as "Thursday", and its link names the same day, such as "Open Thursday in the game plan". A card that concerns no particular day, such as the therapist news in C-05, has no day label and no link, and tapping it opens the full message on the Coach tab.
 * **The coach card can hold options.** In C-06 it quotes Edward's answer and carries three options with the Recommended tag on the first (§6).
 * **A reply handed to another app makes her the owner.** When the coach card's reply goes to WhatsApp, Wednesday's carpool shows her as the owner with no status.
-* **The MVP Recommends card** carries a label line in JetBrains Mono, such as "MVP RECOMMENDS · SCHOOL · 3 MIN READ", the title, and a single reason line beginning "Because", such as "Because Cedar Grove conferences are this week." It never carries the coach card's signal.
+* **The MVP Recommends card** carries a label line in the meta style, such as "Recommended · School · 3 min read", the title, and a single reason line beginning "Because", such as "Because Cedar Grove conferences are this week." It never carries the coach card's fill, outline or dot.
 * **Her first board** after onboarding is Tonight, with a shortened "Tomorrow starts" line, because the coach knows Mallory's letter day but not yet her start time, and a coach card asking for it. Her answer goes onto the Westview card with the source "From you".
+
+## **Coach card and Coach Alert**
+
+The coach card is marked by the coach's color and by shape, so it reads in grayscale. The treatment is drawn in Figma frame 2486:1078 and closes T3.
+
+| Part | Treatment |
+| ----- | ----- |
+| Card | Filled with `--color-coach-bg` and outlined in `--color-coach`. |
+| Label | A solid `--color-coach` dot, then "Coach · for" and the day it concerns, such as "Coach · for Thursday", in `meta-strong` and `--color-coach-ink`. A card that concerns no particular day reads "Coach". |
+| Text | What the coach says, in `voice` (Fraunces) and `--color-ink-primary`. |
+| Actions | One primary button, filled with `--color-interactive-default`, with an icon and a label in `body-strong`, then a "More options" link in `body-strong` and `--color-interactive-default`, underlined. |
+| Coach Alert | A pill at the top of Today, above the day line, filled with `--color-coach-bg` and with no outline. It holds a solid `--color-coach` dot and one line in `meta-strong` and `--color-coach-ink`, such as "Coach Alert: Conflict found with Edward". |
+
+The dot is the coach's mark wherever the coach appears, as filled chips are for children and outlines are for adults. Nothing else on Today uses the coach's colors.
 
 ## **At wider screens**
 
@@ -318,13 +335,13 @@ From tablet width up, the departures and the coach card share the top row, and t
 1. **Today shows today.** Anything later in the week lives in the game plan. The only exception is the coach card.
 2. **There is one coach card at a time,** and it holds the single most useful open decision.
 3. **Tonight turns to preparation.** Most of the work of getting children out the door happens the night before, so in the evening the board shows what has to be ready tonight and how tomorrow starts, and leaves the rest of tomorrow to the game plan.
-4. **The day line is never a date.** It shows the day of the week only, in the prototype.
+4. **The day line is never a date.** It shows the day of the week only, in the prototype. A design frame that shows a date, such as "Tuesday, Oct. 13", is read as the day of the week only.
 5. **Every board uses the same four columns,** including Evening.
 
 ### **Open conditions**
 
-1. **How the coach card is visually marked has not been decided.** Saffron was reserved for it, and that may change to a signal that does not rely on color. Until it is decided, the card is built with a token named for its role, so the decision changes one value.
-2. **Following the family rather than the clock,** such as ending the morning when the last child is dropped off, is parked as F15.
+1. **Following the family rather than the clock,** such as ending the morning when the last child is dropped off, is parked as F15.
+2. **What "More options" opens, and when the Coach Alert appears and goes away, are not yet specified** (T13).
 
 # 6. Coach
 
@@ -334,7 +351,7 @@ The wireframes are 01a (the newsletter read-back in C-01), 04 (the voice note an
 
 ## **Layout**
 
-The conversation runs newest at the bottom, with the capture bar below it: camera, attach and microphone, with the placeholder "Talk, type or add a photo". While the field holds typed text, the microphone becomes an arrow labeled "Give this to the coach". There is no Send on the bar, because Send means sending something to another person. The parent's messages and everything the coach says are set in Inter.
+The conversation runs newest at the bottom, with the capture bar below it: camera, attach and microphone, with the placeholder "Talk, type or add a photo". While the field holds typed text, the microphone becomes an arrow labeled "Give this to the coach". There is no Send on the bar, because Send means sending something to another person. The parent's messages and everything the coach says in the conversation are set in Inter, in one style still to be chosen (K5). Fraunces is kept for the coach on the Today coach card and in onboarding.
 
 ## **Message**
 
@@ -556,7 +573,7 @@ The draft shows the address line, the text in an editable field, a preview of ea
 
 ## **The recipient's view**
 
-Edward's own MVP shows his monogram and the phase title. His Today holds only the items he owns and the requests Charlotte sends him, with the request card at the top. The web page for someone without MVP shows the same heading, text and buttons, with "You don't need MVP to answer." under the buttons, and no tabs.
+Edward's own MVP shows his avatar and the phase title. His Today holds only the items he owns and the requests Charlotte sends him, with the request card at the top. The web page for someone without MVP shows the same heading, text and buttons, with "You don't need MVP to answer." under the buttons, and no tabs.
 
 ## **Behavior notes**
 
@@ -728,8 +745,8 @@ The wireframes are 09 (the article view from C-08), with the Today card on 01 an
 
 | Field | Type | Description |
 | ----- | ----- | ----- |
-| Label line | derived | "MVP RECOMMENDS", the topic and the reading time, such as "MVP RECOMMENDS · SCHOOL · 3 MIN READ", set in JetBrains Mono. |
-| Title | string | Set in the display face. |
+| Label line | derived | "Recommended", the topic and the reading time, such as "Recommended · School · 3 min read", in the meta style. Never in capitals. |
+| Title | string | Set in `voice-strong`, in Fraunces. |
 | Reason | string | Today only. A single sentence beginning "Because", such as "Because Cedar Grove conferences are this week." |
 
 ## **Article**
@@ -749,7 +766,7 @@ The article view has a Back link. Topics in use are School and Mornings, and ear
 * **Every card on Today has a reason,** and the card appears only while the reason holds. The conference article appears on Today from Monday to Thursday, because Cedar Grove conferences fall on Thursday and Friday.
 * **At most one card on Today,** below the plan and the coach card.
 * **An answer carries at most one article.**
-* **Articles never carry the coach card's signal.**
+* **Articles never carry the coach card's fill, outline or dot.**
 
 ### **Standing decisions**
 
@@ -766,14 +783,14 @@ The article view has a Back link. Topics in use are School and Mornings, and ear
 
 # 13. Settings
 
-Settings opens from the parent's monogram at the top right of every tab on a phone, and from the bottom of the sidebar at wider sizes. It holds Your account, Your calendar, Notifications, Your forwarding address, Language at home and Privacy. Your calendar shows the connected calendar and lets her disconnect it or connect one later. Settings is not drawn for the demo, and in the prototype the monogram opens a placeholder page listing those six headings with a Back link.
+Settings opens from the parent's avatar at the top right of every tab on a phone, and from the bottom of the sidebar at wider sizes. It holds Your account, Your calendar, Notifications, Your forwarding address, Language at home and Privacy. Your calendar shows the connected calendar and lets her disconnect it or connect one later. Settings is not drawn for the demo, and in the prototype the avatar opens a placeholder page listing those six headings with a Back link.
 
 The child profile that v0.6 kept in Settings is now the child page on the Kids tab (§11), and the people who help are on Team (§10).
 
 ### **Standing decisions**
 
-1. **Settings sits behind the monogram,** because parents visit it rarely.
-2. **No photographs of children anywhere.** Children appear as monograms, the child's initial in the display face.
+1. **Settings sits behind the avatar,** because parents visit it rarely.
+2. **No photographs of children anywhere.** Children appear as monograms, the child's initial in the display face, except in plan rows, where they appear as name chips (`ChildChip`).
 
 # 14. Coach voice
 
@@ -813,7 +830,7 @@ MVP Recommends articles are written by staff in their own voice and follow only 
 
 | Control | How it opens | What it does |
 | ----- | ----- | ----- |
-| Household switcher | Long press on the parent's monogram, or a keyboard shortcut on the presenter's laptop | Switches between households that are built. |
+| Household switcher | Long press on the parent's avatar, or a keyboard shortcut on the presenter's laptop | Switches between households that are built. |
 | Moments | Inside the switcher | Jumps the current household to a moment by ID. |
 | View as | Inside the switcher | Shows the current moment from another person's side: Edward's own MVP, Min-jung's, or the web page for someone without MVP. |
 | Phone frame | Inside the switcher | At desktop widths, shows the app inside a phone frame or in its full desktop layout. |
@@ -962,7 +979,7 @@ Village groups follow §10. Articles follow §12, with `recommended[]` pairing a
 | State | `useReducer` and context. One reducer per household session. |
 | Persistence | None. |
 | Fonts | Fraunces, Inter and JetBrains Mono, self-hosted through `@fontsource` so the demo renders identically offline. |
-| Icons | Icons come from Material Symbols first, Lucide where Material Symbols has nothing that fits, and a custom drawing only where neither does. Every icon is drawn through one `Icon` component that takes the name used in Figma, such as `calendar-mark`, so an icon's source changes in one place. Material Symbols come from `@material-symbols/svg-400` in the Outlined style, imported as React components through `vite-plugin-svgr`, and Lucide icons come from `lucide-react`. MUI's `@mui/icons-material` is not used, because it depends on MUI's component library. The icon names, the source each one uses and its code name are in the Figma library's Icons page. |
+| Icons | Icons come from Material Symbols first, Lucide where Material Symbols has nothing that fits, and a custom drawing only where neither does. Every icon is drawn through one `Icon` component that takes the name used in Figma, such as `calendar-mark`, so an icon's source changes in one place. Material Symbols come from `@material-symbols/svg-400` in the Outlined style, imported as React components through `vite-plugin-svgr`, and Lucide icons come from `lucide-react`. MUI's `@mui/icons-material` is not used, because it depends on MUI's component library. The icon names, the source each one uses and its code name are in the Figma library's Icons page. The five tab icons are the exception: Today, Coach and Team use Lucide, and Game plan and Kids use custom drawings, so the tab bar reads as one set. |
 | Live model | Debug only, and for the coach only. A Netlify function holds the API key in an environment variable, and the browser never sees it. |
 | Deployment | Netlify, auto-deploying from the `main` branch. |
 | Build tool | OpenAI Codex, reading `AGENTS.md`. |
@@ -975,7 +992,7 @@ Figma is the design source. The engineer exports the Figma variables into `src/t
 
 * `App.jsx`: root, tab routing, household session
 * `components/Onboarding/`: one component per screen, 0s to 0i, and the failure states
-* `components/Today/`: TodayTab, PhaseHeader, Departure, GoingWithList, DayRows, DayGrid, ReadyTonight, TomorrowStarts, CoachCard, AddButton, AddSheet
+* `components/Today/`: TodayTab, PhaseHeader, Departure, GoingWithList, DayRows, DayGrid, ReadyTonight, TomorrowStarts, CoachCard, CoachAlert, AddButton, AddSheet
 * `components/Coach/`: CoachTab, Conversation, ReadBack, SourceLink, VoiceNote, Options, CoachAnswer, BasedOn, CaptureBar
 * `components/Capture/`: ShareSequence, ThinkingScreen, CaptureFailed
 * `components/Calendar/`: ConnectCalendar, CalendarPermission, CalendarMark
@@ -986,7 +1003,7 @@ Figma is the design source. The engineer exports the Figma variables into `src/t
 * `components/Recommends/`: RecommendsCard, ArticleView
 * `components/Settings/`: SettingsPlaceholder, including the Your calendar heading
 * `components/Demo/`: HouseholdSwitcher, MomentList, ViewAs, PhoneFrame, DebugMenu
-* `components/shared/`: Monogram, StatusMark, ChangedMark, ConflictMark, OwnerLabel, CoachLine, BackLink, TabBar, Sidebar
+* `components/shared/`: Monogram, ChildChip, AdultAvatar, Button, StatusMark, ChangedMark, ConflictMark, OwnerLabel, CoachLine, BackLink, TabBar, Sidebar
 * `hooks/`: `useHousehold`, `useDemoTime`, `useMomentSteps`
 * `data/households/`, `data/articles/`, `copy/`
 * `scripts/voicecheck.mjs`: the voice and date check (§14)
@@ -1032,13 +1049,14 @@ The following are not built in this phase:
 
 Every design value in the app, including color, spacing, radius and type, is a CSS custom property in `src/tokens.css`, exported from the Figma file. **That file is the source of truth, and this document deliberately holds no copy of any value.**
 
-The design system is called Hearth: warm, editorial and quiet, with a cream canvas, ink rather than black, and cerulean as the anchor color and for anything the parent can tap. Fraunces is reserved for headlines and titles, including every onboarding and setup headline. Inter is used for everything the parent reads or taps, including everything the coach says, fields, labels, buttons, posts and article bodies. JetBrains Mono is used for metadata, including article label lines, ages and reading times.
+The design system is called Hearth: warm, editorial and quiet, with a cream canvas, ink rather than black, and cerulean as the anchor color and for anything the parent can tap. Fraunces is reserved for headlines and titles, including every onboarding and setup headline, and for the coach on the Today coach card and in onboarding. Inter is used for everything else the parent reads or taps, including the coach chat, fields, labels, buttons, posts and article bodies. JetBrains Mono is used for card and alert labels, such as the coach card's label and the Coach Alert. Other metadata, including the Recommends label line and reading times, is set in Inter.
 
 ## **Rules that apply across screens**
 
 These live here rather than in Figma because a single frame cannot show them.
 
 * **Three typefaces only.** No fourth font is added for any reason.
+* **No uppercase labels and no letter-spaced eyebrows.**
 * **No photographs of people, no stock images and no generated images.**
 * **Illustration appears only inside MVP Recommends articles,** as spot illustrations drawn by people. The MVP mark is not an illustration.
 * **No pure white and no pure black.**
@@ -1056,13 +1074,23 @@ These live here rather than in Figma because a single frame cannot show them.
 * **The phone design comes first.** Every screen is designed at 390 × 844 before any other size, and nothing exists only on desktop.
 * **Tap targets are at least 44 pt** at every size.
 
-### **Open conditions**
-
-1. **Saffron's role is undecided.** v0.6 reserved saffron for the one item the coach is holding and allowed it once per screen. That rule is withdrawn until the coach card's signal is decided (§5).
-
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.11, October 13, 2026**
+
+Follows the Today redesign and the type and color work in the Figma master library, decided by Greg.
+
+| # | Where | Change |
+| ----- | ----- | ----- |
+| 1 | §5, §19 | The coach card is filled with the coach's background, outlined in the coach's color and labeled with a solid dot and "Coach · for" and the day. The coach's text is in the voice style, with one primary button and "More options". The Coach Alert is added at the top of Today. Saffron has no role. Closes T3. |
+| 2 | §3, §6, §19 | The coach speaks in Fraunces, in the voice style, on the Today coach card and in onboarding, and in Inter in the coach chat. This replaces v0.10 row 1. |
+| 3 | §2, §5, §9, §13, §15 | The parent's avatar, an outlined circle with her initial, replaces her monogram in the header and opens Settings. |
+| 4 | §5, §13 | Children appear as name chips in plan rows, and adults in plan rows as outlined avatars. Monograms stay everywhere else children appear. |
+| 5 | §5 | The day line moves to its own row above the title, with the parent's avatar, and stays the day of the week only. |
+| 6 | §5, §12, §19 | The Recommends label line reads "Recommended · School · 3 min read", in the meta style. Card and alert labels use meta-strong, in JetBrains Mono. Labels are never set in capitals. Closes R6. |
+| 7 | §17 | Today, Coach and Team use Lucide tab icons, and Game plan and Kids use custom drawings. ChildChip, AdultAvatar, Button and CoachAlert join the component inventory. |
 
 ## **v0.10, October 8, 2026**
 

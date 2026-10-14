@@ -22,8 +22,9 @@ runtime backgrounds.
   with a strong option for voice, body and meta. Header, headline and wordmark sit
   outside the scale. Rules: no uppercase labels, no letter-spaced eyebrows, no bold
   inside paragraphs, and times line up in a column with tabular numerals.
-- **The coach speaks in Fraunces** (`voice`). This replaces the October 8 rule that
-  everything the coach says is set in Inter.
+- **The coach speaks in Fraunces** (`voice`) on the Today coach card and in onboarding,
+  and in Inter in the coach chat. This replaces the October 8 rule that everything the
+  coach says is set in Inter.
 - **People.** One color per kind of person: kid, adult and coach. Children are filled
   chips, adults are outlined, and the coach is a solid dot, so the three stay distinct
   in grayscale. The per-person lane colors are deprecated.
@@ -39,7 +40,7 @@ runtime backgrounds.
 | --- | --- | --- | --- |
 | `--type-display` | `display` | Fraunces 600, 44 / 1.0, -0.02em | The one number that matters now |
 | `--type-title` | `title` | Inter 600, 17 / 1.35 | Section names and the next item's line |
-| `--type-voice` | `voice` | Fraunces 400, 17 / 1.45 | Anything the coach says |
+| `--type-voice` | `voice` | Fraunces 400, 17 / 1.45 | The coach on the Today coach card and in onboarding; the coach chat uses Inter |
 | `--type-voice-strong` | `voice-strong` | Fraunces 600, 17 / 1.45 | Article titles |
 | `--type-body-large` | `body-large` | Inter 400, 17 / 1.45 | Plan rows, checklist items, button labels |
 | `--type-body` | `body` | Inter 400, 15 / 1.45 | Default running text |
