@@ -20,6 +20,7 @@ This file holds IDs and sequence. Nothing else.
 3. X1: confirm the switcher and debug menu triggers
 4. A6, O11: read only for her calendar, and the school screen's heading
 5. W1, S5, A5: the pass 9 wireframes, before the capture and request builds
+6. K5: choose the Inter style for the coach chat
 
 ## Then
 *Ordered. Each its own commit. Every screen is built at phone size first, then extended to tablet and desktop in the same pass. Scaffolding, data and demo controls come first, so every screen after them can be built and tested against Charlotte's moments.*
@@ -55,7 +56,7 @@ This file holds IDs and sequence. Nothing else.
 - O3: needs Heather on the new onboarding order
 - O4: needs agreement on the zip code's purpose
 - O5: needs Greg to confirm the MVP mark
-- T3: needs Greg's decision on the coach card's signal
+- T13: needs Greg on what More options opens and when the Coach Alert appears
 - K1: needs Heather's review of the support answers
 - R10: needs a writer for the other six articles
 - S1: needs Edward's own Today written in the fixtures
@@ -64,7 +65,7 @@ This file holds IDs and sequence. Nothing else.
 *Everything else with an ID. Unordered. Not scheduled.*
 
 F1, F3, F4, F5, F6, F7, F8, F9, F10, F12, F13, F14, F15, F16, F17, F18, F19
-A1, A7, A8, G4, G5, K3, L1, L2, M2, M4, R4, R5, R6, R7, R9, R11
+A1, A7, A8, G4, G5, K3, L1, L2, M2, M4, R4, R5, R7, R9, R11
 
 ## Standing, not scheduled
 *Recorded so they aren't mistaken for backlog items.*
@@ -76,4 +77,21 @@ A1, A7, A8, G4, G5, K3, L1, L2, M2, M4, R4, R5, R6, R7, R9, R11
 
 - T6
 - D1
-- C25
+
+## Figma fixes before the Today build
+*Unordered. Library and frame fixes in Figma.*
+
+- T7: the library Button component
+- T8, T9, T10, T11, T12
+- C26
+
+## Today redesign
+*Ordered. Each its own commit.*
+
+1. C27: visual review of existing screens
+2. T7: the Button component in code
+3. C28: migrate off the deprecated tokens, then remove the aliases
+4. U3: AdultAvatar in the header
+5. G7: ChildChip in plan rows
+6. T13: the coach card and Coach Alert
+7. T14: the rest of the redesign, once the fixtures cover it

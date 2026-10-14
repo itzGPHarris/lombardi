@@ -2,7 +2,7 @@
 
 These are the instructions for Codex working in this repository. Read this file first, then the spec section and the fixtures for the task in front of you. When this file, the spec and the fixtures disagree, the fixtures win, then the spec, then this file, and the disagreement goes in `docs/issues.csv` rather than being settled in code.
 
-*Current versions: story fixtures 3.9, spec 0.9. Last updated October 8, 2026.*
+*Current versions: story fixtures 3.10, spec 0.11. Last updated October 13, 2026.*
 
 ## What this repository is
 
@@ -36,8 +36,8 @@ Do not seed `src/tokens.css` from the old `hearth-tokens.json` in Greg's design 
 - Plain CSS modules. No UI component library and no CSS framework.
 - Every color, space, radius, size and type value comes from a custom property in `src/tokens.css`. Never write a raw hex value, pixel size or font name in a component.
 - `useReducer` and context, one reducer per household session. No persistence of any kind, so state resets on reload.
-- Icons from Material Symbols first (`@material-symbols/svg-400`, Outlined, through `vite-plugin-svgr`), then `lucide-react`, then custom SVGs, all drawn through one `Icon` component that takes the name used in Figma, such as `phase-morning` or `calendar-mark`. The source for each name is in the variant description on the Figma Icons page. Never import an icon directly in a screen, and never use `@mui/icons-material`.
-- Fraunces, Inter and JetBrains Mono, self-hosted through `@fontsource`. No fourth font. Fraunces is for headlines and titles only, and everything the coach says is set in Inter.
+- Icons from Material Symbols first (`@material-symbols/svg-400`, Outlined, through `vite-plugin-svgr`), then `lucide-react`, then custom SVGs, all drawn through one `Icon` component that takes the name used in Figma, such as `phase-morning` or `calendar-mark`. The source for each name is in the variant description on the Figma Icons page. Never import an icon directly in a screen, and never use `@mui/icons-material`. The five tab icons are the exception to that order: Today, Coach and Team use Lucide, and Game plan and Kids use custom drawings, so the tab bar reads as one set.
+- Fraunces, Inter and JetBrains Mono, self-hosted through `@fontsource`. No fourth font. Fraunces is for headlines and titles, and for the coach on the Today coach card and in onboarding, in the `voice` style. In the coach chat, the coach is set in Inter. JetBrains Mono is for card and alert labels, in `meta-strong`.
 - The live coach model is debug only, behind a Netlify function that holds the API key. The browser never sees the key.
 
 ## Commands
@@ -64,7 +64,7 @@ Do not seed `src/tokens.css` from the old `hearth-tokens.json` in Greg's design 
 
 ## Getting design context from Figma
 
-Codex may read Figma directly through the connected Figma MCP server. The reference file is https://www.figma.com/design/RK2JTfwao4mV4JgUA193M1/mvp-lombardi?node-id=21-805. Inspect the relevant frames, components and variables for each task. This older file supplies visual references; the current fixtures and spec govern content and behavior, and the current wireframes govern structure. Do not reintroduce retired features or copy from the older design.
+Codex may read Figma directly through the connected Figma MCP server. The reference file is https://www.figma.com/design/RK2JTfwao4mV4JgUA193M1/mvp-lombardi?node-id=21-805. Inspect the relevant frames, components and variables for each task. Visual values come from the master library, https://www.figma.com/design/A3SHbWiO5cyRDtIZ9sNNz7/mvp-design-library, and Today's visual reference is frame 2486:1078 in the reference file. `docs/design/token-mapping.md` records how the library maps to code. This older file supplies visual references; the current fixtures and spec govern content and behavior, and the current wireframes govern structure. Do not reintroduce retired features or copy from the older design.
 
 Export approved variable values into `src/tokens.css` and save useful frame snapshots under `docs/design/`, named by wireframe number with their Figma node references. Figma is a build-time source only; the app must never depend on MCP or Figma at runtime. If a required token is missing, inspect the relevant Figma variables first, then record any unresolved design choice rather than guessing. Reading Figma does not authorize changing the Figma file.
 
@@ -72,13 +72,13 @@ Export approved variable values into `src/tokens.css` and save useful frame snap
 
 Read the spec section for the details. This is the shape you should hold in your head while building.
 
-**Navigation (spec §2).** Five tabs: Today, Coach, Game plan, Team and Kids. On a phone they sit at the bottom, and from tablet width up they become a left sidebar headed "Most Valuable Parent". Settings opens from the parent's monogram at the top right of every tab, and from the bottom of the sidebar at wider sizes. A page opened inside a tab, such as a child page, a school card, an article or a draft, shows Back in place of the monogram.
+**Navigation (spec §2).** Five tabs: Today, Coach, Game plan, Team and Kids. On a phone they sit at the bottom, and from tablet width up they become a left sidebar headed "Most Valuable Parent". Settings opens from the parent's avatar, an outlined circle with her initial (`AdultAvatar`), at the top right of every tab, and from the bottom of the sidebar at wider sizes. A page opened inside a tab, such as a child page, a school card, an article or a draft, shows Back in place of the avatar.
 
 **Onboarding (spec §3).** Before any account: splash (0s), welcome with first name and zip code (0w), who she is planning for (0k), show me one thing (0a), check the photo (0v), reading (0r), the read-back with the child confirmation, one question and the hand-off (0b), making the draft (0t), and the draft with the account prompt (0c). Setup, with a counter from 01 of 05 to 05 of 05: create your account (0e), connect your calendar (0q), schools (0f), household (0g) and who else helps (0h). Then getting ready (0p), the coach's introduction (0j) and her first board on Today (0i). The first draft covers the rest of this week, and she starts it herself with "Make Mallory's plan". Nothing before the account is kept if she leaves.
 
 **The plan (spec §4).** Every item has an owner ("You", a name, or "Nobody yet"), at most one status (Suggested, Asked, yes, can't, always naming the person, such as "Asked Edward" or "Edward: yes"), and two possible marks (Changed and Conflict, shown as "Conflicts with" and the other item). An item shows the time the thing itself starts, such as ballet at 4:15 pm, and departures on Today show when to leave, such as 3:55 pm. A change she makes herself is never flagged back to her.
 
-**Today (spec §5).** Today shows the current day only. The title names the phase of the day ("This morning", "This afternoon" or "Tonight", each with its icon), with the day of the week on the same row. The next departure leads with a countdown and a going with list, each person has a row through the day, and one coach card holds the most useful open decision, which is the only thing on Today that may concern another day. Tonight turns to "Ready tonight" and "Tomorrow starts". At most one MVP Recommends card appears, with a reason line beginning "Because". An Add button floats above the tab bar.
+**Today (spec §5).** Today shows the current day only. The day of the week and her avatar sit on one row, and the title below it names the phase of the day ("This morning", "This afternoon" or "Tonight", each with its icon). The next departure leads with a countdown and a going with list, each person has a row through the day, and one coach card holds the most useful open decision, which is the only thing on Today that may concern another day. The coach card carries the coach's fill, outline and dot, and a Coach Alert can sit at the top of the board (T3). Tonight turns to "Ready tonight" and "Tomorrow starts". At most one MVP Recommends card appears, with a reason line beginning "Because". An Add button floats above the tab bar.
 
 **Capture (spec §7).** Four entry points (the share menu, the forwarding address, the camera and her voice) and one connection (her calendar). Every capture gets a short read-back, at most one question, new items as Suggested, and a source link such as "From the Cedar Grove newsletter · Sunday". The capture bar on the Coach tab has camera, attach and microphone, and the microphone becomes an arrow labeled "Give this to the coach" while the field holds typed text. There is no Send on the capture bar. Sharing, forwarding and photographing are staged in the prototype.
 
@@ -108,7 +108,7 @@ Read the spec section for the details. This is the shape you should hold in your
 8. **Coach voice.** Every line the coach writes is in the present tense, speaks to the parent, and names children rather than using pronouns for them. It never uses em-dashes, sentence fragments, sets of three parallel phrases, openers such as "Okay" or "Alright", praise for the parent, a description of what it just did, or the planner words window, slot, block, buffer or lane. These lines come from the fixtures, so a violation means the seed drifted from the fixtures.
 9. **Messages to other people are in the parent's voice,** in the first person, not the coach's.
 10. **The coach stays within its limits.** It does not find or recommend providers or sitters, buy anything, plan money, or advise on custody, legal or medical questions. It names the right person from her inner circle when a question needs one.
-11. **No photographs of people, no stock and no generated images.** Children appear as monograms. Illustration appears only inside articles.
+11. **No photographs of people, no stock and no generated images.** Children appear as monograms, except in plan rows, where they appear as name chips (`ChildChip`). Illustration appears only inside articles.
 12. **No pure white and no pure black,** and the wordmark always reads "Most Valuable Parent" as a unit.
 13. **Status marks never rely on color alone.** Each has its own shape and label, and so does the calendar mark.
 14. **The live model is never on in a presented demo,** and it never writes as another person.
@@ -117,9 +117,8 @@ Read the spec section for the details. This is the shape you should hold in your
 
 Build around these rather than settling them in code. Each is a row in `docs/issues.csv`.
 
-- **How the coach card is visually marked (T3).** Build it with a token named for its role, so the decision changes one value. Do not use saffron as a fixed rule.
 - **Read-only calendar (A6).** The spec assumes MVP reads her calendar and never writes to it. Writing back is parked as F18.
-- **The switcher and debug menu triggers (X1).** The spec proposes a long press on the monogram or a keyboard shortcut.
+- **The switcher and debug menu triggers (X1).** The spec proposes a long press on the parent's avatar or a keyboard shortcut.
 - **The school screen's heading (O11).** It reads "Who's on your calendar?" until Greg decides.
 - **Tab names (C21), the onboarding order (O3) and the calendar's positioning (C22)** need Heather's sign-off, and the copy may change.
 - **The invented email domains (C19)** must be checked or replaced before the seed is written.

@@ -113,6 +113,7 @@
      - No uppercase labels, no letter-spaced eyebrows, and no bold inside paragraphs.
        body-strong is for button labels, links and row headings.
      - meta-strong is the card and alert label, set in JetBrains Mono.
+     - voice is the coach on the Today coach card and in onboarding. The coach chat is set in Inter.
      - Times line up as a column, with font-variant-numeric: tabular-nums.
      - Screen headers, such as "This morning", use --type-header. It is outside this scale.
      - Onboarding headlines use --type-headline: Fraunces for the headline, Inter for everything else.

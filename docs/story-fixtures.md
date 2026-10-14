@@ -1,6 +1,6 @@
 # Demo fixtures: the MVP families
 
-*MVP (Lombardi) · Version 3.9 · October 6, 2026 · Charlotte and Edward only*
+*MVP (Lombardi) · Version 3.10 · October 13, 2026 · Charlotte and Edward only*
 
 # 1. What this document is for
 
@@ -44,7 +44,7 @@ Several of these names exist only inside this project so far, and the wireframes
 | Kids | The tab that holds a page for each child and the cards for the schools in the children's lives. It replaces Settings as the fifth tab. |
 | Child page | The page for one child on the Kids tab, with her school, what she does every week and the items that regularly go with her. |
 | School card | The page for each school, holding its hours, contacts, rules, calendar, rotation and the original documents it was built from. It lives on the Kids tab and opens from the school's name anywhere in the app. The coach uses it when a message needs to go to the school. |
-| Settings | Account and app settings. They open from the parent's monogram at the top right of every tab on a phone, and from the bottom of the sidebar at wider sizes. |
+| Settings | Account and app settings. They open from the parent's avatar at the top right of every tab on a phone, and from the bottom of the sidebar at wider sizes. |
 | Inner circle | The people a parent trusts with her children and her private life, such as her partner, grandparents, close friends, a nanny and the family's doctors, therapists and tutors. |
 | Village | Everyone else who shares her children's week for a few hours at a time, such as school parents, carpool families, coaches and team parents. |
 | Village group | A group of village members that the parent creates inside MVP and invites people to, such as "Cedar Grove parents". Only its members see its posts, and the coach never reads them. |
@@ -53,7 +53,7 @@ Several of these names exist only inside this project so far, and the wireframes
 | Status | The mark on a plan item that says where it stands, such as "Asked Edward" or "Edward: yes". Section 2 lists all six. |
 | Conflict | A mark that appears when the plan asks one adult to be in two places at once, or leaves a child with nobody. |
 | Request | Part of the plan that the parent sends to someone else and asks them to take on. The person answers with "I've got it" or "I can't do this". |
-| Coach card | The single card on Today where the coach holds the most useful open decision. How it is visually marked has not been decided. |
+| Coach card | The single card on Today where the coach holds the most useful open decision. It is filled and outlined in the coach's color and labeled with a solid dot and "Coach", as in spec §5. |
 | MVP Recommends | Short articles written by MVP staff. One appears on Today when something in the week makes it useful, and another is attached to a coach answer when the parent asks for ideas. |
 | Moment | A point in a family's week that the demo shows, identified by an ID such as C-03. |
 | Household switcher | A hidden presenter control that jumps between families and between moments. It is not part of any screen. |
@@ -153,7 +153,7 @@ Onboarding has three parts. In the first part, before any account, the parent te
 
 **The step counter appears on setup only.** The screens before the account carry no counter because they are not a form, and the screens after setup carry none because there is nothing left for her to do. The counter runs from 01 to 05.
 
-**Headlines are display type.** The large headline on every onboarding and setup screen is set in Fraunces, the display face, which is reserved for headlines and titles. Fields, labels, helper lines, buttons and everything the coach says are set in Inter. This corrects version 3.4, which said the setup screens were set entirely in sans.
+**Headlines are display type.** The large headline on every onboarding and setup screen is set in Fraunces, the display face, which is reserved for headlines and titles. Fields, labels, helper lines and buttons are set in Inter. What the coach says in onboarding and on the Today coach card is set in Fraunces, and in the coach chat it is set in Inter. This corrects version 3.4, which said the setup screens were set entirely in sans.
 
 **Her first board is never empty.** If she captured something, Today shows it. If she skipped the capture, the coach card asks for one thing to start with.
 
@@ -233,11 +233,11 @@ Today is the home tab, and it shows the logistics for the current day and nothin
 - In the evening, the title changes to "Tonight" and the board turns to tonight's preparation. It shows a "Ready tonight" checklist and tomorrow's first departures, because most of the work of getting children out the door happens the night before. Tomorrow's full day stays in the game plan.
 - An MVP Recommends card appears only when something in the week makes an article useful.
 
-**The title names the phase of the day.** The top of Today reads "This morning", "This afternoon" or "Tonight", each with an icon, and the day of the week sits on the same row, aligned right, such as "Monday". It is never a calendar date, so the demo works in any week. Tonight shows the day it is, not tomorrow. The phase tells the parent what the board is helping with before she reads anything else: getting everyone out the door in the morning, pickups and activities in the afternoon, and getting ready for tomorrow at night. The word always appears with the icon, and the header is no taller than a plain title, so the next departure stays near the top of the screen. The prototype follows the clock. This morning runs from midnight to noon, this afternoon runs from noon until the board turns to tomorrow, and tonight starts at 7:00 pm, or later if an activity is still scheduled after 7:00 pm.
+**The title names the phase of the day.** The top of Today reads "This morning", "This afternoon" or "Tonight", each with an icon, and the day of the week sits on the row above it, at the left, with her avatar at the right, such as "Monday". It is never a calendar date, so the demo works in any week. Tonight shows the day it is, not tomorrow. The phase tells the parent what the board is helping with before she reads anything else: getting everyone out the door in the morning, pickups and activities in the afternoon, and getting ready for tomorrow at night. The word always appears with the icon, and the header is no taller than a plain title, so the next departure stays near the top of the screen. The prototype follows the clock. This morning runs from midnight to noon, this afternoon runs from noon until the board turns to tomorrow, and tonight starts at 7:00 pm, or later if an activity is still scheduled after 7:00 pm.
 
 **The coach card is the one exception to showing only today.** It holds the single most useful open decision, and that decision can be about any day. If it were limited to today, a change to Thursday that arrives on Wednesday would stay invisible until Thursday morning, which is too late to act on. The card names the day it concerns, and its link opens that day in the game plan. A card that concerns no particular day, such as the therapist news in C-05, has no day label and no game plan link, and tapping it opens the full message on the Coach tab.
 
-On every tab, the parent's monogram sits at the top right of the tab's own screen. Pages opened inside a tab, such as a child page, a school card, an article or a draft, show a Back link in its place.
+On every tab, the parent's avatar sits at the top right of the tab's own screen. Pages opened inside a tab, such as a child page, a school card, an article or a draft, show a Back link in its place.
 
 On a phone, the next departure sits at the top and the rows stack beneath it. From tablet width up, the board opens into a full-day grid with one row per person.
 
@@ -251,7 +251,7 @@ The parent works the game plan directly. She can drag an item to another time or
 
 ## The Kids tab and school cards
 
-The Kids tab holds a page for each child and a card for each school. Settings, which used to be the fifth tab, move behind the parent's monogram, because parents visit settings rarely and look at their children's schools every week.
+The Kids tab holds a page for each child and a card for each school. Settings, which used to be the fifth tab, move behind the parent's avatar, because parents visit settings rarely and look at their children's schools every week.
 
 **A child page** shows the child's school, what she does every week and the items that regularly go with her, such as sneakers on motor skills days. It links to her school's card. Siblings at the same school share one card, so an update reaches both.
 
@@ -848,7 +848,7 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 
 **Edward's screen, as shown**
 
-*Edward's own Today shows his monogram, E, and the phase title "This morning". It holds only the items he owns and the requests Charlotte sends him.*
+*Edward's own Today shows his avatar, E, and the phase title "This morning". It holds only the items he owns and the requests Charlotte sends him.*
 
 > [sunrise icon] This morning · Monday
 >
@@ -906,7 +906,7 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 
 **Today, as shown: MVP Recommends**
 
-> MVP RECOMMENDS · SCHOOL · 3 MIN READ
+> Recommended · School · 3 min read
 >
 > **Fifteen minutes with the teacher: making a conference count**
 >
@@ -1072,7 +1072,7 @@ She opens violin, which clears its Changed mark.
 
 **Today, as shown: MVP Recommends**
 
-> MVP RECOMMENDS · SCHOOL · 3 MIN READ
+> Recommended · School · 3 min read
 >
 > **Fifteen minutes with the teacher: making a conference count**
 >
@@ -1188,7 +1188,7 @@ The rows are the same as in C-06, with the morning shown as done. Alexis's dance
 
 **Coach, as shown: attached article**
 
-> MVP RECOMMENDS · MORNINGS · 4 MIN READ
+> Recommended · Mornings · 4 min read
 >
 > **Two outfits, not twenty: getting dressed without the standoff**
 
@@ -1267,9 +1267,9 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Where | Text |
 | ----- | ----- |
 | The five tabs, in order | Today · Coach · Game plan · Team · Kids |
-| Settings, on a phone | The parent's monogram at the top right of every tab's header, with the accessible label "Settings and account" |
+| Settings, on a phone | The parent's avatar, an outlined circle with her initial, at the top right of every tab's header, with the accessible label "Settings and account" |
 | Settings, from tablet width up | Settings, at the bottom of the sidebar |
-| Link out of any page opened inside a tab | Back, in place of the monogram. This covers child pages, school cards, articles and drafts. |
+| Link out of any page opened inside a tab | Back, in place of the avatar. This covers child pages, school cards, articles and drafts. |
 | What Settings holds | Your account · Your calendar · Notifications · Your forwarding address · Language at home · Privacy. Settings is not drawn for the demo. |
 
 ## Today
@@ -1277,7 +1277,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Where | Text |
 | ----- | ----- |
 | Title, by phase of the day | "This morning" with a sunrise icon, "This afternoon" with a sun icon, or "Tonight" with a moon icon. The icons are `phase-morning`, `phase-afternoon` and `phase-tonight` from the icon set in spec §17, and the word always appears with the icon. |
-| Day line | On the title's row, aligned right: the day of the week only, such as "Monday". Never a calendar date or month. Tonight shows the day it is. |
+| Day line | On its own row above the title, at the left, with her avatar at the right: the day of the week only, such as "Monday". Never a calendar date or month, even where a design frame shows one. Tonight shows the day it is. |
 | Calendar mark | The `calendar-mark` icon beside an item that came from her calendar, with the accessible label "From your Google Calendar", or the calendar she connected |
 | Coach card for a new calendar event | The day it concerns, then the event, then "is new on your Google Calendar", or the calendar she connected, such as "Friday · Mallory's checkup at Northside Pediatrics at 3:30 is new on your Google Calendar." |
 | What the Add button opens | A sheet with Take a photo · Attach a file · Talk or type, the same three choices as onboarding |
@@ -1289,9 +1289,11 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Row column headings | Morning · School · After school · Evening |
 | Heading of the evening checklist | Ready tonight |
 | Heading for tomorrow's first departures | Tomorrow starts |
-| Day label on the coach card | The day it concerns, such as "Thursday". It is left out when the card concerns no particular day. |
+| Day label on the coach card | "Coach · for" and the day it concerns, such as "Coach · for Thursday", after the coach's dot. "Coach" alone when the card concerns no particular day. In the moments, a coach card written as "Wednesday · …" shows this label above its text. |
 | Link on a coach card about another day | Open Thursday in the game plan, with the day that applies |
-| Label line on an MVP Recommends card | "MVP RECOMMENDS", the topic and the reading time, such as "MVP RECOMMENDS · SCHOOL · 3 MIN READ" |
+| Link under a coach card's button | More options |
+| Coach Alert | "Coach Alert:" and what the coach found, such as "Coach Alert: Conflict found with Edward". When it appears is still open (spec §5). |
+| Label line on an MVP Recommends card | "Recommended", the topic and the reading time, such as "Recommended · School · 3 min read" |
 | Reason line on an MVP Recommends card | A single sentence beginning "Because", such as "Because Cedar Grove conferences are this week." |
 
 ## Coach
@@ -1442,7 +1444,7 @@ The user stories left gaps, and everything in this table is a fact we invented t
 | Pediatrician | Dr. Lena Ortiz at Northside Pediatrics. Mallory's six-year checkup is due, and Charlotte books it in the Northside portal on Wednesday at 1:05 pm for Friday at 3:30 pm. | Gives the coach a named doctor for any medical question. |
 | Charlotte's sister | Claire, an hour away | An inner circle member who gives advice but cannot do pickups. |
 | Library run | Saturday at 10:00 am, with nobody on it until Charlotte asks Edward | Gives Charlotte an item to hand to someone directly from the game plan. |
-| Navigation | Today, Coach, Game plan, Team and Kids, with settings behind the parent's monogram | Adults are on Team and the children and their organizations are under Kids, so a parent can guess where anything lives. Kids replaces Settings because parents look at their children's schools every week and at settings rarely. |
+| Navigation | Today, Coach, Game plan, Team and Kids, with settings behind the parent's avatar | Adults are on Team and the children and their organizations are under Kids, so a parent can guess where anything lives. Kids replaces Settings because parents look at their children's schools every week and at settings rarely. |
 | Class teachers | Alexis is in Ms. Carter's class at Cedar Grove. Mallory is in Ms. Hollis's class, Room 3, at Westview. | Gives each child page and school card a named teacher. |
 | Cedar Grove contacts | Front office 555-0120, attendance@cedargrovees.org | Fills the Cedar Grove card. The phone number is in the reserved 555-01 range, and the email domain needs the same check as Westview's. |
 | Westview pickup email | On Tuesday at 3:30 pm Westview moves pickup changes to pickups@westviewk.org, due by 11:00 am on the day. | Gives the demo one card update, and the new address is used the next day in C-06. |
@@ -1471,12 +1473,12 @@ The user stories left gaps, and everything in this table is a fact we invented t
 
 # Appendix B: what is still open
 
-1. **The navigation changes to Today, Coach, Game plan, Team and Kids, which is a spec decision.** Team holds the adults, with the inner circle, the village and village groups as its sections. Kids replaces Settings as the fifth tab, and settings move behind the parent's monogram. The plain fallback, if the sports naming is judged too much for this tab, is Kids and People. The tab names face customers, so they also need a brand sign-off.
+1. **The navigation changes to Today, Coach, Game plan, Team and Kids, which is a spec decision.** Team holds the adults, with the inner circle, the village and village groups as its sections. Kids replaces Settings as the fifth tab, and settings move behind the parent's avatar. The plain fallback, if the sports naming is judged too much for this tab, is Kids and People. The tab names face customers, so they also need a brand sign-off.
 2. **Village groups live inside MVP, which is a spec decision.** Only members see a group's posts, and members need MVP to take part. Groups that exist elsewhere, such as WhatsApp groups, stay outside, and the parent forwards messages from them.
-3. **The three ways a request reaches someone need to go into the spec.** This includes what someone else's MVP shows them. This document assumes Edward's own Today holds only the items he owns and the requests Charlotte sends him, under his own monogram.
+3. **The three ways a request reaches someone need to go into the spec.** This includes what someone else's MVP shows them. This document assumes Edward's own Today holds only the items he owns and the requests Charlotte sends him, under his own avatar.
 4. **The rules for Today need to go into the spec.** They cover showing only today, the coach card as the one exception, the phase of the day, the day line on the title's row, and what a card with no day opens. A later version could follow the family rather than the clock, ending the morning when the last child is dropped off, and that idea belongs on the roadmap.
 5. **The game plan rules need to go into the spec.** They cover routine items shown more quietly unless they carry a status or mark, one entry per item in "This week's changes", and how conflicts are detected.
-6. **How the coach card is visually marked has not been decided.** The design system reserves saffron for it, and that may change to a signal that does not rely on color.
+6. *Resolved in version 3.10. The coach card's treatment is decided in spec §5 (T3), and saffron has no role.*
 7. **The single-Thursday premise is gone, and it still appears in the project instructions and the spec.** The spec's definition of checkpoints needs to match the moment IDs here.
 8. **The status model has changed and the spec needs to match it.** Version 3.5 separates the owner, including "Nobody yet", from the four statuses, and treats Changed and Conflict as marks that can sit on any item.
 9. **The prototype must not depend on a date, and the spec needs to say so.** The demo runs in any week. The spec should state that the prototype ignores the device clock and shows only days of the week, and that the seed files hold no calendar dates.
@@ -1511,6 +1513,19 @@ The user stories left gaps, and everything in this table is a fact we invented t
 31. **Edward's own calendar is out of scope.** Edward has MVP and could connect his own calendar, which would let the coach see his Thursday meeting without being told. The prototype does not show it.
 
 # Appendix C: change log
+
+## Version 3.10, October 13, 2026
+
+Follows the Today redesign and spec version 0.11.
+
+| # | Change |
+| ----- | ----- |
+| 1 | The coach card is filled and outlined in the coach's color, labeled with a solid dot and "Coach · for" and the day, and closes with "More options". A Coach Alert can sit at the top of Today. Saffron has no role. |
+| 2 | The coach speaks in Fraunces on the Today coach card and in onboarding, and in Inter in the coach chat. This replaces the October 8 correction to version 3.9. |
+| 3 | The parent's avatar, an outlined circle with her initial, replaces her monogram, including Edward's on his own Today. Children appear as name chips in plan rows and as monograms everywhere else. |
+| 4 | The day line moves to its own row above the title, with the avatar, and stays the day of the week only, even where a design frame shows a date. |
+| 5 | The Recommends label line reads "Recommended · School · 3 min read", without capitals and without "MVP" on its own. |
+| 6 | Appendix B item 6 is resolved. |
 
 ## Version 3.9, October 6, 2026
 
