@@ -1,0 +1,22 @@
+.article,.draft,.handoff,.settings,.plan { max-width: var(--size-article-max); margin-inline: auto; }
+.article { padding: var(--space-24); border-radius: var(--radius-lg); background: var(--color-bg-card); }
+.article h1 { font: var(--type-display-lg); letter-spacing: var(--type-display-lg-tracking); margin-block: var(--space-20); }
+.article p { font: var(--type-body-lg); margin-bottom: var(--space-24); }
+.article .metadata { font: var(--type-mono-caption); }
+.article .byline { font: var(--type-body-sm-strong); border-bottom: var(--size-line) solid var(--color-border-hairline); padding-bottom: var(--space-24); }
+.draft { display: flex; flex-direction: column; gap: var(--space-24); }
+.draft h1,.handoff h1 { font: var(--type-display-sm); }
+.draft textarea { width: 100%; min-height: var(--size-draft-height); resize: vertical; border: var(--size-line) solid var(--color-border-strong); border-radius: var(--radius-md); background: var(--color-bg-card); color: var(--color-ink-primary); font: var(--type-body-lg); padding: var(--space-20); }
+.send { margin-top: var(--space-40); }
+.send p { font: var(--type-body-sm); margin-bottom: var(--space-16); }
+.send button,.handoff>button { background: var(--color-interactive-default); color: var(--color-ink-on-accent); width: 100%; }
+.send button:hover:not(:disabled),.handoff>button:hover:not(:disabled) { background: var(--color-interactive-pressed); }
+.handoff { display: flex; flex-direction: column; gap: var(--space-24); }
+.handoff h2 { font: var(--type-body-md-strong); }
+.incoming,.outgoing { padding: var(--space-20); border: var(--size-line) solid var(--color-border-hairline); border-radius: var(--radius-lg); background: var(--color-bg-card); }
+.incoming { margin-right: var(--space-24); }
+.incoming p { margin-top: var(--space-8); }
+.outgoing { margin-left: var(--space-24); background: var(--color-neutral-cream-200); }
+.plan { display: flex; flex-direction: column; gap: var(--space-16); }
+.settings ul { list-style: none; margin: var(--space-24) var(--space-0); padding: var(--space-0); }
+.settings li { padding: var(--space-20); background: var(--color-bg-card); border-bottom: var(--size-line) solid var(--color-border-hairline); }

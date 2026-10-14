@@ -1,0 +1,10 @@
+{
+  "flow": "passed",
+  "offline": "passed",
+  "reset": "passed",
+  "keyboardFocus": "visible solid outline",
+  "longPress": "passed",
+  "phoneAndResponsive": "passed",
+  "pageErrors": [],
+  "externalRequests": []
+}
