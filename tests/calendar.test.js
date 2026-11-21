@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { compareDemoTimes, dateOf, datelineParts, formatDateline, formatTime, minutesBetween, parseAnchor, phaseOf } from '../src/demo/calendar.js';
-import stub from '../src/demo/stub-charlotte.json';
+import stub from '../src/data/households/charlotte.json';
 
 const anchor = stub.meta.demoWeekStart;
 const at = (id) => stub.moments.find((moment) => moment.id === id).time;

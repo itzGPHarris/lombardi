@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MVP Editorial article",
+  "description": "Written from docs/spec.md section 12 and fixtures \"MVP Editorial for Charlotte\". Until an article is approved (issue R15) it holds its slot, placeholder title and reading time only.",
+  "type": "object",
+  "required": [
+    "id",
+    "slot",
+    "title",
+    "readMinutes",
+    "approved",
+    "byline",
+    "body"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "slot": {
+      "enum": [
+        "today",
+        "coach-answer"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "readMinutes": {
+      "type": "integer"
+    },
+    "approved": {
+      "type": "boolean"
+    },
+    "byline": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "body": {
+      "type": [
+        "array",
+        "null"
+      ]
+    }
+  }
+}
