@@ -44,12 +44,24 @@ const token = /^(?:[A-Za-z0-9][A-Za-z0-9:._-]*|\d{2}:\d{2}|\d{4}-\d{2}-\d{2})$/;
 // does, under each moment's steps (Greg's condition 3 on the Stage 2 plan).
 const noteKeys = new Set(['change']);
 
-// Template slots (Greg's condition 1 on the Stage 2 plan). Name slots take a name from the seed.
-// Calendar slots take a value the demo calendar works out. Value slots take another value from the
-// seed that is not free text, listed in the Stage 2 report for Greg to confirm.
-const nameSlots = ['child', 'child2', 'children', 'person', 'people', 'place', 'from', 'to', 'group', 'school'];
+// Template slots (Greg's decision on the Stage 2 report): a slot takes a value from a closed list
+// in the seed, or from a seed field this test already checks, never free text. Each slot names
+// where its value comes from.
+const seedSlots = {
+  child: 'children[].name', child2: 'children[].name', children: 'children[].name, joined',
+  person: 'people[].name and shortName', people: 'people[].name, joined',
+  place: 'places[].name', from: 'places[].name', to: 'places[].name',
+  group: 'groups[].name and planItems[].rideWith', school: 'schools[].name',
+  source: 'captures[].sourceName', item: 'planItems[].title and checklist item text',
+  letter: 'schools[].rotation, the closed list A to F', app: 'requests[].app',
+  grade: 'children[].gradeLabel and gradeShort', grade2: 'children[].gradeLabel and gradeShort',
+  calendar: 'calendar.name',
+};
+// Calendar slots hold what the demo calendar works out from meta.demoWeekStart and the moment's
+// demo time, such as a time, a day said from today, the phase of the day, a count or minutes.
 const calendarSlots = ['time', 'day', 'phase', 'count', 'minutes'];
-const valueSlots = ['item', 'letter', 'app', 'grade', 'grade2', 'calendar'];
+const nameSlots = Object.keys(seedSlots);
+const valueSlots = [];
 const slotPattern = /\{([a-z0-9]+)\}/g;
 
 // Fixtures section 4 has no rows for the household switcher yet (issue C74), so the presenter's
