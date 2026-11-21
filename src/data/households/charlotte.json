@@ -624,7 +624,7 @@
       "forEvent": null,
       "fromCalendar": true,
       "source": ["calendar"],
-      "laterToday": "Brightwater Family Therapy, with Mallory",
+      "laterTodayText": "Brightwater Family Therapy, with Mallory",
       "stopLabel": "Therapy, with Mallory",
       "spoken": "Alexis's therapy at Brightwater Family Therapy",
       "practice": "karen-moss"
@@ -767,7 +767,7 @@
       "forEvent": null,
       "fromCalendar": true,
       "source": ["calendar"],
-      "laterToday": "Studio Ten Dance, with Mallory"
+      "laterTodayText": "Studio Ten Dance, with Mallory"
     },
     {
       "id": "wed-dinner-claire",
@@ -857,8 +857,7 @@
       "type": "event",
       "forEvent": null,
       "fromCalendar": true,
-      "source": ["calendar"],
-      "spoken": "Take Mallory to ballet at Studio Ten Dance"
+      "source": ["calendar"]
     },
     {
       "id": "fri-carpool",
@@ -1098,7 +1097,7 @@
       "forEvent": null,
       "fromCalendar": true,
       "source": ["calendar"],
-      "laterToday": "Brightwater Family Therapy, with Mallory",
+      "laterTodayText": "Brightwater Family Therapy, with Mallory",
       "stopLabel": "Therapy, with Mallory",
       "spoken": "Alexis's therapy at Brightwater Family Therapy",
       "practice": "karen-moss",
@@ -1226,7 +1225,7 @@
       "forEvent": null,
       "fromCalendar": true,
       "source": ["calendar"],
-      "laterToday": "Studio Ten Dance, with Mallory",
+      "laterTodayText": "Studio Ten Dance, with Mallory",
       "repeatOf": "wed-dance-alexis"
     },
     {
@@ -1283,7 +1282,6 @@
       "forEvent": null,
       "fromCalendar": true,
       "source": ["calendar"],
-      "spoken": "Take Mallory to ballet at Studio Ten Dance",
       "repeatOf": "thu-ballet-mallory"
     },
     {
@@ -1658,7 +1656,7 @@
       "id": "cap-jenna-whatsapp",
       "entry": "share-menu",
       "sourceName": "Jenna Okafor",
-      "medium": "whatsapp",
+      "medium": "WhatsApp",
       "received": {"week":0,"day":"mon","time":"06:16"},
       "sent": {"week":0,"day":"mon","time":"05:50"},
       "kinds": ["one-off-event"],
@@ -2125,13 +2123,13 @@
       "secondary": {"label":"Other options","action":"open-leave-sheet:run-first-board"},
       "after": {
         "agree": {
-          "chosen": null,
+          "chosenText": null,
           "text": "The rest of this week is in your game plan. Back-to-school night at Westview Kindergarten this Thursday is the one thing waiting there for you to add.",
           "button": {"label":"Open the game plan","action":"open-tab:game-plan"},
           "link": "Undo"
         },
         "plan-b": {
-          "chosen": "Take Alexis to Cedar Grove Elementary at 7:40am, then come home and leave with Mallory for Westview Kindergarten at 8:15am.",
+          "chosenText": "Take Alexis to Cedar Grove Elementary at 7:40am, then come home and leave with Mallory for Westview Kindergarten at 8:15am.",
           "text": "The rest of this week is in your game plan. Back-to-school night at Westview Kindergarten this Thursday is the one thing waiting there for you to add.",
           "button": {"label":"Open the game plan","action":"open-tab:game-plan"},
           "link": "Undo"
@@ -2154,7 +2152,7 @@
       "secondary": {"label":"No thanks","action":"dismiss"},
       "after": {
         "agree": {
-          "chosen": null,
+          "chosenText": null,
           "text": "Mallory and Hana leave home at 8:15am with two cans for the food drive.",
           "button": null,
           "link": "Undo",
@@ -2177,14 +2175,14 @@
       "secondary": {"label":"Other options","action":"open-leave-sheet:run-thu-yoga"},
       "after": {
         "agree": {
-          "chosen": null,
+          "chosenText": null,
           "text": "Book the 12:15pm class with Willow Yoga so your spot is held.",
           "button": {"label":"Book at Willow Yoga","action":"open-site:willow.example","external":true},
           "link": "Undo",
           "meta": "Game plan updated"
         },
         "plan-b": {
-          "chosen": "Min-jung collects Hana at Westview Kindergarten at 2:30pm and lives two streets from you, so she can bring Mallory home by 2:45pm. You keep the 2:15pm class.",
+          "chosenText": "Min-jung collects Hana at Westview Kindergarten at 2:30pm and lives two streets from you, so she can bring Mallory home by 2:45pm. You keep the 2:15pm class.",
           "text": "Mallory goes home with Min-jung once Min-jung says yes. Westview Kindergarten only releases Mallory to people on the pickup list, so Westview Kindergarten needs a note from you by 11:00am tomorrow.",
           "button": {
             "label": "Note to Westview Kindergarten",
@@ -2356,17 +2354,17 @@
           "draft": {
             "child": "mallory",
             "rows": [
-              {"day":{"week":-1,"day":"tue","time":null},"letter":"D","meaning":"Motor skills","item":"Sneakers"},
-              {"day":{"week":-1,"day":"wed","time":null},"letter":"E","meaning":"Art and music","item":null},
-              {"day":{"week":-1,"day":"thu","time":null},"letter":"F","meaning":"Science and motor skills","item":"Sneakers"},
+              {"day":{"week":-1,"day":"tue","time":null},"letter":"D","meaning":"Motor skills","checklistItem":"Sneakers"},
+              {"day":{"week":-1,"day":"wed","time":null},"letter":"E","meaning":"Art and music","checklistItem":null},
+              {"day":{"week":-1,"day":"thu","time":null},"letter":"F","meaning":"Science and motor skills","checklistItem":"Sneakers"},
               {
                 "day": {"week":-1,"day":"thu","time":null},
                 "letter": null,
                 "meaning": null,
-                "item": "Back-to-school night",
+                "event": "Back-to-school night",
                 "planItem": "w-1-thu-back-to-school"
               },
-              {"day":{"week":-1,"day":"fri","time":null},"letter":"A","meaning":"Library","item":"Library book"}
+              {"day":{"week":-1,"day":"fri","time":null},"letter":"A","meaning":"Library","checklistItem":"Library book"}
             ]
           },
           "calendar": "google",
