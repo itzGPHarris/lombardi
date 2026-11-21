@@ -14,6 +14,10 @@ Claude Code running Claude Opus 5.5 is the build agent for the alpha (issue C57)
 
 ## Document and design work
 
-When Greg asks for work on the documents, the wireframe prompts or the Figma library and boards rather than on code, use the `lombardi-docs` skill in `.claude/skills/lombardi-docs/`. It carries the instructions from the "MVP - Lombardi" project on claude.ai, including when the documents may be edited, how a fixtures pass is written, the Figma file keys and how to work with Greg. It is kept out of this file because every session loads this file, and a build session needs only the build rules. On a platform without skills, read `.claude/skills/lombardi-docs/SKILL.md` before starting document or design work.
+Document and design work, such as passes on the fixtures and spec, the screen map, the stage prompts, wireframe prompts and the Figma boards, happens in the "MVP - Lombardi" project on claude.ai, not in Claude Code. In this repository Claude works as the build agent, under `AGENTS.md`. When the build shows that a document is wrong, add a row to `docs/issues.csv` and tell Greg, rather than editing the document.
+
+## What the settings enforce
+
+`.claude/settings.json` pre-approves the commands a stage needs: `npm run` scripts, the tests, lint, `npm install` with no new package, and git commands that read, stage, commit and branch. It blocks pushing, hard resets, `git clean`, rebasing, deleting branches and `rm -rf`, reading `archive/` and `docs/archived docs/`, and editing the spec, the fixtures, the brief, the screen map, the stage prompts, `src/tokens.css`, this file, `AGENTS.md` and `.claude/`. A new package needs Greg's approval when it is installed. If a blocked action seems necessary, stop and say why, because Greg pushes, merges and changes the documents himself.
 
 Trust the system's current date. The demo calendar inside the prototype is a separate thing and never follows the real clock.

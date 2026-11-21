@@ -10,3 +10,6 @@ coverage/
 
 # Files saved from chat sessions, kept outside the repository
 Claude outputs/
+
+# Personal Claude Code settings
+.claude/settings.local.json
