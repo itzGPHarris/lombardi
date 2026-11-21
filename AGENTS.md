@@ -53,7 +53,7 @@ Do not seed `src/tokens.css` from the old `hearth-tokens.json` in Greg's design 
 | `npm run build` | Builds for production. |
 | `npm run voicecheck` | Checks every coach string for banned words and punctuation, checks articles for em-dashes, and fails on any calendar date or year typed into a seed, article or copy file outside `meta.demoWeekStart` and the prepared documents. |
 | `npm run lint` | Lints the source. |
-| `npm test` | Runs the Vitest tests, including the fixtures, schema and voice tests. |
+| `npm test` | Runs the Vitest tests: the lint and voice check tests now, and from Stage 2 the fixtures and schema tests. |
 | `npm run check` | Runs lint, the voice check, the tests and the build, in that order. It must pass before every commit, and it is the one check to run. |
 
 Never edit a test, `scripts/voicecheck.mjs` or `scripts/validate-schema.mjs` to make a check pass, and never hard-code a value so that a test passes. The checks test the build against the fixtures and the spec rather than define it, so when a check seems wrong, leave it as it is and add a row to `docs/issues.csv`.
@@ -115,7 +115,7 @@ Fixtures section 2 holds the same rules as they apply to the households, and fix
 
 ## Rules that must never be broken
 
-1. **Copy comes only from the fixtures.** Every visible word is in a moment or in fixtures section 4. Do not write, shorten, rephrase or "improve" any of it. A missing word is an issue, not a placeholder you fill in. `tests/fixtures.test.js` checks seed strings against the fixtures word for word, and issue D3 rewrites it for the new seed so that it covers every string.
+1. **Copy comes only from the fixtures.** Every visible word is in a moment or in fixtures section 4. Do not write, shorten, rephrase or "improve" any of it. A missing word is an issue, not a placeholder you fill in. From Stage 2, `tests/fixtures.test.js` (issue D3) checks every string in the seed, the articles and the copy against the fixtures word for word.
 2. **One calendar, never the clock.** The prototype runs on the demo calendar, with the demo week starting on the date in `meta.demoWeekStart`. Every time in the seed is a demo time, a week relative to the demo week, a weekday and a time, and every date on screen is worked out from the anchor, never typed into copy. Dates appear only on Today's dateline, on the 0c draft, in the prepared documents and for school card events beyond this week. Never read the device clock. The demo calendar drives the dateline, the phase of the day, countdowns and what has passed.
 3. **Nothing is sent without the parent.** Every message to another person is a draft she can edit, and it goes only when she taps Send or hands it to another app herself. Nothing in the app sends, posts or answers on her behalf.
 4. **MVP never writes to her calendar.** No code path adds, changes or deletes a calendar event, and no copy or icon suggests that MVP does. A move accepted from the coach card changes the plan only.

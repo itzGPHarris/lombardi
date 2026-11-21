@@ -60,7 +60,6 @@ This file holds IDs and sequence. Nothing else.
 2. C65: commit the current documents and push them to GitHub
 3. C57: choose the build agent and connect the repository
 4. C58: the wireframes into `docs/wireframes/`, or frames for the screens that have none
-5. C61: move the retired code to `archive/`, and write the alpha's first prompt
 
 ## Alongside, not blocking the alpha
 

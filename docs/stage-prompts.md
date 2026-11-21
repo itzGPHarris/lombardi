@@ -23,11 +23,11 @@ If Greg has corrected the agent more than twice on the same problem, the session
 The prompts assume the "Before the alpha" steps in the backlog are done. Four of them matter directly to the first stage:
 
 - **C59.** `src/tokens.css` is exported again from the library. Stage 1 builds every component on these values, so an out-of-date export would put the wrong values into every later stage.
-- **C61.** The October code is moved to `archive/`, and the tooling it keeps stays in place: `package.json` and its scripts, the voice check, the schema validator, the voice and schema tests, `netlify.toml` and the Icon component.
+- **C61.** Done on November 20, 2026. The October code is in `archive/`, and the tooling stays in place: `package.json` and its scripts, the voice check, the schema validator, the lint and voice check tests, `netlify.toml`, `src/tokens.css` and the Icon component. `src/main.jsx` renders an empty root until Stage 1 replaces it.
 - **C58.** The wireframes are in `docs/wireframes/`, because the screen map names them as the fallback for screens with no frame.
 - **Step 5's review.** The boards on "Design - lombardi · post-review" are marked Ready for dev.
 
-When C61 lands, `tests/fixtures.test.js` will fail, because it imports the retired seed. Stage 2 rewrites it under D3. Until then the agent may skip that one test file in `npm test` and must say so in its report. It may not delete or edit the file.
+The October fixtures, schema and session tests checked the retired seed, so they moved to `archive/tests/` with it, and `npm run check` passes with the lint and voice check tests alone. Stage 2 writes the fixtures test (D3) and a schema test against the new seed, and Stage 1 adds tests for the demo calendar it builds.
 
 ---
 
@@ -70,11 +70,11 @@ Read these before anything else:
 - The rows for D3 and T27 in docs/issues.csv.
 - scripts/validate-schema.mjs, scripts/voicecheck.mjs and the tests in tests/.
 
-This stage writes Charlotte's household as data, with no screens. Replace the Stage 1 stub with src/data/households/charlotte.json in the shape spec section 16 sets out, write the MVP Editorial articles her week uses into src/data/articles/, and write every interface string from fixtures section 4 into src/copy/. The October schema was retired under C61, so write the schema again from spec section 16 for the validator to check against.
+This stage writes Charlotte's household as data, with no screens. Replace the Stage 1 stub with src/data/households/charlotte.json in the shape spec section 16 sets out, write the MVP Editorial articles her week uses into src/data/articles/, and write every interface string from fixtures section 4 into src/copy/. The October schema was retired under C61, so write the schema again from spec section 16 for the validator to check against, and write tests/schema.test.js to validate the seed and the articles against it.
 
 Work one moment at a time, from C-00 to C-09, and run npm run check after each moment, so an error is found in the moment that caused it. Every word and every value comes from the fixtures word for word. Every time is a demo time relative to the demo week, and every date is worked out from meta.demoWeekStart rather than typed in. Where the fixtures leave a value out, add a row to docs/issues.csv and leave the value out. Never fill it in.
 
-D3 rewrites tests/fixtures.test.js so that it walks every displayed string in the seed, the articles and the copy, and fails when one doesn't appear word for word in docs/story-fixtures.md. Values worked out from the demo calendar, such as dates, are excluded. T27 checks every run's leaving times against the rule in spec section 5: the next stop's due time, minus the drive, minus five minutes, rounded down to five minutes, and never before the stop it leaves is due. Write T27 as a test too.
+D3 writes a new tests/fixtures.test.js that walks every displayed string in the seed, the articles and the copy, and fails when one doesn't appear word for word in docs/story-fixtures.md. Values worked out from the demo calendar, such as dates, are excluded. T27 checks every run's leaving times against the rule in spec section 5: the next stop's due time, minus the drive, minus five minutes, rounded down to five minutes, and never before the stop it leaves is due. Write T27 as a test too.
 
 Before you write any data, write a plan and wait for my review of it. The plan should show the top level of the seed with one moment filled in as an example, list the articles and copy files you will create, and say how the fixtures test tells a displayed string from an ID or a key.
 
