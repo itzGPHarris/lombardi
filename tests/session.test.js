@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { initialSession, placeFor, sessionReducer } from '../src/demo/session.js';
-import stub from '../src/demo/stub-charlotte.json';
+import stub from '../src/data/households/charlotte.json';
 
 // Spec §15, "Charlotte's moments": C-00 to C-15 without C-14.
 const specMoments = ['C-00', 'C-01', 'C-02', 'C-03', 'C-03a', 'C-03b', 'C-04', 'C-04b', 'C-05', 'C-05b', 'C-05c', 'C-06', 'C-06b',

@@ -1,0 +1,951 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Household seed",
+  "description": "Written from docs/spec.md section 16. The validator in scripts/validate-schema.mjs supports a small vocabulary, so tests/schema.test.js checks the top-level keys and references itself.",
+  "type": "object",
+  "required": [
+    "meta",
+    "people",
+    "children",
+    "schools",
+    "places",
+    "travel",
+    "calendar",
+    "planItems",
+    "runs",
+    "rules",
+    "captures",
+    "requests",
+    "groups",
+    "chats",
+    "conversation",
+    "coachCards",
+    "reminders",
+    "recommended",
+    "moments"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "id",
+        "fixturesVersion",
+        "demoWeekStart",
+        "coachAdds",
+        "zip",
+        "invented",
+        "notifications"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "charlotte",
+            "calypso",
+            "alexandra",
+            "marcus"
+          ]
+        },
+        "fixturesVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$"
+        },
+        "demoWeekStart": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "coachAdds": {
+          "type": "object",
+          "required": [
+            "calendar",
+            "schoolDay",
+            "trips"
+          ],
+          "properties": {
+            "calendar": {
+              "type": "boolean"
+            },
+            "schoolDay": {
+              "type": "boolean"
+            },
+            "trips": {
+              "type": "boolean"
+            }
+          }
+        },
+        "zip": {
+          "type": "string",
+          "pattern": "^\\d{5}$"
+        },
+        "invented": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "gap"
+            ],
+            "properties": {
+              "gap": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          }
+        },
+        "notifications": {
+          "enum": [
+            "on",
+            "off-never-asked",
+            "off-declined"
+          ]
+        }
+      }
+    },
+    "people": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/person"
+      }
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/child"
+      }
+    },
+    "schools": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/school"
+      }
+    },
+    "places": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "name": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    },
+    "travel": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "minutes"
+        ],
+        "properties": {
+          "from": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "to": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "minutes": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "calendar": {
+      "type": "object",
+      "required": [
+        "provider",
+        "name",
+        "events"
+      ],
+      "properties": {
+        "provider": {
+          "enum": [
+            "google",
+            "apple",
+            "outlook",
+            null
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "time",
+              "weekly",
+              "place",
+              "planItem"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "time": {
+                "$ref": "#/$defs/demoTime"
+              },
+              "weekly": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "planItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/planItem"
+      }
+    },
+    "runs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/run"
+      }
+    },
+    "rules": {
+      "type": "array"
+    },
+    "captures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "entry",
+          "received",
+          "kinds"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "entry": {
+            "enum": [
+              "share-menu",
+              "forwarding",
+              "camera",
+              "voice",
+              "typed",
+              "card-add",
+              "calendar",
+              null
+            ]
+          },
+          "kinds": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "one-off-event",
+                "recurring-rule",
+                "reference"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "requests": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/request"
+      }
+    },
+    "groups": {
+      "type": "array"
+    },
+    "chats": {
+      "type": "array"
+    },
+    "conversation": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/message"
+      }
+    },
+    "coachCards": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/coachCard"
+      }
+    },
+    "reminders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "target",
+          "minutesBefore",
+          "set"
+        ],
+        "properties": {
+          "set": {
+            "type": "boolean"
+          },
+          "minutesBefore": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "recommended": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "article",
+          "reason"
+        ],
+        "properties": {
+          "reason": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    },
+    "moments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/moment"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "hhmm": {
+      "type": "string",
+      "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+    },
+    "demoTime": {
+      "type": "object",
+      "required": [
+        "week",
+        "day",
+        "time"
+      ],
+      "properties": {
+        "week": {
+          "type": "integer"
+        },
+        "day": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(mon|tue|wed|thu|fri|sat|sun)$"
+        },
+        "time": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+        }
+      }
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "state"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "proposed",
+            "asked",
+            "accepted",
+            "declined"
+          ]
+        },
+        "person": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        }
+      }
+    },
+    "mark": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "updated",
+            "conflict"
+          ]
+        },
+        "with": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "person": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "group",
+        "hasMVP"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "group": {
+          "enum": [
+            "parent",
+            "circle",
+            "people"
+          ]
+        },
+        "line": {
+          "$ref": "#/$defs/text"
+        },
+        "hasMVP": {
+          "type": "boolean"
+        },
+        "contact": {
+          "type": "object",
+          "required": [
+            "kind",
+            "label",
+            "number"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "mobile",
+                "practice"
+              ]
+            },
+            "label": {
+              "$ref": "#/$defs/text"
+            },
+            "number": {
+              "type": "string",
+              "pattern": "^\\d{3}-555-01\\d{2}$"
+            }
+          }
+        }
+      }
+    },
+    "child": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "age",
+        "grade",
+        "school",
+        "teacher",
+        "weekly",
+        "goingWith"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "school": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "teacher": {
+          "$ref": "#/$defs/text"
+        },
+        "weekly": {
+          "type": "array"
+        },
+        "goingWith": {
+          "type": "array"
+        }
+      }
+    },
+    "fact": {
+      "type": "object",
+      "required": [
+        "id",
+        "section",
+        "text",
+        "changed",
+        "history"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "section": {
+          "enum": [
+            "hours",
+            "contacts",
+            "rules",
+            "calendar",
+            "rotation",
+            "documents"
+          ]
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "changed": {
+          "type": "boolean"
+        },
+        "history": {
+          "type": "array"
+        }
+      }
+    },
+    "school": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "shortName",
+        "facts",
+        "documents"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "shortName": {
+          "$ref": "#/$defs/text"
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          }
+        },
+        "documents": {
+          "type": "array"
+        }
+      }
+    },
+    "planItem": {
+      "type": "object",
+      "required": [
+        "id",
+        "time",
+        "title",
+        "children",
+        "kind",
+        "type",
+        "fromCalendar",
+        "source"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "time": {
+          "$ref": "#/$defs/demoTime"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "children": {
+          "type": "array"
+        },
+        "kind": {
+          "enum": [
+            "routine",
+            "this-week"
+          ]
+        },
+        "type": {
+          "enum": [
+            "event",
+            "trip",
+            "task"
+          ]
+        },
+        "fromCalendar": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "array",
+          "minItems": 1
+        },
+        "taskKind": {
+          "enum": [
+            "trip",
+            "anytime"
+          ]
+        }
+      }
+    },
+    "stop": {
+      "type": "object",
+      "required": [
+        "place",
+        "on",
+        "off"
+      ],
+      "properties": {
+        "place": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "dueAt": {
+          "type": "string",
+          "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+        },
+        "leaveAt": {
+          "type": "string",
+          "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+        },
+        "on": {
+          "type": "array"
+        },
+        "off": {
+          "type": "array"
+        }
+      }
+    },
+    "backup": {
+      "type": "object",
+      "required": [
+        "label",
+        "coachLine",
+        "button"
+      ],
+      "properties": {
+        "label": {
+          "enum": [
+            "B",
+            "C"
+          ]
+        },
+        "coachLine": {
+          "$ref": "#/$defs/text"
+        },
+        "button": {
+          "type": "object",
+          "required": [
+            "label",
+            "action"
+          ]
+        }
+      }
+    },
+    "run": {
+      "type": "object",
+      "required": [
+        "id",
+        "day",
+        "stops"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "day": {
+          "$ref": "#/$defs/demoTime"
+        },
+        "stops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/stop"
+          }
+        },
+        "backups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/backup"
+          }
+        }
+      }
+    },
+    "message": {
+      "type": "object",
+      "required": [
+        "id",
+        "from",
+        "kind",
+        "at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "from": {
+          "enum": [
+            "parent",
+            "coach"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "capture",
+            "voice-note",
+            "question",
+            "read-back",
+            "options",
+            "plan",
+            "answer",
+            "taught"
+          ]
+        },
+        "at": {
+          "$ref": "#/$defs/demoTime"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "text",
+              "recommended"
+            ],
+            "properties": {
+              "title": {
+                "$ref": "#/$defs/text"
+              },
+              "text": {
+                "$ref": "#/$defs/text"
+              },
+              "recommended": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "coachCard": {
+      "type": "object",
+      "required": [
+        "id",
+        "day",
+        "text",
+        "button"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "button": {
+          "type": "object",
+          "required": [
+            "label",
+            "action"
+          ]
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "required": [
+        "id",
+        "channel",
+        "text"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "channel": {
+          "enum": [
+            "in-mvp",
+            "text-link",
+            "handoff"
+          ]
+        },
+        "text": {
+          "$ref": "#/$defs/text"
+        },
+        "items": {
+          "type": "array"
+        }
+      }
+    },
+    "itemState": {
+      "type": "object",
+      "required": [
+        "id",
+        "inPlan",
+        "owner",
+        "status",
+        "marks",
+        "note"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "inPlan": {
+          "type": "boolean"
+        },
+        "owner": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "marks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mark"
+          }
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "momentState": {
+      "type": "object",
+      "required": [
+        "planItems",
+        "reviewCard",
+        "conversation",
+        "captures",
+        "requests",
+        "groups",
+        "chats",
+        "schools",
+        "reminders",
+        "unread",
+        "omitted"
+      ],
+      "properties": {
+        "planItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/itemState"
+          }
+        },
+        "omitted": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "part",
+              "issue"
+            ]
+          }
+        }
+      }
+    },
+    "moment": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "time",
+        "opensOn"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^C-\\d{2}[a-z]?$"
+        },
+        "label": {
+          "$ref": "#/$defs/text"
+        },
+        "time": {
+          "$ref": "#/$defs/demoTime"
+        },
+        "opensOn": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "$ref": "#/$defs/momentState"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "at",
+              "change",
+              "set"
+            ],
+            "properties": {
+              "at": {
+                "$ref": "#/$defs/demoTime"
+              },
+              "change": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
