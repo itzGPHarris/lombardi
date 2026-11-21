@@ -1,0 +1,24 @@
+/* The library's Tab Bar (150:327): 24 at the sides and foot, 16 above, the five tabs spread across. */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-16) var(--space-24) var(--space-24);
+  background: inherit;
+}
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: var(--size-tap-target);
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-pill);
+  color: var(--interactive-default);
+}
+.tab[aria-current='page'] { background: var(--bg-control); color: var(--interactive-pressed); }
+.tab:active { color: var(--interactive-pressed); }
+.label { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); white-space: nowrap; }
+:global([data-keyboard='open']) .bar { display: none; }
+@media (min-width: 768px) { .bar { display: none; } }

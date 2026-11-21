@@ -1,0 +1,28 @@
+/* The library's AdultAvatar at size/chip inside a 44 tap target. The outline is the avatar's own
+   adult stroke, drawn with the thin keyword because no stroke width is a token (issue C69). */
+.target {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-tap-target);
+  height: var(--size-tap-target);
+  margin-right: calc(var(--space-8) * -1);
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-chip);
+  height: var(--size-chip);
+  border: thin solid var(--adult);
+  border-radius: var(--radius-pill);
+  background: var(--bg-control);
+  color: var(--adult);
+  /* Inter 10 at 600, as AdultAvatar sets it: the subtitle style supplies the weight and family. */
+  font: var(--text-subtitle);
+  font-size: var(--type-size-10);
+  line-height: 1;
+}
