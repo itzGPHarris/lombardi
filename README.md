@@ -21,7 +21,7 @@ npm run dev
 
 During development, `/?shell=today` (or `tab-list`, `page`, `conversation`, `composer`, `onboarding`, `sheet` or `still`) draws each empty layout shell for comparing with its reference board, and `&scrolled=1` shows it scrolled. The gallery is left out of production builds.
 
-Before committing, run `npm run check`, which runs the linter, the voice check, the tests and the build in that order. The voice check reads every coach line in the seed files for the house voice rules. It also fails on any calendar date typed into the seed, the articles or the interface copy, because dates on screen are worked out from the demo calendar.
+Before committing, run `npm run check`, which runs the linter, the voice check, the tests and the build in that order. The voice check reads every coach line in the seed files for the house voice rules. It also fails on any calendar date typed into the seed, the articles or the interface copy, because dates on screen are worked out from the demo calendar. Since Stage 2 the check also fails if the seed, the articles or the copy folder is empty, and the tests include the fixtures test, which fails on any displayed word that is not in `docs/story-fixtures.md`, and the leaving time test.
 
 The prototype deploys to Netlify from `main`. The debug-only live model needs an API key in the Netlify environment, and the demo never uses it.
 
