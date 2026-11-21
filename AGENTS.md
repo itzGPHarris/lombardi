@@ -4,7 +4,7 @@ These are the instructions for the build agent working in this repository. The a
 
 You are a senior engineer who has shipped products from the ground up, and you are the only engineer on this phase of the work. You own the code and the development stack: how the code is structured, its quality and its tests, and you build it as something the engineer who joins after funding can take over without a rewrite. Greg owns the product decisions and the documents, so the scope of each stage comes from the backlog and the spec, not from what you would add.
 
-*Current versions: story fixtures 3.48, spec 0.48. Last updated November 20, 2026.*
+*Current versions: story fixtures 3.48, spec 0.49. Last updated November 21, 2026.*
 
 ## What this repository is
 
@@ -40,7 +40,7 @@ Do not seed `src/tokens.css` from the old `hearth-tokens.json` in Greg's design 
 - Mobile first: write every style for a 440 × 956 phone, the width of the Figma frames, then extend with min-width media queries at the tablet (768) and desktop (1280) breakpoints, which are tokens. Check at 440 × 956, 390 × 844, 768 × 1024, 1440 × 900 and 1920 × 1080. Content width stops growing at 1200.
 - At tablet and desktop widths the tab bar becomes a sidebar, headed by the wordmark "Most Valuable Parent", with Settings at its foot. Today, Coach, Team and Kids keep their phone layout in a centered column, and the game plan opens into seven columns. Do not build a wide Today (F20).
 - Plain CSS modules. No UI component library and no CSS framework.
-- Every color, space, radius, size and type value comes from a custom property in `src/tokens.css`. Never write a raw hex value, pixel size or font name in a component.
+- Every color, space, radius, size, type value, duration and easing curve comes from a custom property in `src/tokens.css`. Never write a raw hex value, pixel size, font name, duration or curve in a component. The only exceptions are the stars' loop and the onboarding entrances' delays, which spec §19 "Motion" gives in its table.
 - `useReducer` and context, one reducer per household session. No persistence of any kind, so state resets on reload.
 - Icons from Material Symbols first (`@material-symbols/svg-400`, Outlined, through `vite-plugin-svgr`), then `lucide-react`, then custom SVGs, all drawn through one `Icon` component that takes the name used in Figma, such as `phase-morning` or `calendar-mark`. The source for each name is in the variant description on the Figma Icons page. Never import an icon directly in a screen, and never use `@mui/icons-material`.
 - Fraunces, Inter and JetBrains Mono, self-hosted through `@fontsource`. No fourth font. The type scale is in fixtures section 2, "Type": nine styles named as in the library. Fraunces sets titles and headlines only, never a paragraph or other running text. The coach is set in Inter everywhere: Voice in onboarding, Body large on the Today coach card and Body in the Coach tab. Voice-strong, in Fraunces at semibold, sets article titles. JetBrains Mono is used only for the Label style, which sets the labels the coach owns: the coach card's label, the read-back strip's label and the day labels on the review card.
@@ -76,7 +76,7 @@ Each source decides one thing, and none of them overrules another on that thing.
 | Question | Decided by |
 | ----- | ----- |
 | How a screen looks: layout, which elements appear and in what order, components, type styles, spacing and states | The Figma frame named for that screen in `docs/screen-map.md` |
-| Token values: color, space, radius, type sizes | The master library, exported to `src/tokens.css` |
+| Token values: color, space, radius, type sizes, durations and easing | The master library, exported to `src/tokens.css` |
 | The words on screen and the household's facts: names, times, dates, places, grades, every label and every coach line | The story fixtures |
 | What happens when she taps, what is out of scope, and the rules that apply across screens | The spec |
 
@@ -133,6 +133,7 @@ Fixtures section 2 holds the same rules as they apply to the households, and fix
 13. **Status marks never rely on color alone.** Each has its own shape and label, and so do the calendar mark, the chips and the coach's dot.
 14. **No uppercase labels and no letter-spaced eyebrows.** Labels are written in sentence case, as the fixtures give them.
 15. **The live model is never on in a presented demo,** and it never writes as another person.
+16. **Only what spec §19 "Motion" lists moves, and each motion has its reduced form.** Add no transition, animation or hover effect of your own, including library defaults. Under reduced motion, anything that slides, rises, tilts or changes size appears in place, fades keep their timing and the stars stand still, so a blanket rule that sets every duration to zero is not enough.
 
 ## Decisions that are still open
 

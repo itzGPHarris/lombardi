@@ -1,5 +1,5 @@
 /* Most Valuable Parent: design tokens.
-   Checked against the Figma library mvp-design-library (A3SHbWiO5cyRDtIZ9sNNz7), Hearth collection, Light mode, and its 13 text styles on November 20, 2026 (issue C59). All 92 variables and 13 text styles match the library.
+   Checked against the Figma library mvp-design-library (A3SHbWiO5cyRDtIZ9sNNz7), Hearth collection, Light mode, and its 13 text styles on November 20, 2026 (issue C59), with the six motion variables added on November 21, 2026 (spec 0.49, issue C75). All 98 variables and 13 text styles match the library.
    Do not edit by hand. Change the library, then export again (issue C20).
    Components use the semantic tokens. Primitives are listed so the semantic tokens can point at them, and no component reads a primitive directly.
    Open in the library, not here (issue C33): the title style's 20px size has no type/size variable. */
@@ -138,6 +138,14 @@
   --text-meta-tracking: 0;
   --text-meta-strong: 800 var(--type-size-13)/1.4 var(--type-family-mono);
   --text-meta-strong-tracking: 0;
+
+  /* Motion, from the library's motion group. Spec section 19, "Motion", says which animation uses which. */
+  --motion-duration-quick: 200ms;
+  --motion-duration-standard: 300ms;
+  --motion-duration-slow: 700ms;
+  --motion-ease-out: cubic-bezier(0, 0, 0.58, 1);
+  --motion-ease-in-out: cubic-bezier(0.5, 0, 0.5, 1);
+  --motion-ease-overshoot: cubic-bezier(0.45, 1.45, 0.8, 1);
 }
 
 /* Breakpoints cannot be read from custom properties inside a media query, so the values are repeated here: tablet from 768px, desktop from 1280px. */

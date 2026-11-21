@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.48 · November 20, 2026*
+*Investor prototype · Version 0.49 · November 21, 2026*
 
 ## **Summary of this version**
+
+Version 0.49 adds Motion to §19: every animation the prototype builds, with its trigger, timing, reduced form and stage, and six motion tokens in the library. Sheets slide up as on iOS, pages fade, tabs change at once, the coach card fades in and crossfades when she answers, Today's pass swings in and settles when it has something new to show, and the stars keep moving wherever they appear (issue C75).
 
 Version 0.48 names the build tool: Claude Code, running Claude Opus 5.5 (§17, issue C57). Documents still call whoever writes the code the build agent.
 
@@ -1676,7 +1678,7 @@ The following are not built in this phase:
 
 # 19. Design tokens and platform constraints
 
-Every design value in the app, including color, spacing, radius and type, is a CSS custom property in `src/tokens.css`, exported from the Figma library. **That file is the source of truth.** This document names only the values Greg set on October 17 and 18, 2026 with the new surface ramp, so the engineer can check the export against them: canvas #F0ECE5, card #F9F7F3, `bg/control` #FFFEFC, cerulean #007198, pressed #004F6B, the cerulean tint (`interactive/tint`, `cerulean/100`) #E1EEFC, and the children's indigo #22549A on #DDE5ED (issues C42, C44 and C46). Fixtures section 2, "Color", says what each is for.
+Every design value in the app, including color, spacing, radius, type, duration and easing, is a CSS custom property in `src/tokens.css`, exported from the Figma library. **That file is the source of truth.** This document names only the values Greg set on October 17 and 18, 2026 with the new surface ramp, so the engineer can check the export against them: canvas #F0ECE5, card #F9F7F3, `bg/control` #FFFEFC, cerulean #007198, pressed #004F6B, the cerulean tint (`interactive/tint`, `cerulean/100`) #E1EEFC, and the children's indigo #22549A on #DDE5ED (issues C42, C44 and C46). Fixtures section 2, "Color", says what each is for.
 
 **Which surface a screen sits on.** Today is the only screen with canvas, for the sheet that carries the coach card, Later today and MVP Editorial, and its header and Now sit on `bg/card` as §5 sets out. Every other screen sits on `bg/card`: the Coach tab, the game plan, Team, Kids, every page opened inside a tab, every sheet and composer, Settings and onboarding. On those screens, a part that has no fill of its own, such as a field, a row of choices or a list group, takes `bg/control` so it stands clear of the card behind it. Canvas was too dark as the background for a whole screen, and Greg moved the boards to card on October 18, 2026 (issue C48). The capture bar and the tab bar take the surface of the screen they sit on.
 
@@ -1724,6 +1726,41 @@ These live here rather than in Figma because a single frame cannot show them.
 
 * **The phone design comes first.** Every screen is designed at 440 × 956 before any other size, and checked at 390 × 844, and nothing exists only on desktop.
 * **Tap targets are at least 44 pt** at every size.
+
+## **Motion**
+
+Motion in MVP adds a little life and shows where something came from and where it went. It is kept to the rows below for the prototype, and anything not in this table does not move. Every duration and easing curve comes from a motion token in `src/tokens.css`, except the stars' loop and the onboarding entrances' delays, which are written in the table because they belong to one animation each. The motion was gathered from the Figma prototype on November 21, 2026, and Greg decided how sheets, pages, tabs and the coach card move the same day (issue C75).
+
+When the phone asks for reduced motion, anything that slides, rises, tilts or changes size appears in place instead, fades keep their timing, and the stars stand still at their resting positions. Each row gives its reduced form.
+
+| Motion | Where | When | What moves and how | Timing and easing | Reduced motion | Figma source | Stage |
+| ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| Steam stars | The splash (0s), "Investor demo · start", and the brand header on Ruth's web page | While the screen is open | Three small stars rise from the mark like steam. Each grows from 20% to 120% of its size as it climbs about 80 px, turns from 15° to −15°, fades out over the last sixth of its climb and starts again. They run a third of a loop apart, so one is always rising. They keep moving wherever they appear. | A 3 s loop, linear | The stars stand still | 0s `2853:12205`, Ruth's page `3167:18251` | 4, and Alpha 2 for Ruth's page |
+| Onboarding entrance | The splash, 0a, 0k, 0k-b, 0k-c, 0r, 0t, 0w, 0e, 0q and 0j | The screen opens | Each block fades in and rises 30 px into place, in order: the illustration, the headline, the line beneath it, then the fields or choices. On 0j, the coach's two lines rise in turn and the button and tick boxes fade in last. | `standard` each, starting at 0, 120, 250 and 410 ms (0j's controls at about 1.1 s); fade `ease-in-out`, rise `ease-out` | Fade only | 0w `2853:12929`, 0j `2853:12168` | 4 |
+| Getting ready steps | 0p | The screen opens | Each step's bar fills from left to right, its check pops in, and the next step's label brightens. | `slow` a step; the check `standard` with `ease-overshoot` | Each check appears as its step finishes | `2853:12907` | 4 |
+| Account prompt | 0c | The draft has shown | For You slides up from below the draft. | `quick`, `ease-out` | Appears in place | `2853:12042` | 4 |
+| Today's pass swings in | Now on Today, including her first board (0i-a) | Today first appears after the app opens or the demo jumps to a moment, and whenever Now shows a different departure, such as the next pass after a leg ends or the evening's pass for tomorrow. Not when she returns to Today from another tab, because nothing on the pass has changed. | The pass swings in from a 3.8° tilt and settles level, then the trip's stops, or the fields of a single leg, rise 60 px into place and settle. | Pass `standard`; stops start after the pass and take `standard`; both `ease-overshoot` | Both appear in place | 0i-a `2853:13795` | 3 |
+| Trip pass, next leg | Today's trip pass | A stop passes | The top of the pass changes to the next leg in place, and the timetable marks the stop behind her. This is a change inside the pass, not the swing above. | `standard`, `ease-out` | Changes in place | C-03b `2853:13876` and its timed states | 3 |
+| Check and fold | Today's checklist and the evening reminders | She ticks a child's last item, or the last item of all | The group folds to one line, such as "Alexis · 3 packed". When the whole checklist is done, it folds to "Everything is packed for 7:40am" and its check draws in once (§5), and not again when she scrolls or returns to Today. | Fold `standard`, `ease-out`; check `standard` | The folded line and the check appear in place | 0i-a checklist items | 3 |
+| Coach card | Today | The card first appears, or she answers it | It fades in while rising 8 px. After she answers, the muted recommendation, "Agreed" or the plan she chose, and the follow-up crossfade into place, so the card never jumps. | Appearing `standard`, `ease-out`; the answer `quick` crossfade, `ease-in-out` | Appearing fades without rising; the answer crossfades | — | 3 |
+| Sheets | Every sheet, such as the Leave sheet | She opens or closes one | The sheet slides up from the bottom of the screen while the scrim fades in, as on iOS, and slides back down while the scrim fades out. A sheet never opens another sheet, so only one is ever moving. | Opening `standard`, `ease-out`; closing `quick`, `ease-in-out` | The sheet and scrim fade without sliding | — | 3, in the sheet shell Stage 1 built |
+| Title fade | Tab lists and pages | She scrolls | As §2, "The title fades into the bar" | Follows the scroll position | As §2 | — | 1 (built) |
+| Today's sheet rises | Today | She scrolls | As §5, "Scrolling" | Follows her finger | Unchanged, because it follows her finger | — | 3 |
+| Pages | Any page opened inside a tab, such as a child page, an item page or a chat | She opens a page, or taps Back | A quick fade from one screen to the other, in both directions. Pages do not push sideways. | `quick`, `ease-in-out` | Unchanged, because it is a fade | — | 5 |
+| Tabs | The tab bar and the sidebar | She taps a tab | Nothing moves. The tab changes at once, as tab bars on iOS do. | None | None | — | 1 (built) |
+| Days open and close | The game plan | She taps a day's heading | The day's rows expand or collapse. | `quick`, `ease-out` | Expands and collapses without animating | C-04 game plan | 5 |
+| Item lands | The game plan | She adds an item from the review card, or moves one | As §8, "She sees where an item lands" | Tint held about 2 s, fading over `standard` | As §8 | — | 6 |
+| Read-back strip | The game plan | She gives the coach something | As §8: the strip rises above the capture bar | `standard`, `ease-out` | Appears in place | — | 6 |
+| Conflict notice | Above the tab bar | The coach finds a conflict while she is in the app | As §8, rising in and fading out | In `standard`, held about 4 s, out `standard` | Appears and goes in place | — | 6 |
+
+### **Standing decisions**
+
+1. **Life, not choreography.** The prototype gets the motion above and nothing more until it works end to end. A new motion gets a row here before it is built.
+2. **Sheets move as iOS sheets do,** because her phone has taught her what a sheet is.
+3. **Pages fade rather than push.** A sideways push reads as a swipe the prototype does not support, and a quick fade keeps her in place.
+4. **Tabs change at once,** because a parent switching tabs is looking for something, and any animation slows her down.
+5. **The pass swings in only when it has something new to show,** so it greets her without replaying every time she comes back to Today.
+6. **The stars always move where they appear,** except under reduced motion. They are the brand's one signature motion, and Ruth's web page is the first time she sees MVP.
 
 # 20. The playbook
 
@@ -1809,6 +1846,15 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.49, November 21, 2026**
+
+The motion inventory and Greg's decisions on it.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §19 | New Motion section: the table of every animation, the reduced-motion rule and six standing decisions. Sheets slide up and down as on iOS, pages fade, tabs change at once, the coach card fades in and rises 8 px and crossfades after she answers, Today's pass swings in and settles when it shows a new departure, and the stars move wherever they appear. Closes C75 once Stage 6 lands. |
+| 2 | §19 | Six motion tokens added to the library and `src/tokens.css`: three durations and three easing curves. The 250 ms fold and the pass's back-and-settle curve in the Figma prototype become the standard duration and the overshoot curve. |
 
 ## **v0.48, November 20, 2026**
 
