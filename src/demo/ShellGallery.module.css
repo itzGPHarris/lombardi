@@ -2,7 +2,7 @@
 .row { height: var(--space-56); margin-bottom: var(--space-12); border-radius: var(--radius-md); background: var(--bg-subtle); }
 .card { height: calc(var(--space-56) * 2); margin-bottom: var(--space-16); border-radius: var(--radius-lg); background: var(--bg-card); }
 .message { height: calc(var(--space-56) * 1.5); margin-bottom: var(--space-16); border-radius: var(--radius-md); background: var(--bg-subtle); }
-.dateline { height: var(--space-24); width: 60%; margin-bottom: var(--space-32); border-radius: var(--radius-sm); background: var(--bg-subtle); }
+.dateline { height: var(--space-24); width: 60%; border-radius: var(--radius-sm); background: var(--bg-subtle); }
 .pass { height: calc(var(--space-56) * 3); margin-bottom: var(--space-24); border-radius: var(--radius-lg); background: var(--kid-bg); }
 .capture { height: var(--space-56); margin: var(--space-12) var(--space-24); border: thin solid var(--coach); border-radius: var(--radius-pill); background: var(--bg-control); }
 .action { height: var(--size-tap-target); width: calc(var(--space-56) * 2.5); border-radius: var(--radius-pill); background: var(--interactive-default); }

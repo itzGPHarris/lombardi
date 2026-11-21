@@ -1,0 +1,68 @@
+/* The presenter's controls. They sit above everything, sheets included, and use the same tokens. */
+.layer { position: fixed; inset: 0; z-index: 100; display: flex; align-items: flex-end; justify-content: center; }
+@media (min-width: 768px) { .layer { align-items: center; } }
+.scrim { position: absolute; inset: 0; background: color-mix(in srgb, var(--ink-primary) 40%, transparent); }
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  width: 100%;
+  max-width: var(--layout-phone-column);
+  max-height: calc(100dvh - var(--space-40));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-20) var(--space-20) var(--space-32);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--bg-card);
+}
+@media (min-width: 768px) { .panel { border-radius: var(--radius-xl); } }
+.panel:focus { outline: none; }
+.panelHeader { display: flex; align-items: center; justify-content: space-between; }
+.panelTitle { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); }
+.iconButton { display: inline-flex; align-items: center; justify-content: center; width: var(--size-tap-target); height: var(--size-tap-target); margin-right: calc(var(--space-12) * -1); }
+.section { display: flex; flex-direction: column; gap: var(--space-8); }
+.sectionTitle { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.row { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.choices { display: flex; flex-direction: column; gap: var(--space-8); }
+.choice, .secondary {
+  min-height: var(--size-tap-target);
+  padding: var(--space-8) var(--space-16);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-pill);
+  background: var(--bg-control);
+  color: var(--ink-primary);
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
+}
+.choice[aria-pressed='true'] { border-color: var(--interactive-default); background: var(--interactive-tint); color: var(--interactive-pressed); }
+.secondary { align-self: flex-start; }
+.moments { display: flex; flex-direction: column; }
+.moment {
+  display: grid;
+  grid-template-columns: calc(var(--space-56) + var(--space-4)) 1fr;
+  gap: var(--space-12);
+  width: 100%;
+  min-height: var(--size-tap-target);
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-md);
+  text-align: left;
+}
+.moment[aria-current='true'] { background: var(--interactive-tint); }
+.momentId { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--interactive-default); }
+.momentLabel { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.facts { display: flex; flex-direction: column; gap: var(--space-4); margin: 0; }
+.facts div { display: flex; gap: var(--space-8); }
+.facts dt { font: var(--text-meta); color: var(--ink-muted); }
+.facts dd { margin: 0; font: var(--text-meta); color: var(--ink-primary); }
+
+/* The phone frame at desktop widths */
+.phoneStage { display: flex; align-items: center; justify-content: center; min-height: 100dvh; padding: var(--space-24); background: var(--bg-canvas); }
+.phone {
+  box-sizing: content-box;
+  width: var(--layout-phone-column);
+  height: min(var(--layout-phone-height), calc(100dvh - var(--space-40) - var(--space-8)));
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-xl);
+  background: var(--bg-card);
+}

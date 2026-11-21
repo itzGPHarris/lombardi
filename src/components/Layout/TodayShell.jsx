@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import AppFrame from './AppFrame.jsx';
 import Foot from './Foot.jsx';
+import Monogram from '../shared/Monogram.jsx';
 import TabBar from '../shared/TabBar.jsx';
 import styles from './Layout.module.css';
 
@@ -8,8 +9,9 @@ import styles from './Layout.module.css';
 // on paper, and the canvas sheet with the coach card, Later today and MVP Editorial scrolls up over
 // them, the dateline and the monogram included. The capture bar and the tab bar are anchored at the
 // foot. When the header and Now are taller than the space above the foot, the whole page scrolls as
-// one with the sheet directly under Now (§5, "A tall Now").
-export default function TodayShell({ header, sheet, capture }) {
+// one with the sheet directly under Now (§5, "A tall Now"). The header is one line: the dateline
+// at the left and the monogram at the right (§5, "The dateline names the phase of the day").
+export default function TodayShell({ dateline, now, sheet, capture }) {
   const headerRef = useRef(null);
   const footRef = useRef(null);
   const [tall, setTall] = useState(false);
@@ -28,7 +30,13 @@ export default function TodayShell({ header, sheet, capture }) {
   }, []);
   return (
     <AppFrame surface="card">
-      <div ref={headerRef} className={styles.todayHeader} data-tall={tall || undefined}>{header}</div>
+      <div ref={headerRef} className={styles.todayHeader} data-tall={tall || undefined}>
+        <div className={styles.todayHeaderRow}>
+          <div className={styles.todayDateline}>{dateline}</div>
+          <Monogram />
+        </div>
+        {now}
+      </div>
       <div className={styles.todaySheet}>{sheet}</div>
       <div ref={footRef} className={styles.todayFootWrap}>
         <Foot surface="canvas">

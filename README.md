@@ -19,13 +19,15 @@ npm install
 npm run dev
 ```
 
+During development, `/?shell=today` (or `tab-list`, `page`, `conversation`, `composer`, `onboarding`, `sheet` or `still`) draws each empty layout shell for comparing with its reference board, and `&scrolled=1` shows it scrolled. The gallery is left out of production builds.
+
 Before committing, run `npm run check`, which runs the linter, the voice check, the tests and the build in that order. The voice check reads every coach line in the seed files for the house voice rules. It also fails on any calendar date typed into the seed, the articles or the interface copy, because dates on screen are worked out from the demo calendar.
 
 The prototype deploys to Netlify from `main`. The debug-only live model needs an API key in the Netlify environment, and the demo never uses it.
 
 ## Presenting it
 
-Open the app on a laptop or a 1920 × 1080 display. The prototype opens on Charlotte's onboarding at the splash. The hidden household switcher (spec §15) lets you choose a household, jump to any moment by ID, see a moment from the recipient's side with View as, show the app in a phone frame or at full width, and reset a household before the next run. Each moment opens in exactly the state the fixtures describe, whatever was tapped before, so you can jump straight to any of them.
+Open the app on a laptop or a 1920 × 1080 display. The prototype opens on Charlotte's onboarding at the splash. The hidden household switcher (spec §15) opens from a long press on the parent's monogram. On a screen without one, such as the splash, onboarding, a composer or a chat, long-press the screen or its top bar instead (issue X4). The switcher lets you choose a household, jump to any moment by ID, see a moment from the recipient's side with View as, show the app in a phone frame or at full width, and reset a household before the next run. Each moment opens in exactly the state the fixtures describe, whatever was tapped before, so you can jump straight to any of them.
 
 At full width, Today, Coach, Team and Kids keep their phone layout in a centered column beside the sidebar. The phone frame is the better way to show them.
 

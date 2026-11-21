@@ -34,7 +34,8 @@ export default function ShellGallery({ type, scrolled, parentInitial }) {
   const navigation = { tab, openTab: setTab, back() {}, openSettings() {}, openSwitcher() {}, parentInitial };
   const today = (
     <TodayShell
-      header={<><div className={styles.dateline} /><div className={styles.pass} /><Blocks count={4} /></>}
+      dateline={<div className={styles.dateline} />}
+      now={<><div className={styles.pass} /><Blocks count={4} /></>}
       sheet={<Blocks count={8} kind="card" />}
       capture={<div className={styles.capture} />}
     />
