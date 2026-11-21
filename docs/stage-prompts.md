@@ -93,16 +93,16 @@ End the stage with the commands you ran and their output, a count of moments, pl
 This session builds Stage 3 of Alpha 1, Today. Its three lines are under "Stage 3: Today" in docs/backlog.md.
 
 Read these before anything else:
-- docs/spec.md section 5 (Today) in full, section 4 (The plan) for how owners, statuses and marks are drawn, and section 19 for which surface Today sits on.
+- docs/spec.md section 5 (Today) in full, section 4 (The plan) for how owners, statuses and marks are drawn, and section 19 for which surface Today sits on and, under "Motion", the rows marked for Stage 3.
 - docs/screen-map.md, the section "Today", and the frames it names for each moment.
 - docs/story-fixtures.md section 2, "Today shows today", the Today part of each moment from C-01 to C-09 in section 3, and section 4, the part headed "Today".
-- The row for T36 in docs/issues.csv.
+- The rows for T36 and T72 in docs/issues.csv. T72 lists the moments whose Today words are not written yet. Build those states from what the fixtures do give, and log anything missing rather than writing it.
 
 Today is home and the screen investors see most. It shows the current day only. The header and Now sit on paper at the top, and the coach card, Later today and MVP Editorial sit on a canvas sheet that rises over them when she scrolls, built with sticky positioning as spec section 5 "Scrolling" sets out, never by copying the frames' scroll layers. The pass is a tinted surface rather than a card, the coach card is the only card on Today, and every Today state comes from the seed written in Stage 2.
 
 Build every Today state the screen map lists for C-01 to C-09, including the single-leg and trip passes, the status pill at each urgency, the checklist and how it folds, the coach card and its after-answer forms, Later today, MVP Editorial, the evening and the capture bar. Then build the Leave sheet with its line and backups, and the reminder sheet. Today changes one thing, when she leaves, so nothing on it edits a note, an owner or a day.
 
-Before you change any code, write a plan and wait for my review of it. The plan should list the components you will build and which Today states each one appears in, and say how Today decides what Now shows at a given demo time, including the evening and the case where nothing timed is left today.
+Before you change any code, write a plan and wait for my review of it. The plan should list the components you will build and which Today states each one appears in, and say how Today decides what Now shows at a given demo time, including the evening and the case where nothing timed is left today. It should also list each Motion row marked for Stage 3 and the component that carries it, and say when the pass swings in.
 
 When each line is done, run npm run check and commit. Render every Today state at 440 x 956 beside its frame, list the differences and fix them, then check 390, 768 and 1440. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
