@@ -1,0 +1,142 @@
+/* Most Valuable Parent: design tokens.
+   Exported from the Figma library mvp-design-library (A3SHbWiO5cyRDtIZ9sNNz7), Hearth collection, Light mode, on October 14, 2026, and updated by hand on October 17, 2026 for the children's indigo, the adults' gray, the two warning tokens and the new surface ramp with bg/control, and the revised indigo, chip tint and cerulean (issues C42, T45 and C44), to match the library until the next full export.
+   Do not edit by hand. Change the library, then export again (issue C20).
+   Components use the semantic tokens. Primitives are listed so the semantic tokens can point at them, and no component reads a primitive directly. */
+
+:root {
+  /* Primitives */
+  --primitives-neutral-cream-50: #f4f1eb;
+  --primitives-neutral-cream-100: #f0ece5;
+  --primitives-neutral-cream-200: #e9e4dc;
+  --primitives-neutral-ink-900: #151412;
+  --primitives-neutral-ink-700: #2b2925;
+  --primitives-neutral-ink-500: #4a4741;
+  --primitives-neutral-ink-400: #6a655f;
+  --primitives-neutral-ink-300: #6e6a62;
+  --primitives-neutral-ink-100: #c8c3b8;
+  --primitives-neutral-paper: #f9f7f3;
+  --primitives-neutral-paper-bright: #fffefc;
+  --primitives-cerulean-100: #dff2fa;
+  --primitives-cerulean-600: #007198;
+  --primitives-cerulean-700: #004f6b;
+  --primitives-pine-100: #ddefe4;
+  --primitives-indigo-100: #dde5ed;
+  --primitives-indigo-600: #22549a;
+  --primitives-pine-600: #2e7652;
+  --primitives-green-100: #e3eade;
+  --primitives-green-600: #46803d;
+  --primitives-amber-100: #fbebd3;
+  --primitives-amber-500: #e39a2d;
+  --primitives-amber-800: #8a5208;
+  --primitives-saffron: #e8a33c;
+  --primitives-status-success: #6b6b6b;
+  --primitives-status-success-tint: #b4cdd4;
+  --primitives-status-warning: #8a6420;
+  --primitives-status-warning-tint: #f5ead2;
+  --primitives-status-error: #a03a3a;
+  --primitives-status-error-tint: #f6e4e4;
+
+  /* Semantic colors */
+  --bg-canvas: var(--primitives-neutral-cream-100);
+  --bg-card: var(--primitives-neutral-paper);
+  --bg-subtle: var(--primitives-neutral-cream-50);
+  --bg-control: var(--primitives-neutral-paper-bright);
+  --ink-primary: var(--primitives-neutral-ink-900);
+  --ink-secondary: var(--primitives-neutral-ink-700);
+  --ink-muted: var(--primitives-neutral-ink-400);
+  --ink-placeholder: var(--primitives-neutral-ink-300);
+  --ink-on-accent: var(--primitives-neutral-paper-bright);
+  --border-hairline: var(--primitives-neutral-ink-100);
+  --border-strong: var(--primitives-neutral-ink-500);
+  --interactive-default: var(--primitives-cerulean-600);
+  --interactive-pressed: var(--primitives-cerulean-700);
+  --interactive-tint: var(--primitives-cerulean-100);
+  --focus-ring: var(--primitives-cerulean-600);
+  --kid: var(--primitives-indigo-600);
+  --kid-bg: var(--primitives-indigo-100);
+  --adult: var(--primitives-neutral-ink-500);
+  --status-warning: var(--primitives-status-warning);
+  --status-warning-tint: var(--primitives-status-warning-tint);
+  --coach: var(--primitives-amber-500);
+  --coach-ink: var(--primitives-amber-800);
+  --coach-bg: var(--primitives-amber-100);
+
+  /* Space */
+  --space-0: 0;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-56: 56px;
+
+  /* Radius */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* Sizes and layout */
+  --size-tap-target: 44px;
+  --size-chip: 26px;
+  --size-chip-small: 22px;
+  --layout-content-max: 1200px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1280px;
+
+  /* Type families */
+  --type-family-display: "Fraunces", Georgia, serif;
+  --type-family-body: "Inter", system-ui, sans-serif;
+  --type-family-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Type sizes */
+  --type-size-10: 10px;
+  --type-size-11: 11px;
+  --type-size-12: 12px;
+  --type-size-13: 13px;
+  --type-size-14: 14px;
+  --type-size-15: 15px;
+  --type-size-16: 16px;
+  --type-size-17: 17px;
+  --type-size-24: 24px;
+  --type-size-28: 28px;
+  --type-size-38: 38px;
+  --type-size-44: 44px;
+  --type-size-56: 56px;
+
+  /* Text styles, named as in the library. Each style is a font shorthand plus its letter spacing. */
+  --text-headline: 700 var(--type-size-38)/40px var(--type-family-display);
+  --text-headline-tracking: -0.01em;
+  --text-header: 600 var(--type-size-24)/32px var(--type-family-display);
+  --text-header-tracking: 0;
+  --text-wordmark: 900 var(--type-size-24)/24px var(--type-family-body);
+  --text-wordmark-tracking: 0;
+  --text-display: 600 var(--type-size-44)/1 var(--type-family-display);
+  --text-display-tracking: -0.02em;
+  --text-title: 800 20px/1.35 var(--type-family-body);
+  --text-title-tracking: 0;
+  --text-subtitle: 600 var(--type-size-17)/1.35 var(--type-family-body);
+  --text-subtitle-tracking: 0;
+  --text-voice: 400 var(--type-size-17)/1.45 var(--type-family-body);
+  --text-voice-tracking: 0;
+  --text-voice-strong: 600 var(--type-size-17)/1.45 var(--type-family-display);
+  --text-voice-strong-tracking: 0;
+  --text-body-large: 400 var(--type-size-17)/1.55 var(--type-family-body);
+  --text-body-large-tracking: 0;
+  --text-body: 400 var(--type-size-15)/1.55 var(--type-family-body);
+  --text-body-tracking: 0;
+  --text-body-strong: 800 var(--type-size-15)/1.45 var(--type-family-body);
+  --text-body-strong-tracking: 0;
+  --text-meta: 500 var(--type-size-13)/1.4 var(--type-family-body);
+  --text-meta-tracking: 0;
+  --text-meta-strong: 800 var(--type-size-13)/1.4 var(--type-family-mono);
+  --text-meta-strong-tracking: 0;
+}
+
+/* Breakpoints cannot be read from custom properties inside a media query, so the values are repeated here: tablet from 768px, desktop from 1280px. */
