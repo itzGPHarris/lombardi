@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(npm install)",
+      "Bash(npx eslint *)",
+      "Bash(npx vitest *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git add *)",
+      "Bash(git mv *)",
+      "Bash(git commit *)",
+      "Bash(git switch *)",
+      "Bash(git checkout -b *)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean *)",
+      "Bash(git rebase *)",
+      "Bash(git branch -D *)",
+      "Bash(rm -rf *)",
+      "Read(/archive/**)",
+      "Read(/docs/archived docs/**)",
+      "Edit(/docs/spec.md)",
+      "Edit(/docs/story-fixtures.md)",
+      "Edit(/docs/brief.md)",
+      "Edit(/docs/screen-map.md)",
+      "Edit(/docs/stage-prompts.md)",
+      "Edit(/src/tokens.css)",
+      "Edit(/AGENTS.md)",
+      "Edit(/CLAUDE.md)",
+      "Edit(/.claude/**)"
+    ]
+  }
+}

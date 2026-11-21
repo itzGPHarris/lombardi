@@ -1,127 +1,61 @@
-# Most Valuable Parent
+# Most Valuable Parent: investor prototype
 
-The first working investor-prototype slice opens directly to **C-03**, Charlotte's
-Monday morning at **7:25 am**. It is entirely scripted, with state held in memory.
-No accounts, backend, live AI, messaging services or calendar integrations run.
+This repository holds the web prototype of Most Valuable Parent (MVP), a planning app and support system for busy parents. It exists to raise a funding round. It is a scripted demonstration rather than a working beta: every coach response, every capture and every reply from another person comes from prepared data, so the demo behaves the same way every time and never waits on a network or a model.
 
-## Run and review
+If you are the engineer inheriting this, start with `docs/spec.md`, then `docs/story-fixtures.md`, then `AGENTS.md`, which is what the build agent reads before working here.
 
-Use Node 22.13.1 (`nvm use`, if installed) and npm:
+## What the demo shows
 
-```sh
-npm ci
-npm run dev -- --host 127.0.0.1
+The demo follows each household across a stretch of its week as a series of moments, each with an ID such as C-03 for Charlotte's third. Within a household the moments run in order, so the presenter can show the same plan changing over several days. The presenter can show a newsletter arriving, a request going to Edward, and two girls getting out the door. Later in the week a pickup reopens when Edward's Thursday changes, and a question is asked once the house is quiet. A second journey follows the next week, when Charlotte goes away for a weekend and hands it to Edward in a weekend playbook (C-10 to C-13 and C-15).
+
+The demo runs on a fixed calendar, with the demo week starting on Monday, Oct. 12, 2026, and Charlotte's first night on Monday, Oct. 5. Today's dateline shows the date, and everything else names the day of the week. The prototype never reads the device clock, so it behaves the same way whenever it is presented. The demo week's Monday is held in one place, `meta.demoWeekStart` in each seed file, and changing it moves the whole demo to another week. There is no set presentation date, so leave it alone before a pitch: the demo stays in its October week and tells its story in days of the week and times of day. Move it only to take the whole demo to a new season, such as a school break or the spring.
+
+Charlotte and Edward's household is built from fixtures version 3.48 and spec v0.48. Calypso, Alexandra and Ben, and Marcus are added when their fixtures are rewritten.
+
+## Running it
+
+```
+npm install
+npm run dev
 ```
 
-Open the local URL printed by Vite. To start in the phone frame, append
-`?frame=phone`. Otherwise the app uses its responsive layout.
+Before committing, run `npm run check`, which runs the linter, the voice check, the tests and the build in that order. The voice check reads every coach line in the seed files for the house voice rules. It also fails on any calendar date typed into the seed, the articles or the interface copy, because dates on screen are worked out from the demo calendar.
 
-Try this sequence:
+The prototype deploys to Netlify from `main`. The debug-only live model needs an API key in the Netlify environment, and the demo never uses it.
 
-1. Tick Alexis's library book and water bottle. Each going-with item is independent.
-2. Open presenter controls with **Ctrl+Shift+D**, or hold Charlotte's **C** monogram
-   for about two-thirds of a second. A short click opens Settings.
-3. Choose **7:40 am**, then **Back**. Alexis's departure leaves and Mallory's moves
-   up with **in 35 min**. Time advances only through this scripted control.
-4. Choose **See reply**, edit the draft if desired, and choose **Send from WhatsApp**.
-   A generic, entirely local WhatsApp stage opens. Wednesday's carpool now belongs
-   to **You**, with no status or Changed mark, and an unchecked reply task exists.
-5. Tap **Send** in the staged screen, then **Game plan**. Tick **Reply to the parents'
-   group** yourself. The simulated send never marks the task automatically.
-6. Return to **Today** and open the conference article. The full staff-written
-   article and byline come directly from the fixtures. **Back** returns to Today.
-7. Presenter **Reset** or **C-03** restores the initial data, draft, checks, clock,
-   open screen and scroll position. The chosen phone/responsive presentation mode
-   remains a presenter preference in memory. Reload restores all defaults.
+## Presenting it
 
-**Not this week** dismisses the coach card without taking the carpool. Its owner
-remains Nobody yet. Reset brings the decision back. The Wednesday link opens the
-same small Wednesday plan screen before or after the handoff.
+Open the app on a laptop or a 1920 × 1080 display. The prototype opens on Charlotte's onboarding at the splash. The hidden household switcher (spec §15) lets you choose a household, jump to any moment by ID, see a moment from the recipient's side with View as, show the app in a phone frame or at full width, and reset a household before the next run. Each moment opens in exactly the state the fixtures describe, whatever was tapped before, so you can jump straight to any of them.
 
-No interaction opens a real messaging app or sends anything externally. The
-WhatsApp stage is a simulation for presenting the decision and its consequences.
+At full width, Today, Coach, Team and Kids keep their phone layout in a centered column beside the sidebar. The phone frame is the better way to show them.
 
-## Scope boundary
+Never turn on the live model in the debug menu during a presented demo. It needs a network connection and adds wait time.
 
-This slice includes Today C-03, shared navigation and plan pieces, Wednesday's
-read-only plan items, the editable carpool reply and staged handoff, the conference
-article, a Settings heading list, and presenter time/reset/layout controls.
+The presenter script is a separate document. It refers to moments by ID and is written once the prototype runs, so its timings are measured rather than promised.
 
-Coach, Team and Kids tabs are visibly disabled. Add opens the fixture-defined
-sheet, whose three capture choices are visibly disabled. Their full flows, plan
-editing, other days and moments, View as, onboarding, live AI and deployment are
-not implemented. Nothing claims a real message has reached another person.
-The seed omits school contact/email data, so C19 remains open before that work.
+## Where things live
 
-Presenter trigger X1 and coach-signal decision T3 remain open for design sign-off.
-The provisional trigger is documented above. The coach card uses the current
-library's role token plus its icon and day heading, so changing the signal is local.
+| Path | What it holds |
+| ----- | ----- |
+| `docs/spec.md` | What to build and how we know it is done. The source of truth for behavior. |
+| `docs/story-fixtures.md` | Every household, every moment and every word on screen. The source of truth for content. |
+| `docs/brief.md` | Why, for whom and how it should feel. |
+| `docs/issues.csv` | Problems and open decisions, with their status. |
+| `docs/backlog.md` | The build order. |
+| `docs/wireframes/` | Grayscale wireframes, numbered as the spec cites them. Not in the repository yet (issue C58). |
+| `docs/screen-map.md` | Which Figma frame each screen is built from, by frame ID. |
+| `docs/archived docs/` | Pass files, earlier versions and session reports. Never read for the build. |
+| `src/tokens.css` | Every design value, exported from Figma. |
+| `src/data/households/` | One JSON seed file per household. |
+| `src/data/articles/` | The MVP Editorial articles. |
+| `src/copy/` | Every interface label, heading and button. |
+| `scripts/voicecheck.mjs` | The voice and date check. |
+| `netlify/functions/coach.js` | The debug-only live-model proxy. |
 
-## Sources and design
+## Changing things
 
-Read root `AGENTS.md` first. Fixtures v3.9 own exact content; current spec v0.10
-owns behavior; the current wireframes own structure; the master Figma library
-owns visual values. `docs/brief.md` provides intent. Do not rewrite those source
-documents without authorization. Status lives in `docs/issues.csv`; the backlog
-retains work still required beyond C-03.
+Content changes start in the fixtures, then move into the seed files, so the two never drift. Behavior changes start in the spec. A new feature idea gets an F-number in the spec's Appendix B before anything else happens to it, and an observed problem gets a row in `docs/issues.csv`. Status lives only in the issues file, and the backlog holds order only.
 
-[Design mapping](docs/design/token-mapping.md) documents the inspected Figma nodes,
-all variable aliases/values, icon mappings, reference PNGs, and implementation
-layout constraints. Tokens were last regenerated from the library on October 13,
-2026, for the Today redesign: the type scale, one color per kind of person, and the
-coach in Fraunces. Runtime assets and fonts are all local.
+## Stack
 
-The tablet/desktop board has a full-day timeline, horizontally scrollable at
-narrow tablet widths. The scroll region is keyboard-focusable. Phone rows retain
-all four named periods. Visible names, monograms, stop shapes and labels preserve
-meaning without relying on color. Interactive targets are at least 44px.
-
-## Structure
-
-- `src/tokens.css`: verified Figma export plus documented platform geometry.
-- `src/components/Today/`: departures, checklists, rows, timeline and coach card.
-- `src/components/shared/`: semantic Icon and its custom SVGs, monograms, ChildChip,
-  AdultAvatar, owners, statuses and PlanItem.
-- `src/shell/`: bottom tabs/sidebar, header, Add sheet and presenter dialog.
-- `src/screens/`: the adjacent screens required for C-03.
-- `src/demo/`: pure session reducer, context, time helpers and presenter-only labels.
-- `src/data/households/charlotte.json`: C-03 snapshot and Monday/Wednesday dependencies.
-- `src/data/articles/teacher-conference.json`: fixture-written article.
-- `src/data/schema/`: slice schemas derived from spec §16.
-- `src/copy/interface.json`: fixture-owned interface strings.
-- `tests/`: content, reference, schema, reducer, lint and voicecheck regressions.
-
-The stack remains React/Vite, JavaScript/JSX, CSS modules, reducer/context,
-Material Symbols Outlined and custom SVGs via SVGR, Lucide icons, and the three local
-@fontsource families. No router, state library or UI component library was added.
-
-## Validation
-
-```sh
-npm run check                          # lint, voicecheck, tests, production build
-npm run voicecheck -- --require-content # also requires nonempty content folders
-npm run test:watch
-npm run preview -- --host 127.0.0.1      # serves dist after npm run build
-```
-
-The schema checker implements only the JSON Schema keywords used here and fails
-on unsupported keywords. No additional schema-validation package was added.
-Tests cover fixture text, reference integrity, invalid data, departure advancement,
-handoff ownership, manual task completion, dismissal, draft editing and reset.
-
-Browser validation uses the already available Playwright/Chrome tooling, without
-adding it as an application dependency. Visual evidence and the test record are in
-`docs/design/validation/`. The C-03 flow was exercised offline after initial load.
-Offline reload/PWA installation is outside this slice; there is no service worker.
-
-The project folder lives in iCloud Drive, and iCloud can leave most of `node_modules`
-in the cloud, which stalls the checks. Running them on a clone outside iCloud avoids
-that: clone the branch, run `npm ci`, then `npm run check`. Node 22 is the target.
-
-## Sharing later
-
-The repository is https://github.com/itzGPHarris/lombardi (public). The project was
-first pushed on October 13, 2026, on the `today-redesign-tokens` branch, as pull
-request #1 against `main`. Nothing has been deployed. When authorized, import the
-repository into the personal Netlify account. `netlify.toml` builds with `npm run build` and publishes `dist` using
-Node 22.13.1. No environment variables or secrets are required for this slice.
+React and Vite on Netlify, plain CSS modules with every value in `src/tokens.css`, Material Symbols and Lucide icons drawn through one `Icon` component, and Fraunces, Inter and JetBrains Mono self-hosted through `@fontsource`. JetBrains Mono sets one thing, the labels the coach owns, such as the coach card's label. There is no backend, no database and no persistence: all state lives in the running app and resets on reload. The alpha is built with Claude Code running Claude Opus 5.5. The documents call whoever writes the code the build agent, and it works from `AGENTS.md`, which Claude Code reads through `CLAUDE.md`.

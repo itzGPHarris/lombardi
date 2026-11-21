@@ -2,10 +2,10 @@
 
 **Owner:** Greg Harris
 **Sign-off:** Heather Hannan-Kramer
-**Date:** October 1, 2026 (correction pass for story fixtures v3.6)
+**Date:** October 18, 2026 (constraints and decisions brought to story fixtures v3.20 and spec v0.20; sections 1 to 5 still follow v3.12)
 **Readers:** Leadership and the product design team. This brief guides the design phase. The product spec turns it into build decisions for the engineer, and the story fixtures hold every word and fact on screen.
 
-**What changed in this pass.** The brief now matches story fixtures version 3.6 and spec v0.7. The demo follows each family across its week as a series of moments instead of one shared Thursday, and it shows no calendar dates. The parent's people are her inner circle and her village rather than a single team. The tabs are Today, Coach, Game plan, Team and Kids. Things reach MVP through the share menu, a forwarding address, the camera and her voice, and every message to another person is in her own voice and sent by her. Onboarding asks her name and her children's names and grades before the first capture. The build moves from Claude Code to OpenAI Codex. Items that need Heather are marked **[Heather]** and collected at the end.
+**What changed in this pass.** The brief now matches story fixtures version 3.12 and spec v0.12. Today is quieter: it leads with the next departure and its checklist, shows one coach card only when the coach needs her, lists the rest of the day, and offers at most one article. Children appear as name chips rather than monograms, and the coach appears as an amber dot. The demo now runs on a fixed calendar, with dates on Today, and Charlotte's first night falls on the Monday before the demo week. Her first board fills in when she answers the coach's first question. Items that need Heather are marked **[Heather]** and collected at the end.
 
 ---
 
@@ -19,7 +19,7 @@ Around her are two groups of people. Her **inner circle** is the people she trus
 
 MVP also publishes short articles written by its staff, under the name MVP Recommends. There is no tab for them. One appears on Today when something in her week makes it useful, and one is attached to a coach answer when she asks for ideas.
 
-For this phase we are building a web prototype whose only job is to help raise our first round of funding. It is a scripted demonstration rather than a working beta, and it runs from prepared data so the demo behaves the same way every time. It is designed for the phone first, with a layout that scales to tablet and desktop, and the presenter can show it in a phone frame or at full width. We will build it in React and host it on Netlify. There will be no iOS or Android app in this phase.
+For this phase we are building a web prototype whose only job is to help raise our first round of funding. It is a scripted demonstration rather than a working beta, and it runs from prepared data so the demo behaves the same way every time. It is designed for the phone first, and the presenter can show it in a phone frame or at full width. We will build it in React and host it on Netlify. There will be no iOS or Android app in this phase.
 
 ## 2. The problem and objective
 
@@ -35,7 +35,7 @@ We are designing and marketing for mothers first, and specifically for the mothe
 
 The product still has to work for every kind of household. It asks who is in the family rather than assigning people to roles like "mom" and "dad," and partners, co-parents, grandparents, nannies and staff are all added by name.
 
-The demo uses four households, each with a different structure. Charlotte and Edward's household is written in full in story fixtures version 3.6. The other three keep the facts below until their fixtures are rewritten.
+The demo uses four households, each with a different structure. Charlotte and Edward's household is written in full in story fixtures version 3.12. The other three keep the facts below until their fixtures are rewritten.
 
 Charlotte and Edward have two daughters at two different schools with different hours. Charlotte is home full time and manages everything for the family without any paid help, and every school email, text and message from the parents' group lands on her phone. Edward works a hybrid schedule and commutes on Tuesdays and Wednesdays. She wants Tuesdays and Thursdays to be as manageable as the rest of the week, and she wants her Thursday yoga class.
 
@@ -49,29 +49,60 @@ Marcus is a divorced father of two daughters, with live-in help and a custody ca
 
 ### Must-haves for the investor demo
 
-1. **Getting things in.** The parent can share a message to MVP from any app, forward email to her own MVP address, photograph a handout, or talk. She also connects the calendar she already keeps, whether Google Calendar, Apple Calendar or Outlook, and what is already on it comes into the plan without her sending it. MVP reads her calendar and never changes it, and when she adds something there that runs into the plan, MVP tells her and offers ways to fix it. The coach reads back what it took, asks at most one question, brings new items in as suggestions, and keeps a link to where each item came from. In the demo, sharing, forwarding, photographing and talking are staged so they play the same way every time.
-2. **The plan.** The coach turns what she gives it into a plan with places, times and what goes with each child. Every item shows who owns it and where it stands, such as "Asked Edward" or "Edward: yes", and nothing is ever shown as settled. When something needs a decision, the coach offers two or three ways it could go and recommends one, and she may choose another because she knows things the coach does not.
-3. **Today.** Today is the home screen and shows the current day only. Its title names the phase of the day, and it reads like a departures board: the next departure at the top with a countdown and a short list of what goes with each child, a row for each person through the day, and one coach card holding the decision that most needs her, which may concern another day. In the evening it turns to what has to be ready tonight and how tomorrow starts. The app has five tabs: Today, Coach, Game plan, Team and Kids, with Settings behind the parent's monogram. **[Heather: tab names]**
+1. **Getting things in.** The parent can share a message to MVP from any app, forward email to her own MVP address, photograph a handout, or talk. She also connects the calendar she already keeps, whether Google Calendar, Apple Calendar or Outlook, and what is already on it comes into the plan without her sending it. MVP reads her calendar and never changes it, and when she adds something there that runs into the plan, MVP tells her and offers a way to fix it. The coach reads back what it took, asks at most one question, brings new items in as suggestions, and keeps a link to where each item came from. In the demo, sharing, forwarding, photographing and talking are staged so they play the same way every time.
+2. **The plan.** The coach turns what she gives it into a plan with places, times and what goes with each child. Every item shows who owns it and where it stands, such as "Asked Edward" or "Edward: yes", and nothing is ever shown as settled. When something needs a decision, the coach recommends one way forward and keeps the other options a tap away, and she may choose another because she knows things the coach does not.
+3. **Today.** Today is the home screen and shows the current day only. It is quiet on purpose, because a parent glances at it on her way out the door. Its header gives the day and the date, and its title names the phase of the day. The next departure leads, with its time in large type, a checklist of what goes with each child and what she has to do, a button to set a reminder, and directions when she is driving. Below it, one coach card appears only when the coach needs an answer from her, and it may concern another day. The rest of the day follows as a short list, and at most one article sits at the end. In the evening Today turns to what has to be ready tonight and how tomorrow starts. A "Send to coach" button floats above the tabs. The app has five tabs: Today, Coach, Game plan, Team and Kids, with Settings behind the parent's monogram. **[Heather: tab names]**
 4. **Game plan.** The game plan holds the whole week, including routine items, with the week's changes at the top. She can move an item, add a note, or put someone's name against it to send them a request, all without the coach.
-5. **Requests.** Part of the plan can go to someone else. The coach drafts the message in her voice and she sends it herself. It reaches the person as a card in their own MVP, as a text with a link for someone without MVP, or as text handed to another app for a group or a school office. The person answers "I've got it" or "I can't do this", and the answer shows on her plan. When someone who said yes can't after all, that part of the plan reopens with options.
-6. **Onboarding.** The parent tells MVP her first name and who she is planning for, gives it one thing from this week, and sees it come back as a plan before she is asked to create an account. She then connects her calendar, and three short setup screens ask for each child's school, the household type and home language, and the adults who help. The coach introduces itself and she lands on Today. Detail about each child comes later, through the coach's questions on Today. **[Heather: onboarding order]**
+5. **Requests.** Part of the plan can go to someone else. The coach drafts the message in her voice and she sends it herself. It reaches the person as a card in their own MVP, as a text with a link for someone without MVP, or as text handed to another app for a group or a school office. The person answers "I've got it" or "I can't do this", and the answer shows on her plan. When someone who said yes can't after all, that part of the plan reopens and the coach comes back with a way forward.
+6. **Onboarding.** The parent tells MVP her first name and who she is planning for, gives it one thing from this week, and sees it come back as a plan before she is asked to create an account. She then connects her calendar, and three short setup screens ask for each child's school, the household type and home language, and the adults who help. The coach introduces itself and she lands on Today, where her first board already shows both children and what has to be ready tonight. When she answers the coach's first question, the board fills in and the rest of her week is waiting in the game plan. Detail about each child keeps coming later, through the coach's questions on Today. **[Heather: onboarding order]**
 7. **Asking the coach.** The parent can ask the kind of question she would otherwise take to a parents' group. The coach answers using what it knows about her family, shows what it based the answer on, and points her to the right person when a question needs a doctor, a therapist or other parents.
 8. **Team.** Her inner circle and her village, and the village groups she creates and invites people to. Only members see a group's posts. The coach never reads them, and nobody sees her plans or her conversations with the coach.
 9. **Kids.** A page for each child and a card for each school, holding hours, contacts, rules, calendar, rotation and the original documents. The coach keeps the cards current from what she captures, marks what changed and keeps the earlier version.
-10. **MVP Recommends.** Short articles written by MVP staff appear as a card on Today, with a line saying why it is there, such as "Because Cedar Grove conferences are this week." The coach attaches one to an answer when she asks for ideas. There is no articles tab.
+10. **MVP Recommends.** Short articles written by MVP staff appear on Today, one at a time, with a line saying why it is there, such as "Because Cedar Grove conferences are this week." The coach attaches one to an answer when she asks for ideas. There is no articles tab.
 11. **Demo controls.** A hidden control lets the presenter switch households, jump to any moment in a family's week, see a request from the other person's side, and reset. A separate debug menu can switch the coach to a live AI model, and it is never used in a presented demo.
 
 ### Nice-to-haves for later
 
-These are ideas we want to keep, but they will not be designed or built for the investor demo: a month view, live voice transcription, connecting her email account directly, writing MVP's plan items back to her calendar, other adults connecting their own calendars, real notifications, meal planning and a shopping list, ordering groceries, a Spanish-language household, a shared household account, moderation and reporting tools for village groups, photos in posts, saving and searching articles, cards for studios, teams and clinics alongside schools, and a Today that follows the family rather than the clock. Each has an F-number in the spec's roadmap.
+These are ideas we want to keep, but they will not be designed or built for the investor demo:
+
+- a month view and a wide Today for tablets and desktops;
+- live voice transcription;
+- connecting her email account directly;
+- writing MVP's plan items back to her calendar, and other adults connecting their own calendars;
+- real notifications;
+- meal planning, a shopping list and ordering groceries;
+- a Spanish-language household;
+- a shared household account;
+- moderation and reporting tools for village groups, and photos in posts;
+- saving and searching articles;
+- cards for studios, teams and clinics alongside schools;
+- a Today that follows the family rather than the clock;
+- talking to the coach straight from Today.
+
+Each has an F-number in the spec's roadmap.
 
 ## 5. User flow and feel
 
 A parent is responsible for her children every hour of every day, and what changes from hour to hour is the logistics. The demo therefore follows each family across a real stretch of their week rather than around one problem and its solution. Each family has a set of moments at different days and times, such as getting the children out of the house in the morning, a change that arrives in the middle of the day, an evening spent getting ready for tomorrow, and a question asked once the house is quiet. The presenter moves between moments with a hidden switcher, so investors see the same plan change over several days.
 
-Every family shows the same eight things: something messy turned into the plan, a decision with options, a request and its answer, an accepted request that reopens, the game plan worked directly, a parenting question answered from what the coach knows, a question taken to people rather than the product, and Today used to get the children out the door. Each family shows one or two of them in depth.
+Every family shows the same eight things:
+- something messy turned into the plan;
+- a decision with options;
+- a request and its answer;
+- an accepted request that reopens;
+- the game plan worked directly;
+- a parenting question answered from what the coach knows;
+- a question taken to people rather than the product;
+- Today used to get the children out the door.
 
-Charlotte's week is the one we most want investors to remember. Two weeks before the demo week, she photographs the rotation calendar on her fridge before she has an account, hands it to the coach, and sees her younger daughter's week come back. On Monday morning the coach has already read Sunday's school newsletter and kept only what applies to her daughters. She shares a carpool message from WhatsApp and talks for twenty seconds, correcting herself partway through, and the coach finds the one day that needs her: Thursday, when both pickups land during the yoga class she wants. It offers three ways Thursday could go, she asks Edward, and Edward says yes from his own phone. On Wednesday Edward's Thursday changes, the pickup reopens, and Charlotte chooses a different option from the one the coach recommends, because she knows something the coach does not. On Wednesday she also books Mallory's checkup through the pediatrician's own portal, and MVP sees it arrive on her Google Calendar, notices that it lands on Friday's tutoring, and offers two ways to fix it. Along the way she gets two girls to two schools prepared, asks her village about a new therapist, and asks the coach how to get through picture day morning.
+Each family shows one or two of them in depth.
+
+Charlotte's week is the one we most want investors to remember.
+
+- **Her first night.** On the Monday before the demo week, she photographs the rotation calendar on her fridge before she has an account, hands it to the coach, and sees her younger daughter's week come back. Her first board on Today already shows both girls and what Mallory needs tomorrow. When she tells the coach Mallory's start time, the board fills in and the rest of the week is waiting in the game plan.
+- **Monday morning.** The coach has already read Sunday's school newsletter and kept only what applies to her daughters. She shares a carpool message from WhatsApp and talks for twenty seconds, correcting herself partway through, and the coach finds the one day that needs her. That day is Thursday, when both pickups land during the yoga class she wants. The coach offers three ways Thursday could go, she asks Edward, and Edward says yes from his own phone.
+- **Wednesday.** Edward's Thursday changes and the pickup reopens. Charlotte chooses a different way forward from the one the coach recommends, because she knows something the coach does not. She also books Mallory's checkup through the pediatrician's own portal, and MVP sees it arrive on her Google Calendar. It notices that the checkup lands on Friday's tutoring and offers a way to fix it.
+- **Along the way,** she gets two girls to two schools prepared, asks her village about a new therapist, and asks the coach how to get through picture day morning.
 
 When the coach is giving support rather than a plan, it should feel like talking to someone who knows the family and takes the question seriously. It stays practical and warm, and it never pretends to be a therapist, a doctor or a lawyer. When a question needs one of those people, the coach says so and names the one she already has.
 
@@ -81,22 +112,37 @@ The coach speaks like a capable friend who has already worked out the details. I
 
 > You need to be at the Northgate Aquatic Center with Lily, ready to go by 4:15 on Tuesday. Benjamin has soccer at Cedar Field at 9am Saturday. Bring snacks and warm clothes, it'll be chilly. That leaves you Saturday afternoon to shop for the party gift.
 
-The visual style, which we call Hearth, should feel closer to a well-made paper planner than to a software dashboard, and Today borrows from transit boards and subway maps so it can be read at a glance. It uses warm cream instead of white and ink tones instead of black, with cerulean as the anchor color and for anything the parent can tap. How the coach card is marked is still open: saffron was reserved for it, and we may choose a signal that does not depend on color. Fraunces is reserved for headlines and titles, including every onboarding headline, Inter for everything the parent reads or taps, including everything the coach says, and JetBrains Mono for small details like labels and reading times. There are no photographs of people, no stock images and no AI-generated images. Children appear as monograms, and the only illustrations are spot illustrations inside articles, drawn by people. The full design system lives in the Figma file.
+The visual style, which we call Hearth, should feel closer to a well-made paper planner than to a software dashboard. Today in particular is quiet, with space between its parts instead of lines, and one card at most.
+
+- **Color.** Hearth uses warm cream instead of white and ink tones instead of black, with cerulean as the anchor color and for anything the parent can tap. Each kind of person has its own look, so a row can be read at a glance. Children appear as name chips in one shared green, adults as outlined initials, and the coach as a small amber dot, which also marks its card.
+- **Type.** Fraunces is reserved for titles and headlines, and never sets a paragraph or other running text. Inter is used for everything else the parent reads or taps, including everything the coach says, from the first screen of onboarding. JetBrains Mono sets one thing, the labels the coach owns, such as the coach card's label.
+- **Imagery.** There are no photographs of people, no stock images and no AI-generated images, and the only illustrations are spot illustrations inside articles, drawn by people.
+
+The full design system lives in the Figma library.
 
 ## 6. Constraints and timeline
 
-The prototype is built for the web only, in React with Vite, hosted on Netlify, and designed in Figma. It runs entirely from prepared data for each household, so an investor demo never depends on a network connection or on how fast an AI model responds. It shows days of the week and no calendar dates, so it can be presented in any week without changing anything. We have no engineering team yet. Greg builds the prototype with OpenAI Codex, and everything needs to be documented well enough that the engineer we hire after funding can take it over.
+The prototype is built for the web only, in React with Vite, hosted on Netlify, and designed in Figma. It runs entirely from prepared data for each household, so an investor demo never depends on a network connection or on how fast an AI model responds. It runs on a fixed demo calendar, with the demo week starting on Monday, Oct. 12, 2026, and Today shows the date. There is no set presentation date, and meetings happen as they come up, so the demo stays in its October week whenever it is shown and tells its story in days of the week and times of day. One setting can move the whole demo to a new season, such as a school break or the spring. We have no engineering team yet. Greg builds the prototype with Claude Code, running Claude Opus 5.5, and everything needs to be documented well enough that the engineer we hire after funding can take it over.
 
 The name MVP never appears on its own in the product. The wordmark always reads "Most Valuable Parent."
 
-The major milestones, in order, are sign-off on this brief, the product spec, the Figma designs from the wireframes, the build of Charlotte's household, the fixtures and build for the other three households, and rehearsal of the investor demo. The date of the first investor presentation has not been set yet, and the milestone dates will be worked back from it once Heather confirms it.
+The major milestones, in order, are listed below.
+
+1. Sign-off on this brief.
+2. The product spec.
+3. The Figma designs from the wireframes.
+4. The build of Charlotte's household.
+5. The fixtures and build for the other three households.
+6. Rehearsal of the investor demo.
+
+The milestones are not tied to dates, because there is no set date for the first investor presentation and the demo does not depend on when it is shown.
 
 ## Decisions
 
 These were open in earlier drafts and are now settled.
 
 1. MVP is described in terms of the plan it produces, with the coach doing the work of building it. The plan is the product.
-2. The app is designed for the phone first and scales to tablet and desktop up to 1920 × 1080. The presenter can show it in a phone frame or at full width.
+2. The app is designed for the phone first and scales to tablet and desktop up to 1920 × 1080. The presenter can show it in a phone frame or at full width. In the first build, Today keeps its phone layout at wider sizes.
 3. Marcus remains in the lineup as the one father-led household in a product marketed to mothers first.
 4. Invented details are listed in the story fixtures with the reason for each, and Heather can change any of them.
 5. The pitch and its statistics are handled in a separate project, and the prototype shows no unsourced figure.
@@ -106,19 +152,30 @@ These were open in earlier drafts and are now settled.
 9. Some articles carry spot illustrations drawn by people, and an article without one is complete.
 10. Articles can link to where a product is sold, in the manner of Wirecutter, with no sponsored or affiliate links. Coach answers carry no product links.
 11. The single shared Thursday is retired. Each family is shown across its week as a series of moments.
-12. The demo shows no calendar dates.
+12. The demo runs on a fixed calendar and shows the date on Today. This replaces the earlier decision to show no dates. The demo stays in its October week, and a single setting moves it only to a new season.
+13. Today is quiet: the next departure, one coach card when it is needed, the rest of the day, and at most one article.
+14. Children appear as name chips, never as monograms or photographs, and the coach appears as an amber dot.
+15. The coach adds to her plan what she has already committed to, such as events on her own calendar and changes to her children's school day, and asks her only about proposals from other people and choices that involve another person or a conflict. She agrees once during setup and can turn it off. This replaces the earlier rule that nothing from her calendar joined the plan until she added it.
+16. Lines on screen that read as disclaimers are removed. The product keeps its rules by how it behaves, and a line stays only when it tells someone what to do.
 
 ## Items for Heather to confirm
 
 1. **The onboarding order.** "Value before account" still holds, because she sees her first draft before creating an account. What changes is that MVP now asks her first name and her children's names and grades before the first capture, so the coach knows whose week it is reading. Greg made this decision in the design session.
 2. **The tab names.** Today, Coach, Game plan, Team and Kids face customers. If the sports naming of Team is too much, the fallback is Kids and People.
-3. **The coach's support answers and new lines.** Charlotte's answer about picture day morning, and the coach lines rewritten for her week, need a read for tone before they are built.
-4. **The date of the first investor presentation.**
-5. **Children's names in village posts.** Parents will name their children in a private group, and the product has no stance on it yet. This is needed before launch, not for the prototype.
-6. **"PAS eater."** It appears in Charlotte's original notes and nobody has explained it, so it stays out of the demo until someone can.
-7. **How the calendar connection is described.** Asking for a parent's calendar is a bigger trust request than anything else in setup. The connect screen says MVP reads her calendar and never changes it, and that promise belongs in the positioning too.
+3. **The coach's support answers and new lines.** Charlotte's answer about picture day morning needs a read for tone before it is built. So do the coach lines rewritten for her week, including the coach cards on Today and the lines on her first board.
+4. **Children's names in village posts.** Parents will name their children in a private group, and the product has no stance on it yet. This is needed before launch, not for the prototype.
+5. **What the coach adds for her.** The coach now adds her own calendar events and changes to her children's school day to the plan, after she agrees on the setup screen 0j, which changes a promise the product made on screen. Greg approved it on October 18, 2026.
+6. **How the calendar connection is described.** Asking for a parent's calendar is a bigger trust request than anything else in setup. The connect screen says MVP reads her calendar and never changes it, and that promise belongs in the positioning too.
 
 ## Change log
+
+**November 20, 2026, later.** Section 6 names the build tool: Claude Code, running Claude Opus 5.5.
+
+**November 20, 2026.** The type constraint follows story fixtures v3.48 and spec v0.47: Fraunces sets titles and headlines only, and the coach is set in Inter everywhere, including onboarding.
+
+**October 18, 2026.** Section 6 and the decisions follow story fixtures v3.20 and spec v0.20. There is no set presentation date, so the demo stays in its October week and the milestones carry no dates. The build tool is no longer named. Decisions 15 and 16 record what the coach adds and the removal of disclaimer lines, and Heather's list gains the first and loses the presentation date and "PAS eater", which Greg dropped.
+
+**October 14, 2026.** Correction pass for story fixtures v3.10 to v3.12 and spec v0.12. Today is described as the quiet layout, with the next departure, its checklist, reminders and directions, one coach card when needed, the rest of the day and at most one article, and "Send to coach" replaces Add. Children become name chips and the coach an amber dot, which settles how the coach card is marked. The coach is set in Fraunces on Today and in onboarding and in Inter on the Coach tab, and JetBrains Mono is kept for the coach card's label. The demo moves to a fixed calendar with dates on Today, Charlotte's first night moves to the Monday before the demo week, and her first board fills in when she answers the coach. A wide Today and talking to the coach straight from Today join the nice-to-haves. Decision 12 is reversed, and decisions 13 and 14 are added.
 
 **October 6, 2026.** The parent's own calendar is added, following fixtures v3.8 and spec v0.8. She connects Google Calendar, Apple Calendar or Outlook right after the account, MVP reads it and never changes it, and a new event that runs into the plan raises a conflict. Charlotte's week gains the checkup that reaches the plan through her calendar.
 
