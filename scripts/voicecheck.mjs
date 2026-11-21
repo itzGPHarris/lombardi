@@ -39,8 +39,10 @@ export function inspectContent(value, { file = 'content.json', article = false }
     if (typeof item === 'string') strings++;
     const report = (rule) => errors.push({ file, path, rule, text });
     if (months.test(text) || ambiguousMonths.test(text)) report('month-name');
-    if (dates.test(text)) report('calendar-date');
-    if (years.test(text)) report('calendar-year');
+    // The demo calendar's one anchor (spec §16, issue C73) is the only place a date may be typed.
+    const anchor = path === '$.meta.demoWeekStart';
+    if (!anchor && dates.test(text)) report('calendar-date');
+    if (!anchor && years.test(text)) report('calendar-year');
     if (technicalKeys.test(key)) return;
     if ((article || scope === 'coach' || scope === 'draft') && text.includes('—')) report('em-dash');
     if (scope === 'coach') {
