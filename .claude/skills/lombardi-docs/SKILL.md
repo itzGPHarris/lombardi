@@ -7,7 +7,7 @@ description: Instructions for document and design work on MVP (Lombardi), such a
 
 This skill carries the instructions from the "MVP - Lombardi" project on claude.ai, so document and design work can continue in this repository without that project. It lives here rather than in `CLAUDE.md` so that build sessions load only the build rules in `AGENTS.md`. Those build rules still apply, and the first section below says where document work is allowed to differ from them.
 
-*Current versions: story fixtures 3.48, spec 0.47. Last updated November 20, 2026.*
+*Current versions: story fixtures 3.48, spec 0.48. Last updated November 20, 2026.*
 
 ## Two kinds of work
 
@@ -33,7 +33,7 @@ Greg Harris, VP of Product, owns product, design and the prototype build. He mak
 
 Heather Hannan-Kramer, CEO, owns brand, audience, positioning (moms first) and investor relationships. She co-wrote the four user stories, signs off the creative brief, and reviews the app's vocabulary.
 
-There is no engineering team yet. Refer to the future hire as "the engineer." The AI development tool for the build is not decided. Greg may hand the build to OpenAI Codex once the design and spec work is done, or keep the whole prototype in Claude, so documents name no tool and call whoever writes the code "the build agent".
+There is no engineering team yet. Refer to the future hire as "the engineer." Greg chose Claude Code, running Claude Opus 5.5, as the build agent for the alpha on November 20, 2026 (issue C57). Documents still call whoever writes the code "the build agent", so they stay true for the engineer who takes the build over.
 
 ## The documents
 

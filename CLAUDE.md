@@ -1,12 +1,16 @@
 # CLAUDE.md
 
-This file is for Claude working in the MVP repository. The build rules live in `AGENTS.md`, which applies to whichever build agent writes code here, and it is imported below so there is one copy of those rules rather than two.
+This file is for Claude working in the MVP repository. The build rules live in `AGENTS.md`, which applies to whoever writes code here, and it is imported below so there is one copy of those rules rather than two.
 
-*Current versions: story fixtures 3.48, spec 0.47. Last updated November 20, 2026.*
+*Current versions: story fixtures 3.48, spec 0.48. Last updated November 20, 2026.*
 
 @AGENTS.md
 
 If the platform you are on does not follow `@` imports, read `AGENTS.md` before doing anything else.
+
+## Building the alpha
+
+Claude Code running Claude Opus 5.5 is the build agent for the alpha (issue C57). Each stage runs in a fresh session started from the repository root: run `/clear` between stages, check with `/context` that this file and `AGENTS.md` loaded, start in plan mode, and paste the stage's prompt from `docs/stage-prompts.md`. Leave effort at its default unless Greg changes it.
 
 ## Document and design work
 

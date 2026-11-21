@@ -1,8 +1,8 @@
 # AGENTS.md
 
-These are the instructions for the build agent working in this repository. The AI development tool for the build is not decided, so this file names no tool and applies to whichever one writes the code, and to the engineer who takes the build over. Read this file first, then the spec section and the fixtures for the task in front of you. When this file, the spec and the fixtures disagree, the fixtures win, then the spec, then this file, and the disagreement goes in `docs/issues.csv` rather than being settled in code.
+These are the instructions for the build agent working in this repository. The alpha is built with Claude Code running Claude Opus 5.5 (issue C57), but this file names no tool, so it applies just as well to the engineer who takes the build over and to any other agent. Read this file first, then the spec section and the fixtures for the task in front of you. When this file, the spec and the fixtures disagree, the fixtures win, then the spec, then this file, and the disagreement goes in `docs/issues.csv` rather than being settled in code.
 
-*Current versions: story fixtures 3.48, spec 0.47. Last updated November 20, 2026.*
+*Current versions: story fixtures 3.48, spec 0.48. Last updated November 20, 2026.*
 
 ## What this repository is
 

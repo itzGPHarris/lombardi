@@ -58,8 +58,7 @@ This file holds IDs and sequence. Nothing else.
 
 1. C64: move the repository out of iCloud Drive and make `npm run check` pass
 2. C65: commit the current documents and push them to GitHub
-3. C57: choose the build agent and connect the repository
-4. C58: the wireframes into `docs/wireframes/`, or frames for the screens that have none
+3. C58: the wireframes into `docs/wireframes/`, or frames for the screens that have none
 
 ## Alongside, not blocking the alpha
 

@@ -10,7 +10,7 @@ The demo follows each household across a stretch of its week as a series of mome
 
 The demo runs on a fixed calendar, with the demo week starting on Monday, Oct. 12, 2026, and Charlotte's first night on Monday, Oct. 5. Today's dateline shows the date, and everything else names the day of the week. The prototype never reads the device clock, so it behaves the same way whenever it is presented. The demo week's Monday is held in one place, `meta.demoWeekStart` in each seed file, and changing it moves the whole demo to another week. There is no set presentation date, so leave it alone before a pitch: the demo stays in its October week and tells its story in days of the week and times of day. Move it only to take the whole demo to a new season, such as a school break or the spring.
 
-Charlotte and Edward's household is built from fixtures version 3.48 and spec v0.47. Calypso, Alexandra and Ben, and Marcus are added when their fixtures are rewritten.
+Charlotte and Edward's household is built from fixtures version 3.48 and spec v0.48. Calypso, Alexandra and Ben, and Marcus are added when their fixtures are rewritten.
 
 ## Running it
 
@@ -58,4 +58,4 @@ Content changes start in the fixtures, then move into the seed files, so the two
 
 ## Stack
 
-React and Vite on Netlify, plain CSS modules with every value in `src/tokens.css`, Material Symbols and Lucide icons drawn through one `Icon` component, and Fraunces, Inter and JetBrains Mono self-hosted through `@fontsource`. JetBrains Mono sets one thing, the labels the coach owns, such as the coach card's label. There is no backend, no database and no persistence: all state lives in the running app and resets on reload. The AI development tool for the build is not decided, so the documents call whoever writes the code the build agent, and it works from `AGENTS.md`.
+React and Vite on Netlify, plain CSS modules with every value in `src/tokens.css`, Material Symbols and Lucide icons drawn through one `Icon` component, and Fraunces, Inter and JetBrains Mono self-hosted through `@fontsource`. JetBrains Mono sets one thing, the labels the coach owns, such as the coach card's label. There is no backend, no database and no persistence: all state lives in the running app and resets on reload. The alpha is built with Claude Code running Claude Opus 5.5. The documents call whoever writes the code the build agent, and it works from `AGENTS.md`, which Claude Code reads through `CLAUDE.md`.

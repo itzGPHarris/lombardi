@@ -1,10 +1,10 @@
 # Most Valuable Parent (Lombardi): stage prompts
 
-*Alpha 1 and alpha 2. Fixtures 3.48, spec 0.47. Written November 20, 2026.*
+*Alpha 1 and alpha 2. Fixtures 3.48, spec 0.48. Written November 20, 2026.*
 
 This file holds one prompt for each stage of the alpha build, ready to paste into a fresh build agent session, together with the review prompt Greg runs before his own review of each stage and the prompt that restarts a stage that has stopped early. The build order lives in `docs/backlog.md`, and these prompts name its lines rather than copying them, so the backlog stays the only list. When a backlog line changes, the prompt that names it does not need to.
 
-The prompts are written for any build agent. Each one relies on the agent having read `AGENTS.md`, which every agent loads first, so a prompt doesn't repeat the standing rules: copy only from the fixtures, every value from `src/tokens.css`, one backlog line per commit, `npm run check` before every commit, and an issue row for every gap. The last section says what changes if the build agent is Claude Code (issue C57).
+The prompts are written for any build agent. Each one relies on the agent having read `AGENTS.md`, which every agent loads first, so a prompt doesn't repeat the standing rules: copy only from the fixtures, every value from `src/tokens.css`, one backlog line per commit, `npm run check` before every commit, and an issue row for every gap. The build agent is Claude Code running Claude Opus 5.5 (issue C57), and the last section says how its features carry the steps below.
 
 ## How each stage runs
 
@@ -275,13 +275,13 @@ Lines {numbers} of this stage are still open. Continue with them. If one is bloc
 
 If two or three nudges in a row don't move the stage forward, the run is stuck rather than paused. End the session, note in the issues file what blocked it, and start fresh from the last good commit with the stage prompt and one paragraph about what went wrong.
 
-## If the build agent is Claude Code
+## Running the stages in Claude Code
 
-Nothing above depends on the tool. If C57 settles on Claude Code, four of its features do the same work more reliably:
+The prompts work with any agent, and Claude Code, the agent chosen under C57, has four features that do the same work more reliably:
 
 - **Plan mode** keeps the agent from changing files while it writes its plan, and lets Greg edit the plan in his text editor before approving it. Start each stage in plan mode, and paste the prompt as it is.
 - **A Stop hook** can run `npm run check` at the end of every turn and keep the turn going until it passes. This turns "run the check before every commit" from an instruction into a rule the agent can't skip.
 - **A reviewer subagent** runs the review prompt in its own context and hands the findings straight back to the build session, so Greg doesn't copy them between windows.
 - **`/clear`** gives the fresh context between stages without opening a new terminal, and `/context` confirms that `CLAUDE.md` and `AGENTS.md` loaded.
 
-If C57 settles on Codex, these steps are done by hand: the "wait for my review" line in each prompt stands in for plan mode, `npm run check` stays an instruction, and the review prompt runs in a second session.
+The Stop hook isn't set up yet. Running the full check, including the build, at the end of every turn may be slow, so decide after Stage 1 whether to add it, and until then `npm run check` stays an instruction. With another agent, these steps are done by hand: the "wait for my review" line stands in for plan mode, and the review prompt runs in a second session.

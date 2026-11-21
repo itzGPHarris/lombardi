@@ -122,7 +122,7 @@ The full design system lives in the Figma library.
 
 ## 6. Constraints and timeline
 
-The prototype is built for the web only, in React with Vite, hosted on Netlify, and designed in Figma. It runs entirely from prepared data for each household, so an investor demo never depends on a network connection or on how fast an AI model responds. It runs on a fixed demo calendar, with the demo week starting on Monday, Oct. 12, 2026, and Today shows the date. There is no set presentation date, and meetings happen as they come up, so the demo stays in its October week whenever it is shown and tells its story in days of the week and times of day. One setting can move the whole demo to a new season, such as a school break or the spring. We have no engineering team yet. Greg builds the prototype with an AI development tool that is not yet decided, and everything needs to be documented well enough that the engineer we hire after funding can take it over.
+The prototype is built for the web only, in React with Vite, hosted on Netlify, and designed in Figma. It runs entirely from prepared data for each household, so an investor demo never depends on a network connection or on how fast an AI model responds. It runs on a fixed demo calendar, with the demo week starting on Monday, Oct. 12, 2026, and Today shows the date. There is no set presentation date, and meetings happen as they come up, so the demo stays in its October week whenever it is shown and tells its story in days of the week and times of day. One setting can move the whole demo to a new season, such as a school break or the spring. We have no engineering team yet. Greg builds the prototype with Claude Code, running Claude Opus 5.5, and everything needs to be documented well enough that the engineer we hire after funding can take it over.
 
 The name MVP never appears on its own in the product. The wordmark always reads "Most Valuable Parent."
 
@@ -168,6 +168,8 @@ These were open in earlier drafts and are now settled.
 6. **How the calendar connection is described.** Asking for a parent's calendar is a bigger trust request than anything else in setup. The connect screen says MVP reads her calendar and never changes it, and that promise belongs in the positioning too.
 
 ## Change log
+
+**November 20, 2026, later.** Section 6 names the build tool: Claude Code, running Claude Opus 5.5.
 
 **November 20, 2026.** The type constraint follows story fixtures v3.48 and spec v0.47: Fraunces sets titles and headlines only, and the coach is set in Inter everywhere, including onboarding.
 

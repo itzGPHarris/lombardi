@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.47 · November 20, 2026*
+*Investor prototype · Version 0.48 · November 20, 2026*
 
 ## **Summary of this version**
+
+Version 0.48 names the build tool: Claude Code, running Claude Opus 5.5 (§17, issue C57). Documents still call whoever writes the code the build agent.
 
 Version 0.47 follows story fixtures 3.48 and Greg's decision that Fraunces sets titles and headlines only, never a paragraph or other running text. The coach's lines in onboarding move to Inter in the Voice style, which the design library already sets in Inter, so the coach is set in Inter from the first screen (§3, §6, §19, issue C33).
 
@@ -1589,7 +1591,7 @@ Groups and chats follow §10, including each one's members, messages, posts and 
 | Icons | Icons come from Material Symbols first, Lucide where Material Symbols has nothing that fits, and a custom drawing only where neither does. Every icon is drawn through one `Icon` component that takes the name used in Figma, such as `calendar-mark`, so an icon's source changes in one place. Material Symbols come from `@material-symbols/svg-400` in the Outlined style, imported as React components through `vite-plugin-svgr`, and Lucide icons come from `lucide-react`. MUI's `@mui/icons-material` is not used, because it depends on MUI's component library. The icon names, the source each one uses and its code name are in the Figma library's Icons page. |
 | Live model | Debug only, and for the coach only. A Netlify function holds the API key in an environment variable, and the browser never sees it. |
 | Deployment | Netlify, auto-deploying from the `main` branch. |
-| Build tool | Not decided. Whoever writes the code is called the build agent, and it reads `AGENTS.md` first. |
+| Build tool | Claude Code, running Claude Opus 5.5 (issue C57). Whoever writes the code is called the build agent, and it reads `AGENTS.md` first, through `CLAUDE.md`. |
 
 ## **Design source**
 
@@ -1620,7 +1622,7 @@ Figma is the design source. The frames marked Ready for dev decide how each scre
 
 ## **Repository**
 
-The repository holds a `README.md` explaining how to run and present the prototype, and an `AGENTS.md` explaining how the build agent should work in it, whichever tool that turns out to be. `CLAUDE.md` imports it for Claude. Project documents live in `docs/`: `spec.md` (this document), `brief.md`, `story-fixtures.md`, `screen-map.md`, `issues.csv` for observed problems and open decisions, and `backlog.md` for build order. Decisions are recorded where they apply, as standing decisions in each section and as rows in Appendix A, so there is no separate decision log.
+The repository holds a `README.md` explaining how to run and present the prototype, and an `AGENTS.md` explaining how the build agent should work in it, written so it holds for any tool. `CLAUDE.md` imports it for Claude Code, the build agent for the alpha. Project documents live in `docs/`: `spec.md` (this document), `brief.md`, `story-fixtures.md`, `screen-map.md`, `issues.csv` for observed problems and open decisions, and `backlog.md` for build order. Decisions are recorded where they apply, as standing decisions in each section and as rows in Appendix A, so there is no separate decision log.
 
 # 18. Out of scope for the prototype
 
@@ -1807,6 +1809,14 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.48, November 20, 2026**
+
+Greg's choice of build tool.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §17 | The build tool is Claude Code, running Claude Opus 5.5. Closes C57. |
 
 ## **v0.47, November 20, 2026**
 
