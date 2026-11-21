@@ -1,0 +1,120 @@
+/* The eight layout shells (spec §2, "Layout and scrolling"). The page scrolls, never a box inside
+   it. Fixed parts are sticky at the top of the column, and anchored parts are sticky at its foot. */
+
+/* Frame and column */
+.frame { min-height: 100dvh; background: var(--bg-card); }
+.frame[data-surface='canvas'] { background: var(--bg-canvas); }
+.column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  width: 100%;
+  margin-inline: auto;
+  background: inherit;
+}
+@media (min-width: 768px) {
+  .frame { padding-left: var(--layout-sidebar); }
+  .column[data-width='phone'] { max-width: var(--layout-phone-column); }
+  .column[data-width='wide'] { max-width: var(--layout-content-max); }
+}
+
+.content { flex: 1; padding: 0 var(--space-24) var(--space-40); }
+
+/* Foot: sticky at the bottom, riding above the keyboard */
+.foot {
+  position: sticky;
+  bottom: var(--keyboard-inset, 0);
+  z-index: 20;
+  background: var(--bg-card);
+}
+.foot[data-surface='canvas'] { background: var(--bg-canvas); }
+.primaryFoot { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); padding: var(--space-16) var(--space-24) var(--space-24); }
+.primaryFoot:empty { display: none; }
+
+/* The title bar shared by tab lists and pages, as the frames place it: its row of controls 56 from
+   the top, where the frames leave room for the phone's status bar, one tap target tall, and the
+   large title 8 beneath it. */
+.titleBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: var(--space-56) var(--space-24) 0;
+  background: var(--bg-card);
+}
+.barRow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-12);
+  min-height: var(--size-tap-target);
+}
+.barLeft { display: flex; align-items: center; justify-self: start; gap: var(--space-12); }
+.barRight { display: flex; align-items: center; justify-self: end; gap: var(--space-12); }
+.smallTitle {
+  opacity: 0;
+  font: var(--text-subtitle);
+  letter-spacing: var(--text-subtitle-tracking);
+  color: var(--ink-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.largeTitle {
+  padding: var(--space-8) var(--space-24) var(--space-24);
+  font: var(--text-header);
+  letter-spacing: var(--text-header-tracking);
+  color: var(--ink-primary);
+}
+.stuck { position: sticky; top: var(--title-bar-height, 0); z-index: 9; background: var(--bg-card); }
+
+/* The fixed title bar of a conversation or composer */
+.fixedHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: var(--space-56) var(--space-24) var(--space-16);
+  background: var(--bg-card);
+}
+.fixedTitleRow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); min-height: var(--size-tap-target); }
+.fixedTitle { font: var(--text-header); letter-spacing: var(--text-header-tracking); color: var(--ink-primary); }
+
+/* Onboarding's top bar */
+.topBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: calc(var(--size-tap-target) + var(--space-56));
+  padding: var(--space-56) var(--space-24) 0;
+  background: var(--bg-card);
+}
+
+/* Today: the header and Now hold in place on paper, and the canvas sheet rises over them */
+.todayHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: var(--space-56) var(--space-24) var(--space-32);
+  background: var(--bg-card);
+}
+.todayHeader[data-tall] { position: relative; }
+.todayHeaderRow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); min-height: var(--size-tap-target); margin-top: calc((var(--size-tap-target) - var(--space-24)) / -2); margin-bottom: var(--space-24); }
+.todayDateline { flex: 1; min-width: 0; }
+.todaySheet {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  padding: var(--space-24) var(--space-24) var(--space-40);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--bg-canvas);
+}
+.todayFootWrap { position: sticky; bottom: var(--keyboard-inset, 0); z-index: 20; }
+.todayFootWrap > * { position: static; }
+
+/* Still: nothing fixed, nothing scrolls, except Ms. Reyes's web page */
+.still { height: 100dvh; overflow: hidden; }
+.still[data-scrolls] { height: auto; min-height: 100dvh; overflow: visible; }

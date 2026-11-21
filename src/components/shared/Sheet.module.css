@@ -1,0 +1,32 @@
+/* The library's Sheet (256:489). The scrim is ink/primary at 40%, as the sheet frames draw it. */
+.layer { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; justify-content: flex-end; }
+@media (min-width: 768px) { .layer { left: var(--layout-sidebar); } }
+.scrim { position: absolute; inset: 0; background: color-mix(in srgb, var(--ink-primary) 40%, transparent); }
+@media (min-width: 768px) { .scrim { left: calc(var(--layout-sidebar) * -1); } }
+.sheet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  width: 100%;
+  max-width: var(--layout-phone-column);
+  margin-inline: auto;
+  max-height: calc(100dvh - var(--space-56));
+  padding: var(--space-12) var(--space-20) calc(var(--space-32) + var(--keyboard-inset, 0px));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  background: var(--bg-card);
+  transition: transform 0.2s ease-out;
+}
+.sheet:focus { outline: none; }
+.sheet[data-height='tall'] { height: calc(100dvh - var(--space-56)); }
+.header { display: flex; flex-direction: column; gap: var(--space-4); }
+.top { display: flex; align-items: center; touch-action: none; cursor: grab; }
+.spacer { width: var(--size-tap-target); height: var(--size-tap-target); flex-shrink: 0; }
+.grabberRow { flex: 1; display: flex; justify-content: center; }
+.grabber { width: var(--space-32); height: var(--space-4); border-radius: var(--radius-pill); background: var(--ink-muted); }
+.close { display: inline-flex; align-items: center; justify-content: center; width: var(--size-tap-target); height: var(--size-tap-target); color: var(--ink-primary); flex-shrink: 0; }
+.heading { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
+.line { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.body { min-height: 0; }
+.sheet[data-height='tall'] .body { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
+.footer { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }

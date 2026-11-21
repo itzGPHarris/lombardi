@@ -1,0 +1,9 @@
+/* Layout values the library has no token for yet. Each one is defined here and only here, and each
+   has a row in docs/issues.csv asking for a library token. Components read these properties and never
+   write the values themselves. Replace a line with the library token once it is exported. */
+:root {
+  --size-icon: 24px;              /* The icon frame on the library's Icons page. */
+  --layout-phone-column: 440px;   /* The phone frame width, the column Today, Coach, Team and Kids keep from 768. */
+  --layout-sidebar: 248px;        /* The sidebar from 768. No frame draws it. */
+  --layout-phone-height: 956px;   /* The phone frame's height, for the phone frame in the switcher. */
+}

@@ -29,6 +29,27 @@ describe('content rules', () => {
     expect(rules({ text }).length).toBeGreaterThan(0);
   });
   it('checks numeric year fields too', () => expect(rules({ year: 2026 })).toContain('calendar-year'));
+  it('accepts the date in meta.demoWeekStart (C73)', () => {
+    expect(rules({ meta: { demoWeekStart: '2026-10-12' } })).toEqual([]);
+  });
+  it.each([
+    ['another meta key', { meta: { demoWeekStart: '2026-10-12', anchor: '2026-10-12' } }, '$.meta.anchor'],
+    ['the same key outside meta', { demoWeekStart: '2026-10-12' }, '$.demoWeekStart'],
+    ['the same key nested deeper', { moments: [{ meta: { demoWeekStart: '2026-10-12' } }] }, '$.moments[0].meta.demoWeekStart'],
+    ['coach text', { meta: { demoWeekStart: '2026-10-12' }, coachCards: [{ text: 'See you 2026-10-12.' }] }, '$.coachCards[0].text'],
+  ])('still rejects the same date in %s (C73)', (_, seed, path) => {
+    const errors = inspectContent(seed).errors;
+    expect(errors.map((error) => error.path)).toEqual([path, path]);
+    expect(errors.map((error) => error.rule)).toEqual(['calendar-date', 'calendar-year']);
+  });
+  it('accepts meta.demoWeekStart in a household seed and rejects the date elsewhere in it (C73)', async () => {
+    const root = await project();
+    await content(root, 'src/data/households/charlotte.json', JSON.stringify({ meta: { demoWeekStart: '2026-10-12' } }));
+    expect((await checkProject(root)).errors).toEqual([]);
+    await content(root, 'src/data/households/charlotte.json', JSON.stringify({ meta: { demoWeekStart: '2026-10-12' }, calendar: { events: [{ title: '2026-10-12' }] } }));
+    const errors = (await checkProject(root)).errors;
+    expect(errors.map((error) => [error.path, error.rule])).toEqual([['$.calendar.events[0].title', 'calendar-date'], ['$.calendar.events[0].title', 'calendar-year']]);
+  });
   it('finds coach text in full moment snapshots, options and follow-ups', () => {
     const result = inspectContent({ moments: [{ state: { conversation: [{ from: 'Coach', text: 'Okay, choose a slot.', options: [{ title: 'A buffer—then pickup.' }] }], coachCards: [{ text: 'Thursday · Alright, choose a lane.' }] } }] });
     expect(result.errors.map((error) => error.rule)).toEqual(expect.arrayContaining(['coach-opener', 'coach-planner-word', 'em-dash']));

@@ -1,0 +1,14 @@
+/* One class per text style in the library, named as the library names them (spec §19, fixtures section 2, "Type"). */
+.headline { font: var(--text-headline); letter-spacing: var(--text-headline-tracking); }
+.header { font: var(--text-header); letter-spacing: var(--text-header-tracking); }
+.wordmark { font: var(--text-wordmark); letter-spacing: var(--text-wordmark-tracking); }
+.display { font: var(--text-display); letter-spacing: var(--text-display-tracking); }
+.title { font: var(--text-title); letter-spacing: var(--text-title-tracking); }
+.subtitle { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); }
+.voice { font: var(--text-voice); letter-spacing: var(--text-voice-tracking); }
+.voiceStrong { font: var(--text-voice-strong); letter-spacing: var(--text-voice-strong-tracking); }
+.bodyLarge { font: var(--text-body-large); letter-spacing: var(--text-body-large-tracking); }
+.body { font: var(--text-body); letter-spacing: var(--text-body-tracking); }
+.bodyStrong { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); }
+.meta { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); }
+.metaStrong { font: var(--text-meta-strong); letter-spacing: var(--text-meta-strong-tracking); }

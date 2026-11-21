@@ -1,0 +1,3 @@
+.icon { display: inline-flex; flex-shrink: 0; width: var(--size-icon); height: var(--size-icon); vertical-align: middle; }
+.icon svg { width: 100%; height: 100%; fill: currentColor; }
+.icon svg:global(.lucide), .icon svg:global(.stroke-icon) { fill: none; }
