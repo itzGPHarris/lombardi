@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): stage prompts
 
-*Alpha 1 and alpha 2. Fixtures 3.48, spec 0.48. Written November 20, 2026.*
+*Alpha 1 and alpha 2. Fixtures 3.48, spec 0.49. Written November 20, 2026, with motion added November 21, 2026.*
 
 This file holds one prompt for each stage of the alpha build, ready to paste into a fresh build agent session, together with the review prompt Greg runs before his own review of each stage and the prompt that restarts a stage that has stopped early. The build order lives in `docs/backlog.md`, and these prompts name its lines rather than copying them, so the backlog stays the only list. When a backlog line changes, the prompt that names it does not need to.
 
@@ -106,7 +106,9 @@ Before you change any code, write a plan and wait for my review of it. The plan 
 
 When each line is done, run npm run check and commit. Render every Today state at 440 x 956 beside its frame, list the differences and fix them, then check 390, 768 and 1440. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
-End the stage with the commands you ran and their output, a screenshot of every Today state beside its frame, and the issue rows you added.
+Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list. The sheet shell from Stage 1 gains its slide, and its raw 0.2s transition becomes tokens. Replace the blanket reduced-motion rule in src/styles/global.css with the reduced form each row gives, because fades keep their timing under reduced motion.
+
+End the stage with the commands you ran and their output, a screenshot of every Today state beside its frame, a short screen recording of each motion this stage built, and one of each with reduced motion turned on, and the issue rows you added.
 ```
 
 **Why this stage is shaped this way.** Today comes before onboarding because onboarding ends on her first board, which is a Today screen, and because Today carries the most components the other tabs reuse. The prompt states the two Today rules agents most often break, the rising sheet and the single thing Today changes, because both come from the spec rather than from anything visible in a single frame.
@@ -132,7 +134,9 @@ Before you change any code, write a plan and wait for my review of it. The plan 
 
 When the line is done, run npm run check and commit. Play C-00 from the splash to her first board, render every screen at 440 beside its frame, list the differences and fix them, then check 390, 768 and 1440. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
-End the stage with the commands you ran and their output, a screenshot of every onboarding screen beside its frame, and the issue rows you added.
+Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list. The steam stars are one component, because Alpha 2 reuses them on Ruth's web page.
+
+End the stage with the commands you ran and their output, a screenshot of every onboarding screen beside its frame, a short screen recording of each motion this stage built, and one of each with reduced motion turned on, and the issue rows you added.
 ```
 
 **Why this stage is shaped this way.** Onboarding is one long, ordered sequence, so the plan asks for the whole order before any code. The type rule is stated outright because onboarding is the screen with the most Fraunces on it, and an agent can easily carry the headlines' serif into the coach's lines below them.
@@ -158,7 +162,9 @@ Before you change any code, write a plan and wait for my review of it. The plan 
 
 When each line is done, run npm run check and commit. Render each screen at 440 beside its frame, list the differences and fix them, then check 390, 768 and 1440. The game plan opens into seven columns at desktop width, and the other tabs keep their phone layout in a centered column. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
-End the stage with the commands you ran and their output, a screenshot of every screen beside its frame, a note of any tab and moment that shows no state in the seed, and the issue rows you added.
+Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list.
+
+End the stage with the commands you ran and their output, a screenshot of every screen beside its frame, a note of any tab and moment that shows no state in the seed, a short screen recording of each motion this stage built, and one of each with reduced motion turned on, and the issue rows you added.
 ```
 
 **Why this stage is shaped this way.** This is the largest stage, with six tabs and ten moments each, so the prompt asks the agent to read one spec section at a time rather than loading all six at the start. If the session slows down or starts losing earlier instructions partway through, Greg can split it into two sessions after line 3, with one review at the end. That departs from "one run per stage" in the backlog, so it is Greg's call when he sees it happen.
@@ -184,7 +190,9 @@ Before you change any code, write a plan and wait for my review of it. The plan 
 
 When each line is done, run npm run check and commit. Play every moment the line names from start to finish, render each new state at 440 beside its frame, and fix the differences. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
-End the stage with the commands you ran and their output, a recording or a sequence of screenshots of each scripted step, and the issue rows you added.
+Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list.
+
+End the stage with the commands you ran and their output, a recording or a sequence of screenshots of each scripted step, a short screen recording of each motion this stage built, and one of each with reduced motion turned on, and the issue rows you added.
 ```
 
 **Why this stage is shaped this way.** Interactions are where an agent is most tempted to add behavior nobody asked for, so the prompt fences the stage to the steps the fixtures script and restates the four rules that protect trust. The plan is a list of state changes, which Greg can check against the fixtures quickly.
@@ -204,7 +212,7 @@ Read these before anything else:
 
 This stage changes no behavior. It compares every screen in the alpha with its frame and puts the result on Netlify.
 
-For the first line, render every screen the screen map lists for C-00 to C-09 at 440 x 956 beside its frame and fix the differences. Then check every screen at 390 x 844, 768 x 1024, 1440 x 900 and 1920 x 1080. At each size, check the rules that apply everywhere: no pure white or black, no uppercase labels, no decorative gradients or 2px strokes, every time with am or pm, every phone number with its area code, every place by its full name, and the wordmark as "Most Valuable Parent". Log what is left in docs/issues.csv with the frame ID and the size.
+For the first line, render every screen the screen map lists for C-00 to C-09 at 440 x 956 beside its frame and fix the differences. Then check every screen at 390 x 844, 768 x 1024, 1440 x 900 and 1920 x 1080. At each size, check the rules that apply everywhere: no pure white or black, no uppercase labels, no decorative gradients or 2px strokes, every time with am or pm, every phone number with its area code, every place by its full name, and the wordmark as "Most Valuable Parent". Check every row of the Motion table in spec section 19 at 440 x 956, with and without reduced motion, and confirm that nothing else moves. Log what is left in docs/issues.csv with the frame ID and the size.
 
 For the second line, prepare the deploy and stop before it goes out. The prototype deploys from main, so pushing to main publishes it. Show me the branch, the commits that will go out and the result of npm run check, and push only when I confirm.
 
@@ -237,7 +245,9 @@ Before you change any code, write a plan and wait for my review of it. The plan 
 
 When each line is done, run npm run check and commit. Play C-10 to C-15 from start to finish on both sides, render each screen at 440 beside its frame, and fix the differences. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
-End the stage with the commands you ran and their output, screenshots of each moment on both sides, and the issue rows you added.
+Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list. The stars on Ruth's web page reuse the component from Stage 4.
+
+End the stage with the commands you ran and their output, screenshots of each moment on both sides, a short screen recording of each motion this stage built, and one of each with reduced motion turned on, and the issue rows you added.
 ```
 
 ---
