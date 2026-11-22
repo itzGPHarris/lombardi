@@ -6,6 +6,7 @@ export const circleTag = 'Circle';
 export const circleTagLabel = 'In your circle';
 export const oneNew = '1 new';
 export const noChats = "No chats yet. Start one with anyone in your circle who's on MVP.";
+export const noGroups = "No groups yet. Create one for the parents who share your children's week.";
 export const members = '{count} members';
 export const createdLastWeek = 'You created this group last week.';
 export const onMvp = 'On MVP';

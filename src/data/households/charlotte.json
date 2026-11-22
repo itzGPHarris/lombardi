@@ -1,7 +1,7 @@
 {
   "meta": {
     "id": "charlotte",
-    "fixturesVersion": "3.48",
+    "fixturesVersion": "3.49",
     "demoWeekStart": "2026-10-12",
     "coachAdds": {"calendar":true,"schoolDay":true,"trips":true},
     "zip": "00123",
@@ -117,7 +117,12 @@
       {"gap":"The harvest fair's afternoon"},
       {"gap":"The weekend's meals"},
       {"gap":"Area codes"},
-      {"gap":"The next Cedar Grove Elementary newsletter"}
+      {"gap":"The next Cedar Grove Elementary newsletter"},
+      {"gap":"Back-to-school night"},
+      {"gap":"The library run's answer"},
+      {"gap":"The checkup's end"},
+      {"gap":"Ruth's request"},
+      {"gap":"The violin case"}
     ],
     "notifications": "on"
   },
@@ -304,6 +309,7 @@
       "endTime": "14:30",
       "facts": [
         {"id":"wv-hours","section":"hours","text":"8:30am to 2:30pm","source":"you","changed":false,"history":[]},
+        {"id":"wv-starts","section":"hours","text":"Starts 8:30am","source":"you","changed":false,"history":[]},
         {"id":"wv-pickup-point","section":"hours","text":"Pickup at the front entrance","source":null,"changed":false,"history":[]},
         {
           "id": "wv-general",
@@ -370,6 +376,22 @@
         {"id":"wv-letter-e","section":"rules","text":"E, art and music","source":"cap-rotation","changed":false,"history":[]},
         {"id":"wv-letter-f","section":"rules","text":"F, science and motor skills","source":"cap-rotation","changed":false,"history":[]},
         {
+          "id": "wv-back-to-school",
+          "section": "calendar",
+          "text": "Back-to-school night, {rel:-1.thu}, 6:00pm",
+          "source": "cap-rotation",
+          "changed": false,
+          "history": []
+        },
+        {
+          "id": "wv-food-drive",
+          "section": "calendar",
+          "text": "Fall food drive, {rel:0.mon} · One canned or boxed food item, bins by the front office",
+          "source": "cap-flyer",
+          "changed": false,
+          "history": []
+        },
+        {
           "id": "wv-picture-day",
           "section": "calendar",
           "text": "Picture day, {rel:0.fri}",
@@ -399,7 +421,8 @@
       "documents": [
         {"capture":"cap-rotation","label":"Rotation calendar"},
         {"capture":"cap-contact-list","label":"Family contact list"},
-        {"capture":"cap-westview-email","label":"Pickup change email"}
+        {"capture":"cap-westview-email","label":"Pickup change email"},
+        {"capture":"cap-flyer","label":"Fall food drive flyer"}
       ]
     },
     {
@@ -412,6 +435,7 @@
       "endTime": "14:45",
       "facts": [
         {"id":"cg-hours","section":"hours","text":"8:00am to 2:45pm","source":"you","changed":false,"history":[]},
+        {"id":"cg-starts","section":"hours","text":"Starts 8:00am","source":"you","changed":false,"history":[]},
         {"id":"cg-pickup-point","section":"hours","text":"Pickup at the Oak Street gate","source":null,"changed":false,"history":[]},
         {
           "id": "cg-early-dismissal",
@@ -525,6 +549,7 @@
       "id": "w-1-tue-school-alexis",
       "time": {"week":-1,"day":"tue","time":"08:00"},
       "title": "Cedar Grove Elementary",
+      "agendaText": "To Cedar Grove Elementary",
       "children": ["alexis"],
       "place": "cedar-grove",
       "kind": "routine",
@@ -538,6 +563,7 @@
       "id": "w-1-tue-school-mallory",
       "time": {"week":-1,"day":"tue","time":"08:30"},
       "title": "Westview Kindergarten",
+      "agendaText": "To Westview Kindergarten",
       "children": ["mallory"],
       "place": "westview",
       "kind": "routine",
@@ -550,7 +576,7 @@
     },
     {
       "id": "w-1-thu-back-to-school",
-      "time": {"week":-1,"day":"thu","time":null},
+      "time": {"week":-1,"day":"thu","time":"18:00"},
       "title": "Back-to-school night",
       "children": ["mallory"],
       "place": "westview",
@@ -559,6 +585,117 @@
       "forEvent": null,
       "fromCalendar": false,
       "source": ["cap-rotation"]
+    },
+    {
+      "id": "w-1-mon-therapy-alexis",
+      "time": {"week":-1,"day":"mon","time":"15:30"},
+      "title": "Therapy, Brightwater Family Therapy",
+      "children": ["alexis"],
+      "place": "brightwater",
+      "kind": "routine",
+      "type": "event",
+      "forEvent": null,
+      "fromCalendar": true,
+      "source": ["calendar"],
+      "repeatOf": "mon-therapy-alexis"
+    },
+    {
+      "id": "w-1-wed-school-alexis",
+      "time": {"week":-1,"day":"wed","time":"08:00"},
+      "title": "To Cedar Grove Elementary",
+      "children": ["alexis"],
+      "place": "cedar-grove",
+      "kind": "routine",
+      "type": "trip",
+      "forEvent": null,
+      "fromCalendar": false,
+      "source": ["you"]
+    },
+    {
+      "id": "w-1-wed-school-mallory",
+      "time": {"week":-1,"day":"wed","time":"08:30"},
+      "title": "To Westview Kindergarten",
+      "children": ["mallory"],
+      "place": "westview",
+      "kind": "routine",
+      "type": "trip",
+      "forEvent": null,
+      "fromCalendar": false,
+      "source": ["you"]
+    },
+    {
+      "id": "w-1-wed-dance-alexis",
+      "time": {"week":-1,"day":"wed","time":"15:45"},
+      "title": "Dance, Studio Ten Dance",
+      "children": ["alexis"],
+      "place": "studio-ten",
+      "kind": "routine",
+      "type": "event",
+      "forEvent": null,
+      "fromCalendar": true,
+      "source": ["calendar"],
+      "repeatOf": "wed-dance-alexis"
+    },
+    {
+      "id": "w-1-thu-school-alexis",
+      "time": {"week":-1,"day":"thu","time":"08:00"},
+      "title": "To Cedar Grove Elementary",
+      "children": ["alexis"],
+      "place": "cedar-grove",
+      "kind": "routine",
+      "type": "trip",
+      "forEvent": null,
+      "fromCalendar": false,
+      "source": ["you"]
+    },
+    {
+      "id": "w-1-thu-school-mallory",
+      "time": {"week":-1,"day":"thu","time":"08:30"},
+      "title": "To Westview Kindergarten",
+      "children": ["mallory"],
+      "place": "westview",
+      "kind": "routine",
+      "type": "trip",
+      "forEvent": null,
+      "fromCalendar": false,
+      "source": ["you"]
+    },
+    {
+      "id": "w-1-thu-ballet-mallory",
+      "time": {"week":-1,"day":"thu","time":"16:15"},
+      "title": "Ballet, Studio Ten Dance",
+      "children": ["mallory"],
+      "place": "studio-ten",
+      "kind": "routine",
+      "type": "event",
+      "forEvent": null,
+      "fromCalendar": true,
+      "source": ["calendar"],
+      "repeatOf": "thu-ballet-mallory"
+    },
+    {
+      "id": "w-1-fri-school-alexis",
+      "time": {"week":-1,"day":"fri","time":"08:00"},
+      "title": "To Cedar Grove Elementary",
+      "children": ["alexis"],
+      "place": "cedar-grove",
+      "kind": "routine",
+      "type": "trip",
+      "forEvent": null,
+      "fromCalendar": false,
+      "source": ["you"]
+    },
+    {
+      "id": "w-1-fri-school-mallory",
+      "time": {"week":-1,"day":"fri","time":"08:30"},
+      "title": "To Westview Kindergarten",
+      "children": ["mallory"],
+      "place": "westview",
+      "kind": "routine",
+      "type": "trip",
+      "forEvent": null,
+      "fromCalendar": false,
+      "source": ["you"]
     },
     {
       "id": "mon-carpool-alexis",
@@ -704,7 +841,9 @@
       "type": "event",
       "forEvent": null,
       "fromCalendar": false,
-      "source": ["cap-lakeside-text"]
+      "source": ["cap-lakeside-text"],
+      "laterTodayText": "Lakeside Strings Music School, with Mallory",
+      "spoken": "Take Alexis to violin at Lakeside Strings Music School"
     },
     {
       "id": "wed-carpool-alexis",
@@ -716,7 +855,8 @@
       "type": "trip",
       "forEvent": null,
       "fromCalendar": false,
-      "source": ["you"]
+      "source": ["you"],
+      "spoken": "Drive Alexis's carpool to Cedar Grove Elementary"
     },
     {
       "id": "wed-school-mallory",
@@ -872,6 +1012,32 @@
       "forEvent": null,
       "fromCalendar": false,
       "source": ["you"]
+    },
+    {
+      "id": "fri-carpool-alexis",
+      "time": {"week":0,"day":"fri","time":"08:00"},
+      "title": "Cedar Grove Elementary",
+      "children": ["alexis"],
+      "place": "cedar-grove",
+      "kind": "routine",
+      "type": "trip",
+      "forEvent": null,
+      "fromCalendar": false,
+      "source": ["you"],
+      "stopLabel": "Drop off"
+    },
+    {
+      "id": "fri-carpool-mallory",
+      "time": {"week":0,"day":"fri","time":"08:30"},
+      "title": "Westview Kindergarten",
+      "children": ["mallory"],
+      "place": "westview",
+      "kind": "routine",
+      "type": "trip",
+      "forEvent": null,
+      "fromCalendar": false,
+      "source": ["you"],
+      "stopLabel": "Drop off"
     },
     {
       "id": "fri-picture-day-mallory",
@@ -1104,7 +1270,8 @@
       "stopLabel": "Therapy, with Mallory",
       "spoken": "Alexis's therapy at Brightwater Family Therapy",
       "practice": "karen-moss",
-      "repeatOf": "mon-therapy-alexis"
+      "repeatOf": "mon-therapy-alexis",
+      "conflictName": "therapy"
     },
     {
       "id": "tue-orchestra-alexis-w1",
@@ -1301,6 +1468,19 @@
       "repeatOf": "fri-carpool"
     },
     {
+      "id": "fri-carpool-mallory-w1",
+      "time": {"week":1,"day":"fri","time":"08:30"},
+      "title": "Westview Kindergarten",
+      "children": ["mallory"],
+      "place": "westview",
+      "kind": "routine",
+      "type": "trip",
+      "forEvent": null,
+      "fromCalendar": false,
+      "source": ["you"],
+      "stopLabel": "Drop off"
+    },
+    {
       "id": "fri-pickup-alexis-w1",
       "time": {"week":1,"day":"fri","time":"14:45"},
       "title": "Pick up at Cedar Grove Elementary",
@@ -1352,7 +1532,8 @@
       "type": "event",
       "forEvent": null,
       "fromCalendar": false,
-      "source": ["you"]
+      "source": ["you"],
+      "conflictName": "violin"
     },
     {
       "id": "fri-harvest-fair-w1",
@@ -1364,7 +1545,9 @@
       "type": "event",
       "forEvent": null,
       "fromCalendar": false,
-      "source": ["cap-rotation"]
+      "source": ["cap-rotation"],
+      "conflictName": "the harvest fair",
+      "stopLabel": "Harvest fair"
     }
   ],
   "runs": [
@@ -1437,6 +1620,61 @@
       ]
     },
     {
+      "id": "run-tue-orchestra",
+      "day": {"week":0,"day":"tue","time":null},
+      "stops": [
+        {"place":"home","item":null,"on":["alexis","mallory"],"off":[],"leaveAt":"06:55"},
+        {"place":"cedar-grove","item":"tue-orchestra-alexis","on":[],"off":["alexis"],"dueAt":"07:15"},
+        {"place":"home","item":null,"on":[],"off":["mallory"]}
+      ]
+    },
+    {
+      "id": "run-tue-am-mallory",
+      "day": {"week":0,"day":"tue","time":null},
+      "stops": [
+        {"place":"home","item":null,"on":["mallory"],"off":[],"leaveAt":"08:15"},
+        {"place":"westview","item":"tue-school-mallory","on":[],"off":["mallory"],"dueAt":"08:30"},
+        {"place":"home","item":null,"on":[],"off":[]}
+      ]
+    },
+    {
+      "id": "run-tue-pm",
+      "day": {"week":0,"day":"tue","time":null},
+      "stops": [
+        {"place":"home","item":null,"on":[],"off":[],"leaveAt":"14:15"},
+        {"place":"westview","item":"tue-pickup-mallory","on":["mallory"],"off":[],"dueAt":"14:30","leaveAt":"14:30"},
+        {"place":"cedar-grove","item":"tue-pickup-alexis","on":["alexis"],"off":[],"dueAt":"14:45"},
+        {"place":"home","item":null,"on":[],"off":["alexis","mallory"]}
+      ]
+    },
+    {
+      "id": "run-tue-violin",
+      "day": {"week":0,"day":"tue","time":null},
+      "stops": [
+        {"place":"home","item":null,"on":["alexis","mallory"],"off":[],"leaveAt":"15:40"},
+        {"place":"lakeside","item":"tue-violin-alexis","on":[],"off":[],"dueAt":"16:00"},
+        {"place":"home","item":null,"on":[],"off":["alexis","mallory"]}
+      ]
+    },
+    {
+      "id": "run-wed-carpool",
+      "day": {"week":0,"day":"wed","time":null},
+      "stops": [
+        {"place":"home","item":null,"on":["alexis"],"off":[],"leaveAt":"07:40"},
+        {"place":"cedar-grove","item":"wed-carpool-alexis","on":[],"off":["alexis"],"dueAt":"08:00"},
+        {"place":"home","item":null,"on":[],"off":[]}
+      ]
+    },
+    {
+      "id": "run-wed-am-mallory",
+      "day": {"week":0,"day":"wed","time":null},
+      "stops": [
+        {"place":"home","item":null,"on":["mallory"],"off":[],"leaveAt":"08:15"},
+        {"place":"westview","item":"wed-school-mallory","on":[],"off":["mallory"],"dueAt":"08:30"},
+        {"place":"home","item":null,"on":[],"off":[]}
+      ]
+    },
+    {
       "id": "run-thu-orchestra",
       "day": {"week":0,"day":"thu","time":null},
       "stops": [
@@ -1475,7 +1713,7 @@
           "coachLine": "Pick Mallory up yourself and skip yoga this week. Tomorrow runs like an ordinary Thursday, and Mallory rides with you to ballet as usual.",
           "button": {"label":"Skip yoga this week","action":"choose:plan-c"},
           "dependsOn": null,
-          "result": null
+          "result": "cc-mallory-pickup:plan-c"
         }
       ]
     },
@@ -1509,6 +1747,17 @@
       ]
     },
     {
+      "id": "run-fri-am",
+      "day": {"week":0,"day":"fri","time":null},
+      "title": "Drive Alexis's carpool, then take Mallory to Westview Kindergarten",
+      "stops": [
+        {"place":"home","item":null,"on":["alexis","mallory"],"off":[],"leaveAt":"07:40"},
+        {"place":"cedar-grove","item":"fri-carpool-alexis","on":[],"off":["alexis"],"dueAt":"08:00","leaveAt":"08:10"},
+        {"place":"westview","item":"fri-carpool-mallory","on":[],"off":["mallory"],"dueAt":"08:30","leaveAt":"08:30"},
+        {"place":"home","item":null,"on":[],"off":[]}
+      ]
+    },
+    {
       "id": "run-fri-pm-alexis",
       "day": {"week":0,"day":"fri","time":null},
       "stops": [
@@ -1521,9 +1770,9 @@
       "id": "run-fri-checkup",
       "day": {"week":0,"day":"fri","time":null},
       "stops": [
-        {"place":"home","item":null,"on":[],"off":[],"leaveAt":"15:10"},
-        {"place":"northside","item":"fri-checkup-mallory","on":[],"off":[],"dueAt":"15:30"},
-        {"place":"home","item":null,"on":[],"off":[]}
+        {"place":"home","item":null,"on":["mallory"],"off":[],"leaveAt":"15:10"},
+        {"place":"northside","item":"fri-checkup-mallory","on":[],"off":[],"dueAt":"15:30","leaveAt":"16:15"},
+        {"place":"home","item":null,"on":[],"off":["mallory"]}
       ],
       "backups": [
         {
@@ -1558,7 +1807,12 @@
     {
       "id": "run-w1-fri",
       "day": {"week":1,"day":"fri","time":null},
-      "stops": [],
+      "stops": [
+        {"place":"home","item":null,"on":[],"off":[],"leaveAt":"14:25"},
+        {"place":"cedar-grove","item":"fri-pickup-alexis-w1","on":["alexis"],"off":[],"dueAt":"14:45","leaveAt":"14:45"},
+        {"place":"westview","item":"fri-harvest-fair-w1","on":["mallory"],"off":[],"dueAt":"15:00","leaveAt":"17:00"},
+        {"place":"home","item":null,"on":[],"off":["alexis","mallory"]}
+      ],
       "backups": [
         {
           "label": "B",
@@ -1776,8 +2030,9 @@
       "to": "ms-reyes",
       "channel": "text-link",
       "sent": null,
+      "heading": "Charlotte is asking you to skip Mallory's tutoring {rel:1.fri}.",
       "text": "Hi Ms. Reyes, Westview Kindergarten's harvest fair is next Friday, {date:1.fri}, at 3:00pm, so Mallory will skip tutoring that day. We'll see you next Tuesday, {date:1.tue}, at 3:00pm. Thank you, Charlotte",
-      "items": [{"item":"fri-tutoring-mallory-w1"}]
+      "items": [{"item":"fri-tutoring-mallory-w1","label":"Tutoring with Ms. Reyes, Westview Kindergarten library, 3:00pm"}]
     },
     {
       "id": "wa-carpool-yes",
@@ -1940,6 +2195,14 @@
       "kind": "taught",
       "at": {"week":-1,"day":"tue","time":"12:40"},
       "text": "Next time, you can send a message straight from WhatsApp. Press and hold the message, tap Forward, tap the share button, and choose MVP."
+    },
+    {
+      "id": "t-newsletter-first-readback",
+      "from": "coach",
+      "kind": "read-back",
+      "at": {"week":-1,"day":"wed","time":"16:20"},
+      "capture": "cap-newsletter-first",
+      "text": "From the Cedar Grove Elementary newsletter, nothing from today on is for Alexis, so the plan stays as it is."
     },
     {
       "id": "t-forwarding",
@@ -2194,6 +2457,13 @@
           },
           "link": null,
           "meta": "Game plan updated"
+        },
+        "plan-c": {
+          "chosenText": "Pick Mallory up yourself and skip yoga this week. Tomorrow runs like an ordinary Thursday, and Mallory rides with you to ballet as usual.",
+          "text": "Yoga is out of tomorrow's plan. If you booked the 2:15pm class at Willow Yoga, cancel it there.",
+          "button": {"label":"Open the game plan","action":"open-tab:game-plan"},
+          "link": "Undo",
+          "meta": "Game plan updated"
         }
       }
     },
@@ -2279,7 +2549,16 @@
         "planItems": [
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
-          {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-thu-back-to-school","inPlan":false,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":false,"owner":"min-jung","status":null,"marks":[],"note":null},
           {"id":"mon-school-mallory","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"mon-pickup-mallory","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2304,6 +2583,8 @@
           {"id":"thu-pickup-mallory","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-picture-day-mallory","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-free-dress-alexis","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-conference","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2335,19 +2616,46 @@
           {"id":"thu-pickup-mallory-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"mon-violin-alexis-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-harvest-fair-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null}
         ],
-        "reviewCard": [],
+        "reviewCard": ["w-1-thu-back-to-school"],
         "conversation": ["c00-readback","c00-question","c00-answer","c00-handoff","c00-draft","c00-welcome"],
         "captures": ["cap-rotation"],
         "requests": [],
         "groups": [],
         "chats": [],
-        "schools": [],
+        "schools": [
+          {
+            "id": "westview",
+            "facts": [
+              {"id":"wv-starts","changed":false},
+              {"id":"wv-letter-a","changed":false},
+              {"id":"wv-letter-bd","changed":false},
+              {"id":"wv-letter-c","changed":false},
+              {"id":"wv-letter-e","changed":false},
+              {"id":"wv-letter-f","changed":false},
+              {"id":"wv-back-to-school","changed":false},
+              {"id":"wv-harvest-fair","changed":false},
+              {"id":"wv-field-trip","changed":false}
+            ]
+          },
+          {
+            "id": "cedar-grove",
+            "facts": [
+              {"id":"cg-starts","changed":false}
+            ]
+          }
+        ],
+        "children": [
+          {"id":"alexis","weekly":[{"id":"dance"},{"id":"therapy"}],"goingWith":[]},
+          {"id":"mallory","weekly":[{"id":"ballet"}],"goingWith":["mallory-sneakers","mallory-library-book"]}
+        ],
+        "people": [{"id":"edward","hasMVP":null},{"id":"claire","hasMVP":null}],
         "reminders": [{"id":"rem-library-night","set":true}],
         "unread": {"team":0},
         "onboarding": {
@@ -2395,7 +2703,7 @@
           "laterToday": null,
           "editorial": null
         },
-        "omitted": [{"part":"game-plan","issue":"P4"},{"part":"team","issue":"P4"},{"part":"kids","issue":"P4"},{"part":"coach-tab","issue":"P4"}]
+        "omitted": []
       },
       "steps": [
         {
@@ -2418,7 +2726,7 @@
             "today": {
               "now": {"kind":"trip","run":"run-first-board","next":2,"checklist":null,"actions":["directions"]},
               "coachCard": null,
-              "laterToday": [],
+              "laterToday": null,
               "editorial": null
             }
           }
@@ -2457,14 +2765,14 @@
           "today": {
             "now": {
               "kind": "leg",
-              "start": {"place":"cedar-grove","time":"08:00"},
-              "leaveAt": "07:40",
+              "run": "run-first-board-alexis",
+              "from": 0,
               "title": "Take Alexis to Cedar Grove Elementary",
               "needsOwner": true,
               "checklist": null,
               "actions": []
             },
-            "forTomorrow": [{"needsOwner":true,"child":"mallory","place":"westview","startTime":"08:30","text":"Westview Kindergarten · Needs an owner"}],
+            "forTomorrow": [{"needsOwner":true,"item":"w-1-tue-school-mallory","text":"Westview Kindergarten · Needs an owner"}],
             "coachCard": {"id":"coachEmptyWeek","state":"open"}
           }
         }
@@ -2480,6 +2788,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {"id":"mon-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"mon-pickup-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2504,6 +2821,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-picture-day-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-free-dress-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-conference","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2535,6 +2854,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2552,6 +2872,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback"
         ],
@@ -2607,13 +2928,28 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true}],
         "unread": {"team":0},
-        "omitted": [{"part":"today","issue":"T72"}]
+        "today": {
+          "now": {
+            "kind": "with-someone",
+            "departure": "mon-carpool-alexis",
+            "leaveAt": "07:40",
+            "starts": "08:00",
+            "checklist": {"groups":[{"child":"alexis","items":["Lunch and snack","Library book, due today","Water bottle, with lots of ice"]}]},
+            "actions": ["remind"]
+          },
+          "forTomorrow": [],
+          "coachCard": null,
+          "laterToday": ["mon-school-mallory","mon-pickup-mallory","mon-pickup-alexis","mon-therapy-alexis"],
+          "editorial": "conference"
+        },
+        "omitted": []
       },
       "steps": [
         {
           "at": {"week":0,"day":"mon","time":"06:16"},
           "change": "She shares Jenna's message from WhatsApp, and Wednesday's carpool needs an owner.",
-          "set": {"conversation":["c01-share"],"captures":["cap-jenna-whatsapp"],"items":{"wed-carpool-alexis":{"owner":null}}}
+          "set": {"conversation":["c01-share"],"captures":["cap-jenna-whatsapp"],"items":{"wed-carpool-alexis":{"owner":null}}},
+          "show": {"today":{"coachCard":{"id":"cc-wed-carpool","state":"open"}}}
         },
         {
           "at": {"week":0,"day":"mon","time":null},
@@ -2644,6 +2980,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {"id":"mon-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"mon-pickup-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2668,6 +3013,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-picture-day-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-free-dress-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-conference","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2699,6 +3046,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2716,6 +3064,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -2778,7 +3127,21 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true}],
         "unread": {"team":0},
-        "omitted": [{"part":"today","issue":"T72"}]
+        "today": {
+          "now": {
+            "kind": "with-someone",
+            "departure": "mon-carpool-alexis",
+            "leaveAt": "07:40",
+            "starts": "08:00",
+            "checklist": {"groups":[{"child":"alexis","items":["Lunch and snack","Library book, due today","Water bottle, with lots of ice"]}]},
+            "actions": ["remind"]
+          },
+          "forTomorrow": [],
+          "coachCard": {"id":"cc-wed-carpool","state":"open"},
+          "laterToday": ["mon-school-mallory","mon-pickup-mallory","mon-pickup-alexis","mon-therapy-alexis"],
+          "editorial": "conference"
+        },
+        "omitted": []
       },
       "steps": [
         {
@@ -2823,6 +3186,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {"id":"mon-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"mon-pickup-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2854,6 +3226,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"edward","status":{"state":"accepted","person":"edward"},"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-picture-day-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-free-dress-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-conference","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2885,6 +3259,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -2902,6 +3277,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -3028,6 +3404,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {"id":"mon-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"mon-pickup-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -3059,6 +3444,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"edward","status":{"state":"accepted","person":"edward"},"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-picture-day-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-free-dress-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-conference","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -3090,6 +3477,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -3107,6 +3495,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -3192,13 +3581,13 @@
           "laterToday": ["mon-pickup-mallory","mon-pickup-alexis","mon-therapy-alexis"],
           "editorial": "conference"
         },
-        "omitted": [{"part":"westview-card-food-drive","issue":"A12"}]
+        "omitted": []
       },
       "steps": [
         {
           "at": {"week":0,"day":"mon","time":"07:45"},
           "change": "She types into the capture bar and photographs the flyer, and the coach card reads it.",
-          "set": {"captures":["cap-flyer"]},
+          "set": {"captures":["cap-flyer"],"schools":{"westview":{"wv-food-drive":{"changed":false}}}},
           "show": {"today":{"coachCard":{"id":"cc-flyer","state":"reading"}}}
         },
         {
@@ -3243,6 +3632,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -3285,6 +3683,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"edward","status":{"state":"accepted","person":"edward"},"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-picture-day-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-free-dress-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-conference","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -3316,6 +3716,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -3333,6 +3734,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -3384,6 +3786,7 @@
               {"id":"wv-letter-c","changed":false},
               {"id":"wv-letter-e","changed":false},
               {"id":"wv-letter-f","changed":false},
+              {"id":"wv-food-drive","changed":false},
               {"id":"wv-picture-day","changed":false},
               {"id":"wv-harvest-fair","changed":false},
               {"id":"wv-field-trip","changed":false}
@@ -3468,6 +3871,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -3510,6 +3922,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"edward","status":{"state":"accepted","person":"edward"},"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-picture-day-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-free-dress-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-conference","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -3541,6 +3955,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -3558,6 +3973,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -3609,6 +4025,7 @@
               {"id":"wv-letter-c","changed":false},
               {"id":"wv-letter-e","changed":false},
               {"id":"wv-letter-f","changed":false},
+              {"id":"wv-food-drive","changed":false},
               {"id":"wv-picture-day","changed":false},
               {"id":"wv-harvest-fair","changed":false},
               {"id":"wv-field-trip","changed":false}
@@ -3631,7 +4048,42 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true},{"id":"rem-mon-pm","set":false,"fired":true}],
         "unread": {"team":0},
-        "omitted": [{"part":"today","issue":"T72"}]
+        "today": {
+          "now": {
+            "kind": "leg",
+            "run": "run-tue-orchestra",
+            "from": 0,
+            "tomorrow": true,
+            "checklist": {
+              "evening": true,
+              "groups": [
+                {
+                  "child": "alexis",
+                  "items": [
+                    "Put the violin case and orchestra folder by the front door for the 6:55am start",
+                    "Pack the lunch and snack tonight to save time in the morning"
+                  ]
+                }
+              ]
+            },
+            "actions": ["remind-leave-home"]
+          },
+          "forTomorrow": [
+            {
+              "run": "run-tue-am-mallory",
+              "text": "Leave home at 8:15am to take Mallory to Westview Kindergarten",
+              "groups": [{"child":"mallory","items":["Pack the lunch and snack tonight to save time in the morning"]}]
+            },
+            {
+              "run": "run-tue-violin",
+              "text": "Leave home at 3:40pm to take Alexis to violin at Lakeside Strings Music School"
+            }
+          ],
+          "coachCard": null,
+          "laterToday": null,
+          "editorial": null
+        },
+        "omitted": []
       },
       "steps": [
         {
@@ -3672,13 +4124,22 @@
     {
       "id": "C-04b",
       "label": "Edward says yes to the library run and adds a note.",
-      "time": {"week":0,"day":"tue","time":"07:05"},
+      "time": {"week":0,"day":"tue","time":"07:20"},
       "opensOn": "view-as:edward",
       "state": {
         "planItems": [
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -3729,6 +4190,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"edward","status":{"state":"accepted","person":"edward"},"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -3774,6 +4237,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -3791,6 +4255,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -3865,11 +4330,24 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true},{"id":"rem-mon-pm","set":false,"fired":true}],
         "unread": {"team":0},
-        "omitted": [{"part":"today","issue":"T72"}]
+        "today": {
+          "now": {
+            "kind": "leg",
+            "run": "run-tue-am-mallory",
+            "from": 0,
+            "checklist": {"groups":[{"child":"mallory","items":["Lunch"]}]},
+            "actions": ["remind","directions"]
+          },
+          "forTomorrow": [],
+          "coachCard": null,
+          "laterToday": ["tue-school-mallory","tue-pickup-mallory","tue-pickup-alexis","tue-violin-alexis"],
+          "editorial": "conference"
+        },
+        "omitted": []
       },
       "steps": [
         {
-          "at": {"week":0,"day":"tue","time":"07:05"},
+          "at": {"week":0,"day":"tue","time":"07:20"},
           "change": "Edward answers Yes, I can with a note.",
           "set": {
             "requests": {
@@ -3880,7 +4358,7 @@
                     "item": "sat-library-run",
                     "answer": "yes",
                     "note": "We'll get lunch after and be home by 1:00pm.",
-                    "at": {"week":0,"day":"tue","time":"07:05"}
+                    "at": {"week":0,"day":"tue","time":"07:20"}
                   }
                 ]
               }
@@ -3907,6 +4385,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -3957,6 +4444,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"edward","status":{"state":"accepted","person":"edward"},"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -4010,6 +4499,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -4027,6 +4517,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -4067,7 +4558,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           }
@@ -4113,8 +4604,20 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true},{"id":"rem-mon-pm","set":false,"fired":true}],
         "unread": {"team":0},
-        "today": {"coachCard":{"id":"cc-therapist","state":"open"}},
-        "omitted": [{"part":"today-now","issue":"T73"},{"part":"today-later","issue":"T73"},{"part":"today-editorial","issue":"T73"}]
+        "today": {
+          "now": {
+            "kind": "leg",
+            "run": "run-tue-pm",
+            "from": 0,
+            "checklist": null,
+            "actions": ["remind","directions"]
+          },
+          "forTomorrow": [],
+          "coachCard": {"id":"cc-therapist","state":"open"},
+          "laterToday": ["tue-pickup-mallory","tue-pickup-alexis","tue-violin-alexis"],
+          "editorial": "conference"
+        },
+        "omitted": []
       },
       "steps": [
         {
@@ -4144,6 +4647,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -4194,6 +4706,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"edward","status":{"state":"accepted","person":"edward"},"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -4247,6 +4761,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -4264,6 +4779,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -4306,7 +4822,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           }
@@ -4352,7 +4868,20 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true},{"id":"rem-mon-pm","set":false,"fired":true}],
         "unread": {"team":2},
-        "omitted": [{"part":"today","issue":"T72"}]
+        "today": {
+          "now": {
+            "kind": "leg",
+            "run": "run-tue-violin",
+            "from": 0,
+            "checklist": null,
+            "actions": ["directions"]
+          },
+          "forTomorrow": [],
+          "coachCard": null,
+          "laterToday": ["tue-violin-alexis"],
+          "editorial": "conference"
+        },
+        "omitted": []
       },
       "steps": [
         {
@@ -4372,6 +4901,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -4422,6 +4960,8 @@
           {"id":"thu-pickup-mallory","inPlan":true,"owner":"edward","status":{"state":"accepted","person":"edward"},"marks":[],"note":null},
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -4475,6 +5015,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -4492,6 +5033,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -4534,7 +5076,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           }
@@ -4580,7 +5122,27 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true},{"id":"rem-mon-pm","set":false,"fired":true}],
         "unread": {"team":0},
-        "omitted": [{"part":"today","issue":"T72"}]
+        "today": {
+          "now": {
+            "kind": "leg",
+            "run": "run-wed-carpool",
+            "from": 0,
+            "tomorrow": true,
+            "checklist": {"evening":true,"groups":[{"child":"alexis","items":["Pack the lunch and snack tonight to save time in the morning"]}]},
+            "actions": ["remind-leave-home"]
+          },
+          "forTomorrow": [
+            {
+              "run": "run-wed-am-mallory",
+              "text": "Leave home at 8:15am to take Mallory to Westview Kindergarten",
+              "groups": [{"child":"mallory","items":["Pack the lunch and snack tonight to save time in the morning","Sneakers, it's a motor skills day"]}]
+            }
+          ],
+          "coachCard": null,
+          "laterToday": null,
+          "editorial": null
+        },
+        "omitted": []
       },
       "steps": [
         {
@@ -4615,6 +5177,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -4679,6 +5250,8 @@
           },
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -4732,6 +5305,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -4749,6 +5323,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -4797,7 +5372,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           }
@@ -4920,6 +5495,11 @@
             }
           }
         },
+        "plan-c": {
+          "change": "If she had tapped Skip yoga this week on the Leave sheet instead.",
+          "today": {"coachCard":{"id":"cc-mallory-pickup","state":"plan-c"}},
+          "set": {"items":{"thu-yoga":{"inPlan":false,"marks":[]},"thu-pickup-mallory":{"owner":"charlotte","status":null,"marks":[]}}}
+        },
         "min-jung-no": {
           "change": "If Min-jung says no.",
           "today": {"coachCard":{"id":"cc-min-jung-no","state":"open"}},
@@ -4937,6 +5517,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -4994,6 +5583,8 @@
           },
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -5054,6 +5645,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -5071,6 +5663,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -5121,7 +5714,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           },
@@ -5243,6 +5836,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -5300,6 +5902,8 @@
           },
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -5353,6 +5957,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -5370,6 +5975,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -5420,7 +6026,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           },
@@ -5477,7 +6083,19 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true},{"id":"rem-mon-pm","set":false,"fired":true}],
         "unread": {"team":0},
-        "omitted": [{"part":"today","issue":"T72"}]
+        "today": {
+          "now": {
+            "kind": "at-home",
+            "item": "wed-dinner-claire",
+            "checklist": null,
+            "actions": ["remind"]
+          },
+          "forTomorrow": [],
+          "coachCard": null,
+          "laterToday": [],
+          "editorial": "conference"
+        },
+        "omitted": []
       },
       "steps": [
         {
@@ -5502,6 +6120,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -5559,6 +6186,8 @@
           },
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -5612,6 +6241,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -5629,6 +6259,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -5679,7 +6310,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           },
@@ -5789,6 +6420,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -5846,6 +6486,8 @@
           },
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -5899,6 +6541,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -5916,6 +6559,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -5968,7 +6612,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           },
@@ -6028,7 +6672,37 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true},{"id":"rem-mon-pm","set":false,"fired":true}],
         "unread": {"team":1},
-        "omitted": [{"part":"today","issue":"T72"}]
+        "today": {
+          "now": {
+            "kind": "trip",
+            "run": "run-fri-am",
+            "checklist": {
+              "evening": true,
+              "groups": [
+                {"child":"alexis","items":["Pack the lunch and snack tonight to save time in the morning"]},
+                {
+                  "child": "mallory",
+                  "items": [
+                    "Pack the lunch and snack tonight to save time in the morning",
+                    "The green dress for picture day, hanging in the laundry room",
+                    "Sneakers, it's a motor skills day"
+                  ]
+                }
+              ]
+            },
+            "actions": ["remind-leave-home"]
+          },
+          "forTomorrow": [
+            {
+              "run": "run-fri-checkup",
+              "text": "Leave home at 3:10pm to take Mallory to the checkup at Northside Pediatrics"
+            }
+          ],
+          "coachCard": null,
+          "laterToday": null,
+          "editorial": null
+        },
+        "omitted": []
       },
       "steps": []
     },
@@ -6042,6 +6716,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -6099,6 +6782,8 @@
           },
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -6152,6 +6837,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -6169,6 +6855,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -6223,7 +6910,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           },
@@ -6283,7 +6970,37 @@
         ],
         "reminders": [{"id":"rem-library-night","set":true},{"id":"rem-mon-pm","set":false,"fired":true}],
         "unread": {"team":1},
-        "omitted": [{"part":"today","issue":"T72"}]
+        "today": {
+          "now": {
+            "kind": "trip",
+            "run": "run-fri-am",
+            "checklist": {
+              "evening": true,
+              "groups": [
+                {"child":"alexis","items":["Pack the lunch and snack tonight to save time in the morning"]},
+                {
+                  "child": "mallory",
+                  "items": [
+                    "Pack the lunch and snack tonight to save time in the morning",
+                    "The green dress for picture day, hanging in the laundry room",
+                    "Sneakers, it's a motor skills day"
+                  ]
+                }
+              ]
+            },
+            "actions": ["remind-leave-home"]
+          },
+          "forTomorrow": [
+            {
+              "run": "run-fri-checkup",
+              "text": "Leave home at 3:10pm to take Mallory to the checkup at Northside Pediatrics"
+            }
+          ],
+          "coachCard": null,
+          "laterToday": null,
+          "editorial": null
+        },
+        "omitted": []
       },
       "steps": [
         {
@@ -6303,6 +7020,15 @@
           {"id":"w-1-tue-school-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-tue-school-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"w-1-thu-back-to-school","inPlan":true,"owner":null,"status":{"state":"proposed"},"marks":[],"note":null},
+          {"id":"w-1-mon-therapy-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-wed-dance-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-thu-ballet-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-alexis","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
+          {"id":"w-1-fri-school-mallory","inPlan":true,"owner":null,"status":null,"marks":[],"note":null},
           {"id":"mon-carpool-alexis","inPlan":true,"owner":"min-jung","status":null,"marks":[],"note":null},
           {
             "id": "mon-school-mallory",
@@ -6360,6 +7086,8 @@
           },
           {"id":"thu-ballet-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-alexis","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {
             "id": "fri-picture-day-mallory",
             "inPlan": true,
@@ -6420,6 +7148,7 @@
           {"id":"thu-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"thu-ballet-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-carpool-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
+          {"id":"fri-carpool-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-alexis-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-tutoring-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
           {"id":"fri-pickup-mallory-w1","inPlan":true,"owner":"charlotte","status":null,"marks":[],"note":null},
@@ -6445,6 +7174,7 @@
           "t-min-jung-paste",
           "t-min-jung-readback",
           "t-share-menu",
+          "t-newsletter-first-readback",
           "t-forwarding",
           "c01-readback",
           "c01-share",
@@ -6499,7 +7229,7 @@
                 "item": "sat-library-run",
                 "answer": "yes",
                 "note": "We'll get lunch after and be home by 1:00pm.",
-                "at": {"week":0,"day":"tue","time":"07:05"}
+                "at": {"week":0,"day":"tue","time":"07:20"}
               }
             ]
           },
@@ -6580,12 +7310,7 @@
           "laterToday": null,
           "editorial": null
         },
-        "omitted": [
-          {"part":"w1-violin-therapy-conflict-label","issue":"G47"},
-          {"part":"w1-tutoring-conflict-label","issue":"G47"},
-          {"part":"pumpkin-checklist-row","issue":"G47"},
-          {"part":"req-reyes-fair-heading","issue":"G47"}
-        ]
+        "omitted": []
       },
       "steps": [
         {
@@ -6599,7 +7324,8 @@
                 "owner": "charlotte",
                 "status": null,
                 "marks": [{"kind":"conflict","with":"fri-tutoring-mallory-w1","label":"tutoring"}]
-              }
+              },
+              "fri-tutoring-mallory-w1": {"marks":[{"kind":"conflict","with":"fri-harvest-fair-w1","label":"the harvest fair"}]}
             }
           },
           "show": {"today":{"coachCard":{"id":"cc-harvest-fair-tutoring","state":"open"}}}
@@ -6616,7 +7342,7 @@
         {
           "at": {"week":0,"day":"sun","time":"19:32"},
           "change": "She opens the game plan at next week and tells the coach about a pumpkin through the capture bar.",
-          "set": {"captures":["cap-pumpkin"]},
+          "set": {"captures":["cap-pumpkin"],"items":{"fri-carpool-mallory-w1":{"goingWith":[{"text":"A small pumpkin to paint at the fair","source":null}]}}},
           "show": {
             "tab": "game-plan",
             "gamePlan": {

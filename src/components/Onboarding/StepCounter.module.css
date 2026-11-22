@@ -1,0 +1,6 @@
+/* StepCounter (2716:55011): the count in Meta, then the segments filling the rest of the row. */
+.counter { display: flex; align-items: center; gap: var(--space-12); width: 100%; }
+.label { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); white-space: nowrap; }
+.segments { display: flex; flex: 1; gap: var(--space-4); }
+.segment { flex: 1; height: var(--size-progress-bar); border-radius: var(--radius-pill); background: var(--border-hairline); }
+.segment[data-done] { background: var(--interactive-default); }

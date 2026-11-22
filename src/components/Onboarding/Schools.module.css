@@ -1,0 +1,2 @@
+.name { font: var(--text-header); letter-spacing: var(--text-header-tracking); color: var(--ink-primary); }
+.grade { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-muted); }

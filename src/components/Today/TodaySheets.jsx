@@ -32,7 +32,11 @@ export default function TodaySheets({ view }) {
     const [kind, plan] = backup.button.action.split(':');
     if (kind === 'choose') {
       const card = view.coachCard;
-      if (card && household.seed.coachCards.find((entry) => entry.id === card.id)?.after?.[plan]) today({ type: 'ANSWER_CARD', card: card.id, answer: plan });
+      const moment = household.seed.moments.find((entry) => entry.id === session.momentId);
+      // The plan follows the moment's branch for the backup where the seed writes one (0i-g, C-06's
+      // Plan C), and the card shows her choice either way.
+      if (card && moment?.branches?.[plan]) today({ type: 'CHOOSE_BRANCH', branch: plan, card: card.id });
+      else if (card && household.seed.coachCards.find((entry) => entry.id === card.id)?.after?.[plan]) today({ type: 'ANSWER_CARD', card: card.id, answer: plan });
       close();
     }
   };

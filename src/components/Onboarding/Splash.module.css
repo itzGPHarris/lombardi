@@ -1,0 +1,11 @@
+/* The splash's art at its drawn sizes: the mug in the box its steam rises through, with the star on
+   the mug and the stars' layer placed as the frame places them, then the MVP letters and the full
+   wordmark. Positions are proportions of the box, so no pixel size is typed here. */
+.splash { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-16); height: 100%; }
+.steam { position: relative; width: var(--size-brand-steam-width); height: var(--size-brand-steam-height); flex-shrink: 0; }
+.mug { position: absolute; left: 7.89%; top: 26.08%; display: block; }
+.mug > img { display: block; }
+.mugStar { position: absolute; left: 25.65%; top: 35.41%; }
+.stars { left: 76.13%; top: 8.7%; }
+.wordmark { display: flex; justify-content: center; }
+.wordmark img { display: block; }

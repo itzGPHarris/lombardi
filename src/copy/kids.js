@@ -3,7 +3,14 @@ export const title = 'Kids';
 export const sections = { kids: 'Kids', schools: 'Schools' };
 export const fromYou = 'From you';
 export const addASchool = 'Add a school';
-export const childPage = { school: 'School', everyWeek: 'Every week', goingWith: 'Going with, by day' };
+export const childPage = {
+  school: 'School',
+  everyWeek: 'Every week',
+  goingWith: 'Going with, by day',
+  nothingGoesWith: 'Nothing goes with {child} on a set day yet.',
+};
+// The line beneath a school card that nothing has filled in yet (fixtures C-00, "The other tabs").
+export const emptyCardLine = 'Send the MVP Coach a handout or an email from {school}, and it fills this card in.';
 export const schoolCard = { hours: 'Hours', contacts: 'Contacts', rules: 'Rules', calendar: 'Calendar', rotation: 'Rotation', documents: 'Documents' };
 export const addToThisCard = 'Add to this card';
 export const addSchoolPage = {

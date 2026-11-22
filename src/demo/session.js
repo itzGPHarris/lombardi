@@ -1,4 +1,5 @@
 import { householdById, households } from './households.js';
+import { onboardingReducer, startOnboarding } from './onboarding.js';
 
 // One session per household (spec §17): the moment, the demo time, where she is in the app, and the
 // presenter's controls. Nothing is saved, so a reload starts again on C-00 (spec §15, issue X3).
@@ -21,10 +22,12 @@ export function placeFor(opensOn) {
 // open and the notice above the capture bar. It lives for the moment and clears on any jump (§15).
 // passShown and foldsDrawn hold which pass has already swung in and which folds have already drawn
 // their check, so neither replays when she comes back to Today from another tab (spec §19, "Motion").
-export function emptyToday() {
+// branch names a choice she made that the scripted path does not take, such as skipping her first
+// capture or picking Plan B on her first board, which the moment's seed writes under "branches".
+export function emptyToday(branch = null) {
   return {
     ticks: {}, openedGroups: [], openedChecklists: [], removed: {}, added: {}, reminders: {}, cardAnswers: {},
-    leaveOverrides: {}, sheet: null, sheetClosed: false, notice: null, passShown: null, foldsDrawn: [],
+    leaveOverrides: {}, sheet: null, sheetClosed: false, notice: null, passShown: null, foldsDrawn: [], branch,
   };
 }
 
@@ -53,7 +56,11 @@ export function todayReducer(today, action) {
     case 'RESTORE_ROW': return { ...today, removed: { ...today.removed, [action.group]: without(today.removed[action.group] ?? [], action.item) }, notice: null };
     case 'ADD_ROW': return { ...today, added: { ...today.added, [action.group]: [...(today.added[action.group] ?? []), action.text] } };
     case 'ANSWER_CARD': return { ...today, cardAnswers: { ...today.cardAnswers, [action.card]: action.answer } };
-    case 'UNDO_CARD': return { ...today, cardAnswers: { ...today.cardAnswers, [action.card]: null } };
+    // Undo returns the card to its recommendation and the plan to the scripted path.
+    case 'UNDO_CARD': return { ...today, cardAnswers: { ...today.cardAnswers, [action.card]: null }, branch: null };
+    // A backup on the Leave sheet that changes only her plan: the card shows her choice, and the plan
+    // follows the moment's branch for it.
+    case 'CHOOSE_BRANCH': return { ...today, branch: action.branch, cardAnswers: { ...today.cardAnswers, [action.card]: action.branch }, sheet: null, sheetClosed: true };
     case 'SET_REMINDER': return { ...today, reminders: { ...today.reminders, [action.key]: action.reminder }, sheet: null, sheetClosed: true };
     case 'SAVE_LEAVE': return { ...today, leaveOverrides: { ...today.leaveOverrides, [action.run]: action.overrides }, sheet: null, sheetClosed: true };
     case 'OPEN_SHEET': return { ...today, sheet: action.sheet, sheetClosed: false };
@@ -70,6 +77,12 @@ export function momentState(householdId, momentId, carry = {}) {
   const household = householdById(householdId);
   const { moments } = household.seed;
   const moment = moments.find((entry) => entry.id === momentId) ?? moments[0];
+  const place = placeFor(moment.opensOn);
+  // A moment that opens on the splash runs onboarding from the start with the seed's answers (spec §3).
+  // Development only: the start parameters can open it at one of its screens or failure states.
+  const onboarding = place.still === 'splash' && moment.state?.onboarding
+    ? startOnboarding(household.seed, moment, carry.onboarding)
+    : null;
   return {
     householdId: household.id,
     momentId: moment.id,
@@ -80,7 +93,12 @@ export function momentState(householdId, momentId, carry = {}) {
     played: carry.played ?? 0,
     at: carry.at ?? null,
     notifications: carry.notifications ?? null,
-    ...placeFor(moment.opensOn),
+    ...place,
+    onboarding,
+    // Counts every jump, so the screens remount and nothing she typed, no timer and no entrance is
+    // left behind, even when the presenter jumps to the moment already showing (spec §15).
+    visit: (carry.visit ?? 0) + 1,
+    playedFrom: null,
     stack: [],
     switcherOpen: false,
     // The presenter's own choices carry over a jump; nothing of the household's does.
@@ -90,13 +108,15 @@ export function momentState(householdId, momentId, carry = {}) {
   };
 }
 
-export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications } = {}) {
-  const session = momentState(householdId, momentId, { played, at, notifications });
-  return tab ? { ...session, tab, still: null } : session;
+export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch } = {}) {
+  const session = momentState(householdId, momentId, { played, at, notifications, onboarding });
+  // Development only: open her first board on one of its branches, such as 0i-d or 0i-g.
+  const withBranch = branch ? { ...session, onboarding: null, still: null, today: emptyToday(branch) } : session;
+  return tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
 }
 
-// Only the presenter's own choices carry over a jump.
-const presenter = (state) => ({ phoneFrame: state.phoneFrame, coachMode: state.coachMode });
+// Only the presenter's own choices carry over a jump, with the count of jumps.
+const presenter = (state) => ({ phoneFrame: state.phoneFrame, coachMode: state.coachMode, visit: state.visit });
 
 export function sessionReducer(state, action) {
   switch (action.type) {
@@ -104,6 +124,22 @@ export function sessionReducer(state, action) {
     case 'RESET': return momentState(state.householdId, householdById(state.householdId).seed.moments[0].id, presenter(state));
     case 'SWITCH_HOUSEHOLD': return momentState(action.householdId, undefined, presenter(state));
     case 'TODAY': return { ...state, today: todayReducer(state.today, action.action) };
+    case 'ONBOARDING': return state.onboarding ? { ...state, onboarding: onboardingReducer(state.onboarding, action.action) } : state;
+    // Not now on the account prompt ends the session: nothing she entered is kept, and the app starts
+    // again at the splash (spec §3, "Leaving before the account starts over").
+    case 'START_OVER': return momentState(state.householdId, state.momentId, presenter(state));
+    // The coach's introduction hands her to her first board on Today. If she skipped the capture, the
+    // board follows the moment's branch for it (0i-d).
+    case 'FINISH_ONBOARDING': return {
+      ...state,
+      onboarding: null,
+      still: null,
+      tab: 'today',
+      today: emptyToday(state.onboarding?.flags.skippedCapture ? 'skipped-capture' : null),
+    };
+    // Her answer plays the moment's scripted step for it, such as agreeing on her first board (0i-c),
+    // and Undo plays it back. playedFrom holds where the moment stood before she answered.
+    case 'PLAY': return { ...state, played: action.played, at: null, playedFrom: action.from ?? null };
     // Development only: plays steps inside the moment without a jump, so the motion a step brings can
     // be recorded for evidence before Stage 6 plays steps as the presenter taps.
     case 'DEV_PLAY': return { ...state, played: action.played, at: action.at ?? null };

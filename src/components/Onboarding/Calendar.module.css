@@ -1,0 +1,33 @@
+.choices { padding-top: var(--space-24); gap: var(--space-12); }
+
+/* 0q-b: the screen she came from stays behind, and the permission sits at the foot. */
+.permissionScreen { position: relative; display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+.behind { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--space-56) var(--space-24) 0; }
+.behindBar { display: flex; align-items: center; gap: var(--space-16); min-height: var(--size-tap-target); }
+.behindBack { display: inline-flex; color: var(--ink-primary); }
+.behindBack > span { width: var(--size-icon); height: var(--size-icon); }
+.permission {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-32) var(--space-24) var(--space-24);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--bg-card);
+}
+.ask { padding-bottom: var(--space-32); font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+
+/* 0q-c: the connection on a card with a check in a filled circle. */
+.connected {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
+  color: var(--ink-primary);
+}
+.connectedCheck { display: inline-flex; align-items: center; justify-content: center; width: var(--space-24); height: var(--space-24); border-radius: var(--radius-pill); background: var(--ink-primary); color: var(--ink-on-accent); }
+.connectedCheck > span { width: var(--space-16); height: var(--space-16); }

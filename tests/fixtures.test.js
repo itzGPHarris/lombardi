@@ -64,9 +64,9 @@ const nameSlots = Object.keys(seedSlots);
 const valueSlots = [];
 const slotPattern = /\{([a-z0-9]+)\}/g;
 
-// Fixtures section 4 has no rows for the household switcher yet (issue C74), so the presenter's
-// copy is the one file this test does not check.
-const exempt = { 'src/copy/demo.js': 'C74' };
+// Every content file is checked. Fixtures section 4 has had a Demo controls table since 3.49, so the
+// presenter's copy is no longer exempt (issue C74).
+const exempt = {};
 
 function filesIn(directory) {
   return readdirSync(join(root, directory)).filter((name) => !name.startsWith('.')).flatMap((name) => {
@@ -167,7 +167,7 @@ describe('copy comes only from the fixtures (D3)', () => {
     const count = (kind) => results.filter((result) => result.kind === kind).length;
     console.log(`D3: ${results.length} strings in ${new Set(results.map((result) => result.file)).size} files: `
       + `${count('exact')} exact, ${count('date')} with demo calendar dates, ${count('template')} templates, `
-      + `${count('token')} identifiers, ${count('note')} step notes. Not checked: ${Object.entries(exempt).map(([file, issue]) => `${file} (${issue})`).join(', ')}.`);
+      + `${count('token')} identifiers, ${count('note')} step notes. Not checked: ${Object.entries(exempt).map(([file, issue]) => `${file} (${issue})`).join(', ') || 'nothing'}.`);
     expect(results.length).toBeGreaterThan(0);
   });
 });

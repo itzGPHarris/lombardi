@@ -1,0 +1,42 @@
+/* 0p: each step's bar fills from left to right over `slow`, its check pops in over `standard` with
+   `ease-overshoot`, and the next step's label brightens (spec §19). Under reduced motion each check
+   appears as its step finishes, and the bars and labels change in place. */
+.ready { display: flex; flex-direction: column; justify-content: center; gap: var(--space-24); height: 100%; padding: 0 var(--space-24) var(--space-40); }
+.steps { display: flex; flex-direction: column; gap: var(--space-32); }
+.step {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  row-gap: var(--space-8);
+}
+.label { font: var(--text-body-large); letter-spacing: var(--text-body-large-tracking); color: var(--ink-primary); }
+.step[data-state='waiting'] .label { color: var(--ink-muted); }
+.check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-icon);
+  height: var(--size-icon);
+  border-radius: var(--radius-pill);
+  color: var(--ink-on-accent);
+}
+.step[data-state='done'] .check { background: var(--interactive-default); animation: check-pop var(--motion-duration-standard) var(--motion-ease-overshoot) both; }
+.check > span { width: var(--space-16); height: var(--space-16); }
+.track { grid-column: 1 / -1; height: var(--size-progress-bar); border-radius: var(--radius-pill); background: var(--border-hairline); overflow: hidden; }
+.fill { display: block; width: 100%; height: 100%; background: var(--interactive-default); transform-origin: left center; transform: scaleX(0); }
+.step[data-state='working'] .fill { animation: bar-fill var(--motion-duration-slow) var(--motion-ease-in-out) both; }
+.step[data-state='done'] .fill { transform: none; }
+.failure { display: flex; flex-direction: column; gap: var(--space-24); }
+
+@keyframes bar-fill {
+  from { transform: scaleX(0); }
+  to { transform: none; }
+}
+@keyframes check-pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .step[data-state='working'] .fill { animation: none; }
+  .step[data-state='done'] .check { animation: none; }
+}

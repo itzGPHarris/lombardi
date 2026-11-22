@@ -1,0 +1,16 @@
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--size-tap-target);
+  padding: 0 var(--space-16);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-pill);
+  background: var(--bg-control);
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
+  color: var(--ink-primary);
+}
+.choice[aria-pressed='true'] { border-color: transparent; background: var(--interactive-default); color: var(--ink-on-accent); }
+.check { display: inline-flex; }
+.check > span { width: var(--size-icon-small); height: var(--size-icon-small); }

@@ -23,9 +23,11 @@ export const grades = {
   headingMany: 'Here are the grades the MVP Coach suggests.',
   line: "The MVP Coach works these out from each child's birth month. Change any grade that's wrong.",
   label: "{child}'s grade",
-  // The fixtures write the list as "First grade through Twelfth grade" and spell out only the two
-  // ends and Fourth grade, so the grades in between wait on the fixtures (see docs/issues.csv).
-  list: ['Not in school yet', 'Pre-K', 'Kindergarten', 'First grade', 'Twelfth grade'],
+  list: [
+    'Not in school yet', 'Pre-K', 'Kindergarten', 'First grade', 'Second grade', 'Third grade', 'Fourth grade',
+    'Fifth grade', 'Sixth grade', 'Seventh grade', 'Eighth grade', 'Ninth grade', 'Tenth grade', 'Eleventh grade',
+    'Twelfth grade',
+  ],
   continue: 'Continue',
 };
 export const coachFirstCapture = "Show me one thing from this week, such as a school handout, an email or a voice note, and I'll turn it into a plan.";
@@ -35,6 +37,16 @@ export const handOff = { make: "Make {child}'s plan", somethingWrong: "Something
 export const thinking = { photo: 'Reading your photo…', file: 'Reading your file…', listening: 'Listening…', making: "Making {child}'s plan…" };
 export const confirm = { calendar: 'Whose calendar is this?', newsletter: 'Whose newsletter is this?', choice: '{child} · {grade}' };
 export const draft = { heading: "{child}'s plan for this week", suggested: 'Suggested' };
+// Each of the coach's lines in the onboarding conversation is labeled this way (fixtures C-00).
+export const coachLabel = 'MVP Coach:';
+// The failure and waiting states, from fixtures section 4, "Coach" and "Onboarding" (spec §3).
+export const failures = {
+  unreadable: "I couldn't read this photo clearly. Try again with the whole page in the frame and good light.",
+  retakePhoto: 'Retake photo',
+  chooseAnother: 'Choose another',
+  slow: 'This is taking longer than it should. Your photo is safe, and you can try again.',
+  tryAgain: 'Try again',
+};
 export const accountPrompt = { heading: "Keep {child}'s plan", line: 'Create an account to save this plan and add the rest of your family.', create: 'Create account', notNow: 'Not now' };
 export const stepCounter = '0{count} of 04';
 export const account = { heading: 'Create your account', email: 'Email', apple: 'Continue with Apple', continue: 'Continue' };

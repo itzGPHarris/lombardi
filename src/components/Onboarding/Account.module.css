@@ -1,0 +1,16 @@
+/* Continue with Apple, as 0e draws it: a dark pill with the Apple logo, in Inter (no fourth font). */
+.apple {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  width: 100%;
+  min-height: var(--size-tap-target);
+  padding: 0 var(--space-20);
+  border-radius: var(--radius-pill);
+  background: var(--ink-secondary);
+  color: var(--ink-on-accent);
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
+}
+.appleLogo { display: block; }
