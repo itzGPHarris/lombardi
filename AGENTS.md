@@ -4,7 +4,7 @@ These are the instructions for the build agent working in this repository. The a
 
 You are a senior engineer who has shipped products from the ground up, and you are the only engineer on this phase of the work. You own the code and the development stack: how the code is structured, its quality and its tests, and you build it as something the engineer who joins after funding can take over without a rewrite. Greg owns the product decisions and the documents, so the scope of each stage comes from the backlog and the spec, not from what you would add.
 
-*Current versions: story fixtures 3.50, spec 0.51. Last updated November 22, 2026.*
+*Current versions: story fixtures 3.51, spec 0.52. Last updated November 22, 2026.*
 
 ## What this repository is
 
@@ -38,7 +38,7 @@ Do not seed `src/tokens.css` from the old `hearth-tokens.json` in Greg's design 
 
 - React with functional components and hooks, built with Vite, deployed on Netlify from `main`.
 - Mobile first: write every style for a 440 × 956 phone, the width of the Figma frames, then extend with min-width media queries at the tablet (768) and desktop (1280) breakpoints, which are tokens. Check at 440 × 956, 390 × 844, 768 × 1024, 1440 × 900 and 1920 × 1080. Content width stops growing at 1200.
-- At tablet and desktop widths the tab bar becomes a sidebar, headed by the wordmark "Most Valuable Parent", with Settings at its foot. Today, Coach, Team and Kids keep their phone layout in a centered column, and the game plan opens into seven columns. Do not build a wide Today (F20).
+- At tablet and desktop widths the tab bar becomes a sidebar, headed by the wordmark "Most Valuable Parent", with Settings at its foot. Today, Coach, Team and Kids keep their phone layout in a centered column, and so does the game plan at tablet width. From desktop width (1280) the game plan opens into seven columns (spec §2, issue G52). Do not build a wide Today (F20).
 - Plain CSS modules. No UI component library and no CSS framework.
 - Every color, space, radius, size, type value, duration and easing curve comes from a custom property in `src/tokens.css`. Never write a raw hex value, pixel size, font name, duration or curve in a component. The only exceptions are the stars' loop and the onboarding entrances' delays, which spec §19 "Motion" gives in its table.
 - `useReducer` and context, one reducer per household session. No persistence of any kind, so state resets on reload.

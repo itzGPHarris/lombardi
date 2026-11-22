@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.51 · November 22, 2026*
+*Investor prototype · Version 0.52 · November 22, 2026*
 
 ## **Summary of this version**
+
+Version 0.52 follows story fixtures 3.51, Greg's decisions on the Stage 5 report and his Stage 6 plan review. A day in the game plan opens by itself only for a "can't" or a conflict, and a day that only needs an owner, or holds something on the review card, keeps its dot and stays closed (§8, issue G51). At tablet width the game plan keeps its agenda in the centered column, and it opens into seven columns from desktop width, 1280 and up (§2, §8, §19, G52). A stop that belongs to a larger trip names the trip in `partOf`, so the game plan shows the trip as one row (§16, D13).
 
 Version 0.51 follows story fixtures 3.50 and Greg's decisions on the Stage 4 report. Back is on every onboarding and setup screen after the welcome, even where a frame draws none (§2, §3, issue O30). The coach's introduction says only what she gave on her path (§3, O32). The steam stars take a new token, `brand-star`, on saffron, because amber belongs to the coach (§19, O29).
 
@@ -216,7 +218,7 @@ A sheet never opens another sheet, and nothing opens on top of a sheet except th
 
 ### **At wider sizes**
 
-From tablet width up, the sidebar replaces the tab bar and every rule above applies inside the content column. The title bar spans the column, and on the game plan the week strip becomes the headings of the seven columns and stays there. A composer or chat hides nothing at these sizes, because the sidebar is never covered by the keyboard.
+From tablet width up, the sidebar replaces the tab bar and every rule above applies inside the content column. The title bar spans the column, and from desktop width the game plan's week strip becomes the headings of the seven columns and stays there. A composer or chat hides nothing at these sizes, because the sidebar is never covered by the keyboard.
 
 ### **Building the types**
 
@@ -228,7 +230,7 @@ From tablet width up, the sidebar replaces the tab bar and every rule above appl
 
 ## **At wider screens**
 
-From tablet width up, the bottom tabs become a sidebar with the same five tabs in the same order. Today keeps its phone layout in a centered column beside the sidebar, because the quiet layout is designed for a phone and a wide Today is parked as F20. In the game plan, the review card sits across the top and the week shows seven columns under the week strip, with next week beneath it. Coach, Team and Kids keep their phone layout in a centered column. Nothing else about navigation changes between sizes.
+From tablet width up, the bottom tabs become a sidebar with the same five tabs in the same order. Today keeps its phone layout in a centered column beside the sidebar, because the quiet layout is designed for a phone and a wide Today is parked as F20. Coach, Team and Kids keep their phone layout in a centered column, and so does the game plan at tablet width. From desktop width, 1280 and up, the game plan's review card sits across the top and the week shows seven columns under the week strip, with next week beneath it, because seven columns beside the sidebar at tablet width leave each about 62 px and break words (issue G52). Nothing else about navigation changes between sizes.
 
 ### **Standing decisions**
 
@@ -903,7 +905,7 @@ The game plan is a tab list (§2). From the top:
 | Week strip | The first letter of each day, the day she is reading marked, and a dot under any day holding a decision: an item that needs an owner, a "can't" or a conflict. An unopened Updated mark is information and puts no dot there. It sticks under the title bar, and reads "Next week" once she scrolls into next week. Tapping a day opens it and scrolls to it. |
 | Review card | Only when something is hers to choose (below). |
 | Past days | Days already past this week, folded into one line, such as "Monday and Tuesday · 11 done", which opens them. Once everything today is done, today folds the same way, such as "Today · 6 done". |
-| The days | Each remaining day of this week under its heading. Today and tomorrow open expanded and the other days collapsed. |
+| The days | Each remaining day of this week under its heading. Today and tomorrow open expanded, and so does any other day holding a "can't" or a conflict. The other days stay collapsed, with the week strip's dot on any day that needs an owner or holds something on the review card (issue G51). |
 | Next week | One collapsed heading after Sunday, with its own sentence when anything there is waiting, and next week's days inside it. |
 | Capture bar | Docked above the tab bar, as on Today, with the read-back strip rising above it after she gives the coach something. |
 
@@ -948,7 +950,7 @@ The review card holds what is hers to choose: proposals from other people, such 
 * **Add them all** sits at the foot of the card when it holds two or more items, and adds each as Add to the game plan would.
 * **No thanks** removes it. A calendar event she turns down is not offered again unless it changes on her calendar.
 * **The card counts this week.** Next week's heading carries its own sentence in the same form when anything there is waiting. On Sunday, once this week is over, the card counts next week.
-* **Items already in the plan stay on their rows** and never gather on the review card, so the card keeps one meaning. A "can't" and a conflict that needs a choice come to the coach card on Today one at a time, an unopened Updated mark stays on its row with no dot, and a day holding a decision opens expanded with the week strip's dot (issues G34 and G42).
+* **Items already in the plan stay on their rows** and never gather on the review card, so the card keeps one meaning. A "can't" and a conflict that needs a choice come to the coach card on Today one at a time, an unopened Updated mark stays on its row with no dot, and a day holding a "can't" or a conflict opens expanded by itself, while a day that only needs an owner or holds something on the review card keeps the week strip's dot and stays collapsed (issues G34, G42 and G51).
 
 The library builds the card as ReviewCard, ReviewDay and ReviewItem in `mvp-design-library`. ReviewCard has no Line property and gains an Add them all footer.
 
@@ -991,7 +993,7 @@ When she gives the coach something through the capture bar on the game plan, the
 | Tick off a task | Its checkbox | The task shows as done. |
 | Change the time of an item someone has answered | "Move to another date or time" on its page | The answer stays until she sends the change. Sending it returns the item to Asked, and until she sends it the coach card on Today says the person has not seen the new time. |
 
-At wider sizes the week shows seven columns under the strip, with next week beneath it, so moving the second tutoring session to the following Tuesday is a straight drag down its own column.
+From desktop width the week shows seven columns under the strip, with next week beneath it, so moving the second tutoring session to the following Tuesday is a straight drag down its own column. At tablet width the game plan keeps its agenda in the centered column (issue G52).
 
 ## **Behavior notes**
 
@@ -1009,7 +1011,7 @@ At wider sizes the week shows seven columns under the strip, with next week bene
 1. **The game plan holds every item, this week and next,** including routine ones, because the parent needs to see the shape of the week to change it. The game plan reaches two weeks, and the month view stays F1.
 2. **An agenda under a sticking week strip, not a grid.** A seven-column grid is too dense at 440 px, and paging one day at a time hides the shape of the week, which is what she opens the game plan to see (issue G11).
 3. **The review card is where her choices wait.** Only proposals from other people and events she would choose to attend wait there, so it is small and rare, and she never has to scroll to find what is hers to decide (issues G33 and G42). It replaces "This week's changes", the filter line and the Needs you card.
-4. **Days open and close.** Today and tomorrow open, so the game plan never runs to several screens of routine items, and the dot keeps a closed day from hiding anything (issue G31).
+4. **Days open and close.** Today and tomorrow open, so the game plan never runs to several screens of routine items, and the dot keeps a closed day from hiding anything (issue G31). A day also opens by itself when it holds a "can't" or a conflict, because something there has gone wrong. A day that only needs an owner, or holds something on the review card, keeps its dot and stays closed, so in most weeks the plan opens on today and tomorrow alone (issue G51).
 5. **Moving is a choice on the item's page,** because a drag across a week of scrolling is hard on a phone and impossible with a screen reader. Dragging stays as a shortcut (issue G16).
 6. **No coach card on the game plan.** The read-back strip is the one exception (issue G17).
 7. **Direct edits are hers.** A change she makes herself is never flagged back to her.
@@ -1445,7 +1447,7 @@ MVP Editorial articles are written by staff in their own voice and follow only t
 | C-13 | Friday, Oct. 23, 2:05pm | Edward's Today picks Alexis up and meets Mallory at the harvest fair | Edward's Today, through View as | Core |
 | C-15 | Monday, Oct. 26, 6:30am | Charlotte's first morning back opens with the weekend summary | Today, the coach card | Core |
 
-Each moment holds the full state of the household at that point, so jumping to any moment shows exactly what the fixtures describe, whatever was tapped before. Within a moment, the scripted steps play in order as the presenter taps, such as Charlotte's answer at 8:41pm in C-00, Edward's answer at 7:52am in C-02, Min-jung's answer at 12:30pm in C-06 or Claire's reply at 4:58pm in C-06c. The boards for running late, Wednesday at 5:10pm, Sunday, a conflict on the pass and the notice are not moments and are not built in review build 1. C-09 leans on the Sunday 10:30am board, because Lakeside Strings Music School's answer clears the Monday clash first, so the presenter shows that board or says in a line that Lakeside Strings Music School answered (fixtures Appendix B item 81).
+Each moment holds the full state of the household at that point, so jumping to any moment shows exactly what the fixtures describe, whatever was tapped before. Within a moment, the scripted steps play in order as the presenter taps. A step with no tap of Charlotte's, such as a reply arriving in a chat or group or the share from WhatsApp in C-01, plays from Play the next step in the household switcher, so arrivals never run on a timer and the presenter sets the pace (issue C80). A request's answer plays from the recipient's "Yes, I can" in View as. Examples are Charlotte's answer at 8:41pm in C-00, Edward's answer at 7:52am in C-02, Min-jung's answer at 12:30pm in C-06 or Claire's reply at 4:58pm in C-06c. The boards for running late, Wednesday at 5:10pm, Sunday, a conflict on the pass and the notice are not moments and are not built in review build 1. C-09 leans on the Sunday 10:30am board, because Lakeside Strings Music School's answer clears the Monday clash first, so the presenter shows that board or says in a line that Lakeside Strings Music School answered (fixtures Appendix B item 81).
 
 C-10 to C-15 are a route of their own, opened from the switcher and from the Figma prototype's starting point C, "The weekend Charlotte is away". Each holds the household as it stands that week, the week after the demo week.
 
@@ -1524,7 +1526,7 @@ Every time in the seed is a demo time, and the seed holds one calendar date, the
 
 ## **Plan items, captures and requests**
 
-Plan items follow §4, including the children each concerns, which the screen draws as chips, the type, event or trip, with a trip's event, and for tasks the task kind and any steps. A suggested item that waits on the review card has the status `proposed`, and each moment's state says which items are on the card. Captures follow §7. Requests follow §9. Each references people, places and sources by id.
+Plan items follow §4, including the children each concerns, which the screen draws as chips, the type, event or trip, with a trip's event, and for tasks the task kind and any steps. A suggested item that waits on the review card has the status `proposed`, and each moment's state says which items are on the card. An item that is one stop of a larger trip, such as each girl's drop-off on Friday's carpool, holds `partOf` with the trip item's id. Today draws the stop on the trip pass, and the game plan leaves it out, so the trip shows as one row (issue D13). Captures follow §7. Requests follow §9. Each references people, places and sources by id.
 
 ## **Runs**
 
@@ -1726,8 +1728,8 @@ These live here rather than in Figma because a single frame cannot show them.
 | Size | Width | Checked at | Layout |
 | ----- | ----- | ----- | ----- |
 | Phone | Up to 767 | 440 × 956 and 390 × 844 | The base design, built at 440, the width of the Figma frames. Single column, tabs at the bottom. |
-| Tablet | 768 to 1279 | 768 × 1024 | Tabs become a left sidebar. Today, Coach, Team and Kids keep the phone layout in a centered column. The game plan shows seven columns. |
-| Desktop | 1280 and up | 1440 × 900 and 1920 × 1080 | Sidebar, with the same layouts as tablet. Content width stops growing at 1200. |
+| Tablet | 768 to 1279 | 768 × 1024 | Tabs become a left sidebar. Today, Coach, Team and Kids keep the phone layout in a centered column. The game plan keeps its agenda in the centered column too (issue G52). |
+| Desktop | 1280 and up | 1440 × 900 and 1920 × 1080 | Sidebar, with the same layouts as tablet, except that the game plan opens into seven columns. Content width stops growing at 1200. |
 
 * **The phone design comes first.** Every screen is designed at 440 × 956 before any other size, and checked at 390 × 844, and nothing exists only on desktop.
 * **Tap targets are at least 44 pt** at every size.
@@ -1851,6 +1853,17 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.52, November 22, 2026**
+
+Follows story fixtures 3.51 and Greg's decisions on the Stage 5 report.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §8 | A day opens by itself only for a "can't" or a conflict. A day that only needs an owner, or holds something on the review card, keeps its dot and stays closed (G51). |
+| 2 | §2, §8, §19 | At tablet width the game plan keeps its agenda in the centered column, and it opens into seven columns from 1280 (G52). |
+| 3 | §16 | A stop that belongs to a larger trip holds `partOf` with the trip's id, and the game plan leaves it out (D13). |
+| 4 | §15 | Play the next step in the household switcher plays arrivals and C-01's share, and nothing runs on a timer (C80). |
 
 ## **v0.51, November 22, 2026**
 

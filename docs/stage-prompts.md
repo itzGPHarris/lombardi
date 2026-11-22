@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): stage prompts
 
-*Alpha 1 and alpha 2. Fixtures 3.50, spec 0.51. Written November 20, 2026, with motion added November 21, 2026.*
+*Alpha 1 and alpha 2. Fixtures 3.51, spec 0.52. Written November 20, 2026, with motion added November 21, 2026.*
 
 This file holds one prompt for each stage of the alpha build, ready to paste into a fresh build agent session, together with the review prompt Greg runs before his own review of each stage and the prompt that restarts a stage that has stopped early. The build order lives in `docs/backlog.md`, and these prompts name its lines rather than copying them, so the backlog stays the only list. When a backlog line changes, the prompt that names it does not need to.
 
@@ -179,13 +179,15 @@ End the stage with the commands you ran and their output, a screenshot of every 
 ## Stage 6: What she does
 
 ```text
-This session builds Stage 6 of Alpha 1, what she does. Its seven lines are under "Stage 6: What she does" in docs/backlog.md.
+This session builds Stage 6 of Alpha 1, what she does. Its eight lines are under "Stage 6: What she does" in docs/backlog.md.
 
 Read these before anything else, a section at a time as you reach each line:
 - docs/spec.md sections 7 (Capture), 9 (Requests), 8 (Game plan), 10 (Team), 6 (Coach) and 5 (Today), and Appendix B for F35.
 - docs/screen-map.md, the section "The recipient's side, through View as", and the frames each line's moments name.
 - docs/story-fixtures.md section 2, "How things get into MVP", "Her calendar", "What the coach adds for her", "How a request reaches someone" and "Nothing is ever settled", and in section 3 the moments each line names: C-02, C-03a, C-04, C-04b, C-05, C-05c, C-06, C-06b, C-06c, C-08, C-08b and C-09.
-- The row for A12 in docs/issues.csv.
+- The rows for G52, M12, G51 and A12 in docs/issues.csv.
+
+Line 1 is a small layout change carried over from Stage 5. Between 768 and 1279 the game plan keeps its agenda in the centered column, as Coach, Team and Kids do, and it opens into seven columns from 1280 (G52). Two decisions from the Stage 5 review also bear on this stage. A day in the game plan opens by itself only for a "can't" or a conflict, so a day that gains one during a step opens, and a day that only needs an owner keeps its dot (spec section 8, G51). The composer opened from a person page reads "To:" and that person, as the fixtures write it, rather than the whole list with one person ticked (M12).
 
 This stage makes the demo play. Each scripted step moves the household from one state to the next exactly as the fixtures describe: the staged share sequence and her calendar's conflicts, requests and their answers with the recipient's side through View as, working the game plan, the group post and the chats, the coach's answers, capture on Today, and the Sunday look-ahead. Every result is prepared data. A step that the fixtures don't script is not built, and the fixtures' branches such as "If Min-jung says no" are built only where spec section 15 lists them as moments.
 
@@ -207,7 +209,7 @@ End the stage with the commands you ran and their output, a recording or a seque
 ## Stage 7: Fidelity and deploy
 
 ```text
-This session builds Stage 7 of Alpha 1, fidelity and deploy. Its two lines are under "Stage 7: Fidelity and deploy" in docs/backlog.md.
+This session builds Stage 7 of Alpha 1, fidelity and deploy. Its three lines are under "Stage 7: Fidelity and deploy" in docs/backlog.md.
 
 Read these before anything else:
 - docs/screen-map.md in full.
@@ -219,7 +221,9 @@ This stage changes no behavior. It compares every screen in the alpha with its f
 
 For the first line, render every screen the screen map lists for C-00 to C-09 at 440 x 956 beside its frame and fix the differences. Then check every screen at 390 x 844, 768 x 1024, 1440 x 900 and 1920 x 1080. At each size, check the rules that apply everywhere: no pure white or black, no uppercase labels, no decorative gradients or 2px strokes, every time with am or pm, every phone number with its area code, every place by its full name, and the wordmark as "Most Valuable Parent". Check every row of the Motion table in spec section 19 at 440 x 956, with and without reduced motion, and confirm that nothing else moves. Log what is left in docs/issues.csv with the frame ID and the size.
 
-For the second line, prepare the deploy and stop before it goes out. The prototype deploys from main, so pushing to main publishes it. Show me the branch, the commits that will go out and the result of npm run check, and push only when I confirm.
+For the second line, set Settings in the type spec section 13 gives it, with card headings in Subtitle, rows in Body and links in Body strong, rather than the frame's type, because the frame was drawn before the type scale (C78). This is the one place where the spec's type wins over a frame's.
+
+For the third line, prepare the deploy and stop before it goes out. The prototype deploys from main, so pushing to main publishes it. Show me the branch, the commits that will go out and the result of npm run check, and push only when I confirm.
 
 Before you change any code, write a plan and wait for my review of it. The plan should list every screen and size you will check, in the order you will check them.
 

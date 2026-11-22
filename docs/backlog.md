@@ -114,18 +114,20 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 
 ### Stage 6: What she does
 
-1. §7: capture, including the staged share sequence and her calendar's conflicts
-2. §9: requests for C-02, C-04b, C-06 and C-06b, including View as
-3. §8: working the game plan, with adding, moving, asking for help, the backups and the read-back strip
-4. §10: the group post from C-05 and the chats in C-05c and C-06c
-5. §6: the C-08 and C-08b answers
-6. §5, A12: capture on Today in C-03a
-7. §5, §8, F35: the Sunday look-ahead and C-09
+1. §2, §8, G52: the game plan's agenda at tablet width, with seven columns from 1280
+2. §7: capture, including the staged share sequence and her calendar's conflicts
+3. §9: requests for C-02, C-04b, C-06 and C-06b, including View as
+4. §8: working the game plan, with adding, moving, asking for help, the backups and the read-back strip
+5. §10, M12: the group post from C-05 and the chats in C-05c and C-06c
+6. §6: the C-08 and C-08b answers
+7. §5, A12: capture on Today in C-03a
+8. §5, §8, F35: the Sunday look-ahead and C-09
 
 ### Stage 7: Fidelity and deploy
 
 1. Compare every screen with its frame at 440 px, then check 390, 768, 1440 and 1920, and log what is left in `docs/issues.csv`
-2. Deploy to Netlify, and Greg plays the alpha end to end
+2. C78: Settings in the type spec §13 gives it
+3. Deploy to Netlify, and Greg plays the alpha end to end
 
 ## Alpha 2: The weekend Charlotte is away
 
@@ -138,6 +140,7 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 
 - C17: the other three households' rewrites, each in its own town, once Charlotte's build has been reviewed
 - R10: a staff writer for six articles, once C17 gives each household its week
+- C79: each household's seed loaded on its own, once a second household's seed is in the build
 
 ## Parked
 
