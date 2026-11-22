@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): stage prompts
 
-*Alpha 1 and alpha 2. Fixtures 3.48, spec 0.49. Written November 20, 2026, with motion added November 21, 2026.*
+*Alpha 1 and alpha 2. Fixtures 3.49, spec 0.50. Written November 20, 2026, with motion added November 21, 2026.*
 
 This file holds one prompt for each stage of the alpha build, ready to paste into a fresh build agent session, together with the review prompt Greg runs before his own review of each stage and the prompt that restarts a stage that has stopped early. The build order lives in `docs/backlog.md`, and these prompts name its lines rather than copying them, so the backlog stays the only list. When a backlog line changes, the prompt that names it does not need to.
 
@@ -50,7 +50,7 @@ The demo calendar and the switcher need a household to read, and the seed is wri
 
 Before you change any code, write a plan and wait for my review of it. The plan should list the files you will create or change, say how each of the eight layout shells decides what stays fixed, what scrolls and what is anchored at the foot, and say how the demo calendar works out the day, the phase of the day and the date from meta.demoWeekStart without reading the device clock.
 
-When each line is done, run npm run check and commit. Render each layout shell at 440 x 956, then at 390 x 844, 768 x 1024, 1440 x 900 and 1920 x 1080, and compare the shells at 440 with the reference boards for each layout type named in the screen map. Fix the differences you can, and add a row to docs/issues.csv for each one you can't.
+When each line is done, commit with npm run check && git commit. Render each layout shell at 440 x 956, then at 390 x 844, 768 x 1024, 1440 x 900 and 1920 x 1080, and compare the shells at 440 with the reference boards for each layout type named in the screen map. Fix the differences you can, and add a row to docs/issues.csv for each one you can't.
 
 End the stage with the commands you ran and their output, a screenshot of each shell at each width beside its reference board, and the issue rows you added.
 ```
@@ -104,7 +104,7 @@ Build every Today state the screen map lists for C-01 to C-09, including the sin
 
 Before you change any code, write a plan and wait for my review of it. The plan should list the components you will build and which Today states each one appears in, and say how Today decides what Now shows at a given demo time, including the evening and the case where nothing timed is left today. It should also list each Motion row marked for Stage 3 and the component that carries it, and say when the pass swings in.
 
-When each line is done, run npm run check and commit. Render every Today state at 440 x 956 beside its frame, list the differences and fix them, then check 390, 768 and 1440. A difference you can't fix goes in docs/issues.csv with the frame ID.
+When each line is done, commit with npm run check && git commit. Render every Today state at 440 x 956 beside its frame, list the differences and fix them, then check 390, 768 and 1440. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
 Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list. The sheet shell from Stage 1 gains its slide, and its raw 0.2s transition becomes tokens. Replace the blanket reduced-motion rule in src/styles/global.css with the reduced form each row gives, because fades keep their timing under reduced motion.
 
@@ -118,21 +118,24 @@ End the stage with the commands you ran and their output, a screenshot of every 
 ## Stage 4: Onboarding
 
 ```text
-This session builds Stage 4 of Alpha 1, onboarding. Its line is under "Stage 4: Onboarding" in docs/backlog.md.
+This session builds Stage 4 of Alpha 1, onboarding. Its two lines are under "Stage 4: Onboarding" in docs/backlog.md.
 
 Read these before anything else:
 - docs/spec.md section 3 (Onboarding) in full.
 - docs/screen-map.md, the section "Onboarding, C-00", and the wireframe named for failure and waiting states under "Screens with no frame".
 - docs/story-fixtures.md section 2, "Onboarding", the moment C-00 in section 3, and section 4, the part headed "Onboarding".
-- The rows for O9, T8, O22 and O24 in docs/issues.csv.
+- The rows for O9, T8, O22, O24, T84 and D9 in docs/issues.csv.
+- docs/story-fixtures.md Appendix C, version 3.49, for what the first line brings into the seed.
+
+The first line brings the seed up to fixtures 3.49, which wrote the words Stages 2 and 3 found missing. Write each new state from the fixtures word for word, as Stage 2 did, and the fixtures test checks it. Take the exemption for src/copy/demo.js out of tests/fixtures.test.js, because fixtures section 4 now has a Demo controls table. Commit this line before any onboarding code.
 
 Onboarding is C-00, Charlotte's first night, from the splash (0s) to the coach's introduction (0j), and then her first board from 0i-a to 0i-h. Value comes before the account: she gives her first name and her children's names and birth months, makes her first capture, sees her first draft, and only then creates the account, connects her calendar and answers the two setup screens. Every capture result, draft and coach line in onboarding is prepared data from the seed. Nothing calls a network or a model.
 
 The coach's lines in onboarding are set in the Voice style, which is Inter, and Fraunces sets only the headlines. Frames taller than 956 px are tall because their content scrolls, so build each one as a single scrolling screen in its layout type's shell. The combined 0g screen and the retirement of 0h follow O22 and O24.
 
-Before you change any code, write a plan and wait for my review of it. The plan should list every onboarding screen in order with its frame ID and layout type, say how each screen moves to the next, and say how the demo returns to C-00 from the switcher with a clean state.
+Before you change any code, write a plan and wait for my review of it. The plan should list the seed changes for the first line, then every onboarding screen in order with its frame ID and layout type, say how each screen moves to the next, and say how the demo returns to C-00 from the switcher with a clean state.
 
-When the line is done, run npm run check and commit. Play C-00 from the splash to her first board, render every screen at 440 beside its frame, list the differences and fix them, then check 390, 768 and 1440. A difference you can't fix goes in docs/issues.csv with the frame ID.
+When each line is done, commit with npm run check && git commit. Play C-00 from the splash to her first board, render every screen at 440 beside its frame, list the differences and fix them, then check 390, 768 and 1440. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
 Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list. The steam stars are one component, because Alpha 2 reuses them on Ruth's web page.
 
@@ -160,7 +163,7 @@ Work through the lines in order. For each line, read its spec section and screen
 
 Before you change any code, write a plan and wait for my review of it. The plan should list every screen in the stage with its frame ID and layout type, the Stage 3 components each one reuses, and the new components it needs.
 
-When each line is done, run npm run check and commit. Render each screen at 440 beside its frame, list the differences and fix them, then check 390, 768 and 1440. The game plan opens into seven columns at desktop width, and the other tabs keep their phone layout in a centered column. A difference you can't fix goes in docs/issues.csv with the frame ID.
+When each line is done, commit with npm run check && git commit. Render each screen at 440 beside its frame, list the differences and fix them, then check 390, 768 and 1440. The game plan opens into seven columns at desktop width, and the other tabs keep their phone layout in a centered column. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
 Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list.
 
@@ -188,7 +191,7 @@ Four rules matter more here than anywhere else. Nothing is sent without her tapp
 
 Before you change any code, write a plan and wait for my review of it. The plan should list each scripted step in order with the moment it starts in, the state it changes, and the moment it leads to, and say how a step that sends a request differs from one that can be undone.
 
-When each line is done, run npm run check and commit. Play every moment the line names from start to finish, render each new state at 440 beside its frame, and fix the differences. A difference you can't fix goes in docs/issues.csv with the frame ID.
+When each line is done, commit with npm run check && git commit. Play every moment the line names from start to finish, render each new state at 440 beside its frame, and fix the differences. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
 Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list.
 
@@ -243,7 +246,7 @@ Add the weekend to the seed first, one moment at a time, with npm run check afte
 
 Before you change any code, write a plan and wait for my review of it. The plan should list the seed additions by moment, every playbook screen with its frame ID, and the states the plan's pill moves through.
 
-When each line is done, run npm run check and commit. Play C-10 to C-15 from start to finish on both sides, render each screen at 440 beside its frame, and fix the differences. A difference you can't fix goes in docs/issues.csv with the frame ID.
+When each line is done, commit with npm run check && git commit. Play C-10 to C-15 from start to finish on both sides, render each screen at 440 beside its frame, and fix the differences. A difference you can't fix goes in docs/issues.csv with the frame ID.
 
 Build the rows of the Motion table in spec section 19 marked for this stage, using only the motion tokens in src/tokens.css, and nothing that the table does not list. The stars on Ruth's web page reuse the component from Stage 4.
 

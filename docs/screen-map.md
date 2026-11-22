@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): screen map
 
-*Last updated November 20, 2026 · Fixtures 3.48 · Spec 0.48 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
+*Last updated November 21, 2026 · Fixtures 3.49 · Spec 0.50 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
 
 This file ties every screen in the alpha to the one Figma frame it is built from. Use the frame ID in this file and no other. The Figma file holds older frames with the same or similar names on other pages, and none of those is a target.
 

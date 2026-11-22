@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.49 · November 21, 2026*
+*Investor prototype · Version 0.50 · November 21, 2026*
 
 ## **Summary of this version**
+
+Version 0.50 follows story fixtures 3.49 and Greg's decisions on the Stage 3 report. A tall Now scrolls away with the page, as "Scrolling" already said (§5, issue T85). The dateline may wrap to a second line on a narrow phone rather than lose its date (§5, T86). A Leave sheet draws one run, the run its backups belong to (§5, T87), and start times change only in the game plan, so the Leave sheet's "Change the start time" link is gone (§5, T88). The household switcher also opens from a long press on a still screen or a top bar where no monogram is drawn (§15, X4). `meta.invented` points to the fixtures' Appendix A by gap name (§16, D5). If plans change on the playbook is a plain section with a Text Charlotte link, and the calls live in Who to call (§20, Y19).
 
 Version 0.49 adds Motion to §19: every animation the prototype builds, with its trigger, timing, reduced form and stage, and six motion tokens in the library. Sheets slide up as on iOS, pages fade, tabs change at once, the coach card fades in and crossfades when she answers, Today's pass swings in and settles when it has something new to show, and the stars keep moving wherever they appear (issue C75).
 
@@ -457,7 +459,7 @@ Today has a header and four parts, always in this order.
 | MVP Editorial | At most one article, only when something in the week makes it useful. | Each moment |
 | Capture bar | "Type, talk or add an image", then attach, camera and microphone, docked above the tab bar. Hidden while the coach card asks for a capture. | Fixtures section 4 |
 
-**Today has two surfaces.** The header and Now sit on paper (`bg/card`) at the top of the screen, because Now is the one thing she acts on next. The coach card, Later today and MVP Editorial sit below on a canvas sheet (`bg/canvas`) whose top corners are rounded at `radius/xl`, so the eye reads Now first and the rest of the day second. In the evening, tomorrow's pass, with the evening reminders as its checklist, takes the paper surface, and the coach card and For tomorrow take the sheet. The sheet runs into the capture bar and the tab bar, which sit on canvas too. The surfaces are not cards: the coach card is still the only card, and everything else sits directly on its surface, with space between the parts instead of borders, divider lines or a timeline rail. There are no per-person rows and no column headings. The two surfaces also move differently. The header and Now stay in place, and the sheet scrolls up over both. When the header and Now together are taller than the space above the capture bar, they scroll up until Now's actions sit just above the capture bar, and then hold still. In the evening, tomorrow's pass stays in place and the sheet rises over it.
+**Today has two surfaces.** The header and Now sit on paper (`bg/card`) at the top of the screen, because Now is the one thing she acts on next. The coach card, Later today and MVP Editorial sit below on a canvas sheet (`bg/canvas`) whose top corners are rounded at `radius/xl`, so the eye reads Now first and the rest of the day second. In the evening, tomorrow's pass, with the evening reminders as its checklist, takes the paper surface, and the coach card and For tomorrow take the sheet. The sheet runs into the capture bar and the tab bar, which sit on canvas too. The surfaces are not cards: the coach card is still the only card, and everything else sits directly on its surface, with space between the parts instead of borders, divider lines or a timeline rail. There are no per-person rows and no column headings. The two surfaces also move differently. The header and Now stay in place, and the sheet scrolls up over both. When the header and Now together are taller than the space above the capture bar, they are not held in place, and the whole page scrolls as one, as "Scrolling" sets out (issue T85). In the evening, tomorrow's pass stays in place and the sheet rises over it.
 
 ## **Phase of the day**
 
@@ -467,7 +469,7 @@ Today has a header and four parts, always in this order.
 | Afternoon | "Monday afternoon, Oct. 12" | Noon until the board turns to tomorrow | The same, with what is done dropped from Later today and counted at its foot |
 | Evening | "Monday evening, Oct. 5" | From 7:00pm, or after the last activity scheduled past 7:00pm | Tomorrow's pass, with "Reminders for tomorrow morning", or the phase of that departure, as its checklist, then the coach card when there is one and "For tomorrow" with her later departures tomorrow that take a child |
 
-The phase is a word in the dateline, and its icon sits before the dateline on the same line, so the header is still one line and Now stays near the top. The icons are `phase-morning`, a sunrise, `phase-afternoon`, a sun, and `phase-tonight`, a moon, in `ink/primary`, drawn through the Icon component. The separate phase title and its icons came off in the wording review of Oct. 27, 2026, but Heather's review asked only for the title to go, so Greg put the icon back on Oct. 28, 2026, beside the dateline. The icons stay in the library. The evening shows the day it is, not tomorrow. In the prototype the phase follows the moment's demo time, never the device clock.
+The phase is a word in the dateline, and its icon sits before the dateline on the same line, so the header is still one line and Now stays near the top. On a narrow phone the longest datelines, such as "Wednesday morning, Oct. 14" at 390 px, wrap to a second line rather than lose the date, as a long place name does (issue T86). The icons are `phase-morning`, a sunrise, `phase-afternoon`, a sun, and `phase-tonight`, a moon, in `ink/primary`, drawn through the Icon component. The separate phase title and its icons came off in the wording review of Oct. 27, 2026, but Heather's review asked only for the title to go, so Greg put the icon back on Oct. 28, 2026, beside the dateline. The icons stay in the library. The evening shows the day it is, not tomorrow. In the prototype the phase follows the moment's demo time, never the device clock.
 
 ## **Now**
 
@@ -539,8 +541,9 @@ The body draws her run as a line of stations on a rail: the place, the item with
 | Case | What happens |
 | ----- | ----- |
 | She changes when she leaves | The leaving time changes on that leg. The change carries no Updated mark, and a reminder she has set keeps its offset and moves with it. If the reminder's new time has already passed, the reminder is removed and the button reads Remind me again. |
-| She changes the start time of her own item | "Change the start time" edits the item, the time's source becomes "From you", and the original source link stays. |
-| A calendar item | Its start time reads "Change this in Google Calendar." Its leaving time can still change, because the leaving time belongs to MVP. |
+| A calendar item | Its station reads "Change this in Google Calendar." Its leaving time can still change, because the leaving time belongs to MVP. |
+| A start time | Nothing on the Leave sheet changes it, even on her own item. It is changed from the item's page in the game plan (§8), because changing what is planned is an edit (issue T88). |
+| A day with more than one run | The sheet draws one run: the leg she tapped, or the run the coach's backups belong to when it opens from Other options, as Friday's checkup does in C-06b (issue T87). |
 | An item someone else owns or has answered | Nothing on Today changes it. It is changed in the game plan (§8). |
 | A change that runs into another item | Both items carry the Conflict mark, and the coach card appears. |
 
@@ -667,14 +670,14 @@ Today keeps the phone layout in a centered column beside the sidebar at tablet a
 4. **The dateline shows the phase icon, the day, the phase and the date,** such as "Monday morning, Oct. 12", on one line in Title. The date comes from the demo calendar, never the device clock.
 5. **The coach card is marked by the coach's dot and tint.** It carries no other signal, and saffron has no reserved role.
 6. **A reminder is always her choice.** The coach can suggest one, but nothing sets a reminder for her.
-7. **Today changes one kind of thing: when she leaves.** The Leave sheet is the only edit on Today, and it changes start times only on her own items. Notes, owners and moving an item to another day stay in the game plan, so Today stays quiet and never turns into busy work. Tapping a time never switches tabs.
+7. **Today changes one kind of thing: when she leaves.** The Leave sheet is the only edit on Today, and it changes leaving times only. Start times, even on her own items, change in the game plan (issue T88). Notes, owners and moving an item to another day stay in the game plan, so Today stays quiet and never turns into busy work. Tapping a time never switches tabs.
 8. **A run is a line, and home is just a station.** Now shows one leg at a time and steps down the line as each stop comes due, except on a trip pass, whose timetable shows the whole trip while its top shows the next leg.
 9. **The coach keeps backups ready.** Plan B and Plan C are worked out before anything goes wrong and wait one tap away, and at least one depends on nobody else, wherever one exists.
 10. **Leave and Remind me are separate sheets.** Leave changes the plan and can raise a conflict, and Remind me changes nothing anyone else sees, so neither hides behind the other's label.
 11. **Lines on Today are few and each has a job.** The rail inside the Leave sheet, the rule under the time on the pass, and the two dashed lines inside Now are the only lines. Today's surfaces keep no other rail, borders or divider lines. The pass is tinted rather than outlined, and it is a surface for the trip, not a card, so the coach card is still the only card the coach speaks in (issue T51).
 12. **Now reads like a boarding pass when it holds a leg.** What, when and where sit together on the tinted pass, so there is one place to look first, and the facts and the list sit under it in a fixed order with small labels. A timed thing at home gets a pass with "At home" in place of the route (issue T51, standing decision 24).
 13. **Each child is named once on Now.** Checklists are grouped under each child's name, without chips, and the pass carries no chip. The title always names the child in words. Chips stay on rows in lists of items, including a trip pass's timetable (issue T51).
-14. **Now stays in place, and the day rises over it.** The rounded top of the canvas sheet says it is a layer, so it moves like one. Now keeps its place because it is the next thing she acts on, the sheet may cover the header because the day she is reading matters more than the dateline, and a tall Now pins its foot rather than its head so nothing in it is ever out of reach.
+14. **Now stays in place, and the day rises over it.** The rounded top of the canvas sheet says it is a layer, so it moves like one. Now keeps its place because it is the next thing she acts on, the sheet may cover the header because the day she is reading matters more than the dateline, and a tall Now scrolls away with the page so nothing in it is ever out of reach (issue T85).
 15. **A finished checklist folds away without a word from the coach.** The fold tells her the list is done, the count keeps it honest, and a tap brings every item back, so she never loses sight of what was packed (issue T38).
 16. **The pass says what the trip is for.** The title repeats the item from Later today, so a parent glancing at Now never has to work out from a place name whether this is the carpool, ballet or a checkup, and no new copy is written for it (issue T43).
 17. **The status pill shows urgency in its words as well as its color.** Plain, then the countdown in the warning ink from 15 minutes before, then "Time to leave", then "Running late", so the pill is useful before it is too late and never relies on color alone (issue T45).
@@ -1405,7 +1408,7 @@ MVP Editorial articles are written by staff in their own voice and follow only t
 | Control | How it opens | What it does |
 | ----- | ----- | ----- |
 | Opening | Loading the prototype | Opens on C-00 at the splash, so a reviewer goes through onboarding first. Every other moment, such as C-03, is a jump in the switcher. |
-| Household switcher | Long press on the parent's monogram, on every tab and at every size | Switches between households that are built. There is no keyboard shortcut, because the demo runs on phones and tablets as well as laptops. |
+| Household switcher | Long press on the parent's monogram, on every tab and at every size. Where no monogram is drawn, as on the splash, onboarding, a still screen, a composer or a chat, a long press anywhere on a still screen or on the top bar opens it (issue X4). | Switches between households that are built. There is no keyboard shortcut, because the demo runs on phones and tablets as well as laptops. |
 | Moments | Inside the switcher | Jumps the current household to a moment by ID. |
 | View as | Inside the switcher | Shows the current moment from the recipient's side: their Today with the requests she has sent them, and the screens they answer on, for Edward, Min-jung, or Ms. Reyes's text and web page (§9). The recipient's other tabs are not part of the demo. |
 | Phone frame | Inside the switcher | At desktop widths, shows the app inside a phone frame or in its full desktop layout. |
@@ -1456,7 +1459,7 @@ The other three households get moments when their fixtures are rewritten.
 
 ### **Open conditions**
 
-1. **None.** The switcher's trigger is decided: a long press on the monogram (issue X1, closed October 14, 2026).
+1. **None.** The switcher's trigger is decided: a long press on the monogram (issue X1, closed October 14, 2026), and a long press on a still screen or a top bar where no monogram is drawn (issue X4, decided November 21, 2026).
 
 # 16. Data model
 
@@ -1485,7 +1488,7 @@ Every time in the seed is a demo time, and the seed holds one calendar date, the
 | demoWeekStart | ISO date | The demo week's Monday, `2026-10-12`. The only calendar date in the seed. Changing it moves the whole demo to another week. There is no set presentation date, so it is not moved before each presentation, and the demo stays in its October week. It moves only to take the demo to a new season, such as a school break or the spring (issue C26). |
 | coachAdds | object | Her choices for what the coach adds: `calendar`, `schoolDay` and `trips`, each `true` or `false`. Charlotte's are all `true`, from the ticked line on 0j (F35). |
 | zip | string | The zip code she gave on 0w, such as `"00123"`, which the travel table stands for. |
-| invented | array | Every invented fact from the fixtures' Appendix A, with what was decided and why. |
+| invented | array | One entry for each invented fact in the fixtures' Appendix A, holding its gap name, such as { "gap": "Ages" }, as a pointer. The fact and its reason stay in Appendix A, because many carry real-world dates the voice check rejects in a seed (issue D5). |
 | notifications | enum | `on`, `off-never-asked` or `off-declined`. Charlotte's is `on`. |
 
 ## **People, children and places**
@@ -1575,7 +1578,7 @@ Groups and chats follow §10, including each one's members, messages, posts and 
 ### **Standing decisions**
 
 1. **One calendar date in the seed.** Every time is a demo time, and `meta.demoWeekStart` is the only calendar date. Nothing else in the seed, the articles or the copy holds a date.
-2. **Every invented fact is listed in `meta.invented`,** so the engineer can tell a story fact from a demo choice.
+2. **Every invented fact is named in `meta.invented`** by its gap name, so the engineer can tell a story fact from a demo choice and find its reason in the fixtures' Appendix A (issue D5).
 3. **Every identifier is stable,** so a reset returns a household to exactly the state it started in.
 4. **Each moment carries its full state** rather than a list of changes from the moment before, so any moment can be opened first.
 5. **Nothing is saved.** All state lives in the running app and is lost on reload, which is right for a demo.
@@ -1739,7 +1742,7 @@ When the phone asks for reduced motion, anything that slides, rises, tilts or ch
 | Onboarding entrance | The splash, 0a, 0k, 0k-b, 0k-c, 0r, 0t, 0w, 0e, 0q and 0j | The screen opens | Each block fades in and rises 30 px into place, in order: the illustration, the headline, the line beneath it, then the fields or choices. On 0j, the coach's two lines rise in turn and the button and tick boxes fade in last. | `standard` each, starting at 0, 120, 250 and 410 ms (0j's controls at about 1.1 s); fade `ease-in-out`, rise `ease-out` | Fade only | 0w `2853:12929`, 0j `2853:12168` | 4 |
 | Getting ready steps | 0p | The screen opens | Each step's bar fills from left to right, its check pops in, and the next step's label brightens. | `slow` a step; the check `standard` with `ease-overshoot` | Each check appears as its step finishes | `2853:12907` | 4 |
 | Account prompt | 0c | The draft has shown | For You slides up from below the draft. | `quick`, `ease-out` | Appears in place | `2853:12042` | 4 |
-| Today's pass swings in | Now on Today, including her first board (0i-a) | Today first appears after the app opens or the demo jumps to a moment, and whenever Now shows a different departure, such as the next pass after a leg ends or the evening's pass for tomorrow. Not when she returns to Today from another tab, because nothing on the pass has changed. | The pass swings in from a 3.8° tilt and settles level, then the trip's stops, or the fields of a single leg, rise 60 px into place and settle. | Pass `standard`; stops start after the pass and take `standard`; both `ease-overshoot` | Both appear in place | 0i-a `2853:13795` | 3 |
+| Today's pass swings in | Now on Today, including her first board (0i-a) | Today first appears after the app opens or the demo jumps to a moment, and whenever Now shows a different departure, such as the next pass after a leg ends or the evening's pass for tomorrow. Not when she returns to Today from another tab, because nothing on the pass has changed. | The pass swings in from a 3.8° tilt and settles level, then the trip's stops, or the fields of a single leg, rise 56 px, the nearest space token, into place and settle (issue T82). | Pass `standard`; stops start after the pass and take `standard`; both `ease-overshoot` | Both appear in place | 0i-a `2853:13795` | 3 |
 | Trip pass, next leg | Today's trip pass | A stop passes | The top of the pass changes to the next leg in place, and the timetable marks the stop behind her. This is a change inside the pass, not the swing above. | `standard`, `ease-out` | Changes in place | C-03b `2853:13876` and its timed states | 3 |
 | Check and fold | Today's checklist and the evening reminders | She ticks a child's last item, or the last item of all | The group folds to one line, such as "Alexis · 3 packed". When the whole checklist is done, it folds to "Everything is packed for 7:40am" and its check draws in once (§5), and not again when she scrolls or returns to Today. | Fold `standard`, `ease-out`; check `standard` | The folded line and the check appear in place | 0i-a checklist items | 3 |
 | Coach card | Today | The card first appears, or she answers it | It fades in while rising 8 px. After she answers, the muted recommendation, "Agreed" or the plan she chose, and the follow-up crossfade into place, so the card never jumps. | Appearing `standard`, `ease-out`; the answer `quick` crossfade, `ease-in-out` | Appearing fades without rising; the answer crossfades | — | 3 |
@@ -1799,7 +1802,7 @@ The message she sends is drafted in her voice. It tells him everything is in MVP
 
 ## **His view**
 
-On the recipient's screen the playbook is titled "Weekend playbook", as on hers. Before he answers it opens as "Looking it over" below sets out. It runs the same days in the same order as hers, so what he reads is what she wrote, with each day on a card of its own and each child's rows under the child's name. After the days come Where Charlotte is, with a line giving her flights, the place, "Front desk", its number and website and a Call button, and, when her time zone differs from home, a line giving the difference in his own hours, such as "Charlotte is on Eastern time, three hours ahead of you, so 8:00pm here is 11:00pm there."; and Who to call, with a Call button on each row. Once he has answered, If plans change appears under the weekend: "Ruth Delgado next door can stay with the girls if you need to go out, and Claire can help if it's urgent. The MVP Coach can help you work out anything new, and you can text Charlotte if you need her." with the buttons Call Ruth, Call Claire and Text Charlotte. Each opens his phone or his own messages app, with nothing drafted. The playbook opens from the notification and from a line above Now on his Today while it runs, such as "Weekend playbook · until about 7:30pm this Sunday".
+On the recipient's screen the playbook is titled "Weekend playbook", as on hers. Before he answers it opens as "Looking it over" below sets out. It runs the same days in the same order as hers, so what he reads is what she wrote, with each day on a card of its own and each child's rows under the child's name. After the days come Where Charlotte is, with a line giving her flights, the place, "Front desk", its number and website and a Call button, and, when her time zone differs from home, a line giving the difference in his own hours, such as "Charlotte is on Eastern time, three hours ahead of you, so 8:00pm here is 11:00pm there."; and Who to call, with a Call button on each row. Once he has answered, If plans change appears under the weekend: "Ruth Delgado next door can stay with the girls if you need to go out, and Claire can help if it's urgent. The MVP Coach can help you work out anything new, and you can text Charlotte if you need her." and a Text Charlotte link, which opens his own messages app with nothing drafted. It holds no buttons and no coach tint, because the calls live in Who to call (issue Y19). The playbook opens from the notification and from a line above Now on his Today while it runs, such as "Weekend playbook · until about 7:30pm this Sunday".
 
 ## **Lining up help before she sends it**
 
@@ -1825,9 +1828,9 @@ On her first morning back, Today opens with one coach card labeled "MVP Coach ·
 2. **She agrees once to let new things through.** The ticked line is the only way anything reaches him without her sending it, and it covers only the playbook days. This is an exception to "Nothing goes to another person unless the parent sends it herself", approved by Greg on Nov. 19, 2026 for this journey.
 3. **He sees only the playbook.** The rest of her plan, her calendar and her coach conversations stay hers. This is an exception to "Nobody sees her plan" for the days she chooses to hand over (F8 stays parked).
 4. **He has the coach on those days.** The Family plan includes the coach for him. In the prototype it speaks only on the playbook days.
-5. **MVP doesn't contact her while she is away,** because not being bothered is why she built the playbook. He can text her himself, last in If plans change, and she stays off Who to call (issue Y2, revised November 20, 2026).
+5. **MVP doesn't contact her while she is away,** because not being bothered is why she built the playbook. He can text her himself, from the Text Charlotte link in If plans change, and she stays off Who to call (issue Y2, revised November 20, 2026).
 6. **The summary is a look-back,** the first coach card about days that have passed, which brings part of F34 into the prototype.
-7. **On the playbook days, help needed the same day leads with a call,** which is why If plans change leads with Call Ruth and Call Claire. Elsewhere, requests are unchanged (issue Y8).
+7. **On the playbook days, help needed the same day is a call from Who to call,** which lists Ruth first. If plans change says who to reach and links Text Charlotte, with no buttons of its own and no coach tint, so each call appears once and Charlotte's guidance reads as hers. Elsewhere, requests are unchanged (issue Y8, revised November 20, 2026, issue Y19).
 8. **She decides who he can call.** The coach suggests and she ticks, and every part of her view says where it came from.
 9. **The playbook spells out what is in a parent's head,** day by day and child by child, because the person taking over doesn't carry the routines, the gift, the cash or dinner in his head. Heather asked for this on Nov. 20, 2026.
 10. **She gets herself to the airport and back,** so her travel is not an item, and nothing in the playbook follows a flight. F38 stays parked.
@@ -1846,6 +1849,20 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.50, November 21, 2026**
+
+Follows story fixtures 3.49 and Greg's decisions on the Stage 3 report.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §5 | A tall Now is not held in place, and the page scrolls as one. The Parts paragraph and standing decision 14 now match "Scrolling" (T85). |
+| 2 | §5 | The dateline may wrap to a second line on a narrow phone (T86). |
+| 3 | §5 | The Leave sheet changes leaving times only and draws one run. "Change the start time" is gone (T87, T88). |
+| 4 | §15 | The switcher also opens from a long press on a still screen or a top bar where no monogram is drawn (X4). |
+| 5 | §16 | `meta.invented` holds gap names that point to the fixtures' Appendix A (D5). |
+| 6 | §20 | If plans change is a plain section with a Text Charlotte link, and standing decision 7 is revised (Y19). |
+| 7 | §19 | The pass's stops rise 56 px, the nearest space token, rather than 60 px (T82). |
 
 ## **v0.49, November 21, 2026**
 
