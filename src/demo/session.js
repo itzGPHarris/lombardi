@@ -31,6 +31,9 @@ export function emptyToday(branch = null) {
   return {
     ticks: {}, openedGroups: [], openedChecklists: [], removed: {}, added: {}, reminders: {}, cardAnswers: {},
     leaveOverrides: {}, sheet: null, sheetClosed: false, notice: null, passShown: null, foldsDrawn: [], branch,
+    // What she is giving the coach through the capture bar: her words and a photo from the staged
+    // camera, kept while the camera is open (fixtures C-03a).
+    captureText: '', photo: null,
   };
 }
 
@@ -70,6 +73,9 @@ export function todayReducer(today, action) {
     // A sheet the seed opened in a step stays closed once she closes it.
     case 'CLOSE_SHEET': return { ...today, sheet: null, sheetClosed: true };
     case 'DISMISS_NOTICE': return { ...today, notice: null };
+    case 'CAPTURE_TEXT': return { ...today, captureText: action.text };
+    case 'ATTACH': return { ...today, photo: action.capture };
+    case 'CLEAR_CAPTURE': return { ...today, captureText: '', photo: null };
     case 'PASS_SHOWN': return today.passShown === action.key ? today : { ...today, passShown: action.key };
     case 'FOLD_DRAWN': return today.foldsDrawn.includes(action.key) ? today : { ...today, foldsDrawn: [...today.foldsDrawn, action.key] };
     default: return today;

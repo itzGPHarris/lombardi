@@ -39,3 +39,6 @@
 .control::after, .give::after { content: ''; position: absolute; inset: 0 calc((var(--size-tap-target) - var(--size-icon) - var(--space-16)) / -2); }
 .give { color: var(--ink-on-accent); }
 .give > span { padding: var(--space-4); border-radius: var(--radius-pill); background: var(--interactive-default); box-sizing: content-box; width: var(--size-icon-small); height: var(--size-icon-small); }
+/* The photo waiting to go to the coach (fixtures C-03a). The prepared photo of the flyer is not in
+   the repository, so the thumbnail is a plain tile until it arrives (docs/issues.csv). */
+.thumbnail { width: var(--space-56); height: var(--space-56); border-radius: var(--radius-sm); background: var(--bg-subtle); border: thin solid var(--border-hairline); }

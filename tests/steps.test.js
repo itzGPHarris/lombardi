@@ -3,7 +3,8 @@
 // writes to her calendar; and a day that gains a conflict opens by itself (spec §8, G51).
 import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
-import { initialSession, sessionReducer } from '../src/demo/session.js';
+import { emptyToday, initialSession, sessionReducer } from '../src/demo/session.js';
+import { todayView } from '../src/demo/today.js';
 import { notificationFor, stepsFor } from '../src/demo/steps.js';
 import { coachView, composerView, gamePlanView, itemPageView, teamView } from '../src/demo/tabs.js';
 
@@ -149,5 +150,20 @@ describe('the coach\'s answers (spec §6)', () => {
     const page = itemPageView({ seed, momentId: 'C-08b', played: 1, itemId: 'fri-checkup-mallory' });
     expect(page.note.text).toBe("Ask Dr. Ortiz about Mallory's cough");
     expect(page.marks.some((mark) => mark.kind === 'updated')).toBe(false);
+  });
+});
+
+describe('capture on Today (spec §5, A12)', () => {
+  const card = (played) => todayView({ seed, articles: {}, momentId: 'C-03a', played, at: null, local: emptyToday() }).coachCard;
+
+  it('reads, then reads back on the coach card, then says how the plan stands after the cans (C-03a)', () => {
+    expect(card(1)).toMatchObject({ state: 'reading', text: 'Reading your photo…', label: 'MVP Coach · for today' });
+    expect(card(2)).toMatchObject({ state: 'open', button: { label: "Add the cans to Mallory's list" } });
+    expect(card(3)).toMatchObject({ state: 'agree', fromCapture: true, followUp: 'Mallory and Hana leave home at 8:15am with two cans for the food drive.', link: 'Undo', meta: 'Game plan updated' });
+  });
+
+  it('keeps Undo after the cans, which returns the card to its read-back', () => {
+    const session = play(at('C-03a'), step('capture:today'), next, step('card:cc-flyer'));
+    expect(session).toMatchObject({ played: 3, playedFrom: 2 });
   });
 });

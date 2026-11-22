@@ -21,6 +21,7 @@ import AddSchool from './components/Kids/AddSchool.jsx';
 import ArticleView from './components/Recommends/ArticleView.jsx';
 import RequestDraft from './components/Requests/RequestDraft.jsx';
 import RecipientView from './components/Requests/RecipientView.jsx';
+import StagedCamera from './components/Capture/StagedCamera.jsx';
 import SettingsPage from './components/Settings/SettingsPage.jsx';
 import StillShell from './components/Layout/StillShell.jsx';
 import Onboarding from './components/Onboarding/Onboarding.jsx';
@@ -55,6 +56,7 @@ function Page({ page }) {
     case 'add-school': return <AddSchool />;
     case 'article': return <ArticleView articleId={page.id} />;
     case 'draft': return <RequestDraft requestId={page.id} />;
+    case 'camera': return <StagedCamera captureId={page.id} />;
     default: return <PageShell title={settings} />;
   }
 }

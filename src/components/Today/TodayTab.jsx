@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import TodayShell from '../Layout/TodayShell.jsx';
 import CaptureBar from '../Coach/CaptureBar.jsx';
 import RecommendsCard from '../Recommends/RecommendsCard.jsx';
@@ -11,6 +11,7 @@ import TomorrowStarts from './TomorrowStarts.jsx';
 import TodaySheets from './TodaySheets.jsx';
 import { useNavigation } from '../Layout/navigation.js';
 import useActions from '../../hooks/useActions.js';
+import { nextScripted } from '../../demo/steps.js';
 import { useSession } from '../../demo/SessionContext.js';
 import { todayView } from '../../demo/today.js';
 import { articles } from '../../demo/articles.js';
@@ -50,6 +51,12 @@ export default function TodayTab() {
   const moment = seed.moments.find((entry) => entry.id === session.momentId);
   const onCardButton = (card) => {
     if (run(card.button.action)) return;
+    // Adding what the coach read from someone else's document, such as the cans in C-03a or the
+    // harvest fair in C-09, is her decision, and the moment's step for it plays (spec §5).
+    if (/^add-(going-with|item):/.test(card.button.action)) {
+      dispatch({ type: 'STEP', trigger: `card:${card.id}` });
+      return;
+    }
     if (card.button.action !== 'accept') return;
     const index = (moment?.steps ?? []).findIndex((step, at) => at >= session.played
       && step.show?.today?.coachCard?.id === card.id && step.show.today.coachCard.state === 'agree');
@@ -70,6 +77,25 @@ export default function TodayTab() {
     } else run(card.secondary.action);
   };
   const onCardNext = (card) => run(card.nextButton.action);
+
+  // Capture on Today (spec §5, "A capture from Today lands on the coach card"; fixtures C-03a): what
+  // she types and the photo from the staged camera go to the coach together, and the read-back lands
+  // on the coach card, where she is. The card reads for two seconds, as 0r does.
+  const scripted = nextScripted(seed, session.momentId, session.played);
+  const captureStep = scripted?.entry.trigger === 'capture:today' ? scripted.step : null;
+  const captureId = captureStep?.set.captures?.[0];
+  const typed = captureId ? seed.captures.find((capture) => capture.id === captureId)?.typed ?? '' : '';
+  const photo = local.photo ? { alt: seed.captures.find((capture) => capture.id === local.photo)?.sourceName } : null;
+  const give = () => {
+    dispatch({ type: 'STEP', trigger: 'capture:today' });
+    today({ type: 'CLEAR_CAPTURE' });
+  };
+  const readingCard = view.coachCard?.state === 'reading' ? view.coachCard.id : null;
+  useEffect(() => {
+    if (!readingCard) return undefined;
+    const timer = window.setTimeout(() => dispatch({ type: 'STEP', trigger: `read:${readingCard}` }), 2000);
+    return () => window.clearTimeout(timer);
+  }, [readingCard, dispatch]);
 
   const now = view.now;
   // The next morning between drop-offs (0i-h) has nothing beneath the pass, so the sheet is hidden.
@@ -117,7 +143,16 @@ export default function TodayTab() {
                 onDismiss={() => today({ type: 'DISMISS_NOTICE' })}
               />
             )}
-            {!view.captureHidden && <CaptureBar />}
+            {!view.captureHidden && (
+              <CaptureBar
+                scripted={typed}
+                value={local.captureText}
+                onChange={(text) => today({ type: 'CAPTURE_TEXT', text })}
+                photo={photo}
+                onCamera={() => { if (captureId && !local.photo) openPage('camera', captureId); }}
+                onGive={give}
+              />
+            )}
           </>
         )}
       />

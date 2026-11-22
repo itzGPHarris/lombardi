@@ -526,12 +526,17 @@ export function coachCardView({ today, seed, clock, local }) {
     secondary: card.secondary && { ...card.secondary, label: dates(card.secondary.label) },
   };
   if (!answer) return { ...base, state: 'open' };
+  // While the coach reads what she gave it on Today, the card says so (spec §5, "A capture from Today
+  // lands on the coach card"; fixtures C-03a).
+  if (answer === 'reading') return { id: card.id, label: base.label, state: 'reading', text: words.coachCard.readingPhoto };
   const after = card.after?.[answer];
   if (!after) return { ...base, state: 'open' };
   return {
     ...base,
     state: answer === 'agree' ? 'agree' : 'choice',
     answer,
+    // A card that read a capture on Today says how the plan stands after she adds it (fixtures C-03a).
+    fromCapture: !!card.reading,
     chosenText: dates(after.chosenText),
     followUp: dates(after.text),
     nextButton: after.button && { ...after.button, label: dates(after.button.label) },
