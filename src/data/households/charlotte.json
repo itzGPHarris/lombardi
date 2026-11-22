@@ -2174,7 +2174,14 @@
       "kind": "taught",
       "at": {"week":-1,"day":"mon","time":"20:39"},
       "greeting": "charlotte",
-      "text": "Here is what I have so far. Alexis is in fourth grade at Cedar Grove Elementary and Mallory is in kindergarten at Westview Kindergarten. Mallory has library on A days and needs sneakers on B, D and F days, so Mallory's checklists carry them every week. Alexis's therapy and dance and Mallory's ballet repeat every week on your Google Calendar, and they are in your plan. Edward and Claire are in your circle."
+      "text": "Here is what I have so far. Alexis is in fourth grade at Cedar Grove Elementary and Mallory is in kindergarten at Westview Kindergarten. Mallory has library on A days and needs sneakers on B, D and F days, so Mallory's checklists carry them every week. Alexis's therapy and dance and Mallory's ballet repeat every week on your Google Calendar, and they are in your plan. Edward and Claire are in your circle.",
+      "recap": [
+        {"kind":"always","text":"Here is what I have so far."},
+        {"kind":"always","text":"Alexis is in fourth grade at Cedar Grove Elementary and Mallory is in kindergarten at Westview Kindergarten."},
+        {"kind":"capture","text":"Mallory has library on A days and needs sneakers on B, D and F days, so Mallory's checklists carry them every week."},
+        {"kind":"calendar","text":"Alexis's therapy and dance and Mallory's ballet repeat every week on your {calendar}, and they are in your plan."},
+        {"kind":"helpers","text":"Edward and Claire are in your circle."}
+      ]
     },
     {
       "id": "t-min-jung-paste",

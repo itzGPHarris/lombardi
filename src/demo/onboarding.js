@@ -20,9 +20,9 @@ export const screens = {
   '0a': { type: 'onboarding', back: '0k-b' },
   '0v': { type: 'onboarding', back: '0a' },
   '0r': { type: 'still' },
-  '0b': { type: 'onboarding' },
+  '0b': { type: 'onboarding', back: '0v' },
   '0t': { type: 'still' },
-  '0c': { type: 'onboarding' },
+  '0c': { type: 'onboarding', back: '0b' },
   '0e': { type: 'onboarding', back: '0c', step: 1 },
   '0e-p': { type: 'onboarding', back: '0e' },
   '0q': { type: 'onboarding', back: '0e-p', step: 2 },
@@ -31,7 +31,7 @@ export const screens = {
   '0f': { type: 'onboarding', step: 3 },
   '0g': { type: 'onboarding', back: '0f', step: 4 },
   '0p': { type: 'still' },
-  '0j': { type: 'onboarding' },
+  '0j': { type: 'onboarding', back: '0g' },
 };
 export const STEPS = 4;
 
@@ -149,8 +149,12 @@ export function onboardingReducer(state, action) {
 }
 
 // Back from the school screen returns to the calendar screen she left, connected or not.
+// Back is on every onboarding and setup screen after 0w (spec §2, issue O30). It skips the still
+// screens between, so Back from the read-back returns to the photo, or to the first capture when she
+// gave a file or talked, and Back from the introduction returns to the household screen.
 export function backFrom(state) {
   if (state.screen === '0f') return state.flags.calendar ? '0q-c' : '0q';
+  if (state.screen === '0b' && state.flags.captureKind && state.flags.captureKind !== 'photo') return '0a';
   return screens[state.screen]?.back ?? null;
 }
 
@@ -167,3 +171,20 @@ export function draftDates(draft, demoWeekStart) {
 }
 
 export { monthYear };
+
+// The coach's introduction says only what MVP learned on her path (fixtures C-00, "If she skipped a
+// step"; issue O32): the opening and the grades always, the rotation only after a capture, the
+// calendar only when she connected one, named as she connected it, and her circle only when she added
+// someone on the household screen.
+export function introRecap(welcome, { flags, entries }) {
+  const applies = {
+    always: true,
+    capture: !flags.skippedCapture,
+    calendar: !!flags.calendar,
+    helpers: (entries.helpers ?? []).some((helper) => helper.name?.trim()),
+  };
+  return welcome.recap
+    .filter((sentence) => applies[sentence.kind])
+    .map((sentence) => sentence.text.replace('{calendar}', flags.calendar ?? ''))
+    .join(' ');
+}

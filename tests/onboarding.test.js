@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
-import { childrenInWords, draftDates, gradesHeading, onboardingReducer, startOnboarding, suggestGrade } from '../src/demo/onboarding.js';
+import {
+  backFrom, childrenInWords, draftDates, gradesHeading, introRecap, onboardingReducer, startOnboarding, suggestGrade,
+} from '../src/demo/onboarding.js';
 import { monthYear } from '../src/demo/dateTokens.js';
 import { initialSession, sessionReducer } from '../src/demo/session.js';
 
@@ -105,5 +107,36 @@ describe('the demo returns to C-00 with a clean state (spec §15)', () => {
     expect(finished).toMatchObject({ onboarding: null, still: null, tab: 'today', today: { branch: null } });
     const skipped = sessionReducer(sessionReducer(initialSession(), { type: 'ONBOARDING', action: { type: 'SKIP_CAPTURE' } }), { type: 'FINISH_ONBOARDING' });
     expect(skipped.today.branch).toBe('skipped-capture');
+  });
+});
+
+describe('the coach\'s introduction says only what MVP learned on her path (fixtures C-00, "If she skipped a step"; O32)', () => {
+  const welcome = seed.conversation.find((entry) => entry.id === 'c00-welcome');
+  const path = (flags = {}, entries = {}) => {
+    const state = start();
+    return introRecap(welcome, { flags: { ...state.flags, calendar: 'Google Calendar', ...flags }, entries: { ...state.entries, ...entries } });
+  };
+
+  it('on Charlotte\'s path reads as C-00 writes it', () => {
+    expect(path()).toBe(welcome.text);
+  });
+
+  it('leaves out the rotation without a capture, the calendar without one, and her circle without anyone added', () => {
+    expect(path({ skippedCapture: true })).not.toContain('library on A days');
+    expect(path({ calendar: null })).not.toContain('repeat every week');
+    expect(path({ calendar: 'Outlook' })).toContain('on your Outlook, and they are in your plan.');
+    expect(path({}, { helpers: [{ name: '', relationship: '' }] })).not.toContain('in your circle');
+    expect(path({ skippedCapture: true, calendar: null }, { helpers: [] })).toBe(
+      'Here is what I have so far. Alexis is in fourth grade at Cedar Grove Elementary and Mallory is in kindergarten at Westview Kindergarten.',
+    );
+  });
+});
+
+describe('Back on every onboarding and setup screen after 0w (spec §2, O30)', () => {
+  it('returns each screen to the one before it, past the still screens', () => {
+    const state = start();
+    const from = (screen, flags = {}) => backFrom({ ...state, screen, flags: { ...state.flags, ...flags } });
+    expect(['0k', '0k-b', '0a', '0v', '0b', '0c', '0e-p', '0j'].map((screen) => from(screen))).toEqual(['0w', '0k', '0k-b', '0a', '0v', '0b', '0e', '0g']);
+    expect(from('0b', { captureKind: 'file' })).toBe('0a');
   });
 });

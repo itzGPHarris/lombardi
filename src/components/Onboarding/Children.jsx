@@ -12,10 +12,10 @@ const pad = (number) => String(number).padStart(2, '0');
 // Who are you planning for (0k, 2853:12050): each child's first name and birth month and year. The
 // heading names her unless she skipped the welcome. There is no skip, because every later screen
 // depends on knowing the children.
-export default function Children({ entries, flags, setChild, addChild, onContinue }) {
+export default function Children({ entries, flags, setChild, addChild, onContinue, onBack }) {
   const heading = !flags.skippedWelcome && entries.name ? fill(words.heading, { person: entries.name }) : words.headingNoName;
   return (
-    <OnboardingShell primary={<Button kind="primary" full onClick={onContinue}>{words.continue}</Button>}>
+    <OnboardingShell onBack={onBack} primary={<Button kind="primary" full onClick={onContinue}>{words.continue}</Button>}>
       <div className={styles.page}>
         <div className={styles.intro}>
           <Entrance order={0}><Mark /></Entrance>

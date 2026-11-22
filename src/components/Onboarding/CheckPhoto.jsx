@@ -8,9 +8,10 @@ import base from './Onboarding.module.css';
 // Check the photo (0v, 2853:11916): the photo at full width, then Use this photo or Retake. The
 // prototype has no camera, so Retake shows the same prepared photo again. The photo is the board's own
 // until Greg supplies the October one (issues O9, O18).
-export default function CheckPhoto({ onUse, onRetake, alt }) {
+export default function CheckPhoto({ onUse, onRetake, alt, onBack }) {
   return (
     <OnboardingShell
+      onBack={onBack}
       primary={(
         <div className={base.buttons}>
           <Button kind="primary" full onClick={onUse}>{words.use}</Button>

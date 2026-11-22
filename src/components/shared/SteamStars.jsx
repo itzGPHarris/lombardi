@@ -7,13 +7,17 @@ import styles from './SteamStars.module.css';
 // steam, a third of a loop apart, so one is always rising, and they keep moving wherever they appear.
 // One component, because Alpha 2 puts the same stars over the brand header on Ruth's web page. The
 // parent places the layer where the steam leaves the mark; the stars climb from there. Under reduced
-// motion they stand still where each one rests.
+// motion they stand still where each one rests. They are drawn in brand-star, the saffron that
+// nothing else uses, because amber belongs to the coach (spec §19, issue O29).
 export default function SteamStars({ className = '' }) {
   return (
     <span className={`${styles.stars} ${className}`} aria-hidden="true">
-      <img className={styles.star} data-star="1" src={starOne} alt="" />
-      <img className={styles.star} data-star="2" src={starTwo} alt="" />
-      <img className={styles.star} data-star="3" src={starThree} alt="" />
+      {[starOne, starTwo, starThree].map((star, index) => (
+        // The image keeps the star's own size; the span paints it in brand-star through its shape.
+        <span key={star} className={styles.star} data-star={index + 1} style={{ '--star-shape': `url(${JSON.stringify(star)})` }}>
+          <img className={styles.shape} src={star} alt="" />
+        </span>
+      ))}
     </span>
   );
 }

@@ -10,12 +10,12 @@ import styles from './ChoosePlan.module.css';
 // Choose a plan (0e-p, 2853:12857), staged (spec §3, standing decision 7). Either Buy starts nothing
 // and moves on to Connect your calendar, and nothing opens Stripe. The words are proposed (issue O17).
 // The screen map asks for the frame at 440 with Hearth colors and the full wordmark. The frame draws
-// no Back.
-export default function ChoosePlan({ onBuy }) {
+// no Back; Back is on every screen after 0w (spec §2, issue O30).
+export default function ChoosePlan({ onBuy, onBack }) {
   const [period, setPeriod] = useState(words.toggle[0]);
   const plans = [words.basic, words.family];
   return (
-    <OnboardingShell>
+    <OnboardingShell onBack={onBack}>
       <div className={styles.page}>
         <img className={styles.wordmark} src={wordmarkFull} alt={wordmark} />
         <h1 className={styles.headline}>{words.headline}</h1>
