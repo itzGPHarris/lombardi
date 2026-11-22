@@ -16,7 +16,8 @@ import styles from './GamePlan.module.css';
 
 // The game plan (spec §8): the review card when anything is hers to choose, the week strip that
 // sticks under the title bar, then the days, with past days folded, today and tomorrow open, and next
-// week beneath. From the tablet width it opens into seven columns. It reads the week from the seed at
+// week beneath. From the desktop width it opens into seven columns, and below it the agenda keeps the
+// centered column (issue G52). It reads the week from the seed at
 // the moment; adding, moving and asking play in Stage 6.
 const dayId = (key) => `day-${key.replace('.', '-')}`;
 
@@ -80,7 +81,7 @@ export default function GamePlanTab() {
   );
 
   return (
-    <TabListShell title={title} wide capture={<div className={styles.capture}><CaptureBar /></div>}>
+    <TabListShell title={title} wide={wide} capture={<div className={styles.capture}><CaptureBar /></div>}>
       {view.reviewCard && <ReviewCard card={view.reviewCard} childName={childName} onOpen={openItem} />}
       {wide ? <WeekColumns view={view} childName={childName} onOpen={openItem} /> : (
         <>
