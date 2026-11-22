@@ -1,0 +1,124 @@
+/* The game plan (frames 2853:14327, 2853:14356, 2853:14381, 2853:14409). Every value is a token. */
+
+/* The review card (library ReviewCard, ReviewDay, ReviewItem), in the coach's tint. */
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin-bottom: var(--space-16);
+  padding: var(--space-16);
+  border-radius: var(--radius-lg);
+  background: var(--coach-bg);
+}
+.reviewHeading { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.reviewDay {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-10) var(--space-16);
+  border: thin solid var(--coach);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+}
+.reviewDayLabel { font: var(--text-meta-strong); letter-spacing: var(--text-meta-strong-tracking); color: var(--ink-muted); }
+.reviewItem { display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-4) var(--space-8) 0; }
+.reviewItem + .reviewItem { border-top: thin solid var(--border-hairline); padding-top: var(--space-12); }
+.reviewItemRow { display: flex; align-items: center; gap: var(--space-8); padding-bottom: var(--space-12); text-align: left; }
+.reviewItemRow > :not(.reviewItemText) { flex-shrink: 0; }
+.reviewItemText { flex: 1; min-width: 0; font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.reviewActions { display: flex; align-items: center; gap: var(--space-12); }
+.reviewActions > :last-child { flex: 1; }
+
+/* The week strip (library WeekDay), sticking under the title bar. */
+.strip {
+  position: sticky;
+  top: var(--title-bar-height, 0);
+  z-index: 5;
+  margin: 0 calc(var(--space-24) * -1);
+  padding: var(--space-8) var(--space-24);
+  background: var(--bg-card);
+}
+.stripLabel { padding-bottom: var(--space-4); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.stripDays { display: flex; justify-content: space-between; }
+.weekDay { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); width: calc(var(--space-40) + var(--space-8)); }
+.disc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--space-32) + var(--space-4));
+  height: calc(var(--space-32) + var(--space-4));
+  border: thin solid transparent;
+  border-radius: var(--radius-pill);
+  font: var(--text-body);
+  letter-spacing: var(--text-body-tracking);
+  color: var(--ink-primary);
+}
+.weekDay[data-today] .disc { border-color: var(--ink-secondary); }
+.weekDay[data-reading] .disc { background: var(--interactive-tint); }
+.weekDay[data-past] .disc { color: var(--ink-muted); }
+/* The dot under a day holding a decision: a shape, so the strip reads in grayscale. */
+.dot { width: calc(var(--space-4) + var(--space-4) / 2); height: calc(var(--space-4) + var(--space-4) / 2); border-radius: var(--radius-pill); }
+.dot[data-on] { background: var(--ink-primary); }
+
+/* The days */
+.agenda { display: flex; flex-direction: column; gap: var(--space-8); padding-top: var(--space-16); }
+.nextWeek .agenda { padding-top: var(--space-8); }
+.day { display: flex; flex-direction: column; padding: 0 var(--space-12); border-radius: var(--radius-md); }
+.day[data-open] { padding-top: var(--space-4); padding-bottom: var(--space-8); background: var(--bg-subtle); }
+.dayHeading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  width: 100%;
+  min-height: var(--size-tap-target);
+  padding: var(--space-10) 0;
+  text-align: left;
+}
+.dayHeading[data-past] { padding: var(--space-10) var(--space-12); }
+.nextWeek > .dayHeading { padding: var(--space-10) var(--space-12); }
+.dayName { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
+.dayCount { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.chevron { display: inline-flex; margin-left: auto; color: var(--ink-primary); }
+.day[data-open] .chevron, .chevron[data-open] { transform: rotate(90deg); }
+.emptyLine { padding-bottom: var(--space-10); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.nextSentence { padding: 0 var(--space-12) var(--space-8); font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+
+/* Days open and close (spec §19): the rows expand or collapse, quick and easing out. Under reduced
+   motion they open and close without animating. */
+.rowsWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--motion-duration-quick) var(--motion-ease-out);
+}
+.day[data-open] > .rowsWrap { grid-template-rows: 1fr; }
+.rows { min-height: 0; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .rowsWrap { transition: none; }
+}
+
+.capture { padding: var(--space-8) var(--space-12); }
+
+/* From the tablet width: seven columns under the strip's headings, and next week beneath. */
+.columns { display: flex; flex-direction: column; gap: var(--space-16); }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-8); }
+.column { display: flex; flex-direction: column; gap: var(--space-8); min-width: 0; padding: var(--space-8); border-radius: var(--radius-md); background: var(--bg-subtle); }
+.columnHead {
+  position: sticky;
+  top: var(--title-bar-height, 0);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding-bottom: var(--space-8);
+  background: var(--bg-subtle);
+  text-align: center;
+}
+.column { overflow-wrap: anywhere; }
+.columnName { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.columnRows { display: flex; flex-direction: column; }
+.columnsHeading { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
+@media (max-width: 1279px) {
+  .week { gap: var(--space-4); }
+  .column { padding: var(--space-4); }
+}

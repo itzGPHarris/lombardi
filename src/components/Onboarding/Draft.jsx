@@ -8,7 +8,7 @@ import styles from './Draft.module.css';
 // then each remaining school day and the week's school event, marked Suggested. The account prompt
 // slides up from below once the draft has shown (spec §19). Create account goes on to the account
 // screen, and Not now ends the session.
-export default function Draft({ child, dates, line, rows, onCreate, onNotNow }) {
+export default function Draft({ child, dates, line, rows, onCreate, onNotNow, onBack }) {
   const prompt = (
     <section className={styles.prompt} aria-labelledby="account-prompt">
       <h2 id="account-prompt" className={styles.promptHeading}>{fill(accountPrompt.heading, { child })}</h2>
@@ -20,7 +20,7 @@ export default function Draft({ child, dates, line, rows, onCreate, onNotNow }) 
     </section>
   );
   return (
-    <OnboardingShell foot={prompt}>
+    <OnboardingShell onBack={onBack} foot={prompt}>
       <div className={styles.draft}>
         <header className={styles.header}>
           <h1 className={styles.heading}>{fill(words.heading, { child })}</h1>

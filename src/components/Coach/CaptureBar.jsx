@@ -21,7 +21,9 @@ export default function CaptureBar({ onGive }) {
     if (!field) return;
     field.style.height = 'auto';
     const lineHeight = parseFloat(getComputedStyle(field).lineHeight);
-    const lines = Math.round(field.scrollHeight / lineHeight);
+    // An empty field measures one line: the placeholder never makes the bar multi-line, even where
+    // it wraps at 390.
+    const lines = text ? Math.round(field.scrollHeight / lineHeight) : 1;
     field.style.height = `${Math.min(lines, MAX_LINES) * lineHeight}px`;
     setMultiline(lines > 1);
   }, [text]);

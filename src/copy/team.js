@@ -25,6 +25,7 @@ export const groups = 'Groups';
 export const audience = { circle: 'Circle', people: 'People' };
 export const everyoneOnMvp = 'Everyone on MVP';
 export const notInChat = "People who aren't on MVP can't be in a chat. Call or text them from their page.";
+export const to = 'To';
 export const writeAMessage = 'Write a message';
 export const send = 'Send';
 export const post = 'Post';

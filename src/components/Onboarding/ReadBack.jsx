@@ -12,11 +12,11 @@ import styles from './ReadBack.module.css';
 // her answer, then the hand-off with the button that starts the draft. "Something's not right" puts
 // her in the capture bar with the read-back still in view. A capture that cannot be read replaces the
 // read-back with its own state (spec §3), which the prototype shows only on request.
-export default function ReadBack({ conversation, choices, chosen, onChoose, draftChild, unreadable, onMake, onRetake, onChooseAnother, alt }) {
+export default function ReadBack({ conversation, choices, chosen, onChoose, draftChild, unreadable, onMake, onRetake, onChooseAnother, alt, onBack }) {
   const [readBack, question, answer, handoff] = conversation;
   const focusCapture = () => document.querySelector('[data-capture-field]')?.focus();
   return (
-    <OnboardingShell foot={<div className={styles.capture}><CaptureBar /></div>}>
+    <OnboardingShell onBack={onBack} foot={<div className={styles.capture}><CaptureBar /></div>}>
       <div className={styles.conversation}>
         <div className={styles.mine}>
           <span className={styles.photoBubble}><img className={styles.photo} src={photo} alt={alt} /></span>

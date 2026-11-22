@@ -14,3 +14,5 @@
 .choice[aria-pressed='true'] { border-color: transparent; background: var(--interactive-default); color: var(--ink-on-accent); }
 .check { display: inline-flex; }
 .check > span { width: var(--size-icon-small); height: var(--size-icon-small); }
+.choice[data-segment] { justify-content: center; border-color: transparent; background: transparent; font: var(--text-body); color: var(--ink-primary); }
+.choice[data-segment][aria-pressed='true'] { border-color: var(--border-hairline); background: var(--bg-control); font: var(--text-body-strong); color: var(--ink-primary); }

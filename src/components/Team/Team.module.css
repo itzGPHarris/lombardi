@@ -1,0 +1,127 @@
+/* Team (frames 2853:13188 and 2853:13221 and the pages they open). Sections are divided by a
+   hairline; rows lead with the outlined initial. */
+.tab { display: flex; flex-direction: column; gap: var(--space-24); }
+.section { display: flex; flex-direction: column; gap: var(--space-4); padding-bottom: var(--space-24); border-bottom: thin solid var(--border-hairline); }
+.sectionHeading { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
+.emptyLine { padding: var(--space-8) 0; font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-secondary); }
+.buttons { display: flex; gap: var(--space-12); }
+.buttons > * { flex: 1; }
+
+.row { display: flex; align-items: flex-start; gap: var(--space-12); width: 100%; padding: var(--space-12) 0; text-align: left; }
+.row[data-center] { align-items: center; }
+.avatars { display: flex; flex-shrink: 0; }
+.rowText { display: flex; flex-direction: column; gap: var(--space-4); flex: 1; min-width: 0; }
+.row[data-center] .rowText { gap: 0; }
+.rowName { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.preview { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.members { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.line { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.rowRight { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-4); flex-shrink: 0; }
+.when { flex-shrink: 0; font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.unread { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
+.groupMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-chip);
+  height: var(--size-chip);
+  border: thin solid var(--ink-secondary);
+  border-radius: var(--radius-pill);
+  color: var(--ink-secondary);
+}
+.groupMark > span { width: var(--space-16); height: var(--space-16); }
+/* The Circle tag (library CircleTag 3089:13204): a small outlined label in Meta. The library outlines
+   it in border-strong, which AGENTS.md rule 12 forbids, so it takes a hairline in ink-secondary. */
+.circleTag { flex-shrink: 0; padding: var(--space-4) var(--space-8); border: thin solid var(--ink-secondary); border-radius: var(--radius-pill); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.chevron { display: inline-flex; flex-shrink: 0; color: var(--ink-secondary); }
+.chevron > span { width: var(--size-icon-mark); height: var(--size-icon-mark); }
+
+/* A person's page */
+.page { display: flex; flex-direction: column; gap: var(--space-20); }
+.personLine { margin-top: calc(var(--space-12) * -1); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
+.actions { display: flex; gap: var(--space-8); }
+.contact { display: flex; flex-direction: column; gap: var(--space-4); }
+.contactLabel { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
+.contactNumber { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.pageSection { display: flex; flex-direction: column; gap: var(--space-8); }
+.pageSection[data-ruled] { padding-top: var(--space-24); border-top: thin solid var(--border-hairline); }
+.linkRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--size-tap-target);
+  font: var(--text-body);
+  letter-spacing: var(--text-body-tracking);
+  color: var(--interactive-default);
+  text-align: left;
+}
+.linkRow .chevron { color: var(--interactive-default); }
+
+/* A chat: hers at the right on the interactive tint, theirs at the left on the control surface. */
+.privacy { padding-bottom: var(--space-16); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.messages { display: flex; flex-direction: column; gap: var(--space-16); }
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 80%;
+  padding: var(--space-16);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 0;
+  background: var(--bg-control);
+}
+.message[data-mine] { align-self: flex-end; border-color: transparent; border-radius: var(--radius-lg) 0 var(--radius-lg) var(--radius-lg); background: var(--interactive-tint); }
+.messageMeta { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.messageText { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+
+/* The field at the foot of a chat or a group */
+.fieldBar { display: flex; align-items: flex-end; gap: var(--space-8); padding: var(--space-8) var(--space-12) var(--space-24); }
+.field {
+  flex: 1;
+  min-height: var(--size-tap-target);
+  padding: var(--space-10) var(--space-16);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-pill);
+  background: var(--bg-control);
+  font: var(--text-body);
+  letter-spacing: var(--text-body-tracking);
+  color: var(--ink-primary);
+  resize: none;
+}
+.field::placeholder, .messageBox::placeholder { color: var(--ink-muted); }
+
+/* A group's page */
+.groupTop { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-16); padding-bottom: var(--space-16); border-bottom: thin solid var(--border-hairline); }
+.groupMembers { display: flex; align-items: center; gap: var(--space-4); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
+.posts { display: flex; flex-direction: column; gap: var(--space-16); padding-top: var(--space-16); }
+.post { display: flex; flex-direction: column; gap: var(--space-4); }
+.postHead { display: flex; align-items: baseline; gap: var(--space-8); }
+.postAuthor { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.reply { display: flex; flex-direction: column; gap: var(--space-4); margin-left: var(--space-16); margin-top: var(--space-12); padding-top: var(--space-12); border-top: thin solid var(--border-hairline); }
+.created { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.groupPrivacy { padding: var(--space-8) var(--space-24) 0; font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.memberList { display: flex; flex-direction: column; }
+
+/* The composers */
+.composer { display: flex; flex-direction: column; gap: var(--space-16); }
+.segments { display: flex; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-pill); background: var(--interactive-tint); }
+.segments > * { flex: 1; }
+.everyone { display: flex; align-items: center; gap: var(--space-12); min-height: var(--size-tap-target); font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); text-align: left; }
+.box { flex-shrink: 0; width: var(--size-check); height: var(--size-check); border: thin solid var(--ink-secondary); border-radius: var(--radius-sm); background: var(--bg-control); }
+.box { display: inline-flex; align-items: center; justify-content: center; color: var(--ink-on-accent); }
+.box > span { width: var(--space-16); height: var(--space-16); }
+.box[data-on] { border-color: var(--interactive-default); background: var(--interactive-default); }
+.messageBox {
+  min-height: calc(var(--size-tap-target) * 3);
+  padding: var(--space-16);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--bg-control);
+  font: var(--text-body);
+  letter-spacing: var(--text-body-tracking);
+  color: var(--ink-primary);
+  resize: none;
+}
+.toLabel { margin-bottom: calc(var(--space-12) * -1); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
+.nowrap { white-space: nowrap; }

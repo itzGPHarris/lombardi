@@ -31,3 +31,7 @@ export const earlierVersion = 'Earlier version';
 export const openCard = 'Open the {school} card';
 export const showTheEmail = 'Show the email';
 export const updated = 'Updated';
+export const lastWeek = 'last week';
+export const thisWeek = 'This week:';
+export const until = 'Until';
+export const untilToday = 'Until today';

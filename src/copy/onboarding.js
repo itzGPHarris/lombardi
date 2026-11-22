@@ -105,6 +105,7 @@ export const gettingReady = {
 export const intro = {
   byline: 'MVP Coach · just now',
   greeting: 'Welcome to the team, {person}.',
+  greetingNoName: 'Welcome to the team.',
   reminder: 'Remind me the night before a library day',
   calendarLine: 'Add events from my calendar to my plan',
   next: 'Next',

@@ -73,6 +73,21 @@ export function todayReducer(today, action) {
   }
 }
 
+// What she has opened or closed on the game plan, which stays as she left it until she leaves the
+// game plan (spec §8, "Day"), and the items she has opened, whose Updated mark has cleared.
+export function emptyGamePlan(opened = []) {
+  return { days: {}, pastOpen: false, opened };
+}
+
+export function gamePlanReducer(gamePlan, action) {
+  switch (action.type) {
+    case 'TOGGLE_DAY': return { ...gamePlan, days: { ...gamePlan.days, [action.key]: action.open } };
+    case 'TOGGLE_PAST': return { ...gamePlan, pastOpen: !gamePlan.pastOpen };
+    case 'OPEN_ITEM': return gamePlan.opened.includes(action.id) ? gamePlan : { ...gamePlan, opened: [...gamePlan.opened, action.id] };
+    default: return gamePlan;
+  }
+}
+
 export function momentState(householdId, momentId, carry = {}) {
   const household = householdById(householdId);
   const { moments } = household.seed;
@@ -105,14 +120,24 @@ export function momentState(householdId, momentId, carry = {}) {
     phoneFrame: carry.phoneFrame ?? false,
     coachMode: carry.coachMode ?? 'scripted',
     today: emptyToday(),
+    gamePlan: emptyGamePlan(),
+    // The chats and groups she has opened in this moment, whose "1 new" has cleared (spec §10).
+    team: { seen: [] },
+    // The school card facts she has opened, whose Updated mark has cleared (spec §11).
+    kids: { opened: [] },
   };
 }
 
-export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch } = {}) {
+export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch, page } = {}) {
   const session = momentState(householdId, momentId, { played, at, notifications, onboarding });
   // Development only: open her first board on one of its branches, such as 0i-d or 0i-g.
   const withBranch = branch ? { ...session, onboarding: null, still: null, today: emptyToday(branch) } : session;
-  return tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
+  const opened = tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
+  // Development only: open a page inside the tab, written as kind:id.
+  if (!page) return opened;
+  const colon = page.indexOf(':');
+  const [kind, id] = colon < 0 ? [page, null] : [page.slice(0, colon), page.slice(colon + 1)];
+  return { ...opened, stack: [{ kind, id }] };
 }
 
 // Only the presenter's own choices carry over a jump, with the count of jumps.
@@ -124,6 +149,9 @@ export function sessionReducer(state, action) {
     case 'RESET': return momentState(state.householdId, householdById(state.householdId).seed.moments[0].id, presenter(state));
     case 'SWITCH_HOUSEHOLD': return momentState(action.householdId, undefined, presenter(state));
     case 'TODAY': return { ...state, today: todayReducer(state.today, action.action) };
+    case 'SEEN': return (state.team?.seen ?? []).includes(action.id) ? state : { ...state, team: { seen: [...(state.team?.seen ?? []), action.id] } };
+    case 'OPEN_FACT': return (state.kids?.opened ?? []).includes(action.id) ? state : { ...state, kids: { opened: [...(state.kids?.opened ?? []), action.id] } };
+    case 'GAME_PLAN': return { ...state, gamePlan: gamePlanReducer(state.gamePlan ?? emptyGamePlan(), action.action) };
     case 'ONBOARDING': return state.onboarding ? { ...state, onboarding: onboardingReducer(state.onboarding, action.action) } : state;
     // Not now on the account prompt ends the session: nothing she entered is kept, and the app starts
     // again at the splash (spec §3, "Leaving before the account starts over").
@@ -148,9 +176,15 @@ export function sessionReducer(state, action) {
     case 'SET_COACH_MODE': return { ...state, coachMode: action.mode };
     case 'OPEN_SWITCHER': return { ...state, switcherOpen: true };
     case 'CLOSE_SWITCHER': return { ...state, switcherOpen: false };
-    case 'OPEN_TAB': return { ...state, tab: action.tab, still: null, stack: [] };
-    case 'PUSH': return { ...state, stack: [...state.stack, action.page] };
-    case 'POP': return { ...state, stack: state.stack.slice(0, -1) };
+    // Leaving the game plan returns its days to how the game plan always opens.
+    case 'OPEN_TAB': return {
+      ...state, tab: action.tab, still: null, stack: [],
+      gamePlan: action.tab === state.tab ? state.gamePlan : emptyGamePlan(state.gamePlan?.opened),
+    };
+    // Opening a page or going Back counts, so the page fades in (spec §19, "Pages"); a tab change does
+    // not, because tabs change at once.
+    case 'PUSH': return { ...state, stack: [...state.stack, action.page], pageMoves: (state.pageMoves ?? 0) + 1 };
+    case 'POP': return { ...state, stack: state.stack.slice(0, -1), pageMoves: (state.pageMoves ?? 0) + 1 };
     default: return state;
   }
 }

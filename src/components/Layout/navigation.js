@@ -6,9 +6,11 @@ export const NavigationContext = createContext({
   tab: 'today',
   openTab() {},
   back() {},
+  openPage() {},
   openSettings() {},
   openSwitcher() {},
   parentInitial: '',
+  teamUnread: 0,
 });
 
 export function useNavigation() {

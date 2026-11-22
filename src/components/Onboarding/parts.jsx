@@ -22,14 +22,16 @@ export function StepCounter({ step }) {
   );
 }
 
-// A labeled text field, filled with what she entered.
-export function Field({ label, value, onChange, type = 'text', inputMode, autoComplete, id }) {
+// A labeled text field, filled with what she entered, with a helper line beneath it where the
+// fixtures write one, such as "Shown under their name on your Team." on Add someone.
+export function Field({ label, value, onChange, type = 'text', inputMode, autoComplete, id, helper }) {
   return (
     <label className={styles.field} htmlFor={id}>
       <span className={styles.fieldLabel}>{label}</span>
       <span className={styles.box}>
         <input id={id} className={styles.input} type={type} inputMode={inputMode} autoComplete={autoComplete} value={value} onChange={(event) => onChange(event.target.value)} />
       </span>
+      {helper && <span className={styles.helper}>{helper}</span>}
     </label>
   );
 }

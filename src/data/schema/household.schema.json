@@ -595,6 +595,11 @@
           "type": "string",
           "pattern": "^[a-z0-9][a-z0-9-]*$"
         },
+        "partOf": {
+          "description": "A stop that belongs to another item's row in the game plan, such as a child's stop on Friday's carpool. Today draws it on the trip pass; the game plan draws only the row it is part of (issue D13).",
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
         "time": {
           "$ref": "#/$defs/demoTime"
         },

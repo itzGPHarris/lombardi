@@ -4,11 +4,20 @@
    from 15° to −15° the other way round, fades in at the foot of its climb and out over the top of it.
    The climb is written in percentages of the star's own box, so no pixel size is typed here. */
 .stars { position: absolute; display: block; }
+.shape { display: block; visibility: hidden; }
 .star {
   position: absolute;
   left: 0;
   top: 0;
+  display: block;
   transform-origin: 50% 50%;
+  background: var(--brand-star);
+  -webkit-mask-image: var(--star-shape);
+  mask-image: var(--star-shape);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   animation: steam 3s linear infinite both;
 }
 /* A third of a loop apart. Star 1 starts where the prototype's timeline opens. */

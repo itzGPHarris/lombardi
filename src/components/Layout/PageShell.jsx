@@ -8,10 +8,10 @@ import styles from './Layout.module.css';
 // A page opened inside a tab: a person, a child, a school card, an article, a group's members and
 // Settings (spec §2). The title bar holds Back and the page's actions, with no monogram. The large
 // title and everything beneath it scroll, and the tab bar is anchored at the foot.
-export default function PageShell({ title, actions, onBack, children }) {
+export default function PageShell({ title, actions, onBack, above, headline = false, children }) {
   return (
     <AppFrame>
-      <TitleBar title={title} left={<BackLink onBack={onBack} />} right={actions} />
+      <TitleBar title={title} left={<BackLink onBack={onBack} />} right={actions} above={above} headline={headline} />
       <main className={styles.content}>{children}</main>
       <Foot>
         <TabBar />

@@ -11,9 +11,9 @@ import styles from './Onboarding.module.css';
 
 // The grades the MVP Coach suggests (0k-b, 2858:11639). Each grade is a list box with a chevron, and
 // tapping one opens the list over the field below it with the grade selected (0k-c, 2863:11708).
-export default function Grades({ entries, flags, onOpen, onChoose, onContinue }) {
+export default function Grades({ entries, flags, onOpen, onChoose, onContinue, onBack }) {
   return (
-    <OnboardingShell primary={<Button kind="primary" full onClick={onContinue}>{words.continue}</Button>}>
+    <OnboardingShell onBack={onBack} primary={<Button kind="primary" full onClick={onContinue}>{words.continue}</Button>}>
       <div className={styles.page}>
         <div className={styles.intro}>
           <Entrance order={0}><Mark /></Entrance>
