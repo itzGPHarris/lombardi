@@ -1,5 +1,7 @@
 import { householdById, households } from './households.js';
 import { onboardingReducer, startOnboarding } from './onboarding.js';
+import { fillDates } from './dateTokens.js';
+import { conflictNotice, conflictNoticeLink } from '../copy/gamePlan.js';
 import { nextStep, notificationFor, playsFromPresenter, playsFromTrigger, stepsFor, undoable } from './steps.js';
 
 // One session per household (spec §17): the moment, the demo time, where she is in the app, and the
@@ -75,9 +77,12 @@ export function todayReducer(today, action) {
 }
 
 // What she has opened or closed on the game plan, which stays as she left it until she leaves the
-// game plan (spec §8, "Day"), and the items she has opened, whose Updated mark has cleared.
-export function emptyGamePlan(opened = []) {
-  return { days: {}, pastOpen: false, opened };
+// game plan (spec §8, "Day"), and the items she has opened, whose Updated mark has cleared. Her notes
+// and the items she has opened stay until she jumps to another moment. landing is the item she has
+// just added or moved, which takes the coach's tint on its day (spec §8, "She sees where an item
+// lands"); strip is the read-back strip she has sent away; notice is a conflict notice above the bar.
+export function emptyGamePlan(opened = [], notes = {}) {
+  return { days: {}, pastOpen: false, opened, notes, landing: null, stripGone: false, notice: null };
 }
 
 export function gamePlanReducer(gamePlan, action) {
@@ -85,6 +90,12 @@ export function gamePlanReducer(gamePlan, action) {
     case 'TOGGLE_DAY': return { ...gamePlan, days: { ...gamePlan.days, [action.key]: action.open } };
     case 'TOGGLE_PAST': return { ...gamePlan, pastOpen: !gamePlan.pastOpen };
     case 'OPEN_ITEM': return gamePlan.opened.includes(action.id) ? gamePlan : { ...gamePlan, opened: [...gamePlan.opened, action.id] };
+    case 'SAVE_NOTE': return { ...gamePlan, notes: { ...gamePlan.notes, [action.id]: action.text } };
+    case 'LAND': return { ...gamePlan, landing: { id: action.id, key: action.key, said: action.said } };
+    case 'CLEAR_LANDING': return { ...gamePlan, landing: null };
+    case 'STRIP_GONE': return gamePlan.stripGone ? gamePlan : { ...gamePlan, stripGone: true };
+    case 'NOTICE': return { ...gamePlan, notice: action.notice };
+    case 'DISMISS_NOTICE': return { ...gamePlan, notice: null };
     default: return gamePlan;
   }
 }
@@ -131,7 +142,7 @@ export function momentState(householdId, momentId, carry = {}) {
   };
 }
 
-export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch, page, viewAs } = {}) {
+export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch, page, viewAs, notice } = {}) {
   const opening = momentState(householdId, momentId, { played, at, notifications, onboarding });
   // Development only: a moment opened with steps played shows the last one's notification, so the
   // evidence can show what she hears.
@@ -142,7 +153,14 @@ export function initialSession({ householdId = households[0].id, momentId, playe
   const withBranch = branch ? { ...session, onboarding: null, still: null, today: emptyToday(branch) } : session;
   const tabbed = tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
   // Development only: open the moment from a recipient's side.
-  const opened = viewAs ? { ...tabbed, viewAs, tab: 'today', still: null, onboarding: null } : tabbed;
+  const viewed = viewAs ? { ...tabbed, viewAs, tab: 'today', still: null, onboarding: null } : tabbed;
+  // Development only: the conflict notice above the bar on the game plan, which no moment raises
+  // (spec §8; fixtures section 2, "A new conflict reaches her as a notice").
+  const demoWeekStart = householdById(viewed.householdId).seed.meta.demoWeekStart;
+  const opened = notice === 'conflict' ? {
+    ...viewed,
+    gamePlan: { ...viewed.gamePlan, notice: { text: conflictNotice, link: fillDates(conflictNoticeLink, { demoWeekStart }), day: '0.mon' } },
+  } : viewed;
   // Development only: open a page inside the tab, written as kind:id.
   if (!page) return opened;
   const colon = page.indexOf(':');
@@ -220,7 +238,7 @@ export function sessionReducer(state, action) {
     // Leaving the game plan returns its days to how the game plan always opens.
     case 'OPEN_TAB': return {
       ...state, tab: action.tab, still: null, stack: [],
-      gamePlan: action.tab === state.tab ? state.gamePlan : emptyGamePlan(state.gamePlan?.opened),
+      gamePlan: action.tab === state.tab ? state.gamePlan : emptyGamePlan(state.gamePlan?.opened, state.gamePlan?.notes),
     };
     // Opening a page or going Back counts, so the page fades in (spec §19, "Pages"); a tab change does
     // not, because tabs change at once.

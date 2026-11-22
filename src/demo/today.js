@@ -92,6 +92,7 @@ export function applySteps(moment, played = 0) {
   let state = moment.state ?? {};
   let now = moment.time;
   let sheet = null;
+  let strip = null;
   for (const step of steps) {
     now = step.at;
     const set = step.set ?? {};
@@ -112,8 +113,10 @@ export function applySteps(moment, played = 0) {
     };
     if (step.show?.today !== undefined) state = { ...state, today: mergeToday(state.today, step.show.today) };
     if (step.show?.sheet !== undefined) sheet = step.show.sheet;
+    // The read-back strip on the game plan, after she gives the coach something there (spec §8).
+    strip = step.show?.gamePlan?.readBackStrip ?? null;
   }
-  return { state, now, sheet };
+  return { state, now, sheet, strip };
 }
 
 // ---------------------------------------------------------------------------------------------

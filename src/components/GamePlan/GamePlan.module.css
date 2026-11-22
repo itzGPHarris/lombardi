@@ -118,3 +118,6 @@
 .columnName { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
 .columnRows { display: flex; flex-direction: column; }
 .columnsHeading { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
+
+/* Where an item landed, for a screen reader only (spec §8, "She sees where an item lands"). */
+.said { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

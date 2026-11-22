@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
 import { initialSession, sessionReducer } from '../src/demo/session.js';
 import { notificationFor, stepsFor } from '../src/demo/steps.js';
-import { gamePlanView } from '../src/demo/tabs.js';
+import { gamePlanView, itemPageView } from '../src/demo/tabs.js';
 
 const at = (momentId) => sessionReducer(initialSession(), { type: 'JUMP', momentId });
 const play = (session, ...actions) => actions.reduce((state, action) => sessionReducer(state, action), session);
@@ -94,5 +94,34 @@ describe('a day that gains a conflict opens by itself (spec §8, G51)', () => {
     const after = gamePlanView({ seed, momentId: 'C-09', played: 1 });
     expect(day(before, '1.fri').open).toBe(false);
     expect(day(after, '1.fri').open).toBe(true);
+  });
+});
+
+describe('working the game plan (spec §8)', () => {
+  it('shows a note she saves before the moment\'s step plays, and plays it once both notes are in (C-04)', () => {
+    const notes = { 'fri-tutoring-mallory': 'Tell Ms. Reyes Tuesdays at 3:00 work from next week.' };
+    const friday = gamePlanView({ seed, momentId: 'C-04', played: 2, notes }).days.find((day) => day.key === '0.fri');
+    expect(friday.rows.find((row) => row.id === 'fri-tutoring-mallory').note).toBe(notes['fri-tutoring-mallory']);
+    const trigger = stepsFor('C-04')[2].trigger;
+    expect(trigger).toBe('notes:fri-tutoring-mallory+fri-picture-day-mallory');
+    expect(play(at('C-04'), step('review-add:tue-tutoring-second'), step('move:tue-tutoring-second'), step(trigger)).played).toBe(3);
+  });
+
+  it('offers the days of this week and next in the move picker, said from today (C-04)', () => {
+    const view = itemPageView({ seed, momentId: 'C-04', played: 1, itemId: 'tue-tutoring-second' });
+    expect(view.move.days[0]).toEqual({ key: '0.mon', label: 'Today' });
+    expect(view.move.days.find((day) => day.key === '1.tue').label).toBe('Next Tuesday, Oct. 20');
+    expect(view.move).toMatchObject({ day: '0.tue', time: '15:00', save: 'Save' });
+  });
+
+  it('shows "Change this in Google Calendar." on a calendar item, never a way to move it (AGENTS.md rule 4)', () => {
+    const view = itemPageView({ seed, momentId: 'C-06b', itemId: 'fri-checkup-mallory' });
+    expect(view.move).toEqual({ calendar: 'Change this in Google Calendar.' });
+  });
+
+  it('raises the read-back strip on the game plan after the pumpkin in C-09, with no button', () => {
+    const strip = gamePlanView({ seed, momentId: 'C-09', played: 3 }).readBackStrip;
+    expect(strip).toEqual({ label: 'MVP Coach · for next Friday, Oct. 23', text: "A small pumpkin is on Mallory's list for the harvest fair next Friday, Oct. 23." });
+    expect(gamePlanView({ seed, momentId: 'C-09', played: 2 }).readBackStrip).toBeNull();
   });
 });

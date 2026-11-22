@@ -39,6 +39,8 @@ if (import.meta.env.DEV && params.has('shell')) {
       page: params.get('page') ?? undefined,
       // The recipient's side, such as &viewas=edward or &viewas=ms-reyes.
       viewAs: params.get('viewas') ?? undefined,
+      // The conflict notice on the game plan, which no moment raises: &notice=conflict.
+      notice: params.get('notice') ?? undefined,
     });
   }
   root.render(<StrictMode><App start={start} embedded={embedded} /></StrictMode>);

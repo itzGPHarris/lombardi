@@ -135,3 +135,17 @@ export function notificationFor(seed, step) {
   }
   return null;
 }
+
+// The next step's entry with the seed's step for it, so a screen can tell what the moment scripts
+// next, such as the note to fill in or the day an item moves to.
+export function nextScripted(seed, momentId, played) {
+  const entry = nextStep(momentId, played);
+  const moment = seed.moments.find((item) => item.id === momentId);
+  const step = moment?.steps?.[played];
+  return entry && step ? { entry, step } : null;
+}
+
+// The items a trigger names after its kind, such as the two notes in C-04.
+export function triggerItems(trigger) {
+  return trigger ? trigger.slice(trigger.indexOf(':') + 1).split('+') : [];
+}

@@ -12,3 +12,17 @@
 .notice[data-undo] { padding-bottom: var(--space-4); }
 .notice button { min-height: var(--size-tap-target); color: var(--ink-on-accent); }
 .text { font: var(--text-body); letter-spacing: var(--text-body-tracking); }
+/* The conflict notice rises in and goes out over standard (spec §19, "Motion"). */
+.notice[data-rises] { animation: noticeIn var(--motion-duration-standard) var(--motion-ease-out) both; }
+.notice[data-rises][data-leaving] { animation: noticeOut var(--motion-duration-standard) var(--motion-ease-in-out) both; }
+@keyframes noticeIn {
+  from { transform: translateY(var(--space-24)); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes noticeOut {
+  from { transform: none; opacity: 1; }
+  to { transform: translateY(var(--space-24)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .notice[data-rises], .notice[data-rises][data-leaving] { animation: none; }
+}

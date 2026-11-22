@@ -1,0 +1,22 @@
+/* The read-back strip above the capture bar: the coach's dot and tint, the label in the Label style,
+   then the coach's line. It rises into place over standard (spec §19, "Motion"). */
+.strip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin: 0 var(--space-12) var(--space-8);
+  padding: var(--space-16);
+  border-radius: var(--radius-lg);
+  background: var(--coach-bg);
+  animation: rise var(--motion-duration-standard) var(--motion-ease-out);
+}
+.label { display: flex; align-items: center; gap: var(--space-8); font: var(--text-meta-strong); letter-spacing: var(--text-meta-strong-tracking); color: var(--coach-ink); }
+.text { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.line { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+@keyframes rise {
+  from { transform: translateY(var(--space-24)); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .strip { animation: none; }
+}

@@ -27,6 +27,8 @@ export default function RequestDraft({ requestId }) {
   const send = () => {
     dispatch({ type: 'STEP', trigger: `send:${view.id}` });
     back();
+    // Sent from Ask for help, she returns to the item's page, which now shows the person asked.
+    if (session.stack.at(-2)?.kind === 'ask-for-help') back();
   };
   return (
     <ComposerShell heading="" onBack={back} primary={<Button kind="primary" full disabled={!text.trim()} onClick={send}>{view.send}</Button>}>

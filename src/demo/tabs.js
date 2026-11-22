@@ -21,8 +21,8 @@ const sameDay = (a, b) => a.week === b.week && a.day === b.day;
 // seed's lookups over it.
 export function momentAt(seed, momentId, played = 0) {
   const moment = seed.moments.find((entry) => entry.id === momentId) ?? seed.moments[0];
-  const { state, now } = applySteps(moment, played);
-  return { moment, state, now, find: lookups(seed, state), anchor: seed.meta.demoWeekStart };
+  const { state, now, strip } = applySteps(moment, played);
+  return { moment, state, now, strip, find: lookups(seed, state), anchor: seed.meta.demoWeekStart };
 }
 
 // A day heading in the conversation, said from today: Today, Yesterday, This Monday or Last Monday
@@ -282,13 +282,18 @@ function reviewCardView(review, ctx) {
   };
 }
 
-export function gamePlanView({ seed, momentId, played = 0, opened = [] }) {
-  const { state, now, find, anchor } = momentAt(seed, momentId, played);
+// What she has done on the game plan in this moment, over the item: opening it clears its Updated
+// mark (spec §8, "Behavior notes"), and a note she has saved shows under it.
+function withLocal(item, { opened = [], notes = {} }) {
+  const seen = opened.includes(item.id) ? { ...item, marks: (item.marks ?? []).filter((mark) => mark.kind !== 'updated') } : item;
+  return notes[item.id] !== undefined ? { ...seen, note: notes[item.id] || null } : seen;
+}
+
+export function gamePlanView({ seed, momentId, played = 0, opened = [], notes = {} }) {
+  const { state, now, find, anchor, strip } = momentAt(seed, momentId, played);
   const parentId = seed.people.find((person) => person.group === 'parent')?.id;
   const ctx = { find, now, anchor, parentId };
-  // Opening an item clears its Updated mark (spec §8, "Behavior notes").
-  const items = planRows(find).map((item) => (opened.includes(item.id)
-    ? { ...item, marks: (item.marks ?? []).filter((mark) => mark.kind !== 'updated') } : item));
+  const items = planRows(find).map((item) => withLocal(item, { opened, notes }));
   const review = (state.reviewCard ?? []).map((id) => find.item(id)).filter(Boolean);
   const todayIndex = dayIds.indexOf(now.day);
   // On Sunday, once nothing is left this week, the agenda opens at next week and the review card
@@ -314,6 +319,11 @@ export function gamePlanView({ seed, momentId, played = 0, opened = [] }) {
   const allDays = [...days, ...nextWeekDays];
   return {
     now,
+    // The read-back strip: its label names the day the coach's line concerns (spec §8).
+    readBackStrip: strip ? {
+      label: fill(gamePlanWords.readBackLabel, { day: relativeDay(strip.day, now, anchor) }),
+      text: fillDates(strip.coachText, { demoWeekStart: anchor, now }),
+    } : null,
     reviewCard: reviewCardView(cardItems, ctx),
     strip: {
       label: weekOver ? gamePlanWords.nextWeek : null,
@@ -381,20 +391,20 @@ function backupsFor(item, ctx, seed) {
   const text = card ? dates(card.text) : '';
   const recommendation = text.includes("I'd") ? text.slice(text.indexOf("I'd")) : null;
   return {
-    recommendation: recommendation && { text: recommendation, button: card.button && { label: dates(card.button.label), line: card.button.line ?? null } },
-    plans: run.backups.map((backup) => ({ label: `Plan ${backup.label} · ${dates(backup.coachLine)}`, button: { label: dates(backup.button.label) } })),
+    recommendation: recommendation && { text: recommendation, card: card.id, button: card.button && { label: dates(card.button.label), line: card.button.line ?? null, action: card.button.action } },
+    plans: run.backups.map((backup) => ({ label: `Plan ${backup.label} · ${dates(backup.coachLine)}`, button: { label: dates(backup.button.label), action: backup.button.action } })),
     noMore: dates(run.coachNoMoreBackups) ?? null,
     find,
   };
 }
 
-export function itemPageView({ seed, momentId, played = 0, itemId, opened = [] }) {
+export function itemPageView({ seed, momentId, played = 0, itemId, opened = [], notes = {} }) {
   const { now, find, anchor } = momentAt(seed, momentId, played);
   const parentId = seed.people.find((person) => person.group === 'parent')?.id;
   const ctx = { find, now, anchor, parentId };
   const found = find.item(itemId);
   if (!found) return null;
-  const item = opened.includes(itemId) ? { ...found, marks: (found.marks ?? []).filter((mark) => mark.kind !== 'updated') } : found;
+  const item = withLocal(found, { opened, notes });
   const suggested = item.status?.state === 'proposed' && !item.inPlan;
   const place = item.place && item.place !== 'home' ? find.place(item.place)?.name : null;
   const when = [capitalize(relativeDay(item.time, now, anchor)), timeLabel(item), place].filter(Boolean).join(' · ');
@@ -416,10 +426,20 @@ export function itemPageView({ seed, momentId, played = 0, itemId, opened = [] }
       askForHelp: !suggested && owner.kind !== 'person' ? gamePlanWords.askForHelp : null,
     },
     answerNote: item.answerNote && answerer ? `${answerer.shortName ?? answerer.name}: ${item.answerNote}` : null,
-    note: suggested ? null : { heading: gamePlanWords.note, text: item.note ?? null, placeholder: gamePlanWords.addANote },
+    note: suggested ? null : { heading: gamePlanWords.note, text: item.note ?? null, placeholder: gamePlanWords.addANote, save: gamePlanWords.save },
     source: itemSource(item, find, now, anchor, seed),
     backups: backups && { heading: gamePlanWords.backupPlans, recommendation: backups.recommendation, plans: backups.plans, noMore: backups.noMore },
-    move: item.fromCalendar ? { calendar: gamePlanWords.changeInCalendar } : { label: gamePlanWords.moveToAnotherDate },
+    move: item.fromCalendar ? { calendar: gamePlanWords.changeInCalendar } : {
+      label: gamePlanWords.moveToAnotherDate,
+      save: gamePlanWords.save,
+      // The picker offers the days of this week and next, said from today, and a time (fixtures
+      // section 4, "Move picker").
+      days: [now.week, now.week + 1].flatMap((week) => dayIds.map((day) => ({ week, day, time: null })))
+        .filter((time) => dayIndex(time) >= dayIndex(now))
+        .map((time) => ({ key: `${time.week}.${time.day}`, label: capitalize(relativeDay(time, now, anchor)) })),
+      day: `${item.time.week}.${item.time.day}`,
+      time: item.time.time,
+    },
     takeOut: item.fromCalendar && item.kind === 'this-week' ? gamePlanWords.takeOut : null,
   };
 }

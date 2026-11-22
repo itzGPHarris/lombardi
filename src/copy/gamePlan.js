@@ -49,3 +49,7 @@ export const showWhatsNew = "Show what's new";
 export const takeThisOut = 'Take this out';
 export const readBackLabel = 'MVP Coach · for {day}';
 export const otherOptions = 'Other options';
+// The conflict notice above the bar (fixtures section 2, "A new conflict reaches her as a notice").
+// No moment raises one, so only a development parameter shows it (docs/issues.csv).
+export const conflictNotice = 'Violin and therapy overlap every Monday from next week.';
+export const conflictNoticeLink = 'Show me next Monday, {date:0.mon}';
