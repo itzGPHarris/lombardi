@@ -5,7 +5,7 @@ import seed from '../src/data/households/charlotte.json';
 import { articles } from '../src/demo/articles.js';
 import {
   askForHelpView, chatView, childPageView, coachView, composerView, gamePlanView, groupView, itemPageView, kidsView, membersView,
-  personPageView, schoolCardView, teamView,
+  articleView, personPageView, schoolCardView, teamView,
 } from '../src/demo/tabs.js';
 
 const demoWeek = seed.moments.filter((moment) => /^C-0\d/.test(moment.id)).map((moment) => moment.id);
@@ -332,5 +332,15 @@ describe('Kids', () => {
     expect(first.sections.map((entry) => texts(entry))).toEqual([['Starts 8:00am']]);
     expect(first.emptyLine).toBe('Send the MVP Coach a handout or an email from Cedar Grove Elementary, and it fills this card in.');
     expect(section(card('C-00', 'westview'), 'rotation').line).toBe('This week: Monday C · Tuesday D · Wednesday E · Thursday F · Friday A');
+  });
+});
+
+describe('MVP Editorial', () => {
+  it('the article view shows the label line, the title and Today\'s reason, and holds back the byline and body (R15)', () => {
+    expect(articleView({ seed, articles, articleId: 'conference' })).toEqual({
+      id: 'conference', line: 'MVP Editorial · 3 min read', title: 'Fifteen minutes with the teacher: making a conference count',
+      reason: 'Because Cedar Grove Elementary conferences are this week.', approved: false,
+    });
+    expect(articleView({ seed, articles, articleId: 'picture-day' })).toMatchObject({ line: 'MVP Editorial · 4 min read', reason: null, approved: false });
   });
 });

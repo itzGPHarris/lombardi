@@ -870,3 +870,21 @@ export function addSchoolView({ seed }) {
     children: seed.children.map((child) => ({ id: child.id, name: child.name })),
   };
 }
+
+// ---------------------------------------------------------------------------------------------
+// MVP Editorial (spec §12; frame 2853:13636): the article view, with its label line, its title and,
+// for the article Today chose, the line beginning "Because". The byline and body stay withdrawn
+// until approved articles arrive (issue R15), so the view draws the frame's placeholder lines.
+
+export function articleView({ seed, articles, articleId }) {
+  const article = articles[articleId];
+  if (!article) return null;
+  const pick = seed.recommended.find((entry) => entry.article === articleId);
+  return {
+    id: article.id,
+    line: article.readMinutes ? fill(editorialWords.line, { minutes: article.readMinutes }) : null,
+    title: article.title,
+    reason: pick?.reason ?? null,
+    approved: !!article.approved,
+  };
+}

@@ -19,6 +19,7 @@ import KidsTab from './components/Kids/KidsTab.jsx';
 import ChildPage from './components/Kids/ChildPage.jsx';
 import SchoolCard from './components/Kids/SchoolCard.jsx';
 import AddSchool from './components/Kids/AddSchool.jsx';
+import ArticleView from './components/Recommends/ArticleView.jsx';
 import StillShell from './components/Layout/StillShell.jsx';
 import Onboarding from './components/Onboarding/Onboarding.jsx';
 import { NavigationContext } from './components/Layout/navigation.js';
@@ -49,6 +50,7 @@ function Page({ page }) {
     case 'child': return <ChildPage childId={page.id} />;
     case 'school': return <SchoolCard schoolId={page.id} />;
     case 'add-school': return <AddSchool />;
+    case 'article': return <ArticleView articleId={page.id} />;
     default: return <PageShell title="" />;
   }
 }

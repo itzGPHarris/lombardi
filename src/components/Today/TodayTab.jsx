@@ -25,7 +25,7 @@ import styles from './TodayTab.module.css';
 // the scripted steps play (docs/backlog.md).
 export default function TodayTab() {
   const { session, dispatch, household } = useSession();
-  const { openTab } = useNavigation();
+  const { openTab, openPage } = useNavigation();
   const seed = household.seed;
   const local = session.today;
   const view = useMemo(
@@ -85,7 +85,7 @@ export default function TodayTab() {
       )}
       {view.laterToday && <LaterToday later={view.laterToday} childName={childName} />}
       {view.forTomorrow && <TomorrowStarts rows={view.forTomorrow} childName={childName} onLeave={(row) => openLeave(row.runId)} />}
-      {view.editorial && <RecommendsCard editorial={view.editorial} />}
+      {view.editorial && <RecommendsCard editorial={view.editorial} onOpen={(id) => openPage('article', id)} />}
     </div>
   );
 

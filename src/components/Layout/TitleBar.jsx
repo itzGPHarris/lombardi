@@ -7,7 +7,7 @@ import styles from './Layout.module.css';
 // controls never move. The large title sits beneath it and scrolls with the page, and as it passes
 // under the bar it fades out while the same words fade in, smaller, at the center of the bar. The
 // small title takes her back to the top. The bar has no line and no shadow.
-export default function TitleBar({ title, left, right, above, children }) {
+export default function TitleBar({ title, left, right, above, headline = false, children }) {
   const barRef = useRef(null);
   const largeRef = useRef(null);
   const smallRef = useRef(null);
@@ -38,9 +38,10 @@ export default function TitleBar({ title, left, right, above, children }) {
         </div>
         {children}
       </div>
-      {/* Something that heads the page above its large title, such as an item's chips. */}
+      {/* Something that heads the page above its large title, such as an item's chips or an article's
+          label line. An article's title is set as a headline (spec §19, Type). */}
       {above && <div className={styles.aboveTitle}>{above}</div>}
-      <h1 ref={largeRef} className={styles.largeTitle} data-under={above ? true : undefined}>{title}</h1>
+      <h1 ref={largeRef} className={styles.largeTitle} data-under={above ? true : undefined} data-headline={headline || undefined}>{title}</h1>
     </>
   );
 }

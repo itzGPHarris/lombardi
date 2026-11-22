@@ -1,0 +1,5 @@
+.line { padding-top: var(--space-40); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.reason { margin-top: calc(var(--space-12) * -1); padding-bottom: var(--space-20); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+/* The frame's placeholder lines where the byline and body will go (issue R15). */
+.placeholder { display: flex; flex-direction: column; gap: var(--space-12); }
+.bar { display: block; height: var(--space-10); border-radius: var(--radius-pill); background: var(--border-hairline); }
