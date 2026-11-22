@@ -44,8 +44,20 @@ export default function TodayTab() {
   const onAction = (action, pass) => {
     if (action.id === 'remind') today({ type: 'OPEN_SHEET', sheet: { kind: 'reminder', pass: pass.key } });
   };
+  // Agreeing plays the moment's step for it when the seed scripts one, such as her first board turning
+  // to Tomorrow (0i-c), so the pass changes with the card. Otherwise the card alone keeps the answer.
+  const moment = seed.moments.find((entry) => entry.id === session.momentId);
   const onCardButton = (card) => {
-    if (card.button.action === 'accept') today({ type: 'ANSWER_CARD', card: card.id, answer: 'agree' });
+    if (card.button.action !== 'accept') return;
+    const index = (moment?.steps ?? []).findIndex((step, at) => at >= session.played
+      && step.show?.today?.coachCard?.id === card.id && step.show.today.coachCard.state === 'agree');
+    if (index >= 0) dispatch({ type: 'PLAY', played: index + 1, from: session.played });
+    else today({ type: 'ANSWER_CARD', card: card.id, answer: 'agree' });
+  };
+  const onCardUndo = (card) => {
+    if (session.playedFrom !== null && session.playedFrom !== undefined && !local.cardAnswers[card.id]) {
+      dispatch({ type: 'PLAY', played: session.playedFrom });
+    } else today({ type: 'UNDO_CARD', card: card.id });
   };
   const onCardSecondary = (card) => {
     const [kind, target] = card.secondary.action.split(':');
@@ -57,7 +69,9 @@ export default function TodayTab() {
   };
 
   const now = view.now;
-  const sheet = (
+  // The next morning between drop-offs (0i-h) has nothing beneath the pass, so the sheet is hidden.
+  const sheetEmpty = !view.coachCard && !view.laterToday && !view.forTomorrow && !view.editorial;
+  const sheet = sheetEmpty ? null : (
     <div className={styles.sheet}>
       {view.coachCard && (
         <CoachCard
@@ -66,11 +80,11 @@ export default function TodayTab() {
           onButton={onCardButton}
           onSecondary={onCardSecondary}
           onNext={onCardNext}
-          onUndo={(card) => today({ type: 'UNDO_CARD', card: card.id })}
+          onUndo={onCardUndo}
         />
       )}
       {view.laterToday && <LaterToday later={view.laterToday} childName={childName} />}
-      {view.forTomorrow && <TomorrowStarts rows={view.forTomorrow} onLeave={(row) => openLeave(row.runId)} />}
+      {view.forTomorrow && <TomorrowStarts rows={view.forTomorrow} childName={childName} onLeave={(row) => openLeave(row.runId)} />}
       {view.editorial && <RecommendsCard editorial={view.editorial} />}
     </div>
   );

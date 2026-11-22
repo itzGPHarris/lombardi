@@ -52,7 +52,7 @@ export default function TodayShell({ dateline, now, sheet, capture }) {
         </div>
         {now}
       </div>
-      <div className={styles.todaySheet} style={{ '--today-foot': `${footHeight}px` }}>{sheet}</div>
+      {sheet && <div className={styles.todaySheet} style={{ '--today-foot': `${footHeight}px` }}>{sheet}</div>}
       <div ref={footRef} className={styles.todayFootWrap}>
         <Foot surface="canvas">
           {capture}

@@ -415,3 +415,28 @@ describe('the reminder sheet (spec §5, "Reminders and directions")', () => {
     expect(view('C-06', 0, undefined, passed).now.actions[0].label).toBe('Remind me again');
   });
 });
+
+describe('her first board\'s branches (spec §3, fixtures C-00)', () => {
+  it('0i-d: she skipped the capture, so the pass is Alexis\'s start and the card asks for one thing', () => {
+    const shown = view('C-00', 0, undefined, { branch: 'skipped-capture' });
+    expect(shown.now).toMatchObject({ title: 'Take Alexis to Cedar Grove Elementary', time: '7:40am', pill: { text: 'Needs an owner' }, checklist: null, actions: [] });
+    expect(shown.forTomorrow.map((row) => [row.time, row.chips, row.text])).toEqual([['8:30am', ['mallory'], 'Westview Kindergarten · Needs an owner']]);
+    expect(shown.coachCard).toMatchObject({ label: 'MVP Coach', text: "Your week is empty so far. Send me a school email, a handout or a few words about your week, and I'll start the plan." });
+    expect(shown.coachCard.captureButtons.map((button) => button.label)).toEqual(['Take a photo', 'Attach a file', 'Talk or type']);
+    expect(shown.captureHidden).toBe(true);
+  });
+
+  it('0i-g: Plan B gives the single-leg pass, and Mallory\'s items move to the 8:15am row', () => {
+    const shown = view('C-00', 0, undefined, { branch: 'plan-b', cardAnswers: { 'cc-first-board': 'plan-b' } });
+    expect(shown.now).toMatchObject({ title: 'Take Alexis to Cedar Grove Elementary', pill: { text: 'Tomorrow' }, nextStation: 'Then at 8:15am, you leave home for Westview Kindergarten', checklist: null });
+    expect(shown.now.actions.map((action) => action.label)).toEqual(['Remind me to leave home']);
+    expect(shown.forTomorrow.map((row) => row.text)).toEqual(['Leave home at 8:15am to take Mallory to Westview Kindergarten · D day']);
+    expect(shown.forTomorrow[0].checklist.groups[0].rows.map((row) => row.text)).toEqual(['Sneakers and socks by the door', 'Lunchbox', 'Snack bag', 'Water bottle']);
+    expect(shown.coachCard.chosenText).toBe('Take Alexis to Cedar Grove Elementary at 7:40am, then come home and leave with Mallory for Westview Kindergarten at 8:15am.');
+  });
+
+  it('0i-h: the next morning has nothing beneath the pass, so the sheet is hidden (T84)', () => {
+    const shown = view('C-00', 3);
+    expect(shown).toMatchObject({ coachCard: null, laterToday: null, forTomorrow: null, editorial: null });
+  });
+});

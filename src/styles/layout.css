@@ -9,4 +9,8 @@
   --layout-phone-column: 440px;   /* The phone frame width, the column Today, Coach, Team and Kids keep from 768. */
   --layout-sidebar: 248px;        /* The sidebar from 768. No frame draws it. */
   --layout-phone-height: 956px;   /* The phone frame's height, for the phone frame in the switcher. */
+  /* Onboarding's brand art, at the sizes the frames draw it (issue C76). */
+  --size-brand-steam-width: 260px;  /* The splash's mug and the space its steam stars rise through (0s, 2853:12205). */
+  --size-brand-steam-height: 460px;
+  --size-progress-bar: 4px;       /* The step counter's segments and getting ready's bars (StepCounter 2716:55011). */
 }

@@ -1,0 +1,30 @@
+/* Timing from spec §19's Motion table: `standard` for each block, the fade on `ease-in-out` and the
+   rise on `ease-out`. The delays, 0, 120, 250 and 410 ms and about 1.1 s for 0j's controls, are the
+   table's own values, which it allows outside the motion tokens. The frames rise 30 px; the nearest
+   space token is 32. */
+.enter {
+  animation:
+    enter-fade var(--motion-duration-standard) var(--motion-ease-in-out) both,
+    enter-rise var(--motion-duration-standard) var(--motion-ease-out) both;
+}
+.enter[data-order='1'] { animation-delay: 120ms; }
+.enter[data-order='2'] { animation-delay: 250ms; }
+.enter[data-order='3'] { animation-delay: 410ms; }
+.enter[data-order='last'] { animation: enter-fade var(--motion-duration-standard) var(--motion-ease-in-out) 1100ms both; }
+
+@keyframes enter-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes enter-rise {
+  from { transform: translateY(var(--space-32)); }
+  to { transform: none; }
+}
+
+/* Reduced motion: fade only, on the same timing. */
+@media (prefers-reduced-motion: reduce) {
+  .enter { animation: enter-fade var(--motion-duration-standard) var(--motion-ease-in-out) both; }
+  .enter[data-order='1'] { animation-delay: 120ms; }
+  .enter[data-order='2'] { animation-delay: 250ms; }
+  .enter[data-order='3'] { animation-delay: 410ms; }
+}

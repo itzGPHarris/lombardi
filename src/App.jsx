@@ -6,6 +6,7 @@ import TabListShell from './components/Layout/TabListShell.jsx';
 import PageShell from './components/Layout/PageShell.jsx';
 import ConversationShell from './components/Layout/ConversationShell.jsx';
 import StillShell from './components/Layout/StillShell.jsx';
+import Onboarding from './components/Onboarding/Onboarding.jsx';
 import { NavigationContext } from './components/Layout/navigation.js';
 import HouseholdSwitcher from './components/Demo/HouseholdSwitcher.jsx';
 import { PhoneFrameView, useIsDesktop } from './components/Demo/PhoneFrame.jsx';
@@ -18,6 +19,7 @@ import { settings, tabs } from './copy/navigation.js';
 const PHONE_FRAME_MESSAGE = 'mvp-phone-frame';
 
 function Screen({ session }) {
+  if (session.onboarding) return <Onboarding />;
   if (session.still) return <StillShell />;
   if (session.stack.at(-1) === 'settings') return <PageShell title={settings} />;
   if (session.viewAs) return <TodayShell />;
@@ -34,7 +36,8 @@ export default function App({ start = {}, embedded = false }) {
   const page = session.stack.at(-1);
 
   // Switching households or moments leaves no scroll position behind (spec §15).
-  useEffect(() => { window.scrollTo(0, 0); }, [session.householdId, session.momentId, session.viewAs, session.tab, page]);
+  const onboardingScreen = session.onboarding?.screen;
+  useEffect(() => { window.scrollTo(0, 0); }, [session.householdId, session.momentId, session.viewAs, session.tab, page, onboardingScreen]);
 
   // The phone frame's iframe asks this page to turn the frame off, carrying its current moment.
   useEffect(() => {
@@ -79,7 +82,7 @@ export default function App({ start = {}, embedded = false }) {
   return (
     <SessionContext.Provider value={sessionValue}>
     <NavigationContext.Provider value={navigation}>
-      <Screen key={`${session.householdId}:${session.momentId}:${session.viewAs}`} session={session} />
+      <Screen key={`${session.householdId}:${session.momentId}:${session.viewAs}:${session.visit}`} session={session} />
       {session.switcherOpen && (
         <HouseholdSwitcher session={session} dispatch={dispatch} household={household} embedded={embedded} onPhoneFrame={setPhoneFrame} />
       )}

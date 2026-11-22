@@ -1,0 +1,43 @@
+/* The steam stars' loop, from the Figma prototype's keyframes on the splash (2853:12234 to 12236).
+   Spec §19 gives the loop its own timing, a 3 s linear loop, rather than a motion token, because it
+   belongs to this one animation. Each star climbs about 80 px while it grows from 20% to 120%, turns
+   from 15° to −15° the other way round, fades in at the foot of its climb and out over the top of it.
+   The climb is written in percentages of the star's own box, so no pixel size is typed here. */
+.stars { position: absolute; display: block; }
+.star {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 50% 50%;
+  animation: steam 3s linear infinite both;
+}
+/* A third of a loop apart. Star 1 starts where the prototype's timeline opens. */
+.star[data-star='1'] { animation-delay: -0.44s; }
+.star[data-star='2'] { animation-delay: -1.44s; }
+.star[data-star='3'] { animation-delay: -2.44s; }
+
+@keyframes steam {
+  0% { opacity: 0; transform: translate(-114.03%, 183.39%) rotate(-15deg) scale(0.2); }
+  1.34% { opacity: 0.208; transform: translate(-112.57%, 180.77%) rotate(-14.5deg) scale(0.222); }
+  4.67% { opacity: 0.625; transform: translate(-107.93%, 173.39%) rotate(-13.5deg) scale(0.265); }
+  8% { opacity: 1; transform: translate(-102.32%, 164.07%) rotate(-12.5deg) scale(0.308); }
+  14.67% { transform: translate(-94.63%, 144%) rotate(-10.5deg) scale(0.394); }
+  24.67% { transform: translate(-100.33%, 117.68%) rotate(-7.5deg) scale(0.456); }
+  34.67% { transform: translate(-103.88%, 90.31%) rotate(-4.5deg) scale(0.517); }
+  44.67% { transform: translate(-97.61%, 62.03%) rotate(-1.5deg) scale(0.576); }
+  54.67% { transform: translate(-79.58%, 40.03%) rotate(1.5deg) scale(0.677); }
+  64.67% { transform: translate(-52.6%, 22.93%) rotate(4.5deg) scale(0.8); }
+  74.67% { transform: translate(-21.09%, 11.16%) rotate(7.5deg) scale(0.92); }
+  81.34% { transform: translate(0, 0) rotate(9.5deg) scale(1); }
+  84.67% { opacity: 1; transform: translate(9.26%, -8.9%) rotate(10.5deg) scale(1.036); }
+  91.34% { opacity: 0.556; transform: translate(28.08%, -32.37%) rotate(12.5deg) scale(1.109); }
+  94.67% { opacity: 0.333; transform: translate(36.27%, -43.74%) rotate(13.5deg) scale(1.145); }
+  98% { opacity: 0.111; transform: translate(42.75%, -52.73%) rotate(14.5deg) scale(1.182); }
+  99.67% { opacity: 0; transform: translate(45.13%, -55.84%) rotate(15deg) scale(1.2); }
+  100% { opacity: 0; transform: translate(-114.03%, 183.39%) rotate(-15deg) scale(0.2); }
+}
+
+/* Reduced motion: the stars stand still, each at the point of the loop where it rests. */
+@media (prefers-reduced-motion: reduce) {
+  .star { animation-play-state: paused; }
+}

@@ -1,0 +1,16 @@
+/* 0e-p in Hearth: the frame's white, black and Roboto become the canvas, the card surface, ink and
+   Inter, as the screen map asks. */
+.page { display: flex; flex-direction: column; align-items: center; gap: var(--space-24); padding-bottom: var(--space-24); text-align: center; }
+.wordmark { display: block; }
+.headline { font: var(--text-headline); letter-spacing: var(--text-headline-tracking); color: var(--ink-primary); }
+.toggle { display: flex; gap: var(--space-16); }
+.period { font: var(--text-body-large); letter-spacing: var(--text-body-large-tracking); color: var(--ink-secondary); }
+.period[aria-pressed='true'] { color: var(--interactive-default); text-decoration: underline; text-underline-offset: var(--space-4); }
+.card { display: flex; flex-direction: column; align-items: center; gap: var(--space-24); width: 100%; padding: var(--space-24); border-radius: var(--radius-xl); background: var(--bg-card); }
+.name { padding-bottom: var(--space-10); border-bottom: thin solid var(--border-hairline); font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-muted); }
+.price { font: var(--text-title); letter-spacing: var(--text-title-tracking); color: var(--ink-primary); }
+.features { display: flex; flex-direction: column; gap: var(--space-12); align-self: stretch; padding: 0 var(--space-32); text-align: left; }
+.feature { display: flex; align-items: center; gap: var(--space-16); font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.check { display: inline-flex; color: var(--ink-secondary); }
+.check > span { width: var(--size-icon-small); height: var(--size-icon-small); }
+.note { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }

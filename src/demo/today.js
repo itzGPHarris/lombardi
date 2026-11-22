@@ -60,6 +60,19 @@ function mergeToday(today = {}, show = {}) {
   return next;
 }
 
+// A branch is a choice she makes inside a moment that the scripted path does not take, such as
+// skipping the first capture (0i-d) or picking Plan B on her first board (0i-g). Its Today merges over
+// the moment's Today, and its items over the plan, the same way a step's do.
+export function applyBranch(moment, played, branchName) {
+  const base = applySteps(moment, played);
+  const branch = branchName ? moment.branches?.[branchName] : null;
+  if (!branch) return base;
+  let { state } = base;
+  if (branch.set?.items) state = { ...state, planItems: mergeOverlay(state.planItems, branch.set.items) };
+  if (branch.today) state = { ...state, today: mergeToday(state.today, branch.today) };
+  return { ...base, state, now: branch.at ?? base.now };
+}
+
 export function applySteps(moment, played = 0) {
   const steps = (moment.steps ?? []).slice(0, Math.max(0, played));
   let state = moment.state ?? {};
@@ -260,6 +273,13 @@ function legPass({ now: nowState, find, clock, local }) {
     nextStation = fill(words.pass.then, { place: placeName(find, after.place), time: formatTime(after.dueAt) });
   }
 
+  // When the morning is two trips, the pass says when she leaves for the second (0i-g).
+  if (nowState.then) {
+    const then = find.run(nowState.then.run);
+    const to = then.stops.find((entry, index) => index > 0 && entry.place !== 'home');
+    nextStation = fill(words.pass.thenAt, { time: formatTime(then.stops[0].leaveAt), from: spokenPlace(find.place(then.stops[0].place)), to: placeName(find, to.place) });
+  }
+
   const children = new Set([...childrenAboard(run, from), ...(item?.children ?? []).filter((child) => find.child(child))]);
   const conflict = item?.marks?.find((mark) => mark.kind === 'conflict');
   return {
@@ -268,7 +288,7 @@ function legPass({ now: nowState, find, clock, local }) {
     runId: run.id,
     reminderKey: `${run.id}:${from}`,
     leavesFrom: stop.place,
-    title: item ? withLetter(item.spoken ?? item.title, letterDay(item, find)) : null,
+    title: nowState.title ?? (item ? withLetter(item.spoken ?? item.title, letterDay(item, find)) : null),
     titleCalendarMark: !!item?.fromCalendar,
     conflict: conflict ? `${words.pass.conflict} ${conflict.label}` : null,
     tint: children.size ? 'kid' : 'subtle',
@@ -277,7 +297,7 @@ function legPass({ now: nowState, find, clock, local }) {
     pill,
     route: [placeName(find, stop.place), placeName(find, next.place)],
     opensLeaveSheet: true,
-    nextStation: tomorrow ? null : nextStation,
+    nextStation: tomorrow && !nowState.then ? null : nextStation,
     fields: [
       { label: words.fieldLabels.drive, value: fill(words.fieldValues.minutes, { minutes: drive }) },
       { label: words.fieldLabels.arrive, value: formatTime(arriveAt), late: !!next.dueAt && minutesOf(arriveAt) > minutesOf(next.dueAt) },
@@ -458,6 +478,16 @@ export function coachCardLabel(card, clock, anchor) {
 export function coachCardView({ today, seed, clock, local }) {
   const ref = today?.coachCard;
   if (!ref) return null;
+  if (ref.id === 'coachEmptyWeek') {
+    return {
+      id: ref.id, state: 'open', label: words.coachCard.label, text: words.coachCard.coachEmptyWeek, asksForCapture: true,
+      captureButtons: [
+        { id: 'photo', label: words.coachCard.takeAPhoto, icon: 'camera' },
+        { id: 'file', label: words.coachCard.attachAFile, icon: 'attach' },
+        { id: 'voice', label: words.coachCard.talkOrType, icon: 'voice' },
+      ],
+    };
+  }
   const card = seed.coachCards.find((entry) => entry.id === ref.id);
   if (!card) return null;
   const answer = local.cardAnswers?.[card.id] ?? (ref.state === 'open' ? null : ref.state);
@@ -521,6 +551,10 @@ export function forTomorrowView({ today, find, clock, local }) {
   const rows = today?.forTomorrow;
   if (!rows?.length) return null;
   return rows.map((row) => {
+    if (!row.run) {
+      const item = find.item(row.item);
+      return { key: `tomorrow:${item.id}`, runId: null, time: formatTime(item.time.time), chips: item.children, text: row.text, checklist: null };
+    }
     const run = runWith(find.run(row.run), local.leaveOverrides?.[row.run]);
     const time = run.stops[0].leaveAt;
     const first = run.stops[1];
@@ -556,7 +590,7 @@ export function editorialView({ today, seed, articles }) {
 
 export function todayView({ seed, articles, momentId, played = 0, at: atTime, local = {} }) {
   const moment = seed.moments.find((entry) => entry.id === momentId) ?? seed.moments[0];
-  const { state, now: stepTime, sheet } = applySteps(moment, played);
+  const { state, now: stepTime, sheet } = applyBranch(moment, played, local.branch);
   const clock = atTime ? { ...stepTime, time: atTime } : stepTime;
   const find = lookups(seed, state);
   const today = state.today ?? null;

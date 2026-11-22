@@ -2765,14 +2765,14 @@
           "today": {
             "now": {
               "kind": "leg",
-              "start": {"place":"cedar-grove","time":"08:00"},
-              "leaveAt": "07:40",
+              "run": "run-first-board-alexis",
+              "from": 0,
               "title": "Take Alexis to Cedar Grove Elementary",
               "needsOwner": true,
               "checklist": null,
               "actions": []
             },
-            "forTomorrow": [{"needsOwner":true,"child":"mallory","place":"westview","startTime":"08:30","text":"Westview Kindergarten · Needs an owner"}],
+            "forTomorrow": [{"needsOwner":true,"item":"w-1-tue-school-mallory","text":"Westview Kindergarten · Needs an owner"}],
             "coachCard": {"id":"coachEmptyWeek","state":"open"}
           }
         }

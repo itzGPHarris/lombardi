@@ -37,6 +37,16 @@ export const handOff = { make: "Make {child}'s plan", somethingWrong: "Something
 export const thinking = { photo: 'Reading your photo…', file: 'Reading your file…', listening: 'Listening…', making: "Making {child}'s plan…" };
 export const confirm = { calendar: 'Whose calendar is this?', newsletter: 'Whose newsletter is this?', choice: '{child} · {grade}' };
 export const draft = { heading: "{child}'s plan for this week", suggested: 'Suggested' };
+// Each of the coach's lines in the onboarding conversation is labeled this way (fixtures C-00).
+export const coachLabel = 'MVP Coach:';
+// The failure and waiting states, from fixtures section 4, "Coach" and "Onboarding" (spec §3).
+export const failures = {
+  unreadable: "I couldn't read this photo clearly. Try again with the whole page in the frame and good light.",
+  retakePhoto: 'Retake photo',
+  chooseAnother: 'Choose another',
+  slow: 'This is taking longer than it should. Your photo is safe, and you can try again.',
+  tryAgain: 'Try again',
+};
 export const accountPrompt = { heading: "Keep {child}'s plan", line: 'Create an account to save this plan and add the rest of your family.', create: 'Create account', notNow: 'Not now' };
 export const stepCounter = '0{count} of 04';
 export const account = { heading: 'Create your account', email: 'Email', apple: 'Continue with Apple', continue: 'Continue' };

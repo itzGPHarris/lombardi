@@ -44,6 +44,7 @@ export default function CaptureBar({ onGive }) {
       <div className={styles.bar} data-multiline={multiline || undefined}>
         <textarea
           ref={fieldRef}
+          data-capture-field
           className={styles.field}
           rows={1}
           value={text}

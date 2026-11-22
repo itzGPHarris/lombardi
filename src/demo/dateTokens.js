@@ -45,3 +45,17 @@ export function fillDates(text, { demoWeekStart, now }) {
     return relativeDay(time, now, demoWeekStart);
   });
 }
+
+// A month in full with its year, such as "October 2016", for a birth month on the children screen.
+export function monthYear({ month, year }) {
+  return `${fullMonthNames[month - 1]} ${year}`;
+}
+
+// The days a draft covers, such as "Oct. 6 to 9", or "Oct. 30 to Nov. 2" across a month's end
+// (fixtures section 4, "Heading of the draft").
+export function dateRange(first, last, demoWeekStart) {
+  const start = dateOf(first, demoWeekStart);
+  const end = dateOf(last, demoWeekStart);
+  const tail = start.month === end.month ? `${end.day}` : monthDay(last, demoWeekStart);
+  return `${monthDay(first, demoWeekStart)} to ${tail}`;
+}

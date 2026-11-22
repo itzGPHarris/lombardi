@@ -1,0 +1,12 @@
+.controls { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); width: 100%; }
+.tick {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  min-height: var(--size-tap-target);
+  font: var(--text-meta);
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--interactive-default);
+}
+.tick span { text-decoration: underline; text-underline-offset: var(--space-4); }
+.tick input { width: var(--space-16); height: var(--space-16); margin: 0; accent-color: var(--interactive-default); }
