@@ -88,3 +88,5 @@
 .option[aria-selected='true'] { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); }
 .optionCheck { display: inline-flex; }
 .optionCheck > span { width: var(--size-icon); height: var(--size-icon); }
+
+.helper { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }

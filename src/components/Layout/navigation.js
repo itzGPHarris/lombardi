@@ -10,6 +10,7 @@ export const NavigationContext = createContext({
   openSettings() {},
   openSwitcher() {},
   parentInitial: '',
+  teamUnread: 0,
 });
 
 export function useNavigation() {

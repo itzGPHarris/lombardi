@@ -63,3 +63,4 @@
 .row[data-stacked] .text { flex-basis: 100%; }
 .row[data-stacked] .owner { min-height: 0; }
 .row[data-stacked] .text { overflow-wrap: anywhere; }
+.row[data-day] .time { font: var(--text-meta-strong); letter-spacing: var(--text-meta-strong-tracking); color: var(--ink-secondary); }

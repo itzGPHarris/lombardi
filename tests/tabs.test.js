@@ -3,7 +3,9 @@
 import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
 import { articles } from '../src/demo/articles.js';
-import { askForHelpView, coachView, gamePlanView, itemPageView } from '../src/demo/tabs.js';
+import {
+  askForHelpView, chatView, coachView, composerView, gamePlanView, groupView, itemPageView, membersView, personPageView, teamView,
+} from '../src/demo/tabs.js';
 
 const demoWeek = seed.moments.filter((moment) => /^C-0\d/.test(moment.id)).map((moment) => moment.id);
 const messages = (view) => view.days.flatMap((day) => day.messages);
@@ -196,5 +198,75 @@ describe('Item pages', () => {
       ['Edward', 'Claire', 'Ms. Reyes'],
       ['Min-jung Park', 'Jenna Okafor', 'Tom Alvarez', 'Grace Liu', 'Dev Raman', 'Nina Brooks', 'Rafael Costa'],
     ]);
+  });
+});
+
+describe('Team', () => {
+  it('on her first night: no chats, no groups, Edward and Claire in her circle with no word on MVP (fixtures C-00)', () => {
+    const view = teamView({ seed, momentId: 'C-00' });
+    expect(view.chats).toEqual([]);
+    expect(view.groups).toEqual([]);
+    expect(view.noGroups).toBe("No groups yet. Create one for the parents who share your children's week.");
+    expect(view.people.map((person) => [person.name, person.line, person.onMvp, !!person.circle])).toEqual([
+      ['Edward', 'Your husband', null, true], ['Claire', 'Your sister', null, true],
+    ]);
+  });
+
+  it('on Monday before C-01: no chats yet, the group she made last week, everyone in one list with her circle first', () => {
+    const view = teamView({ seed, momentId: 'C-01' });
+    expect(view.chats).toEqual([]);
+    expect(view.groups).toEqual([expect.objectContaining({ name: 'Cedar Grove parents', members: '8 members', latest: 'You created this group last week.' })]);
+    expect(view.people.map((person) => `${person.initial} ${person.name}${person.onMvp ? ' · On MVP' : ''}${person.circle ? ' · Circle' : ''}`)).toEqual([
+      'E Edward · On MVP · Circle', 'C Claire · On MVP · Circle', 'L Dr. Lena Ortiz · Circle', 'K Karen Moss · Circle', 'R Ms. Reyes · Circle',
+      'M Min-jung Park · On MVP', 'J Jenna Okafor · On MVP', 'T Tom Alvarez · On MVP', 'G Grace Liu · On MVP', 'D Dev Raman · On MVP',
+      'N Nina Brooks · On MVP', 'R Rafael Costa · On MVP',
+    ]);
+  });
+
+  it('on Wednesday at 5:00pm: Claire\'s reply unread, newest first, and the dot (fixtures C-06c)', () => {
+    const view = teamView({ seed, momentId: 'C-06c', played: 2 });
+    expect(view.chats.map((chat) => [chat.name, chat.latest, chat.when, chat.unread])).toEqual([
+      ['Claire', "Claire: Yes, see you at 6:30. I'll bring dessert.", '4:58pm', '1 new'],
+      ['Edward and Claire', 'You: Sunday night it is.', 'Yesterday', null],
+    ]);
+    expect(view.groups[0].latest).toBe('Min-jung Park: Sophie sees Dana Whitfield there and really likes her. She had a wait list in the spring, so I\'d ask soon.');
+    expect(view.unread).toBe(1);
+    expect(teamView({ seed, momentId: 'C-06c', played: 2, seen: ['chat-claire'] }).unread).toBe(0);
+  });
+
+  it('person pages as the fixtures write them on Wednesday', () => {
+    const page = (id, momentId = 'C-06c', played = 2) => personPageView({ seed, momentId, played, personId: id });
+    const lanes = (view) => view.thisWeek.rows.map((row) => [row.time, row.text, row.owner?.status ?? null]);
+    expect(page('edward', 'C-06')).toMatchObject({ line: 'Your husband · On MVP', contact: { label: 'Mobile', number: '707-555-0101' } });
+    expect(page('edward', 'C-06').actions.map((action) => action.label)).toEqual(['Message', 'Call']);
+    expect(lanes(page('edward', 'C-06')).map(([day, , status]) => [day, status])).toEqual([['Thu', 'accepted'], ['Thu', 'declined'], ['Sat', 'accepted']]);
+    expect(page('claire').thisWeek.rows).toEqual([]);
+    expect(page('claire').thisWeek.empty).toBe("Nothing in this week's plan with Claire.");
+    expect(page('dr-ortiz')).toMatchObject({ line: 'Pediatrician, Northside Pediatrics · Not on MVP', contact: { label: 'Northside Pediatrics', number: '707-555-0160' } });
+    expect(page('dr-ortiz').actions.map((action) => action.label)).toEqual(['Call']);
+    expect(lanes(page('dr-ortiz'))).toEqual([['Fri', 'Checkup, Northside Pediatrics, 3:30pm', null]]);
+    expect(page('ms-reyes').actions.map((action) => action.label)).toEqual(['Call', 'Text']);
+    expect(lanes(page('ms-reyes'))).toEqual([['Fri', 'Tutoring with Ms. Reyes, Westview Kindergarten library, 3:00pm', 'accepted']]);
+    expect(lanes(page('min-jung'))).toEqual([['Mon', 'Carpool to Cedar Grove Elementary, 7:40am', null], ['Thu', 'Pick up at Westview Kindergarten, 2:30pm', 'accepted']]);
+    expect(lanes(page('karen-moss'))).toEqual([['Mon', 'Therapy, Brightwater Family Therapy, 3:30pm', null]]);
+    expect(page('jenna').groups.items.map((group) => group.name)).toEqual(['Cedar Grove parents']);
+    expect(page('tom').thisWeek.empty).toBe("Nothing in this week's plan with Tom.");
+  });
+
+  it('the chat with Edward and Claire, the group and its members', () => {
+    const chat = chatView({ seed, momentId: 'C-06c', chatId: 'chat-edward-claire' });
+    expect(chat.privacy).toBe("Only you, Edward and Claire see this chat. The MVP Coach doesn't read it.");
+    expect(chat.messages.map((message) => message.author)).toEqual(['You', 'Claire', 'Edward', 'You']);
+    const group = groupView({ seed, momentId: 'C-05', played: 3, groupId: 'cedar-grove-parents' });
+    expect(group.posts[0].replies.map((reply) => reply.author)).toEqual(['Min-jung Park', 'Jenna Okafor']);
+    expect(groupView({ seed, momentId: 'C-05', groupId: 'cedar-grove-parents' }).posts).toEqual([]);
+    expect(membersView({ seed, groupId: 'cedar-grove-parents' }).people[0]).toMatchObject({ name: 'You', line: null });
+  });
+
+  it('the composer for her circle and her people', () => {
+    const view = composerView({ seed, momentId: 'C-05c' });
+    expect(view.circle.people.map((person) => person.name)).toEqual(['Edward', 'Claire']);
+    expect(view.circle.notOnMvp.map((person) => person.name)).toEqual(['Dr. Lena Ortiz', 'Karen Moss', 'Ms. Reyes']);
+    expect(view.people).toEqual([{ id: 'cedar-grove-parents', name: 'Cedar Grove parents', line: '8 members' }]);
   });
 });

@@ -7,11 +7,15 @@ import styles from './PeoplePicker.module.css';
 // line and "On MVP" when they have it: Ask for help on an item page, the circle in the composer and
 // New group's members. Single lets one person be chosen; otherwise she ticks as many as she likes.
 // A person who can't be chosen is shown with why, and no tick.
-export default function PeoplePicker({ groups, single = false, chosen: initial = [], onChange }) {
-  const [chosen, setChosen] = useState(initial);
+// It keeps its own choice, or follows `chosen` when the screen holds the choice with onChange, as the
+// composer does so that Everyone on MVP and the ticks agree.
+export default function PeoplePicker({ groups, single = false, chosen: held, onChange }) {
+  const [own, setOwn] = useState([]);
+  const controlled = held !== undefined && onChange !== undefined;
+  const chosen = controlled ? held : own;
   const toggle = (id) => {
     const next = single ? [id] : chosen.includes(id) ? chosen.filter((entry) => entry !== id) : [...chosen, id];
-    setChosen(next);
+    if (!controlled) setOwn(next);
     onChange?.(next);
   };
   return (

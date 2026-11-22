@@ -9,12 +9,19 @@ import PageFade from './components/Layout/PageFade.jsx';
 import GamePlanTab from './components/GamePlan/GamePlanTab.jsx';
 import ItemPage from './components/GamePlan/ItemPage.jsx';
 import AskForHelp from './components/GamePlan/AskForHelp.jsx';
+import TeamTab from './components/Team/TeamTab.jsx';
+import PersonPage from './components/Team/PersonPage.jsx';
+import ChatPage from './components/Team/ChatPage.jsx';
+import GroupPage from './components/Team/GroupPage.jsx';
+import MembersPage from './components/Team/MembersPage.jsx';
+import { AddSomeone, Composer, NewGroup } from './components/Team/Composers.jsx';
 import StillShell from './components/Layout/StillShell.jsx';
 import Onboarding from './components/Onboarding/Onboarding.jsx';
 import { NavigationContext } from './components/Layout/navigation.js';
 import HouseholdSwitcher from './components/Demo/HouseholdSwitcher.jsx';
 import { PhoneFrameView, useIsDesktop } from './components/Demo/PhoneFrame.jsx';
 import { householdById } from './demo/households.js';
+import { teamView } from './demo/tabs.js';
 import { initialSession, sessionReducer } from './demo/session.js';
 import { settings, tabs } from './copy/navigation.js';
 
@@ -28,6 +35,13 @@ function Page({ page }) {
     case 'settings': return <PageShell title={settings} />;
     case 'item': return <ItemPage itemId={page.id} />;
     case 'ask-for-help': return <AskForHelp itemId={page.id} />;
+    case 'person': return <PersonPage personId={page.id} />;
+    case 'chat': return <ChatPage chatId={page.id} />;
+    case 'group': return <GroupPage groupId={page.id} />;
+    case 'members': return <MembersPage groupId={page.id} />;
+    case 'compose': return <Composer target={page.id} />;
+    case 'add-someone': return <AddSomeone />;
+    case 'new-group': return <NewGroup />;
     default: return <PageShell title="" />;
   }
 }
@@ -42,6 +56,7 @@ function Screen({ session }) {
   if (session.tab === 'today') return <TodayTab />;
   if (session.tab === 'coach') return <CoachTab />;
   if (session.tab === 'game-plan') return <GamePlanTab />;
+  if (session.tab === 'team') return <TeamTab />;
   return <TabListShell title={title} wide={session.tab === 'game-plan'} />;
 }
 
@@ -86,6 +101,11 @@ export default function App({ start = {}, embedded = false }) {
     else dispatch({ type: 'SET_PHONE_FRAME', on });
   }, [embedded, session.momentId]);
 
+  // Anything unread on Team puts a dot on its tab (spec §10).
+  const teamUnread = useMemo(() => {
+    if (session.onboarding || session.viewAs) return 0;
+    return teamView({ seed: household.seed, momentId: session.momentId, played: session.played, seen: session.team?.seen ?? [] }).unread;
+  }, [household.seed, session.momentId, session.played, session.team, session.onboarding, session.viewAs]);
   const viewer = session.viewAs ? household.viewAs.find((person) => person.id === session.viewAs)?.label : household.parent;
   const navigation = useMemo(() => ({
     tab: page?.kind === 'settings' ? 'settings' : session.tab,
@@ -98,7 +118,8 @@ export default function App({ start = {}, embedded = false }) {
     openSettings: () => { if (page?.kind !== 'settings') dispatch({ type: 'PUSH', page: { kind: 'settings', id: null } }); },
     openSwitcher: () => dispatch({ type: 'OPEN_SWITCHER' }),
     parentInitial: viewer?.[0] ?? '',
-  }), [session.tab, session.stack.length, page, viewer]);
+    teamUnread,
+  }), [session.tab, session.stack.length, page, viewer, teamUnread]);
 
   const sessionValue = useMemo(() => ({ session, dispatch, household }), [session, household]);
 
