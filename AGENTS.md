@@ -4,7 +4,7 @@ These are the instructions for the build agent working in this repository. The a
 
 You are a senior engineer who has shipped products from the ground up, and you are the only engineer on this phase of the work. You own the code and the development stack: how the code is structured, its quality and its tests, and you build it as something the engineer who joins after funding can take over without a rewrite. Greg owns the product decisions and the documents, so the scope of each stage comes from the backlog and the spec, not from what you would add.
 
-*Current versions: story fixtures 3.49, spec 0.50. Last updated November 21, 2026.*
+*Current versions: story fixtures 3.50, spec 0.51. Last updated November 22, 2026.*
 
 ## What this repository is
 

@@ -1,6 +1,6 @@
 # Demo fixtures: the MVP families
 
-*MVP (Lombardi) · Version 3.49 · November 21, 2026 · Charlotte and Edward only*
+*MVP (Lombardi) · Version 3.50 · November 22, 2026 · Charlotte and Edward only*
 
 # 1. What this document is for
 
@@ -205,6 +205,8 @@ Onboarding has three parts. In the first part, before any account, the parent te
 **Her first board opens with the coach's first recommendation.** Setup has already given the coach each school's start time on 0f, so on her first board it can recommend how tomorrow morning goes rather than ask for a time. If she captured something, the pass at the top of Today shows the trip the coach recommends, marked "Needs an owner", with the reminders from her capture as its checklist, and the coach card beneath it recommends who drives and when. When she agrees, the card keeps the recommendation and says what comes next, and the same pass becomes hers, with "Tomorrow" in place of "Needs an owner" and Remind me to leave home beneath it. If she skipped the capture, the pass shows tomorrow's first school start, marked "Needs an owner", and the coach card asks for one thing to start with.
 
 A parent who taps Not now on the account prompt, or leaves before creating the account, starts again at the splash the next time she opens the app.
+
+**Back is on every screen after the welcome.** From 0k onward, every onboarding and setup screen carries Back at the top left, before and after the account, so a parent who mistypes a child's name can go back and fix it. The welcome has none, because nothing comes before it except the splash. Some frames draw no Back, and this rule wins over them (issue O30).
 
 ## Nothing is ever settled
 
@@ -649,6 +651,7 @@ The design library and src/tokens.css hold every value. These are the ones the d
 | Cerulean, pressed | #004F6B | A cerulean control while it is pressed |
 | Cerulean tint | #E1EEFC | The light fill that goes with cerulean |
 | Children's indigo | #22549A on #DDE5ED | Name chips and the checklist headings that name a child |
+| Brand star, saffron | #E8A33C | The steam stars on the splash and on Ruth's web page, and nothing else. Amber belongs to the coach, so the brand's one signature motion takes saffron (issue O29). |
 
 # 3. Charlotte and Edward
 
@@ -1563,6 +1566,15 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 > [Next]
 
 *Both lines are ticked already. Tapping Next with the reminder ticked brings up the phone's request to allow notifications, which is the first moment notifications are useful to her. Tapping Next with the calendar line ticked is her agreement that the coach adds what she has committed to on her calendar, and if she unticks it, calendar events wait on the game plan's review card. The recap covers the week, the standing rules and what the coach found on her calendar, and leaves tomorrow to Today, so the two screens don't repeat each other. The sentence about asking for Mallory's start time on Today is gone, because 0f now collects it. Greg's Figma version showed "Time saved: 20 minutes", which is left out because nothing in the product measures it.*
+
+**If she skipped a step.** The coach's introduction says only what MVP learned on her path, so it never mentions something she skipped (issue O32). The greeting is "Welcome to the team, Charlotte." with her name, or "Welcome to the team." when she skipped the welcome. The recap is built from these sentences, in this order, each only when it applies:
+
+1. "Alexis is in fourth grade at Cedar Grove Elementary and Mallory is in kindergarten at Westview Kindergarten." This sentence always appears, from the grades and schools she gave.
+2. "Mallory has library on A days and needs sneakers on B, D and F days, so Mallory's checklists carry them every week." This appears only when she made a capture that gave the rotation.
+3. "Alexis's therapy and dance and Mallory's ballet repeat every week on your Google Calendar, and they are in your plan." This appears only when she connected a calendar, and names the calendar she connected.
+4. "Edward and Claire are in your circle." This appears only when she added someone on the household screen.
+
+The recap opens with "Here is what I have so far." whichever sentences follow. The reminder line appears only with a capture, and the calendar line only with a calendar. When neither appears, Next stands alone under the recap.
 
 **Today, as shown: her first board, on arrival (0i-a) · 8:40pm**
 
@@ -2562,7 +2574,7 @@ She opens violin, which clears its Updated mark.
 
 *Orchestra was due at 7:15am, so that leg has left Now, and Mallory's run leads.*
 
-> Take Mallory to Westview Kindergarten · C day
+> Drop Mallory off at Westview Kindergarten · C day
 >
 > Home → Westview Kindergarten
 >
@@ -2686,7 +2698,7 @@ She opens violin, which clears its Updated mark.
 | Contacts | Changes to who picks up: pickups@westviewk.org, by 11:00am on the day · Updated |
 | Rules | Children are released only to people on the pickup list. Changes to who picks up must reach pickups@westviewk.org by 11:00am on the day. · Updated |
 | Earlier version | Changes to who picks up: through the family portal · Until today |
-| Documents | Pickup change email, today · Rotation calendar, photo, last week · Family contact list, photo, last week |
+| Documents | Pickup change email, today · Fall food drive flyer, photo, yesterday · Rotation calendar, photo, last week · Family contact list, photo, last week |
 
 **Today, as shown: now**
 
@@ -3450,7 +3462,7 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 **Ms. Reyes's web page, as shown**
 
 > Charlotte is asking you to skip Mallory's tutoring next Friday, Oct. 23.
-> Sent 7:34pm
+> Sent 7:31pm
 >
 > Hi Ms. Reyes, Westview Kindergarten's harvest fair is next Friday, Oct. 23, at 3:00pm, so Mallory will skip tutoring that day. We'll see you next Tuesday, Oct. 20, at 3:00pm. Thank you, Charlotte
 >
@@ -4534,7 +4546,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Household screen | Heading: Your household · Question: How is your household set up? · Choices: Two parents, One parent, Two homes, Something else · Field: Language at home · Subheading: Who else helps? · Line: Add the adults you count on, such as a partner, grandparents or a nanny. You control what everyone sees in MVP. · Fields: Name, Relationship · Link: + Add someone · Button: Done |
 | Getting ready screen | Headline: Getting everything ready · Steps: Saving your account · Adding the children by name, such as "Adding Alexis and Mallory" · Reading the connected calendar by name, such as "Reading your Google Calendar", shown only when she connected one · Setting up the draft by name, shown only when she made one, such as "Setting up Mallory's plan" · Getting Today ready · Each step shows done, working or waiting · Line: This takes about a minute. You can put your phone down, and everything you've entered is safe. |
 | Getting ready, when account creation fails | Your account wasn't saved. Everything you entered is still here. · Button: Try again |
-| Coach introduction | Byline: MVP Coach · just now · Greeting: "Welcome to the team," followed by her name · The recap, as in C-00 · Reminder, ticked: Remind me the night before a library day, or the reminder that fits her capture · Calendar line, ticked, shown when she connected a calendar: "Add events from my" and the calendar, "to my plan", such as "Add events from my calendar to my plan" · Button: Next |
+| Coach introduction | Byline: MVP Coach · just now · Greeting: "Welcome to the team," followed by her name, or "Welcome to the team." when she skipped the welcome · The recap, as in C-00, built from the sentences that apply to her path (C-00, "If she skipped a step") · Reminder, ticked, shown only when she made a capture: Remind me the night before a library day, or the reminder that fits her capture · Calendar line, ticked, shown when she connected a calendar: "Add events from my" and the calendar, "to my plan", such as "Add events from my calendar to my plan" · Button: Next |
 
 ## Kids
 
@@ -4924,6 +4936,19 @@ The user stories left gaps, and everything in this table is a fact we invented t
 154. **Decided November 21, 2026: the other tabs on her first night are written (issue P4).** They need frames before the build draws them from Figma, and until then the build works from these words.
 
 # Appendix C: change log
+
+## Version 3.50, November 22, 2026
+
+Corrections from Stage 4 and Greg's decisions on its report. Version 3.49 is kept in the archive.
+
+| # | Change |
+| ----- | ----- |
+| 1 | C-04b's pass reads "Drop Mallory off at Westview Kindergarten · C day", like every other morning drop-off (D10). |
+| 2 | C-05b's Westview Kindergarten card lists the food drive flyer in Documents (D11). |
+| 3 | Ms. Reyes's page in C-09 reads "Sent 7:31pm", matching the step (D12). |
+| 4 | The coach's introduction is built from the sentences that apply to her path, with no name in the greeting when she skipped the welcome (O32). |
+| 5 | Back is on every onboarding and setup screen after the welcome (O30). |
+| 6 | The steam stars take the brand-star colour, saffron, because amber belongs to the coach (O29). |
 
 ## Version 3.49, November 21, 2026
 

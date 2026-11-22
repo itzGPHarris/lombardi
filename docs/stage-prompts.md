@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): stage prompts
 
-*Alpha 1 and alpha 2. Fixtures 3.49, spec 0.50. Written November 20, 2026, with motion added November 21, 2026.*
+*Alpha 1 and alpha 2. Fixtures 3.50, spec 0.51. Written November 20, 2026, with motion added November 21, 2026.*
 
 This file holds one prompt for each stage of the alpha build, ready to paste into a fresh build agent session, together with the review prompt Greg runs before his own review of each stage and the prompt that restarts a stage that has stopped early. The build order lives in `docs/backlog.md`, and these prompts name its lines rather than copying them, so the backlog stays the only list. When a backlog line changes, the prompt that names it does not need to.
 
@@ -149,13 +149,15 @@ End the stage with the commands you ran and their output, a screenshot of every 
 ## Stage 5: The other tabs, at every moment
 
 ```text
-This session builds Stage 5 of Alpha 1, the other tabs at every moment. Its six lines are under "Stage 5: The other tabs, at every moment" in docs/backlog.md.
+This session builds Stage 5 of Alpha 1, the other tabs at every moment. Its seven lines are under "Stage 5: The other tabs, at every moment" in docs/backlog.md.
 
 Read these before anything else, a section at a time as you reach each line rather than all at once:
 - docs/spec.md sections 6 (Coach), 8 (Game plan), 10 (Team), 11 (Kids and school cards), 12 (MVP Editorial) and 13 (Settings), with section 2 for each screen's layout type.
 - docs/screen-map.md, the sections "Coach", "Game plan", "Team", "Kids and MVP Editorial", "Added October 18, 2026" and "Added November 19, 2026", and the frames each names.
 - docs/story-fixtures.md section 2, "Every tab at every moment", "The game plan holds the week" and "The Kids tab and school cards", section 3's "The Kids tab", "The Team tab", "Settings", "The week in the game plan" and "Item pages in the demo", and the matching parts of section 4.
-- The row for G33 in docs/issues.csv.
+- The rows for G33, P4, D13, O30 and O29 in docs/issues.csv.
+
+C-00 counts as a moment here: fixtures C-00, "The other tabs on her first night", writes Coach, the game plan, Team and Kids as they stand after her first board, and the seed holds them since Stage 4. Friday's carpool is one row in the game plan, "Carpool to Cedar Grove Elementary, then Westview Kindergarten", although the seed holds a stop item for each child for the trip pass (D13). Propose in your plan how the game plan draws it as one row, and don't change the fixtures test to do it without my approval. Line 7 is two small follow-ups from Stage 4: Back on every onboarding and setup screen after 0w, even where the frame draws none, and the steam stars' colour from the new brand-star token in src/tokens.css.
 
 Every tab must show the right state at every moment from C-00 to C-09, because the presenter can jump to any moment from the switcher and open any tab. This stage builds each tab's screens and reads their state from the seed. It doesn't build what she does on them, such as adding or moving an item, sending a request or posting in a group, which is Stage 6.
 

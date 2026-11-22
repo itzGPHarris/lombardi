@@ -1,5 +1,5 @@
 /* Most Valuable Parent: design tokens.
-   Checked against the Figma library mvp-design-library (A3SHbWiO5cyRDtIZ9sNNz7), Hearth collection, Light mode, and its 13 text styles on November 20, 2026 (issue C59), with the six motion variables added on November 21, 2026 (spec 0.49, issue C75). All 98 variables and 13 text styles match the library.
+   Checked against the Figma library mvp-design-library (A3SHbWiO5cyRDtIZ9sNNz7), Hearth collection, Light mode, and its 13 text styles on November 20, 2026 (issue C59), with the six motion variables added on November 21, 2026 (spec 0.49, issue C75) and brand-star on November 22, 2026 (issue O29). All 99 variables and 13 text styles match the library.
    Do not edit by hand. Change the library, then export again (issue C20).
    Components use the semantic tokens. Primitives are listed so the semantic tokens can point at them, and no component reads a primitive directly.
    Open in the library, not here (issue C33): the title style's 20px size has no type/size variable. */
@@ -61,6 +61,7 @@
   --coach: var(--primitives-amber-500);
   --coach-ink: var(--primitives-amber-800);
   --coach-bg: var(--primitives-amber-100);
+  --brand-star: var(--primitives-saffron);
 
   /* Space */
   --space-0: 0;
