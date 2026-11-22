@@ -340,7 +340,6 @@ function tripPass({ now: nowState, find, clock, local }) {
   const nextIndex = started ? rows.findIndex((row) => row.time && compareDemoTimes(clock, at(run.day, row.time)) < 0) : 0;
   const timetable = rows.map((row, index) => ({ ...row, time: row.time && formatTime(row.time), state: index < nextIndex ? 'behind' : index === nextIndex ? 'next' : 'ahead' }));
 
-  const tomorrow = !sameDay(clock, run.day);
   // Under way, the top of the pass is the next leg: the seed's `next` stop, or the one the clock gives.
   const heading = started ? (nowState.next ?? (legFromClock(run, clock) ?? 0) + 1) : null;
   if (heading) {
