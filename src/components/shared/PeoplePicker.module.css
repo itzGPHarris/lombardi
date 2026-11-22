@@ -1,0 +1,27 @@
+.picker { display: flex; flex-direction: column; gap: var(--space-12); }
+.group { display: flex; flex-direction: column; gap: var(--space-4); }
+.heading { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.list { display: flex; flex-direction: column; }
+.person { display: flex; align-items: center; gap: var(--space-12); width: 100%; min-height: var(--size-tap-target); padding: var(--space-8) 0; text-align: left; }
+.person:disabled { color: var(--ink-muted); }
+.text { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.name { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.person:disabled .name { color: var(--ink-muted); }
+.line { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+/* The tick at the left of the row, as the frames draw it. */
+.tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  order: -1;
+  width: var(--size-check);
+  height: var(--size-check);
+  border: thin solid var(--ink-secondary);
+  border-radius: var(--radius-sm);
+  background: var(--bg-control);
+  color: var(--ink-on-accent);
+}
+.tick[data-on] { border-color: var(--interactive-default); background: var(--interactive-default); }
+.tick > span { width: var(--space-16); height: var(--space-16); }
+.untickable { flex-shrink: 0; order: -1; width: var(--size-check); }

@@ -6,6 +6,9 @@ import TabListShell from './components/Layout/TabListShell.jsx';
 import PageShell from './components/Layout/PageShell.jsx';
 import CoachTab from './components/Coach/CoachTab.jsx';
 import PageFade from './components/Layout/PageFade.jsx';
+import GamePlanTab from './components/GamePlan/GamePlanTab.jsx';
+import ItemPage from './components/GamePlan/ItemPage.jsx';
+import AskForHelp from './components/GamePlan/AskForHelp.jsx';
 import StillShell from './components/Layout/StillShell.jsx';
 import Onboarding from './components/Onboarding/Onboarding.jsx';
 import { NavigationContext } from './components/Layout/navigation.js';
@@ -23,6 +26,8 @@ const PHONE_FRAME_MESSAGE = 'mvp-phone-frame';
 function Page({ page }) {
   switch (page.kind) {
     case 'settings': return <PageShell title={settings} />;
+    case 'item': return <ItemPage itemId={page.id} />;
+    case 'ask-for-help': return <AskForHelp itemId={page.id} />;
     default: return <PageShell title="" />;
   }
 }
@@ -36,6 +41,7 @@ function Screen({ session }) {
   const title = tabs.find((item) => item.id === session.tab)?.label;
   if (session.tab === 'today') return <TodayTab />;
   if (session.tab === 'coach') return <CoachTab />;
+  if (session.tab === 'game-plan') return <GamePlanTab />;
   return <TabListShell title={title} wide={session.tab === 'game-plan'} />;
 }
 

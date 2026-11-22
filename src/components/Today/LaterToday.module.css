@@ -1,10 +1,4 @@
 .later { display: flex; flex-direction: column; }
 .heading { font: var(--text-title); letter-spacing: var(--text-title-tracking); color: var(--ink-primary); }
 .rows { display: flex; flex-direction: column; }
-.row { display: flex; align-items: center; gap: var(--space-12); padding: var(--space-10) 0; }
-/* The time in Meta in a fixed column (spec §5). */
-.time { width: calc(var(--space-56) + var(--space-8)); flex-shrink: 0; font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
-.text { flex: 1; min-width: 0; font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
-.mark, .owner { display: inline-flex; align-items: center; gap: var(--space-4); flex-shrink: 0; color: var(--ink-secondary); }
-.mark > span, .owner > span:last-child:not(:first-child) { width: var(--size-icon-mark); height: var(--size-icon-mark); }
 .count { padding-top: var(--space-8); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }

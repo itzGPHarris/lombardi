@@ -1,0 +1,33 @@
+/* An item's page (frame 2853:14433): the day, time and place under the title, then Owner, Note, the
+   source, Backup plans in the coach's tint and the way to move it, 20 apart. */
+.page { display: flex; flex-direction: column; gap: var(--space-20); }
+.header { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-8); margin-top: calc(var(--space-16) * -1); }
+.when { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-secondary); }
+.suggested { display: flex; flex-direction: column; gap: var(--space-8); }
+.suggestedMark { align-self: flex-start; padding: 0 var(--space-8); border: thin dashed var(--ink-secondary); border-radius: var(--radius-pill); font: var(--text-meta-strong); letter-spacing: var(--text-meta-strong-tracking); color: var(--ink-primary); }
+.suggestedActions { display: flex; align-items: center; gap: var(--space-16); }
+.label { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.owner { display: flex; align-items: center; gap: var(--space-12); }
+.ownerText { display: flex; flex-direction: column; gap: var(--space-4); flex: 1; min-width: 0; }
+.ownerValue { display: flex; align-items: center; gap: var(--space-8); font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.answerNote { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.note { display: flex; flex-direction: column; gap: var(--space-4); }
+.noteField {
+  padding: var(--space-12);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--bg-control);
+  font: var(--text-body);
+  letter-spacing: var(--text-body-tracking);
+  color: var(--ink-primary);
+}
+.noteField[data-empty] { color: var(--ink-muted); }
+.source { display: flex; align-items: center; gap: var(--space-4); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.source > span { width: var(--space-16); height: var(--space-16); }
+.backups { display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-16); border-radius: var(--radius-lg); background: var(--coach-bg); }
+.backupsHeading { display: flex; align-items: center; gap: var(--space-8); font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.text { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.plan { display: flex; flex-direction: column; gap: var(--space-12); }
+.noMore { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-secondary); }
+.line { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.move { align-self: flex-start; }

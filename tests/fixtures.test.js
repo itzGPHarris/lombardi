@@ -38,6 +38,8 @@ const tokenKeys = new Set([
   'departure', 'branch', 'leavesTask', 'reminder', 'greeting', 'letters', 'on', 'off', 'result', 'dependsOn', 'tab', 'leave',
   'reading', 'scope', 'answer', 'posts', 'replies', 'messages', 'laterToday', 'task', 'fromCalendar', 'calendar', 'icon',
   'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun', 'setAt', 'sent', 'received', 'fact', 'goingWith', 'fromCapture',
+  // D13: the row a stop item belongs to in the game plan, an item ID (Greg's approval of the Stage 5 plan).
+  'partOf',
 ]);
 const token = /^(?:[A-Za-z0-9][A-Za-z0-9:._-]*|\d{2}:\d{2}|\d{4}-\d{2}-\d{2})$/;
 // The one key that holds a note for the team rather than a displayed word: what a scripted step

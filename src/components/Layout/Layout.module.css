@@ -68,6 +68,8 @@
   letter-spacing: var(--text-header-tracking);
   color: var(--ink-primary);
 }
+.aboveTitle { display: flex; gap: var(--space-8); padding: 0 var(--space-24); }
+.largeTitle[data-under] { padding-top: var(--space-8); }
 .stuck { position: sticky; top: var(--title-bar-height, 0); z-index: 9; background: var(--bg-card); }
 
 /* The fixed title bar of a conversation or composer */

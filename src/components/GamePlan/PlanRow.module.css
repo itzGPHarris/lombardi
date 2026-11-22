@@ -1,0 +1,65 @@
+/* PlanRow (library 2849:23414): the time in Meta in a 64 px column, the item in Body beside its
+   chips, the owner in Meta at the right, each lined up on the chip's height. Quiet rows set the item
+   in muted ink. Marks sit beneath, each with its own shape, and a note sits under a rule. */
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  width: 100%;
+  padding: var(--space-10) 0;
+  text-align: left;
+}
+.time {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: calc(var(--space-56) + var(--space-8));
+  min-height: var(--size-chip);
+  font: var(--text-meta);
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--ink-muted);
+}
+.main { display: flex; flex-direction: column; gap: var(--space-4); flex: 1; min-width: 0; }
+.itemRow { display: flex; align-items: center; gap: var(--space-8); min-height: var(--size-chip); }
+.itemRow > :not(.text) { flex-shrink: 0; }
+.text { flex: 1; min-width: 0; font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.row[data-quiet] .text { color: var(--ink-muted); }
+
+.owner { display: inline-flex; align-items: center; gap: var(--space-4); flex-shrink: 0; min-height: var(--size-chip); color: var(--ink-secondary); }
+.ownerText { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.answer { display: inline-flex; }
+.answer > span { width: var(--size-icon-small); height: var(--size-icon-small); }
+
+.marks { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); }
+.updated, .conflict {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--size-chip-small);
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-pill);
+  color: var(--ink-primary);
+}
+.updated { padding-left: 0; }
+.conflict { border: thin solid var(--border-hairline); background: var(--bg-subtle); }
+.updated > span:first-child, .conflict > span:first-child { width: var(--space-16); height: var(--space-16); }
+.markLabel { font: var(--text-meta-strong); letter-spacing: var(--text-meta-strong-tracking); }
+.markOther { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); }
+
+/* Her note sits under the item beside a rule. The frame draws the rule 2 px in border-strong, which
+   AGENTS.md rule 12 forbids, so it is a hairline (docs/issues.csv). */
+.note {
+  padding-left: var(--space-8);
+  border-left: thin solid var(--ink-secondary);
+  font: var(--text-body);
+  letter-spacing: var(--text-body-tracking);
+  color: var(--ink-primary);
+}
+
+/* Stacked, for a column of the wide game plan: the time, then the item, then the owner. */
+.row[data-stacked] { flex-direction: column; gap: var(--space-4); }
+.row[data-stacked] .time { width: auto; min-height: 0; }
+.row[data-stacked] .itemRow { flex-wrap: wrap; }
+.row[data-stacked] .text { flex-basis: 100%; }
+.row[data-stacked] .owner { min-height: 0; }
+.row[data-stacked] .text { overflow-wrap: anywhere; }
