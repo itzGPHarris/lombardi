@@ -5,6 +5,7 @@ export const moments = 'Moments';
 export const viewAs = 'View as';
 export const phoneFrame = 'Phone frame';
 export const fullDesktopLayout = 'Full desktop layout';
+export const playNextStep = 'Play the next step';
 export const reset = 'Reset';
 export const debugMenu = 'Debug menu';
 export const currentMoment = 'Current moment';

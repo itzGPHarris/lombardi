@@ -1,5 +1,6 @@
 import { householdById, households } from './households.js';
 import { onboardingReducer, startOnboarding } from './onboarding.js';
+import { nextStep, notificationFor, playsFromPresenter, playsFromTrigger, stepsFor, undoable } from './steps.js';
 
 // One session per household (spec §17): the moment, the demo time, where she is in the app, and the
 // presenter's controls. Nothing is saved, so a reload starts again on C-00 (spec §15, issue X3).
@@ -102,9 +103,9 @@ export function momentState(householdId, momentId, carry = {}) {
     householdId: household.id,
     momentId: moment.id,
     now: moment.time,
-    // Steps played within the moment, and a demo time inside it. Both stay at the moment's start in
-    // the app until Stage 6 plays steps as the presenter taps. The development-only start parameters
-    // set them, so every Today state can be opened for evidence.
+    // Steps played within the moment, and a demo time inside it. Steps play as the presenter taps
+    // (src/demo/steps.js). The development-only start parameters set them, so every state can be
+    // opened for evidence.
     played: carry.played ?? 0,
     at: carry.at ?? null,
     notifications: carry.notifications ?? null,
@@ -114,6 +115,8 @@ export function momentState(householdId, momentId, carry = {}) {
     // left behind, even when the presenter jumps to the moment already showing (spec §15).
     visit: (carry.visit ?? 0) + 1,
     playedFrom: null,
+    // The notification for the last step that brought her one, such as Edward's yes (spec §9, §10).
+    arrival: null,
     stack: [],
     switcherOpen: false,
     // The presenter's own choices carry over a jump; nothing of the household's does.
@@ -129,7 +132,12 @@ export function momentState(householdId, momentId, carry = {}) {
 }
 
 export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch, page } = {}) {
-  const session = momentState(householdId, momentId, { played, at, notifications, onboarding });
+  const opening = momentState(householdId, momentId, { played, at, notifications, onboarding });
+  // Development only: a moment opened with steps played shows the last one's notification, so the
+  // evidence can show what she hears.
+  const last = opening.played ? stepsFor(opening.momentId)[opening.played - 1] : null;
+  const text = last ? notificationFor(householdById(opening.householdId).seed, last) : null;
+  const session = text ? { ...opening, arrival: { text, key: `${opening.momentId}:${opening.played}` } } : opening;
   // Development only: open her first board on one of its branches, such as 0i-d or 0i-g.
   const withBranch = branch ? { ...session, onboarding: null, still: null, today: emptyToday(branch) } : session;
   const opened = tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
@@ -138,6 +146,23 @@ export function initialSession({ householdId = households[0].id, momentId, playe
   const colon = page.indexOf(':');
   const [kind, id] = colon < 0 ? [page, null] : [page.slice(0, colon), page.slice(colon + 1)];
   return { ...opened, stack: [{ kind, id }] };
+}
+
+// Plays the moment's next step. Undo is kept only after her own change from the coach card or the
+// Coach tab, never after a send or anyone else's step (spec §5, §9). A step that brings her a
+// notification raises it, and one that returns her to a tab, such as the share in C-01, opens it.
+function playStep(state, step) {
+  const seed = householdById(state.householdId).seed;
+  const text = notificationFor(seed, step);
+  const moved = step.tab && step.tab !== state.tab;
+  return {
+    ...state,
+    played: state.played + 1,
+    at: null,
+    playedFrom: undoable(step) ? state.played : null,
+    arrival: text ? { text, key: `${state.momentId}:${state.played + 1}` } : state.arrival,
+    ...(moved ? { tab: step.tab, still: null, stack: [] } : {}),
+  };
 }
 
 // Only the presenter's own choices carry over a jump, with the count of jumps.
@@ -170,6 +195,20 @@ export function sessionReducer(state, action) {
     case 'PLAY': return { ...state, played: action.played, at: null, playedFrom: action.from ?? null };
     // Development only: plays steps inside the moment without a jump, so the motion a step brings can
     // be recorded for evidence before Stage 6 plays steps as the presenter taps.
+    // A tap of hers, or of the recipient's in View as, plays the next step when it is the step that
+    // tap plays. Any other tap changes nothing, so the story never jumps ahead (spec §15).
+    case 'STEP': {
+      const step = nextStep(state.momentId, state.played);
+      return playsFromTrigger(step, action.trigger) ? playStep(state, step) : state;
+    }
+    // Play the next step, in the household switcher, plays a step with no tap of hers, such as a reply
+    // arriving or the share from WhatsApp in C-01. Nothing plays on a timer (issue C80).
+    case 'NEXT_STEP': {
+      const step = nextStep(state.momentId, state.played);
+      const closed = { ...state, switcherOpen: false };
+      return playsFromPresenter(step) ? playStep(closed, step) : closed;
+    }
+    case 'DISMISS_ARRIVAL': return { ...state, arrival: null };
     case 'DEV_PLAY': return { ...state, played: action.played, at: action.at ?? null };
     case 'VIEW_AS': return { ...state, viewAs: action.person, still: null, tab: 'today', stack: [], switcherOpen: false };
     case 'SET_PHONE_FRAME': return { ...state, phoneFrame: action.on, switcherOpen: false };

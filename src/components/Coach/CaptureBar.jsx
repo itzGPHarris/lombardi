@@ -7,11 +7,11 @@ import styles from './CaptureBar.module.css';
 // game plan and the Coach tab. It is a field, not a button: the placeholder, then attach, camera and
 // microphone. While she has typed text the arrow "Give this to the coach" joins them. Past one line the
 // text takes the full width and grows up to five lines, with the controls on a row beneath. What the
-// coach does with it is scripted per moment, and Stage 6 wires it (C-03a); until then the arrow keeps
-// what she typed.
+// coach does with it is scripted per moment (spec §7, "Prototype"): each control hands its tap to the
+// screen that holds the bar, which plays the moment's step for it or does nothing when there is none.
 const MAX_LINES = 5;
 
-export default function CaptureBar({ onGive }) {
+export default function CaptureBar({ onGive, onAttach, onCamera, onVoice }) {
   const [text, setText] = useState('');
   const [multiline, setMultiline] = useState(false);
   const fieldRef = useRef(null);
@@ -30,9 +30,9 @@ export default function CaptureBar({ onGive }) {
 
   const controls = (
     <span className={styles.controls}>
-      <button type="button" className={styles.control} aria-label={words.attach}><Icon name="attach" /></button>
-      <button type="button" className={styles.control} aria-label={words.camera}><Icon name="camera" /></button>
-      <button type="button" className={styles.control} aria-label={words.microphone}><Icon name="voice" /></button>
+      <button type="button" className={styles.control} aria-label={words.attach} onClick={onAttach}><Icon name="attach" /></button>
+      <button type="button" className={styles.control} aria-label={words.camera} onClick={onCamera}><Icon name="camera" /></button>
+      <button type="button" className={styles.control} aria-label={words.microphone} onClick={onVoice}><Icon name="voice" /></button>
       {text.trim() && (
         <button type="button" className={styles.give} aria-label={words.give} onClick={() => onGive?.(text.trim())}>
           <Icon name="give-to-coach" />

@@ -25,6 +25,7 @@ import StillShell from './components/Layout/StillShell.jsx';
 import Onboarding from './components/Onboarding/Onboarding.jsx';
 import { NavigationContext } from './components/Layout/navigation.js';
 import HouseholdSwitcher from './components/Demo/HouseholdSwitcher.jsx';
+import Arrival from './components/shared/Arrival.jsx';
 import { PhoneFrameView, useIsDesktop } from './components/Demo/PhoneFrame.jsx';
 import { householdById } from './demo/households.js';
 import { teamView } from './demo/tabs.js';
@@ -151,6 +152,7 @@ export default function App({ start = {}, embedded = false }) {
       <PageFade pageKey={session.pageMoves ?? 0}>
         <Screen key={`${session.householdId}:${session.momentId}:${session.viewAs}:${session.visit}`} session={session} />
       </PageFade>
+      {!session.viewAs && !session.onboarding && <Arrival arrival={session.arrival} dispatch={dispatch} />}
       {session.switcherOpen && (
         <HouseholdSwitcher session={session} dispatch={dispatch} household={household} embedded={embedded} onPhoneFrame={setPhoneFrame} />
       )}

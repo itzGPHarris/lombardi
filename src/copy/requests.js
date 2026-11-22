@@ -9,6 +9,12 @@ export const change = 'Change';
 export const yourNote = 'Your note:';
 export const notificationNo = "{person} can't do {day}.";
 export const notificationArrived = '{person} asked you about';
+// Notification when someone answers, as the fixtures write each one (C-02, C-04b and C-06b).
+export const notificationYes = {
+  'req-edward-thu': 'Edward: yes to both pickups this Thursday.',
+  'req-edward-library': 'Edward: yes to this Saturday.',
+  'req-reyes-fri': 'Ms. Reyes: yes to this Friday.',
+};
 export const notificationChanged = '{person} changed his answer for {day}.';
 export const send = 'Send';
 export const sendFrom = 'Send from {app}';

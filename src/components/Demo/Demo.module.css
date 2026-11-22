@@ -37,6 +37,7 @@
 }
 .choice[aria-pressed='true'] { border-color: var(--interactive-default); background: var(--interactive-tint); color: var(--interactive-pressed); }
 .secondary { align-self: flex-start; }
+.secondary:disabled { color: var(--ink-muted); }
 .moments { display: flex; flex-direction: column; }
 .moment {
   display: grid;

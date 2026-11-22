@@ -1,0 +1,16 @@
+/* At the top of the screen, inside the column beside the sidebar from the tablet width. */
+.layer {
+  position: fixed;
+  inset: var(--space-8) 0 auto;
+  z-index: 40;
+  pointer-events: none;
+}
+.column {
+  width: 100%;
+  margin-inline: auto;
+  pointer-events: auto;
+}
+@media (min-width: 768px) {
+  .layer { left: var(--layout-sidebar); }
+  .column { max-width: var(--layout-phone-column); }
+}

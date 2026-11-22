@@ -30,6 +30,8 @@ export default function TodaySheets({ view }) {
   // calls somewhere opens its draft or call in Stage 6, after the sheet has closed.
   const choose = (backup) => {
     const [kind, plan] = backup.button.action.split(':');
+    // A call is handed to her phone app, staged in the prototype, and leaves no task (spec §5, §9).
+    if (kind === 'call') { close(); return; }
     if (kind === 'choose') {
       const card = view.coachCard;
       const moment = household.seed.moments.find((entry) => entry.id === session.momentId);

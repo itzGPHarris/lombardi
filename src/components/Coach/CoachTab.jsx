@@ -11,10 +11,11 @@ import styles from './Coach.module.css';
 
 // The Coach tab (spec §6): a conversation with the fixed title bar, the monogram and the tab bar,
 // the capture bar at its foot, and the conversation as it stands at the moment, read from the seed.
-// It opens at the newest message, as a conversation does. What a message's buttons open plays in
-// Stage 6; an attached article already opens its page.
+// It opens at the newest message, as a conversation does. Choosing an option and talking to the coach
+// play the moment's steps (src/demo/steps.js); an attached article opens its page.
 export default function CoachTab() {
-  const { session, household } = useSession();
+  const { session, dispatch, household } = useSession();
+  const step = (trigger) => dispatch({ type: 'STEP', trigger });
   const { openPage } = useNavigation();
   const view = useMemo(
     () => coachView({ seed: household.seed, articles, momentId: session.momentId, played: session.played }),
@@ -22,8 +23,12 @@ export default function CoachTab() {
   );
   const title = tabs.find((tab) => tab.id === 'coach').label;
   return (
-    <ConversationShell title={title} isTab opensAtEnd field={<div className={styles.capture}><CaptureBar /></div>}>
-      <Conversation days={view.days} onOpenArticle={(id) => openPage('article', id)} />
+    <ConversationShell title={title} isTab opensAtEnd newest={session.played} field={<div className={styles.capture}><CaptureBar onVoice={() => step('voice:coach')} /></div>}>
+      <Conversation
+        days={view.days}
+        onChoose={(messageId, optionId) => step(`option:${messageId}:${optionId}`)}
+        onOpenArticle={(id) => openPage('article', id)}
+      />
     </ConversationShell>
   );
 }
