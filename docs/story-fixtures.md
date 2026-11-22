@@ -4592,7 +4592,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 
 ## Demo controls
 
-These words are for presenters only and never appear in a presented demo (issue C74).
+These words are for presenters only and never appear in a presented demo (issue C74). Play the next step plays the moment's next step that has no tap of Charlotte's, such as a reply arriving or the share from WhatsApp in C-01, so the presenter sets the pace (issue C80).
 
 | Where | Text |
 | ----- | ----- |
@@ -4600,7 +4600,7 @@ These words are for presenters only and never appear in a presented demo (issue 
 | Sections | Moments · View as |
 | Moment rows | The moment's ID and its "What happens" sentence from "The moments" |
 | Layout choices | Phone frame · Full desktop layout |
-| Buttons | Reset · Close |
+| Buttons | Play the next step · Reset · Close |
 | Debug menu heading | Debug menu |
 | Debug menu rows | Current moment · Demo time |
 | Coach responses choice | Scripted responses · A live model |
@@ -4949,6 +4949,7 @@ Greg's decisions on the Stage 5 report. Version 3.50 is kept in the archive.
 | 4 | Edward's and Claire's pages on her first night show the name and the line only (M11). |
 | 5 | In the Coach history the hand-off loses its button and link, and the message she shared from WhatsApp shows the author's name, a colon and the words (K12). |
 | 6 | A fact's source names the document's sender, and Documents dates a document from today, yesterday, this week or last week (L6). |
+| 7 | The household switcher gains Play the next step, which plays arrivals and C-01's share when the presenter chooses (C80). |
 
 ## Version 3.50, November 22, 2026
 

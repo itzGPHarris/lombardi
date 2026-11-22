@@ -4,7 +4,7 @@
 
 ## **Summary of this version**
 
-Version 0.52 follows story fixtures 3.51 and Greg's decisions on the Stage 5 report. A day in the game plan opens by itself only for a "can't" or a conflict, and a day that only needs an owner, or holds something on the review card, keeps its dot and stays closed (§8, issue G51). At tablet width the game plan keeps its agenda in the centered column, and it opens into seven columns from desktop width, 1280 and up (§2, §8, §19, G52). A stop that belongs to a larger trip names the trip in `partOf`, so the game plan shows the trip as one row (§16, D13).
+Version 0.52 follows story fixtures 3.51, Greg's decisions on the Stage 5 report and his Stage 6 plan review. A day in the game plan opens by itself only for a "can't" or a conflict, and a day that only needs an owner, or holds something on the review card, keeps its dot and stays closed (§8, issue G51). At tablet width the game plan keeps its agenda in the centered column, and it opens into seven columns from desktop width, 1280 and up (§2, §8, §19, G52). A stop that belongs to a larger trip names the trip in `partOf`, so the game plan shows the trip as one row (§16, D13).
 
 Version 0.51 follows story fixtures 3.50 and Greg's decisions on the Stage 4 report. Back is on every onboarding and setup screen after the welcome, even where a frame draws none (§2, §3, issue O30). The coach's introduction says only what she gave on her path (§3, O32). The steam stars take a new token, `brand-star`, on saffron, because amber belongs to the coach (§19, O29).
 
@@ -1447,7 +1447,7 @@ MVP Editorial articles are written by staff in their own voice and follow only t
 | C-13 | Friday, Oct. 23, 2:05pm | Edward's Today picks Alexis up and meets Mallory at the harvest fair | Edward's Today, through View as | Core |
 | C-15 | Monday, Oct. 26, 6:30am | Charlotte's first morning back opens with the weekend summary | Today, the coach card | Core |
 
-Each moment holds the full state of the household at that point, so jumping to any moment shows exactly what the fixtures describe, whatever was tapped before. Within a moment, the scripted steps play in order as the presenter taps, such as Charlotte's answer at 8:41pm in C-00, Edward's answer at 7:52am in C-02, Min-jung's answer at 12:30pm in C-06 or Claire's reply at 4:58pm in C-06c. The boards for running late, Wednesday at 5:10pm, Sunday, a conflict on the pass and the notice are not moments and are not built in review build 1. C-09 leans on the Sunday 10:30am board, because Lakeside Strings Music School's answer clears the Monday clash first, so the presenter shows that board or says in a line that Lakeside Strings Music School answered (fixtures Appendix B item 81).
+Each moment holds the full state of the household at that point, so jumping to any moment shows exactly what the fixtures describe, whatever was tapped before. Within a moment, the scripted steps play in order as the presenter taps. A step with no tap of Charlotte's, such as a reply arriving in a chat or group or the share from WhatsApp in C-01, plays from Play the next step in the household switcher, so arrivals never run on a timer and the presenter sets the pace (issue C80). A request's answer plays from the recipient's "Yes, I can" in View as. Examples are Charlotte's answer at 8:41pm in C-00, Edward's answer at 7:52am in C-02, Min-jung's answer at 12:30pm in C-06 or Claire's reply at 4:58pm in C-06c. The boards for running late, Wednesday at 5:10pm, Sunday, a conflict on the pass and the notice are not moments and are not built in review build 1. C-09 leans on the Sunday 10:30am board, because Lakeside Strings Music School's answer clears the Monday clash first, so the presenter shows that board or says in a line that Lakeside Strings Music School answered (fixtures Appendix B item 81).
 
 C-10 to C-15 are a route of their own, opened from the switcher and from the Figma prototype's starting point C, "The weekend Charlotte is away". Each holds the household as it stands that week, the week after the demo week.
 
@@ -1863,6 +1863,7 @@ Follows story fixtures 3.51 and Greg's decisions on the Stage 5 report.
 | 1 | §8 | A day opens by itself only for a "can't" or a conflict. A day that only needs an owner, or holds something on the review card, keeps its dot and stays closed (G51). |
 | 2 | §2, §8, §19 | At tablet width the game plan keeps its agenda in the centered column, and it opens into seven columns from 1280 (G52). |
 | 3 | §16 | A stop that belongs to a larger trip holds `partOf` with the trip's id, and the game plan leaves it out (D13). |
+| 4 | §15 | Play the next step in the household switcher plays arrivals and C-01's share, and nothing runs on a timer (C80). |
 
 ## **v0.51, November 22, 2026**
 
