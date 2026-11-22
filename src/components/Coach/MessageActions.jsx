@@ -2,7 +2,7 @@ import Button from '../shared/Button.jsx';
 import styles from './Coach.module.css';
 
 // The buttons under a coach message (spec §6, "Actions"): the first is the primary one and the rest
-// are outlined, each labeled from the fixtures. Stage 6 plays what each one opens.
+// are outlined, each labeled from the fixtures. What each one opens is in src/hooks/useActions.js.
 export default function MessageActions({ actions, onAction }) {
   if (!actions?.length) return null;
   return (

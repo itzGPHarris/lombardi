@@ -11,10 +11,13 @@ export default function FixedHeader({ title, back, right }) {
   return (
     <div className={styles.fixedHeader} {...(right ? {} : press)}>
       {back && <div className={styles.barRow}><div className={styles.barLeft}>{back}</div></div>}
-      <div className={styles.fixedTitleRow}>
-        <h1 className={styles.fixedTitle}>{title}</h1>
-        {right && <div className={styles.barRight}>{right}</div>}
-      </div>
+      {/* A draft has no heading of its own, only Back (frames 2853:15394 and 2853:15411). */}
+      {(title || right) && (
+        <div className={styles.fixedTitleRow}>
+          <h1 className={styles.fixedTitle}>{title}</h1>
+          {right && <div className={styles.barRight}>{right}</div>}
+        </div>
+      )}
     </div>
   );
 }

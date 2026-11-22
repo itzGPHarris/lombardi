@@ -10,6 +10,7 @@ import LaterToday from './LaterToday.jsx';
 import TomorrowStarts from './TomorrowStarts.jsx';
 import TodaySheets from './TodaySheets.jsx';
 import { useNavigation } from '../Layout/navigation.js';
+import useActions from '../../hooks/useActions.js';
 import { useSession } from '../../demo/SessionContext.js';
 import { todayView } from '../../demo/today.js';
 import { articles } from '../../demo/articles.js';
@@ -21,11 +22,11 @@ import styles from './TodayTab.module.css';
 // departure, and For tomorrow takes Later today's place. Every state comes from the seed at the
 // moment's demo time; what she does here lives in the session until she jumps to another moment.
 //
-// Taps that open a draft, a post, a call, a site or a capture are drawn and wired in Stage 6, when
-// the scripted steps play (docs/backlog.md).
+// The card's buttons play the moment's steps or open what they name (src/hooks/useActions.js).
 export default function TodayTab() {
   const { session, dispatch, household } = useSession();
-  const { openTab, openPage } = useNavigation();
+  const { openPage } = useNavigation();
+  const run = useActions();
   const seed = household.seed;
   const local = session.today;
   const view = useMemo(
@@ -48,6 +49,7 @@ export default function TodayTab() {
   // to Tomorrow (0i-c), so the pass changes with the card. Otherwise the card alone keeps the answer.
   const moment = seed.moments.find((entry) => entry.id === session.momentId);
   const onCardButton = (card) => {
+    if (run(card.button.action)) return;
     if (card.button.action !== 'accept') return;
     const index = (moment?.steps ?? []).findIndex((step, at) => at >= session.played
       && step.show?.today?.coachCard?.id === card.id && step.show.today.coachCard.state === 'agree');
@@ -61,12 +63,13 @@ export default function TodayTab() {
   };
   const onCardSecondary = (card) => {
     const [kind, target] = card.secondary.action.split(':');
-    if (kind === 'open-leave-sheet') openLeave(target, 'backups');
+    if (kind === 'open-leave-sheet') {
+      // In C-06 opening the backups is the moment's first step.
+      dispatch({ type: 'STEP', trigger: `other-options:${card.id}` });
+      openLeave(target, 'backups');
+    } else run(card.secondary.action);
   };
-  const onCardNext = (card) => {
-    const [kind, target] = card.nextButton.action.split(':');
-    if (kind === 'open-tab') openTab(target);
-  };
+  const onCardNext = (card) => run(card.nextButton.action);
 
   const now = view.now;
   // The next morning between drop-offs (0i-h) has nothing beneath the pass, so the sheet is hidden.

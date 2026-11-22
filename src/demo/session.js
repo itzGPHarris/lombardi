@@ -131,7 +131,7 @@ export function momentState(householdId, momentId, carry = {}) {
   };
 }
 
-export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch, page } = {}) {
+export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch, page, viewAs } = {}) {
   const opening = momentState(householdId, momentId, { played, at, notifications, onboarding });
   // Development only: a moment opened with steps played shows the last one's notification, so the
   // evidence can show what she hears.
@@ -140,7 +140,9 @@ export function initialSession({ householdId = households[0].id, momentId, playe
   const session = text ? { ...opening, arrival: { text, key: `${opening.momentId}:${opening.played}` } } : opening;
   // Development only: open her first board on one of its branches, such as 0i-d or 0i-g.
   const withBranch = branch ? { ...session, onboarding: null, still: null, today: emptyToday(branch) } : session;
-  const opened = tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
+  const tabbed = tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
+  // Development only: open the moment from a recipient's side.
+  const opened = viewAs ? { ...tabbed, viewAs, tab: 'today', still: null, onboarding: null } : tabbed;
   // Development only: open a page inside the tab, written as kind:id.
   if (!page) return opened;
   const colon = page.indexOf(':');

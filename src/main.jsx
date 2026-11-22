@@ -37,6 +37,8 @@ if (import.meta.env.DEV && params.has('shell')) {
       notifications: params.get('notifications') ?? undefined,
       // A page opened inside the tab, such as &page=item:fri-checkup-mallory or &page=settings.
       page: params.get('page') ?? undefined,
+      // The recipient's side, such as &viewas=edward or &viewas=ms-reyes.
+      viewAs: params.get('viewas') ?? undefined,
     });
   }
   root.render(<StrictMode><App start={start} embedded={embedded} /></StrictMode>);

@@ -19,6 +19,8 @@ export const notificationChanged = '{person} changed his answer for {day}.';
 export const send = 'Send';
 export const sendFrom = 'Send from {app}';
 export const sent = 'Sent {time}';
+// On a later day the day comes first, such as "Sent yesterday, 8:52pm" or "Sent this Monday, 6:40am".
+export const sentOnDay = 'Sent {day}, {time}';
 export const noMvpNeeded = "You don't need MVP to answer.";
 export const textMessage = 'Charlotte sent you a request through MVP. You can answer here:';
 export const yesICan = 'Yes, I can';
