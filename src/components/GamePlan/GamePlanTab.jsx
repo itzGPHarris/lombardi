@@ -12,7 +12,7 @@ import { useNavigation } from '../Layout/navigation.js';
 import { useSession } from '../../demo/SessionContext.js';
 import { gamePlanView } from '../../demo/tabs.js';
 import useWide from '../../hooks/useWide.js';
-import { nextStep, playsFromTrigger } from '../../demo/steps.js';
+import { nextScripted, nextStep, playsFromTrigger } from '../../demo/steps.js';
 import { relativeDay } from '../../demo/dateTokens.js';
 import { fill } from '../../demo/today.js';
 import * as people from '../../copy/people.js';
@@ -132,6 +132,10 @@ export default function GamePlanTab() {
     });
   };
 
+  // What she tells the coach on the game plan in C-09, filled in as the field takes focus.
+  const scripted = nextScripted(household.seed, session.momentId, session.played);
+  const captureId = scripted?.entry.trigger === 'capture:game-plan' ? scripted.step.set.captures?.[0] : null;
+  const typed = captureId ? household.seed.captures.find((capture) => capture.id === captureId)?.typed ?? '' : '';
   const stripGone = useCallback(() => dispatch({ type: 'GAME_PLAN', action: { type: 'STRIP_GONE' } }), [dispatch]);
   const dismissNotice = useCallback(() => dispatch({ type: 'GAME_PLAN', action: { type: 'DISMISS_NOTICE' } }), [dispatch]);
   const nextOpen = local.days.nextWeek ?? view.nextWeek.open;
@@ -164,7 +168,7 @@ export default function GamePlanTab() {
               onDismiss={dismissNotice}
             />
           )}
-          <div className={styles.capture}><CaptureBar onGive={() => step('capture:game-plan')} /></div>
+          <div className={styles.capture}><CaptureBar scripted={typed} onGive={() => step('capture:game-plan')} /></div>
         </>
       )}
     >

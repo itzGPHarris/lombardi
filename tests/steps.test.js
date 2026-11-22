@@ -167,3 +167,15 @@ describe('capture on Today (spec §5, A12)', () => {
     expect(session).toMatchObject({ played: 3, playedFrom: 2 });
   });
 });
+
+describe('the Sunday look-ahead (spec §5, §8, F35)', () => {
+  it('adds the fair from the card, then sends the text, then takes the pumpkin from the game plan (C-09)', () => {
+    const session = play(at('C-09'), step('card:cc-harvest-fair'), step('send:req-reyes-fair'), step('capture:game-plan'));
+    expect(session.played).toBe(3);
+    expect(session.playedFrom).toBe(2);
+    const card = (played) => todayView({ seed, articles: {}, momentId: 'C-09', played, at: null, local: emptyToday() }).coachCard;
+    expect(card(0).label).toBe('MVP Coach · for next week');
+    expect(card(1).button.label).toBe('Skip tutoring next Friday');
+    expect(card(2).button.label).toBe('Open the game plan');
+  });
+});
