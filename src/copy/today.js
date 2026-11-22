@@ -170,7 +170,6 @@ export const leaveSheet = {
   youReachAfterStart: 'You reach {place} at {time}, {count} minutes after {item} starts.',
   earlier: '5 min earlier',
   later: '5 min later',
-  changeStartTime: 'Change the start time',
   changeInCalendar: 'Change this in Google Calendar.',
   save: 'Save',
   backups: 'Backup plans',
