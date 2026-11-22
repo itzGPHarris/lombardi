@@ -1,0 +1,25 @@
+/* The library's Button (2760:37878). Outlined buttons fill with bg/control, one step brighter than
+   the surface they sit on, with a hairline. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: var(--size-tap-target);
+  padding: 0 var(--space-20);
+  border-radius: var(--radius-pill);
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
+  text-align: center;
+}
+.button[data-full] { width: 100%; }
+.button[data-kind='primary'] { background: var(--interactive-default); color: var(--ink-on-accent); }
+.button[data-kind='primary']:active { background: var(--interactive-pressed); }
+.button[data-kind='secondary'] { background: var(--interactive-tint); color: var(--interactive-default); }
+.button[data-kind='outlined'] { background: var(--bg-control); color: var(--ink-primary); border: thin solid var(--border-hairline); }
+.button[data-kind='outlined'][data-active] { background: var(--interactive-tint); color: var(--interactive-default); border-color: transparent; }
+.button[data-kind='text'] { padding: 0; color: var(--interactive-default); }
+.button[data-kind='text']:active { color: var(--interactive-pressed); }
+.icon { display: inline-flex; }
+.icon > span { width: var(--size-icon-small); height: var(--size-icon-small); }
+.label { min-width: 0; }

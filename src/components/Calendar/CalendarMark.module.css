@@ -1,0 +1,2 @@
+.mark { display: inline-flex; flex-shrink: 0; color: var(--ink-muted); }
+.mark > span { width: var(--size-icon-mark); height: var(--size-icon-mark); }

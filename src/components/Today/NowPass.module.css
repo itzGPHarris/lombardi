@@ -1,0 +1,67 @@
+.now { display: flex; flex-direction: column; gap: var(--space-16); }
+
+/* The pass: kid-bg when a child is on the leg, bg/subtle when the leg is hers alone. */
+.pass { border-radius: var(--radius-xl); padding: var(--space-16) var(--space-24); background: var(--kid-bg); }
+.pass[data-tint='subtle'] { background: var(--bg-subtle); }
+.top { display: flex; flex-direction: column; gap: var(--space-8); }
+.title { display: flex; align-items: flex-start; gap: var(--space-8); font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
+.title > span:first-child:not(:last-child) { margin-top: calc(var(--space-4) / 2); }
+.conflict { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.timeRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  width: 100%;
+  padding-bottom: var(--space-12);
+  border-bottom: thin dotted var(--focus-ring);
+  text-align: left;
+}
+.time { font: var(--text-display); letter-spacing: var(--text-display-tracking); color: var(--ink-primary); font-variation-settings: "SOFT" 0, "WONK" 1; }
+.routeBlock { display: flex; flex-direction: column; gap: var(--space-4); padding-top: var(--space-8); }
+.routeRow { display: flex; align-items: center; gap: var(--space-8); width: 100%; text-align: left; }
+.route { flex: 1; min-width: 0; font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-icon-small);
+  height: var(--size-icon-small);
+  border-radius: var(--radius-pill);
+  background: var(--interactive-default);
+  color: var(--kid-bg);
+}
+.chevron > span { width: calc(var(--size-icon-small) * 0.8); height: calc(var(--size-icon-small) * 0.8); }
+.next { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.hidden { position: absolute; width: var(--space-4); height: var(--space-4); overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.below { display: flex; flex-direction: column; gap: var(--space-16); }
+.perforation { margin: 0 var(--space-20); border: 0; border-top: thin dashed var(--border-hairline); }
+.actions { display: flex; gap: var(--space-8); padding: 0 var(--space-20); }
+.action { flex: 1 0 0; min-width: 0; }
+
+/* Today's pass swings in from a 3.8° tilt and settles level (spec §19, "Today's pass swings in"),
+   then the stops or fields, with the list and actions beneath them, rise into place. The tilt is the
+   table's own value; the rise takes --space-56, the nearest space token to its 60. */
+.now[data-swing] .pass { animation: swing var(--motion-duration-standard) var(--motion-ease-overshoot) both; }
+.now[data-swing] .below { animation: rise var(--motion-duration-standard) var(--motion-ease-overshoot) var(--motion-duration-standard) both; }
+@keyframes swing {
+  from { transform: rotate(3.8deg); }
+  to { transform: none; }
+}
+@keyframes rise {
+  from { transform: translateY(var(--space-56)); }
+  to { transform: none; }
+}
+/* A trip pass's next leg changes in place ("Trip pass, next leg"). */
+.top[data-changed] { animation: change var(--motion-duration-standard) var(--motion-ease-out) both; }
+@keyframes change {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .now[data-swing] .pass, .now[data-swing] .below, .top[data-changed] { animation: none; }
+}
+/* The two actions share the width equally; their labels stay on one line, as the frames set them. */
+.action { padding: 0 var(--space-12); white-space: nowrap; }

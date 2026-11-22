@@ -1,0 +1,28 @@
+.group { display: flex; flex-direction: column; }
+/* The fold: the group's rows collapse to nothing as the folded line takes their place (spec §19,
+   "Check and fold"). */
+.fold { display: grid; grid-template-rows: 1fr; transition: grid-template-rows var(--motion-duration-standard) var(--motion-ease-out); }
+.fold[data-folded] { grid-template-rows: 0fr; }
+.foldInner { min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: var(--space-8); }
+.fold[data-folded] .foldInner { visibility: hidden; transition: visibility 0s var(--motion-duration-standard); }
+.heading { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--kid); }
+.group[data-own] .heading { color: var(--ink-primary); }
+.rows { display: flex; flex-direction: column; gap: var(--space-8); }
+.add { color: var(--interactive-default); }
+.foldedLine {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--size-tap-target);
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
+  color: var(--kid);
+  text-align: left;
+}
+.group[data-own] .foldedLine { color: var(--ink-primary); }
+.foldedCheck { display: inline-flex; color: var(--interactive-default); }
+.foldedCheck > span { width: var(--size-icon-small); height: var(--size-icon-small); }
+@media (prefers-reduced-motion: reduce) {
+  .fold, .fold[data-folded] .foldInner { transition: none; }
+}
+.add > span:first-child { color: var(--ink-primary); }

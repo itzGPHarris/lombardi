@@ -1,0 +1,11 @@
+.marker {
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--size-icon-small);
+  height: var(--size-icon-small);
+  border: thin solid var(--ink-primary);
+  border-radius: var(--radius-pill);
+  background: var(--bg-card);
+}
+.marker[data-state='behind'] { border-color: var(--ink-muted); }
+.marker[data-state='next'] { border-color: var(--interactive-default); background: var(--interactive-default); }

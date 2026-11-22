@@ -1,0 +1,3 @@
+.header { display: flex; align-items: center; gap: var(--space-8); min-width: 0; }
+.icon { display: inline-flex; color: var(--ink-primary); }
+.dateline { font: var(--text-title); letter-spacing: var(--text-title-tracking); color: var(--ink-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

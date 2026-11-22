@@ -545,7 +545,8 @@
       "forEvent": null,
       "fromCalendar": false,
       "source": ["you"],
-      "stopLabel": "Drop off"
+      "stopLabel": "Drop off",
+      "spoken": "Drop Mallory off at Westview Kindergarten"
     },
     {
       "id": "w-1-thu-back-to-school",

@@ -1,0 +1,61 @@
+/* The library's ReminderItem (3001:12372). */
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  padding: var(--space-10) var(--space-8);
+  border-radius: var(--radius-md);
+  background: var(--kid-bg);
+  cursor: pointer;
+}
+.row[data-new] { cursor: text; align-items: center; }
+.main { flex: 1; min-width: 0; display: flex; align-items: flex-start; gap: var(--space-12); text-align: left; cursor: inherit; }
+.main:disabled { cursor: default; }
+.checkColumn { display: flex; padding: calc(var(--space-4) * 0.75) 0; flex-shrink: 0; }
+.check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-check);
+  height: var(--size-check);
+  border: thin solid var(--ink-muted);
+  border-radius: var(--radius-pill);
+  background: var(--bg-control);
+  color: var(--ink-on-accent);
+}
+.check > span { width: var(--size-icon-mark); height: var(--size-icon-mark); }
+.row[data-ticked] .check { border-color: var(--ink-primary); background: var(--ink-primary); }
+.body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: calc(var(--space-4) / 2); }
+.text { font: var(--text-body-large); letter-spacing: var(--text-body-large-tracking); color: var(--ink-primary); }
+.row[data-ticked] .text { color: var(--ink-muted); }
+.contact { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-icon);
+  height: var(--size-icon);
+  margin: calc(var(--space-4) / 2) 0;
+  color: var(--ink-primary);
+  position: relative;
+}
+/* Remove is drawn at 24 with a 44 hit area. */
+.remove::after { content: ''; position: absolute; inset: calc((var(--size-tap-target) - var(--size-icon)) / -2); }
+.taskButton { flex-shrink: 0; }
+.row:has(.choices) { flex-wrap: wrap; }
+/* Choosing: the two choices on a row of their own beneath the item, at equal widths (0i-k). */
+.choices { display: flex; gap: var(--space-8); flex-basis: 100%; }
+.choices > button { flex: 1 0 0; }
+.input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: var(--text-body-large);
+  letter-spacing: var(--text-body-large-tracking);
+  color: var(--ink-primary);
+  outline: none;
+}
+.input::placeholder { color: var(--ink-placeholder); }

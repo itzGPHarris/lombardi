@@ -1,0 +1,15 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-chip);
+  height: var(--size-chip);
+  border: thin solid var(--adult);
+  border-radius: var(--radius-pill);
+  background: var(--bg-control);
+  color: var(--adult);
+  font: var(--text-subtitle);
+  font-size: var(--type-size-10);
+  line-height: 1;
+}

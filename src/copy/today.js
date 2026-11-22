@@ -24,6 +24,24 @@ export const pass = {
   tripTitle: 'Take {children} to school',
 };
 
+export const fieldLabels = {
+  drive: 'Drive',
+  arrive: 'Arrive',
+  pickup: 'Pickup',
+  starts: 'Starts',
+  with: 'With',
+};
+
+export const fieldValues = {
+  minutes: '{minutes} min',
+};
+
+export const timetable = {
+  leaveHome: 'Leave home',
+  leave: 'Leave {place}',
+  backHome: 'Back home',
+};
+
 export const fields = {
   drive: 'Drive {minutes} min',
   arrive: 'Arrive {time}',
@@ -84,6 +102,7 @@ export const reminderNotification = {
 export const coachCard = {
   label: 'MVP Coach',
   labelFor: 'MVP Coach · for {day}',
+  labelNextWeek: 'MVP Coach · for next week',
   agreed: 'Agreed',
   undo: 'Undo',
   otherOptions: 'Other options',
