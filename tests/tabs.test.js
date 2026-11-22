@@ -5,7 +5,7 @@ import seed from '../src/data/households/charlotte.json';
 import { articles } from '../src/demo/articles.js';
 import {
   askForHelpView, chatView, childPageView, coachView, composerView, gamePlanView, groupView, itemPageView, kidsView, membersView,
-  articleView, personPageView, schoolCardView, teamView,
+  articleView, personPageView, schoolCardView, settingsView, teamView,
 } from '../src/demo/tabs.js';
 
 const demoWeek = seed.moments.filter((moment) => /^C-0\d/.test(moment.id)).map((moment) => moment.id);
@@ -342,5 +342,27 @@ describe('MVP Editorial', () => {
       reason: 'Because Cedar Grove Elementary conferences are this week.', approved: false,
     });
     expect(articleView({ seed, articles, articleId: 'picture-day' })).toMatchObject({ line: 'MVP Editorial · 4 min read', reason: null, approved: false });
+  });
+});
+
+describe('Settings', () => {
+  it('holds Charlotte\'s six cards with her values, as fixtures section 3 writes them', () => {
+    const view = settingsView({ seed });
+    expect(view.cards.map((card) => card.heading)).toEqual([
+      'Your account', 'Your calendar and forwarding address', 'What the coach adds for you', 'Notifications', 'Language at home', 'Privacy',
+    ]);
+    const rows = (id) => view.cards.find((card) => card.id === id).rows;
+    expect(rows('account').map((row) => [row.label, row.value ?? row.link])).toEqual([
+      ['Name', 'Charlotte'], ['Email', 'charlotte@mail.example'], ['Your age range', 'Add your age range'], ['Plan', 'Family'], ['Billing', 'Manage billing'],
+    ]);
+    expect(rows('calendar').map((row) => row.value ?? row.link)).toEqual([
+      'Google Calendar, connected', 'Disconnect Google Calendar', 'charlotte-k7m@forward.mvp.example', 'Copy the address', 'The Cedar Grove Elementary newsletter',
+    ]);
+    expect(rows('coach-adds').map((row) => [row.label, row.on])).toEqual([
+      ['Events from your Google Calendar', true], ['School-day changes for Alexis and Mallory', true], ['Trips you can take yourself', true],
+    ]);
+    expect(rows('notifications').map((row) => row.label)).toEqual(['Notifications', 'Reminder the night before a library day']);
+    expect(rows('language')).toEqual([{ label: 'Language', value: 'English' }]);
+    expect(rows('privacy').map((row) => row.text)).toHaveLength(2);
   });
 });

@@ -20,6 +20,7 @@ import ChildPage from './components/Kids/ChildPage.jsx';
 import SchoolCard from './components/Kids/SchoolCard.jsx';
 import AddSchool from './components/Kids/AddSchool.jsx';
 import ArticleView from './components/Recommends/ArticleView.jsx';
+import SettingsPage from './components/Settings/SettingsPage.jsx';
 import StillShell from './components/Layout/StillShell.jsx';
 import Onboarding from './components/Onboarding/Onboarding.jsx';
 import { NavigationContext } from './components/Layout/navigation.js';
@@ -37,7 +38,7 @@ const PHONE_FRAME_MESSAGE = 'mvp-phone-frame';
 // A page opened inside a tab, by its kind (spec §2): each has Back and returns to where she was.
 function Page({ page }) {
   switch (page.kind) {
-    case 'settings': return <PageShell title={settings} />;
+    case 'settings': return <SettingsPage />;
     case 'item': return <ItemPage itemId={page.id} />;
     case 'ask-for-help': return <AskForHelp itemId={page.id} />;
     case 'person': return <PersonPage personId={page.id} />;
@@ -51,7 +52,7 @@ function Page({ page }) {
     case 'school': return <SchoolCard schoolId={page.id} />;
     case 'add-school': return <AddSchool />;
     case 'article': return <ArticleView articleId={page.id} />;
-    default: return <PageShell title="" />;
+    default: return <PageShell title={settings} />;
   }
 }
 

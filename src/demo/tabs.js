@@ -12,6 +12,7 @@ import * as gamePlanWords from '../copy/gamePlan.js';
 import * as requestWords from '../copy/requests.js';
 import * as teamWords from '../copy/team.js';
 import * as kidsWords from '../copy/kids.js';
+import * as settingsWords from '../copy/settings.js';
 
 const capitalize = (text) => text.replace(/^\w/, (letter) => letter.toUpperCase());
 const sameDay = (a, b) => a.week === b.week && a.day === b.day;
@@ -886,5 +887,70 @@ export function articleView({ seed, articles, articleId }) {
     title: article.title,
     reason: pick?.reason ?? null,
     approved: !!article.approved,
+  };
+}
+
+// ---------------------------------------------------------------------------------------------
+// Settings (spec §13; fixtures section 3 "Settings" and section 4 "Settings"): a card for each thing
+// she might come to change, with Charlotte's values. Every link and switch is staged.
+
+export function settingsView({ seed }) {
+  const parent = seed.people.find((person) => person.group === 'parent');
+  const account = parent.account ?? {};
+  const calendar = seed.calendar?.name;
+  const words = settingsWords.cards;
+  const children = seed.children.map((child) => child.name);
+  const childList = children.length > 1 ? `${children.slice(0, -1).join(', ')} and ${children.at(-1)}` : children[0];
+  return {
+    title: settingsWords.title,
+    cards: [
+      {
+        id: 'account', heading: words.account.heading, line: words.account.line,
+        rows: [
+          { label: words.account.rows.name, value: parent.name },
+          { label: words.account.rows.email, value: account.email },
+          { label: words.account.rows.ageRange, link: account.ageRange ? null : words.account.addAgeRange, value: account.ageRange ?? null },
+          { label: words.account.rows.plan, value: account.plan },
+          { label: words.account.rows.billing, link: words.account.manageBilling },
+        ],
+      },
+      {
+        id: 'calendar', heading: words.calendar.heading, line: words.calendar.line,
+        rows: calendar ? [
+          { label: words.calendar.rows.calendar, value: fill(words.calendar.connected, { calendar }), stacked: true },
+          { link: fill(words.calendar.disconnect, { calendar }) },
+          { label: words.calendar.rows.forwarding, value: account.forwardingAddress, stacked: true },
+          { link: words.calendar.copy },
+          ...(account.forwardedAutomatically ?? []).map((sender) => ({ label: words.calendar.rows.automatic, value: sender, stacked: true })),
+        ] : [
+          { label: words.calendar.rows.calendar, value: words.calendar.notConnected },
+          { link: words.calendar.connect },
+        ],
+      },
+      {
+        id: 'coach-adds', heading: words.coachAdds.heading, line: words.coachAdds.line,
+        rows: [
+          ...(calendar ? [{ label: fill(words.coachAdds.events, { calendar }), on: !!seed.meta.coachAdds?.calendar }] : []),
+          { label: fill(words.coachAdds.schoolDay, { children: childList }), on: !!seed.meta.coachAdds?.schoolDay },
+          { label: words.coachAdds.trips, on: !!seed.meta.coachAdds?.trips },
+        ],
+      },
+      {
+        id: 'notifications', heading: words.notifications.heading, line: words.notifications.line,
+        rows: [
+          { label: words.notifications.notifications, on: true },
+          ...(account.reminders ?? []).map((reminder) => ({ label: reminder, on: true })),
+        ],
+      },
+      {
+        id: 'language', heading: words.language.heading, line: words.language.line,
+        rows: [{ label: words.language.language, value: account.language }],
+      },
+      {
+        id: 'privacy', heading: words.privacy.heading, line: words.privacy.line,
+        rows: words.privacy.rows.map((text) => ({ text })),
+      },
+    ],
+    on: settingsWords.on,
   };
 }
