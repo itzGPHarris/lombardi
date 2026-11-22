@@ -34,7 +34,7 @@ export default function RequestDraft({ requestId }) {
     <ComposerShell heading="" onBack={back} primary={<Button kind="primary" full disabled={!text.trim()} onClick={send}>{view.send}</Button>}>
       <div className={styles.draft}>
         <p className={styles.to}>{view.to}</p>
-        <textarea className={styles.textBox} rows={6} value={text} aria-label={view.to} onChange={(event) => setText(event.target.value)} />
+        <textarea className={styles.textBox} rows={2} value={text} aria-label={view.to} onChange={(event) => setText(event.target.value)} />
         {view.answers && (
           <>
             <p className={styles.answersLine}>{view.answers.line}</p>

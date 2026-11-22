@@ -5,7 +5,9 @@
 .draft { display: flex; flex-direction: column; gap: var(--space-16); }
 .to { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
 .textBox {
-  min-height: calc(var(--size-tap-target) * 2);
+  /* The field fits her text, as the drafts' frames draw it. */
+  field-sizing: content;
+  min-height: var(--size-tap-target);
   padding: var(--space-12) var(--space-16);
   border: thin solid var(--ink-muted);
   border-radius: var(--radius-md);
@@ -20,7 +22,7 @@
 /* An item on a request, with its two buttons */
 .item { display: flex; flex-direction: column; gap: var(--space-12); }
 .itemRow { display: flex; align-items: flex-start; gap: var(--space-8); }
-.itemDay { flex-shrink: 0; font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.itemDay { flex-shrink: 0; font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
 .itemChips { display: inline-flex; flex-shrink: 0; gap: var(--space-4); }
 .itemLabel { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
 .answerButtons { display: flex; flex-wrap: wrap; gap: var(--space-8); }
@@ -40,17 +42,17 @@
 }
 .cardHead { display: flex; flex-direction: column; gap: var(--space-4); }
 .heading { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
-.sent { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.sent { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
 .text { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
 .rule { padding-top: var(--space-16); border-top: thin solid var(--border-hairline); }
 .noteLabel { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
 .note { display: flex; flex-direction: column; gap: var(--space-8); }
-.noteBox { composes: textBox; min-height: var(--size-tap-target); }
+.noteBox { composes: textBox; min-height: var(--size-tap-target); border-color: var(--border-hairline); }
 .meta { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
 .noMvp { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
 
 /* The recipient's Today: the dateline and the monogram, then the cards */
-.recipientHeader { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); padding: var(--space-56) var(--space-24) var(--space-24); }
+.recipientHeader { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); padding: calc(var(--space-56) - var(--space-8)) var(--space-24) var(--space-24); }
 
 /* Someone without MVP: the text message, then the web page under the wordmark */
 .still { display: flex; flex-direction: column; gap: var(--space-16); padding: calc(var(--space-56) * 2) var(--space-24) var(--space-40); }
