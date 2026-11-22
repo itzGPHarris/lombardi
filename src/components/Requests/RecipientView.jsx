@@ -32,7 +32,7 @@ export default function RecipientView({ personId }) {
     // The text message, until she follows its link; a request sent with no code opens the page.
     if (view.message?.link && !page) {
       return (
-        <StillShell surface="canvas">
+        <StillShell surface="canvas" navigation={false}>
           <div className={styles.still}>
             <p className={styles.bubble}>
               {view.message.text}
@@ -44,7 +44,7 @@ export default function RecipientView({ personId }) {
       );
     }
     return (
-      <StillShell surface="canvas" scrolls>
+      <StillShell surface="canvas" navigation={false} scrolls>
         <div className={styles.web}>
           <p className={styles.wordmark}>{wordmark}</p>
           {cards}
