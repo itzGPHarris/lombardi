@@ -5,7 +5,7 @@
   align-items: center;
   gap: var(--space-8);
   min-height: var(--size-tap-target);
-  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-20);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-16);
   border: thin solid var(--coach);
   border-radius: var(--radius-pill);
   background: var(--bg-card);
@@ -27,12 +27,15 @@
 .field::placeholder { color: var(--ink-secondary); }
 .controls { display: flex; align-items: center; justify-content: flex-end; flex-shrink: 0; }
 .control, .give {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--size-tap-target);
+  /* Drawn 40 wide, as the frames space the icons, with a 44 hit area. */
+  width: calc(var(--size-icon) + var(--space-16));
   height: var(--size-tap-target);
   color: var(--interactive-default);
 }
+.control::after, .give::after { content: ''; position: absolute; inset: 0 calc((var(--size-tap-target) - var(--size-icon) - var(--space-16)) / -2); }
 .give { color: var(--ink-on-accent); }
 .give > span { padding: var(--space-4); border-radius: var(--radius-pill); background: var(--interactive-default); box-sizing: content-box; width: var(--size-icon-small); height: var(--size-icon-small); }
