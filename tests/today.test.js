@@ -177,14 +177,101 @@ describe('Now at each moment, as fixtures section 3 shows it', () => {
     expect(now.actions.map((action) => action.label)).toEqual(['Directions']);
   });
 
-  it('moments with no Today words show only what the seed gives (T72, T73)', () => {
-    for (const id of ['C-01', 'C-02', 'C-04', 'C-04b', 'C-05b', 'C-05c', 'C-06c', 'C-08', 'C-08b']) {
+  // Fixtures 3.49 writes Today at every moment that opens on another tab (T72, T73). This replaces the
+  // Stage 2 assertion that these moments showed nothing, which the 3.48 fixtures called for.
+  const fields = (now) => now.fields.map((field) => `${field.label} ${field.value}`);
+  const later = (shown) => shown.laterToday && { rows: shown.laterToday.rows.map((row) => `${row.time} ${row.text}`), countLine: shown.laterToday.countLine };
+  const tomorrow = (shown) => shown.forTomorrow?.map((row) => `${row.time} ${row.text}`) ?? null;
+
+  it("C-01 and C-02 match C-03, with their own pills, and C-01's card arrives at 6:16am", () => {
+    const c01 = view('C-01');
+    expect(c01.now).toMatchObject({ title: "Alexis takes the Parks' carpool to Cedar Grove Elementary", pill: { stage: 'coming-up', text: 'in 1 hr 25 min' } });
+    expect(c01.coachCard).toBeNull();
+    expect(later(c01).countLine).toBeNull();
+    expect(c01.editorial.id).toBe('conference');
+    expect(view('C-01', 1).coachCard.id).toBe('cc-wed-carpool');
+    const c02 = view('C-02');
+    expect(c02.now.pill.text).toBe('in 1 hr');
+    expect(c02.coachCard.id).toBe('cc-wed-carpool');
+  });
+
+  it("C-04: tomorrow's orchestra pass, with Mallory's run and violin under For tomorrow", () => {
+    const shown = view('C-04');
+    expect(shown.now).toMatchObject({ title: 'Take Alexis to orchestra at Cedar Grove Elementary', time: '6:55am', tint: 'kid', pill: { text: 'Tomorrow' } });
+    expect(fields(shown.now)).toEqual(['Drive 12 min', 'Arrive 7:07am', 'Starts 7:15am']);
+    expect(shown.now.checklist.groups.map((group) => group.heading)).toEqual(['Alexis']);
+    expect(tomorrow(shown)).toEqual([
+      '8:15am Leave home at 8:15am to take Mallory to Westview Kindergarten · C day',
+      '3:40pm Leave home at 3:40pm to take Alexis to violin at Lakeside Strings Music School',
+    ]);
+    expect(shown.forTomorrow[1].checklist).toBeNull();
+    expect(shown).toMatchObject({ coachCard: null, laterToday: null, editorial: null });
+  });
+
+  it("C-04b: Mallory's run leads at 7:20am, with one done this morning", () => {
+    const shown = view('C-04b');
+    expect(shown.now).toMatchObject({ title: 'Drop Mallory off at Westview Kindergarten · C day', pill: { text: 'in 55 min' } });
+    expect(fields(shown.now)).toEqual(['Drive 10 min', 'Arrive 8:25am', 'Starts 8:30am']);
+    expect(later(shown)).toEqual({
+      rows: [
+        '8:30am To Westview Kindergarten · C day',
+        '2:30pm Pick up at Westview Kindergarten',
+        '2:45pm Pick up at Cedar Grove Elementary',
+        '4:00pm Lakeside Strings Music School, with Mallory',
+      ],
+      countLine: '1 done this morning',
+    });
+    expect(shown.editorial.id).toBe('conference');
+    expect(shown.coachCard).toBeNull();
+  });
+
+  it('C-05: the pickups lead under the therapist card, with two done today', () => {
+    const shown = view('C-05');
+    expect(shown.now).toMatchObject({ title: 'Pick Mallory up at Westview Kindergarten', nextStation: 'Then Cedar Grove Elementary, 2:45pm', pill: { text: 'in 1 hr 55 min' }, checklist: null });
+    expect(fields(shown.now)).toEqual(['Drive 10 min', 'Arrive 2:25pm', 'Pickup 2:30pm']);
+    expect(later(shown).countLine).toBe('2 done today');
+    expect(shown.coachCard).toMatchObject({ id: 'cc-therapist', label: 'MVP Coach' });
+    expect(shown.editorial.id).toBe('conference');
+  });
+
+  it('C-05b: violin at its leaving time, with Directions only', () => {
+    const shown = view('C-05b');
+    expect(shown.now).toMatchObject({ title: 'Take Alexis to violin at Lakeside Strings Music School', pill: { text: 'Time to leave' } });
+    expect(shown.now.actions.map((action) => action.label)).toEqual(['Directions']);
+    expect(later(shown)).toEqual({ rows: ['4:00pm Lakeside Strings Music School, with Mallory'], countLine: '4 done today' });
+    expect(shown.coachCard).toBeNull();
+  });
+
+  it("C-05c: tomorrow's carpool, which Charlotte drives", () => {
+    const shown = view('C-05c');
+    expect(shown.now).toMatchObject({ title: "Drive Alexis's carpool to Cedar Grove Elementary", time: '7:40am', pill: { text: 'Tomorrow' } });
+    expect(fields(shown.now)).toEqual(['Drive 12 min', 'Arrive 7:52am', 'Starts 8:00am']);
+    expect(tomorrow(shown)).toEqual(['8:15am Leave home at 8:15am to take Mallory to Westview Kindergarten · D day']);
+    expect(shown.coachCard).toBeNull();
+  });
+
+  it('C-06c: Later today with no rows and five done; dinner at home waits for its pass', () => {
+    const shown = view('C-06c');
+    expect(shown.now).toBeNull();
+    expect(later(shown)).toEqual({ rows: [], countLine: '5 done today' });
+    expect(shown.editorial.id).toBe('conference');
+  });
+
+  it("C-08 and C-08b: Friday's carpool as a trip pass, and the checkup under For tomorrow", () => {
+    for (const id of ['C-08', 'C-08b']) {
       const shown = view(id);
-      expect(shown.now, id).toBeNull();
-      expect(shown.laterToday, id).toBeNull();
-      expect(shown.editorial, id).toBeNull();
+      expect(shown.now).toMatchObject({ kind: 'trip', title: "Drive Alexis's carpool, then take Mallory to Westview Kindergarten", time: '7:40am' });
+      expect(shown.now.timetable.map((row) => [row.time, row.text ?? row.place, row.meta ?? null])).toEqual([
+        ['7:40am', 'Leave home', null],
+        ['7:52am', 'Cedar Grove Elementary', 'Drop off · Starts 8:00am'],
+        ['8:10am', 'Leave Cedar Grove Elementary', null],
+        ['8:22am', 'Westview Kindergarten', 'Drop off · F day · Starts 8:30am'],
+        ['8:40am', 'Back home', null],
+      ]);
+      expect(shown.now.checklist.groups.map((group) => group.heading)).toEqual(['Alexis', 'Mallory']);
+      expect(tomorrow(shown)).toEqual(['3:10pm Leave home at 3:10pm to take Mallory to the checkup at Northside Pediatrics']);
+      expect(shown).toMatchObject({ coachCard: null, laterToday: null, editorial: null });
     }
-    expect(view('C-05')).toMatchObject({ now: null, coachCard: { label: 'MVP Coach' } });
   });
 });
 

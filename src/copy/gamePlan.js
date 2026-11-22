@@ -14,6 +14,7 @@ export const todayDone = 'Today · {count} done';
 export const items = '{count} items';
 export const oneItem = '1 item';
 export const nothingPlanned = 'Nothing is planned.';
+export const emptyDayLine = 'Tell the coach about this day, and it will suggest how it could go.';
 export const askForHelp = 'Ask for help';
 export const circle = 'Circle';
 export const people = 'People';

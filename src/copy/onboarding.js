@@ -23,9 +23,11 @@ export const grades = {
   headingMany: 'Here are the grades the MVP Coach suggests.',
   line: "The MVP Coach works these out from each child's birth month. Change any grade that's wrong.",
   label: "{child}'s grade",
-  // The fixtures write the list as "First grade through Twelfth grade" and spell out only the two
-  // ends and Fourth grade, so the grades in between wait on the fixtures (see docs/issues.csv).
-  list: ['Not in school yet', 'Pre-K', 'Kindergarten', 'First grade', 'Twelfth grade'],
+  list: [
+    'Not in school yet', 'Pre-K', 'Kindergarten', 'First grade', 'Second grade', 'Third grade', 'Fourth grade',
+    'Fifth grade', 'Sixth grade', 'Seventh grade', 'Eighth grade', 'Ninth grade', 'Tenth grade', 'Eleventh grade',
+    'Twelfth grade',
+  ],
   continue: 'Continue',
 };
 export const coachFirstCapture = "Show me one thing from this week, such as a school handout, an email or a voice note, and I'll turn it into a plan.";

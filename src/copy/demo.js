@@ -1,6 +1,5 @@
-// The household switcher's words (spec §15, "Demo controls"). The switcher is a hidden presenter
-// control, and fixtures section 4 has no rows for it yet, so these follow spec §15's table and its
-// wording (issue C73).
+// The household switcher's words, from fixtures section 4, "Demo controls" (issue C74). The switcher
+// is a hidden presenter control, and none of these words appears in a presented demo.
 export const switcherTitle = 'Household switcher';
 export const moments = 'Moments';
 export const viewAs = 'View as';
