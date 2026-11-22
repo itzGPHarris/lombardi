@@ -49,7 +49,7 @@ export function RouteStation({ station, childName, onOpen, onStep, earliest }) {
             {station.reach && <p className={styles.reach} data-late={station.reach.late || undefined} aria-live="polite">{station.reach.text}</p>}
           </>
         )}
-        {station.backAround && <p className={styles.back}>{station.backAround}</p>}
+        {station.backAround && <p className={styles.back}>{station.backAround.label} <span className={styles.backTime}>{station.backAround.time}</span></p>}
       </div>
     </li>
   );

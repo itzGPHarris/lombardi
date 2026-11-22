@@ -256,7 +256,7 @@ describe('the Leave sheet (spec §5, "The Leave sheet")', () => {
       'Leave home at 14:15', 'Leave Westview Kindergarten at 14:30', 'Leave Cedar Grove Elementary at 15:05', 'Leave Brightwater Family Therapy at 16:15', null,
     ]);
     expect(sheet.stations[3].note).toBe('Change this in Google Calendar.');
-    expect(sheet.stations[4].backAround).toBe('Back around 4:35pm');
+    expect(sheet.stations[4].backAround).toEqual({ label: 'Back around', time: '4:35pm' });
     expect(sheet.changed).toBe(false);
   });
 
@@ -271,7 +271,7 @@ describe('the Leave sheet (spec §5, "The Leave sheet")', () => {
     expect(sheet.stations[1].leaveAt).toBe('14:35');
     expect(sheet.stations[2].lateReach).toEqual({ text: 'You reach Cedar Grove Elementary at 2:47pm, two minutes after pickup.', late: true });
     expect(sheet.stations[2].leaveAt).toBe('15:05');
-    expect(sheet.stations[4].backAround).toBe('Back around 4:35pm');
+    expect(sheet.stations[4].backAround).toEqual({ label: 'Back around', time: '4:35pm' });
   });
 
   it('names the day and its backups for tomorrow\'s run', () => {
@@ -280,7 +280,7 @@ describe('the Leave sheet (spec §5, "The Leave sheet")', () => {
     expect(sheet.heading).toBe('Leave home for Willow Yoga tomorrow');
     expect(sheet.line).toBeNull();
     expect(sheet.stations[1].note).toBe("Conflict: Mallory's pickup");
-    expect(sheet.stations[2].backAround).toBe('Back around 3:25pm');
+    expect(sheet.stations[2].backAround).toEqual({ label: 'Back around', time: '3:25pm' });
     expect(sheet.backups.map((backup) => `${backup.prefix} ${backup.button.label}`)).toEqual(['Plan B · Ask Min-jung', 'Plan C · Skip yoga this week']);
   });
 });

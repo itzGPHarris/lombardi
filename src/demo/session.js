@@ -104,6 +104,9 @@ export function sessionReducer(state, action) {
     case 'RESET': return momentState(state.householdId, householdById(state.householdId).seed.moments[0].id, presenter(state));
     case 'SWITCH_HOUSEHOLD': return momentState(action.householdId, undefined, presenter(state));
     case 'TODAY': return { ...state, today: todayReducer(state.today, action.action) };
+    // Development only: plays steps inside the moment without a jump, so the motion a step brings can
+    // be recorded for evidence before Stage 6 plays steps as the presenter taps.
+    case 'DEV_PLAY': return { ...state, played: action.played, at: action.at ?? null };
     case 'VIEW_AS': return { ...state, viewAs: action.person, still: null, tab: 'today', stack: [], switcherOpen: false };
     case 'SET_PHONE_FRAME': return { ...state, phoneFrame: action.on, switcherOpen: false };
     case 'SET_COACH_MODE': return { ...state, coachMode: action.mode };

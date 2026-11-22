@@ -365,7 +365,9 @@ function tripPass({ now: nowState, find, clock, local }) {
     tint: 'kid', time: formatTime(run.stops[0].leaveAt), leaveTime,
     pill: statusPill({ now: clock, leaveTime, needsOwner: nowState.needsOwner, anchor: find.anchor }),
     route: run.stops.slice(0, last).map((stop) => placeName(find, stop.place)),
-    opensLeaveSheet: !tomorrow || !nowState.needsOwner,
+    // The pass opens the Leave sheet for the trip, as 0i-a draws it with its chevron, even while the
+    // trip needs an owner; Remind me waits until she owns it.
+    opensLeaveSheet: true,
     nextStation: null,
     timetable,
   };
@@ -658,7 +660,7 @@ export function leaveSheetView({ runId, find, clock, local, draft = {}, open = n
         text: item.stopLabel ?? item.title,
       },
       note: conflict ? `${words.pass.conflict} ${conflict.label}` : item?.fromCalendar ? words.leaveSheet.changeInCalendar : null,
-      backAround: isLast && reach[index] ? fill(words.leaveSheet.backAround, { time: formatTime(reach[index]) }) : null,
+      backAround: isLast && reach[index] ? { label: words.leaveSheet.backAround.replace('{time}', '').trim(), time: formatTime(reach[index]) } : null,
       leaveLabel: !isLast && leave[index] ? fill(words.leaveSheet.leaveAt, { from: spokenPlace(place) }) : null,
       leaveAt: !isLast ? leave[index] : null,
       changed: changes[index] !== undefined && changes[index] !== base.stops[index].leaveAt,

@@ -33,3 +33,4 @@
 .reach { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
 .reach[data-late] { color: var(--status-warning); }
 .back { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.backTime { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }

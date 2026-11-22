@@ -65,6 +65,13 @@ export default function App({ start = {}, embedded = false }) {
 
   const sessionValue = useMemo(() => ({ session, dispatch, household }), [session, household]);
 
+  // Development only, never in a build: lets the evidence recordings play a step in place.
+  useEffect(() => {
+    if (!import.meta.env.DEV) return undefined;
+    window.mvpDevPlay = (played, at) => dispatch({ type: 'DEV_PLAY', played, at });
+    return () => { delete window.mvpDevPlay; };
+  }, []);
+
   if (session.phoneFrame && isDesktop && !embedded) {
     return <PhoneFrameView householdId={session.householdId} momentId={session.momentId} />;
   }
