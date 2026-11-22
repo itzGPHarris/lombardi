@@ -99,7 +99,8 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 
 ### Stage 4: Onboarding
 
-1. §3, O9, T8: C-00 from the splash (0s) to the coach's introduction (0j), and her first board from 0i-a to 0i-h
+1. §16: the seed brought up to fixtures 3.49, with Today at the T72 and T73 moments, the new runs for Tuesday, Wednesday and Friday, the checkup run's child (D9), the food drive (A12), C-09 (G47, G48), the first newsletter (K8), the full grade list (O25), the card after Plan C (T89), C-00's other tabs as data for Stage 5 (P4), and the exemption for `src/copy/demo.js` taken out of the fixtures test (C74)
+2. §3, O9, T8: C-00 from the splash (0s) to the coach's introduction (0j), and her first board from 0i-a to 0i-h
 
 ### Stage 5: The other tabs, at every moment
 

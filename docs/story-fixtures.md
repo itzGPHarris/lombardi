@@ -1,6 +1,6 @@
 # Demo fixtures: the MVP families
 
-*MVP (Lombardi) · Version 3.48 · November 20, 2026 · Charlotte and Edward only*
+*MVP (Lombardi) · Version 3.49 · November 21, 2026 · Charlotte and Edward only*
 
 # 1. What this document is for
 
@@ -346,7 +346,7 @@ Today has four parts, always in this order.
 
 **Removing and adding an item.** Tapping a remove button on an item that repeats, such as a lunchbox or the sneakers on a D day, asks in place on the row whether it is "Just tonight" or "Every night" in the evening, or "Just today" or "Every day" during the day. The first brings the item back the next time it is due, and the second keeps it off until she adds it again. An item that happens once, such as a library book due today, is removed straight away. Either way the row goes, and a notice rises above the capture bar for about four seconds with one line and Undo, such as "Lunchbox is off Mallory's list for tonight." or "Lunchbox is off Mallory's list until you add it back." When VoiceOver is on, the notice stays until she dismisses it. "Add something else for Mallory" opens a new row at the foot of Mallory's group, with the caret, the placeholder "What else does Mallory need?" and the keyboard up. The link hides while she types, the screen scrolls so the row sits above the keyboard, Return adds the item, and tapping elsewhere with the field empty drops the row. What she adds is hers for that departure only, with no source link and no mark. Heather chose the two removal choices in her wording review of Oct. 28, 2026, and Greg drew the per-row remove button, the Undo notice and the add row the same day.
 
-**A finished checklist folds away.** When she ticks a child's last item, that child's group folds into one line, the heading with a check and the count, such as "Alexis · 3 packed". Her own tasks fold the same way under their heading, such as "Before you leave · 1 done". Tapping a folded line opens the group again with every item still ticked, so she can check it or untick a slip, and the group folds again when the last item is ticked. When every group under Now is ticked, the whole checklist folds into one line, "Everything is packed for" and the leaving time, such as "Everything is packed for 7:40am", with a check that draws in once. Tapping that line opens the groups again. Nothing else happens: there is no praise, no coach line, no sound and no confetti, because the coach never praises her and the fold is only a tidy way to say the list is finished. When the phone asks for reduced motion, the check appears without drawing in. In the evening, the reminders fold the same way on tomorrow's pass. When every group on the pass is ticked, the list folds into "Everything is packed for" and the leaving time while anything under For tomorrow is still open, and into "Everything is ready for" and the same phase as the heading, such as "Everything is ready for tomorrow morning.", once nothing for tomorrow is left to tick, so the line is always true of what she has packed. The pass stays where it is either way. In For tomorrow each group folds, and the departure keeps its row.
+**A finished checklist folds away.** When she ticks a child's last item, that child's group folds into one line, the heading with a check and the count, such as "Alexis · 3 packed". Her own tasks fold the same way under their heading, such as "Before you leave home · 1 done". Tapping a folded line opens the group again with every item still ticked, so she can check it or untick a slip, and the group folds again when the last item is ticked. When every group under Now is ticked, the whole checklist folds into one line, "Everything is packed for" and the leaving time, such as "Everything is packed for 7:40am", with a check that draws in once. Tapping that line opens the groups again. Nothing else happens: there is no praise, no coach line, no sound and no confetti, because the coach never praises her and the fold is only a tidy way to say the list is finished. When the phone asks for reduced motion, the check appears without drawing in. In the evening, the reminders fold the same way on tomorrow's pass. When every group on the pass is ticked, the list folds into "Everything is packed for" and the leaving time while anything under For tomorrow is still open, and into "Everything is ready for" and the same phase as the heading, such as "Everything is ready for tomorrow morning.", once nothing for tomorrow is left to tick, so the line is always true of what she has packed. The pass stays where it is either way. In For tomorrow each group folds, and the departure keeps its row.
 
 **Later today is a list.** Each row has its time in the Meta style, its chips, the calendar mark when the item came from her calendar, and the item, and the times line up in a column. The calendar mark is small, in a muted ink and never cerulean, because cerulean means something she can tap, and the mark is not a control. Its accessible label is "From your calendar". What is already done drops off the list, and a line in Meta at the foot of the list says how much, such as "2 done this morning", so the heading stands alone. Anything that has changed today carries the Updated mark on its row. Each row shows the time the thing itself starts, such as 8:30am for Mallory at Westview Kindergarten, and the leaving time belongs to Now, For tomorrow and the Leave sheet. When nothing is left later today, the heading stays with the count line beneath it, such as "5 done today", and no rows. When nothing was planned at all, Later today is hidden.
 
@@ -465,7 +465,7 @@ Today changes one kind of thing: when she leaves. The Leave sheet is where she d
 
 **She can change when she leaves any stop.** Tapping a leaving time opens it in place, tinted, with two outlined buttons beneath it, "5 min earlier" and "5 min later". Every leaving time is worked out in five-minute steps, and a change is almost always a step or two, so two buttons are quicker than a wheel and easier to hit while holding a child's hand. With each tap the time moves and a line under that station gives the result, such as "You reach Westview Kindergarten at 2:25pm, five minutes before pickup." or "You reach Studio Ten Dance at 4:20pm, five minutes after ballet starts." A late choice is stated and never blocked, and the line turns to the warning ink when she would arrive after the item starts. The change ripples down the line, so later stations show their new times, and a later stop she would now reach after it is due gets the same line in the warning ink, so a late arrival further down the run is never hidden. A leg never leaves a stop before she has reached it. Save keeps the change, and Close leaves everything as it was. A change she makes carries no Updated mark, a reminder she has set moves with the new leaving time, and a change that runs into another item raises the Conflict mark on both and brings the coach card.
 
-**The start time changes only on her own items.** A station whose item is hers carries a "Change the start time" link. A calendar item reads "Change this in Google Calendar." instead, and its leaving time can still change, because the leaving time belongs to MVP and never to her calendar. Items someone else owns, and items someone has answered, are changed in the game plan.
+**Start times change in the game plan.** The Leave sheet changes only when she leaves. A start time, even on her own item, is changed from the item's page in the game plan, because changing what is planned is an edit, and edits belong there (issue T88). A calendar item reads "Change this in Google Calendar." under its station, and its leaving time can still change, because the leaving time belongs to MVP and never to her calendar.
 
 **Plan B and Plan C sit at its foot,** under the heading "Backup plans", when the coach has written backups for this run. "Other options" on the coach card opens the sheet scrolled to them.
 
@@ -1298,7 +1298,7 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 | C-03a | Monday, Oct. 12, 7:45am | Min-jung leaves Hana with Charlotte for the run to Westview Kindergarten and hands her a Westview Kindergarten flyer. Charlotte types it into the capture bar on Today and adds a photo of the flyer, and the read-back lands on the coach card. | Capture on Today changing a departure | Core |
 | C-03b | Monday, Oct. 12, 2:00pm | Charlotte's reminder goes off, and she collects both girls and takes them to Brightwater Family Therapy, a run that never passes home. | The afternoon as a line, the Leave sheet, and Now stepping from stop to stop | Core |
 | C-04 | Monday, Oct. 12, 8:50pm | Charlotte works the game plan without the coach. | The review card, moving an item and asking someone to take one | Optional |
-| C-04b | Tuesday, Oct. 13, 7:05am | Edward says yes to the library run and adds a note. | A note on a yes, from the recipient's side | Optional |
+| C-04b | Tuesday, Oct. 13, 7:20am | Edward says yes to the library run and adds a note. | A note on a yes, from the recipient's side | Optional |
 | C-05 | Tuesday, Oct. 13, 12:20pm | Alexis's therapist is leaving, and Charlotte asks her group. | Her people | Core |
 | C-05b | Tuesday, Oct. 13, 3:40pm | A Westview Kindergarten email changes the pickup rule, and the coach updates the Westview Kindergarten card. | A school card kept current | Optional |
 | C-05c | Tuesday, Oct. 13, 8:15pm | Charlotte asks Edward and Claire together how to tell Alexis about her therapist. | A group chat with her circle | Core |
@@ -1765,7 +1765,7 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 
 **Today, as shown: the next morning, between drop-offs (0i-h) · Tuesday, Oct. 6, 8:05am**
 
-*Charlotte has dropped Alexis off at Cedar Grove Elementary on time, and before she leaves for Westview Kindergarten she checks MVP. Both halves of the pass have moved on with the clock. The board stays inside C-00 as "the next morning", with no moment ID of its own. Its sheet holds Later today, listing Tuesday's routine items from the afternoon on, as "The week in the game plan" gives them for Tuesday, with no coach card and no MVP Editorial (Appendix B item 88).*
+*Charlotte has dropped Alexis off at Cedar Grove Elementary on time, and before she leaves for Westview Kindergarten she checks MVP. Both halves of the pass have moved on with the clock. The board stays inside C-00 as "the next morning", with no moment ID of its own. Its sheet is hidden, so Later today, the coach card and MVP Editorial stay off this board, because that Tuesday falls outside the demo week and nothing about its afternoon adds to the story (Appendix B item 88, issue T84).*
 
 > Tuesday morning, Oct. 6
 
@@ -1785,7 +1785,84 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 
 > [Directions]
 
-*The pill is in its 15-minute stage, so the countdown is in the warning ink. At 8:10am it reads "Time to leave", and from 8:15am "Running late". The reminders are gone because she has left home, and Directions replaces Remind me because she is on the road. The fixtures don't yet say what else is on her Tuesday, so the sheet below the pass is empty on this board (Appendix B).*
+*The pill is in its 15-minute stage, so the countdown is in the warning ink. At 8:10am it reads "Time to leave", and from 8:15am "Running late". The reminders are gone because she has left home, and Directions replaces Remind me because she is on the road. The sheet below the pass is hidden on this board, as set out above.*
+
+### The other tabs on her first night
+
+*These are the four other tabs as they stand at the end of C-00, after she agrees on her first board. The words follow from what onboarding collected and nothing more, and Greg approved them on November 21, 2026 before they are drawn (issue P4).*
+
+**Coach, as shown.** The conversation from onboarding, under the heading "Today", oldest first: her photo of the rotation calendar, the coach's read-back, "Whose calendar is this?" with her choice, "Mallory · K", the coach's question about the highlights, her answer, the hand-off, and "Welcome to the team, Charlotte." with its recap. In the history, the welcome shows without its tick boxes and Next, because those belong to onboarding.
+
+**Game plan, as shown.** The agenda opens at today, Monday, Oct. 5.
+
+> One update is waiting for your review.
+>
+> For this Thursday
+> [Mallory] Back-to-school night, Westview Kindergarten, 6:00pm
+> No thanks · [Add to the game plan]
+
+| Day | Time | Item | Owner |
+| ----- | ----- | ----- | ----- |
+| Today | | Today · 1 done | |
+| Tomorrow | 8:00am | [Alexis] To Cedar Grove Elementary | You |
+| | 8:30am | [Mallory] To Westview Kindergarten · D day | You |
+| Wednesday | | 3 items, collapsed | |
+| Thursday | | 3 items, collapsed, with the dot | |
+| Friday | | 2 items, collapsed | |
+| Saturday | | Nothing is planned. · Tell the coach about this day, and it will suggest how it could go. | |
+| Sunday | | Nothing is planned. · Tell the coach about this day, and it will suggest how it could go. | |
+| Next week | | Collapsed | |
+
+*Today's one done item is Alexis's therapy at 3:30pm, from her Google Calendar. Wednesday holds both school runs and Alexis's dance at 3:45pm, Thursday both school runs and Mallory's ballet at 4:15pm, and Friday both school runs, with the calendar mark on dance and ballet. Pickups are not in the plan yet, because setup asked only for start times. The quiet line on an empty day has its first moment here.*
+
+**Team, as shown.**
+
+| Part | Content |
+| ----- | ----- |
+| Header | Team · [New message] |
+| Chats | No chats yet. Start one with anyone in your circle who's on MVP. |
+| Groups | No groups yet. Create one for the parents who share your children's week. |
+| Team | Edward · Your husband · [Circle]<br>Claire · Your sister · [Circle] |
+| Below the lists | [Add someone] [New group] |
+
+*Setup asked for names and relationships but no mobile numbers, so MVP can't yet tell whether Edward and Claire are on MVP, and neither row says so.*
+
+**Kids, as shown: Alexis**
+
+| Section | Content |
+| ----- | ----- |
+| Header | Alexis · 10 · Fourth grade |
+| School | Cedar Grove Elementary |
+| Every week | Dance, Studio Ten Dance, Wednesdays 3:45pm, with the calendar mark · Therapy, Brightwater Family Therapy, Mondays 3:30pm, with the calendar mark |
+| Going with, by day | Nothing goes with Alexis on a set day yet. |
+
+**Kids, as shown: Mallory**
+
+| Section | Content |
+| ----- | ----- |
+| Header | Mallory · 6 · Kindergarten |
+| School | Westview Kindergarten |
+| Every week | Ballet, Studio Ten Dance, Thursdays 4:15pm, with the calendar mark |
+| Going with, by day | Sneakers on B, D and F days · Library book on A days |
+
+**Kids, as shown: the Westview Kindergarten card**
+
+| Section | Content |
+| ----- | ----- |
+| Hours | Starts 8:30am |
+| Rules | A, library · B and D, motor skills · C, science · E, art and music · F, science and motor skills |
+| Calendar | Back-to-school night, this Thursday, 6:00pm · Harvest fair, Friday, Oct. 23, 3:00pm to 5:00pm · Fir Hollow Farm field trip, Thursday, Oct. 29 |
+| Rotation | This week: Monday C · Tuesday D · Wednesday E · Thursday F · Friday A |
+| Documents | Rotation calendar, photo, today |
+
+**Kids, as shown: the Cedar Grove Elementary card**
+
+| Section | Content |
+| ----- | ----- |
+| Hours | Starts 8:00am |
+| Line beneath | Send the MVP Coach a handout or an email from Cedar Grove Elementary, and it fills this card in. |
+
+*Contacts, the pickup rule, picture day and the family contact list reach the Westview Kindergarten card later in her first week, and the Cedar Grove Elementary card fills in from the newsletters. Orchestra and violin reach Alexis's page on Thursday of her first week, when she gives the coach Alexis's schedule.*
 
 ## Taught when useful
 
@@ -1803,7 +1880,11 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 
 *This is how the Parks came to drive the Monday carpool.*
 
-*On Wednesday of her first week, at 4:20pm, she forwards the Cedar Grove Elementary newsletter from the Sunday before she started to her MVP address. After the read-back, the coach offers automatic forwarding, and she sets it up, so the demo-week newsletter arrives by itself.*
+*On Wednesday of her first week, at 4:20pm, she forwards the Cedar Grove Elementary newsletter from the Sunday before she started to her MVP address. The coach reads it back, then offers automatic forwarding, and she sets it up, so the demo-week newsletter arrives by itself.*
+
+> From the Cedar Grove Elementary newsletter, nothing from today on is for Alexis, so the plan stays as it is.
+
+*The read-back names no day, because it stays in the Coach tab's history after the week it was written in (issue K8).*
 
 > This newsletter comes from the same Cedar Grove Elementary address every Sunday. If you set your email to forward that address to MVP, each one reaches the coach without you forwarding it.
 >
@@ -1917,6 +1998,10 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 >
 > [Ask Edward]
 
+**Today, as shown**
+
+*Today matches C-03, except that the pill reads "in 1 hr 25 min" in a plain pill, because the Parks come at 7:40am, more than 15 minutes away. Nothing is done yet, so Later today has no count line. There is no coach card at 6:15am, because Jenna's message has not reached MVP. From 6:16am, once Charlotte shares it, the coach card for this Wednesday appears as on C-03. The Thursday choice stays on the Coach tab, where she is already deciding it, so Today never shows two decisions at once (issue T72).*
+
 ## C-02 · Monday, Oct. 12, 6:40am · Charlotte asks Edward
 
 *Tapping Ask Edward opens a message the coach has drafted in Charlotte's voice. She reads it, changes anything she wants to change, and sends it herself.*
@@ -1974,6 +2059,10 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 *Charlotte gets a notification, and both pickups change to "Edward: yes".*
 
 > Edward: yes to both pickups this Thursday.
+
+**Today, as shown**
+
+*Today matches C-03, with the coach card for this Wednesday, except that the pill reads "in 1 hr" in a plain pill (issue T72).*
 
 ## C-03 · Monday, Oct. 12, 7:25am · Getting the girls out the door
 
@@ -2159,7 +2248,7 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 >
 > Game plan updated
 
-*The new item carries no Updated mark, because she added it. The flyer is the item's source, "From the Westview Kindergarten flyer · photo", and the coach files the drive on the Westview Kindergarten card's calendar. Once she ticks all four items, the checklist folds to "Everything is packed for 8:15am". At 8:30am Westview Kindergarten is due and the leg leaves Now, as in C-03.*
+*The new item carries no Updated mark, because she added it. The flyer is the item's source, "From the Westview Kindergarten flyer · photo", and the coach files the drive on the Westview Kindergarten card. Its Calendar gains "Fall food drive, today · One canned or boxed food item, bins by the front office", and its Documents gain "Fall food drive flyer, photo, today". From Tuesday the drive leaves the Calendar, because it has passed, and the flyer stays in Documents as "Fall food drive flyer, photo, yesterday", then "this Monday" (issue A12). Once she ticks all four items, the checklist folds to "Everything is packed for 8:15am". At 8:30am Westview Kindergarten is due and the leg leaves Now, as in C-03.*
 
 ## C-03b · Monday, Oct. 12, 2:00pm · The afternoon run
 
@@ -2305,7 +2394,7 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 > 2:30pm
 > Time to leave
 >
-> Drive 12 min · Arrive 2:42pm · Pickup 2:45pm
+> Drive 12 min · Arrive 2:43pm · Pickup 2:45pm
 >
 > [perforation]
 >
@@ -2374,6 +2463,38 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 
 *Charlotte opens the game plan once the girls are in bed, and everything she does here she does without the coach. The point is that the plan belongs to her. The coach suggests, and the game plan is where she decides. The review card shows her what is waiting to go in, and the agenda shows the rest of the week.*
 
+**Today, as shown: the header**
+
+> Monday evening, Oct. 12
+
+**Today, as shown: tomorrow's pass**
+
+> Take Alexis to orchestra at Cedar Grove Elementary
+>
+> 6:55am · [Tomorrow]
+>
+> Home → Cedar Grove Elementary
+>
+> Drive 12 min · Arrive 7:07am · Starts 7:15am
+>
+> Reminders for tomorrow morning
+>
+> Alexis
+> Put the violin case and orchestra folder by the front door for the 6:55am start · [✕]
+> Pack the lunch and snack tonight to save time in the morning · [✕]
+> Add something else for Alexis
+>
+> [Remind me to leave home]
+
+**Today, as shown: for tomorrow**
+
+| Time | Departure | Checklist |
+| ----- | ----- | ----- |
+| 8:15am | Leave home at 8:15am to take Mallory to Westview Kindergarten · C day | [Mallory] Pack the lunch and snack tonight to save time in the morning |
+| 3:40pm | Leave home at 3:40pm to take Alexis to violin at Lakeside Strings Music School | |
+
+*Mallory rides along to orchestra, so the pass takes the children's tint, but nothing of Mallory's goes with the 6:55am departure, so Mallory has no group on it. A C day needs neither sneakers nor a library book. The violin row has no items, because the violin case is already on the morning's list and comes home with Alexis. The afternoon pickups leave home without a child, so they stay in the game plan, as on C-09. Nothing needs an answer from her, so there is no coach card, and the sheet holds For tomorrow alone (issue T72).*
+
 **Game plan, as shown: when she opens it**
 
 > One update is waiting for your review.
@@ -2396,7 +2517,7 @@ She opens violin, which clears its Updated mark.
 
 *The review card is gone, because nothing is waiting. Tuesday shows violin with no mark. Friday shows both notes under their items. Saturday shows the library run with Edward's initial and an hourglass, labeled "Asked Edward". Next week holds the second tutoring session on Tuesday at 3:00pm.*
 
-## C-04b · Tuesday, Oct. 13, 7:05am · Edward takes the library run
+## C-04b · Tuesday, Oct. 13, 7:20am · Edward takes the library run
 
 *Edward opens the request Charlotte sent from the game plan the night before. He says yes and adds a note, which shows the one path a request can take that no other moment uses: a note with a yes. The note travels with the answer and changes nothing in the plan by itself.*
 
@@ -2416,7 +2537,7 @@ She opens violin, which clears its Updated mark.
 
 > We'll get lunch after and be home by 1:00pm.
 
-**Edward's screen, as shown: after he answers · 7:05am**
+**Edward's screen, as shown: after he answers · 7:20am**
 
 > Charlotte is asking you to take Alexis and Mallory to the library this Saturday.
 > Sent yesterday, 8:52pm
@@ -2437,9 +2558,43 @@ She opens violin, which clears its Updated mark.
 | Saturday | Library run, 10:00am | Edward | Edward: yes · Updated |
 | | Edward: We'll get lunch after and be home by 1:00pm. | | |
 
+**Today, as shown: Charlotte's Today at 7:20am**
+
+*Orchestra was due at 7:15am, so that leg has left Now, and Mallory's run leads.*
+
+> Take Mallory to Westview Kindergarten · C day
+>
+> Home → Westview Kindergarten
+>
+> 8:15am
+> in 55 min
+>
+> Drive 10 min · Arrive 8:25am · Starts 8:30am
+>
+> [perforation]
+>
+> Mallory
+> Lunch
+> Add something else for Mallory
+>
+> [Remind me] [Directions]
+
+**Today, as shown: later today**
+
+*At the foot of Later today: 1 done this morning.*
+
+| Time | Chips | Item |
+| ----- | ----- | ----- |
+| 8:30am | Mallory | To Westview Kindergarten · C day |
+| 2:30pm | Mallory | Pick up at Westview Kindergarten |
+| 2:45pm | Alexis | Pick up at Cedar Grove Elementary |
+| 4:00pm | Alexis | Lakeside Strings Music School, with Mallory |
+
+*MVP Editorial shows the conference article, as on C-03, and there is no coach card. The moment is at 7:20am rather than 7:05am because at 7:05am Charlotte is on her way to orchestra, and her pass would read "Running late" by the rule, which is true of the rule and wrong for a demo (issue T72).*
+
 ## C-05 · Tuesday, Oct. 13, 12:20pm · Asking her people
 
-*Brightwater Family Therapy's voicemail arrived at 11:50am. The coach does not look up therapists or recommend people, so it tells Charlotte who can help with each part of this, and names Karen as the right person for Alexis's side of it. The card concerns no particular day, so its label names none. The dateline reads "Tuesday afternoon, Oct. 13". Now, Later today and MVP Editorial follow Tuesday's items in the game plan, and this moment fixes only the coach card.*
+*Brightwater Family Therapy's voicemail arrived at 11:50am. The coach does not look up therapists or recommend people, so it tells Charlotte who can help with each part of this, and names Karen as the right person for Alexis's side of it. The card concerns no particular day, so its label names none. The dateline reads "Tuesday afternoon, Oct. 13". Now, Later today and MVP Editorial are as shown below the coach card.*
 
 **Today, as shown: the coach card**
 
@@ -2450,6 +2605,34 @@ She opens violin, which clears its Updated mark.
 > [Ask my parent group]
 >
 > Remind me next Monday, Oct. 19
+
+**Today, as shown: now**
+
+> Pick Mallory up at Westview Kindergarten
+>
+> Home → Westview Kindergarten
+> Then Cedar Grove Elementary, 2:45pm
+>
+> 2:15pm
+> in 1 hr 55 min
+>
+> Drive 10 min · Arrive 2:25pm · Pickup 2:30pm
+>
+> [Remind me] [Directions]
+
+*Nothing goes with the pickups, so the pass has no checklist, and the actions sit under the first dashed line.*
+
+**Today, as shown: later today**
+
+*At the foot of Later today: 2 done today.*
+
+| Time | Chips | Item |
+| ----- | ----- | ----- |
+| 2:30pm | Mallory | Pick up at Westview Kindergarten |
+| 2:45pm | Alexis | Pick up at Cedar Grove Elementary |
+| 4:00pm | Alexis | Lakeside Strings Music School, with Mallory |
+
+*MVP Editorial shows the conference article, as on C-03 (issue T73).*
 
 *She taps Ask my parent group, which opens a new post on the Team tab, drafted in her words and addressed to her group. She can change any of it before it goes.*
 
@@ -2484,7 +2667,7 @@ She opens violin, which clears its Updated mark.
 
 ## C-05b · Tuesday, Oct. 13, 3:40pm · The Westview Kindergarten card changes
 
-*Westview Kindergarten emails every family about a new rule for pickup changes, and Charlotte forwards it to her MVP address from the car line. The email holds no event for the game plan. It changes reference, so the coach files it on the Westview Kindergarten card and says what changed. The next day, in C-06, the pickup note goes to the new address, which shows why the card matters.*
+*Westview Kindergarten emails every family about a new rule for pickup changes, and Charlotte forwards it to her MVP address from home, before she leaves for violin. The email holds no event for the game plan. It changes reference, so the coach files it on the Westview Kindergarten card and says what changed. The next day, in C-06, the pickup note goes to the new address, which shows why the card matters.*
 
 **Coach, as shown: the read-back**
 
@@ -2504,6 +2687,23 @@ She opens violin, which clears its Updated mark.
 | Rules | Children are released only to people on the pickup list. Changes to who picks up must reach pickups@westviewk.org by 11:00am on the day. · Updated |
 | Earlier version | Changes to who picks up: through the family portal · Until today |
 | Documents | Pickup change email, today · Rotation calendar, photo, last week · Family contact list, photo, last week |
+
+**Today, as shown: now**
+
+*Both pickups are done, and violin leads Now.*
+
+> Take Alexis to violin at Lakeside Strings Music School
+>
+> Home → Lakeside Strings Music School
+>
+> 3:40pm
+> Time to leave
+>
+> Drive 15 min · Arrive 3:55pm · Starts 4:00pm
+>
+> [Directions]
+
+*Remind me has gone, because a reminder can no longer help at the leaving time. Later today lists "4:00pm · [Alexis] Lakeside Strings Music School, with Mallory", with "4 done today" at its foot, and MVP Editorial shows the conference article. The coach card from C-05 kept its thread only until she left Today, so there is no coach card (issue T72).*
 
 ## C-05c · Tuesday, Oct. 13, 8:15pm · Asking Edward and Claire
 
@@ -2555,6 +2755,36 @@ She opens violin, which clears its Updated mark.
 > Message · [Send]
 
 *Messages are listed oldest first, because a chat is read as a conversation, while the group page lists posts newest first. Claire's and Edward's messages each arrive as a notification, such as "Claire: Tell her together, and tell her Karen is helping choose who's next." Nothing in the chat reaches the plan. If Charlotte wants Sunday night on the plan, she adds it herself, and in the demo she doesn't.*
+
+**Today, as shown: the header**
+
+> Tuesday evening, Oct. 13
+
+**Today, as shown: tomorrow's pass**
+
+> Drive Alexis's carpool to Cedar Grove Elementary
+>
+> 7:40am · [Tomorrow]
+>
+> Home → Cedar Grove Elementary
+>
+> Drive 12 min · Arrive 7:52am · Starts 8:00am
+>
+> Reminders for tomorrow morning
+>
+> Alexis
+> Pack the lunch and snack tonight to save time in the morning · [✕]
+> Add something else for Alexis
+>
+> [Remind me to leave home]
+
+**Today, as shown: for tomorrow**
+
+| Time | Departure | Checklist |
+| ----- | ----- | ----- |
+| 8:15am | Leave home at 8:15am to take Mallory to Westview Kindergarten · D day | [Mallory] Pack the lunch and snack tonight to save time in the morning · [Mallory] Sneakers, it's a motor skills day |
+
+*Charlotte took Wednesday's carpool in C-03, so it is hers and leads the board. Ada and the other carpool children are not Charlotte's, so the title names Alexis alone. Alexis's dance bag goes with the 2:15pm pickup run, as on C-06, and that run leaves home without a child, so it is not listed. Nothing needs an answer, so there is no coach card (issue T72).*
 
 ## C-06 · Wednesday, Oct. 14, 11:45am · Edward can't do Mallory
 
@@ -2701,6 +2931,26 @@ She opens violin, which clears its Updated mark.
 
 *The recommendation is in muted ink and the plan she chose in full ink, so she sees both, and the chosen plan uses the coach's own Plan B line from the Leave sheet. The follow-up keeps its first sentence, because it is the only line on the card that says the plan still depends on Min-jung. The card has no Undo, because the request to Min-jung has already gone. The full version of the day, with Min-jung dropping Mallory at the house by 2:45pm and the 2:15pm class kept, is in the coach's message on the Coach tab.*
 
+**Today, as shown: the coach card after Plan C**
+
+*The demo takes Plan B. If she taps Skip yoga this week instead, the sheet closes, yoga leaves Thursday's plan, Mallory's pickup becomes hers with no status, and both Conflict marks clear. Edward's "can't" stays in the record of his answers. The card keeps the thread.*
+
+> MVP Coach · for tomorrow
+>
+> Edward can't get Mallory at 2:30pm tomorrow. I'd move your yoga to the 12:15pm class, so you can pick Mallory up yourself.
+>
+> ✓ Pick Mallory up yourself and skip yoga this week. Tomorrow runs like an ordinary Thursday, and Mallory rides with you to ballet as usual.
+>
+> Yoga is out of tomorrow's plan. If you booked the 2:15pm class at Willow Yoga, cancel it there.
+>
+> [Open the game plan]
+>
+> Undo
+>
+> Game plan updated
+
+*Plan C sends nothing to anyone, so it keeps Undo until she leaves Today (issue T89).*
+
 *Both messages are drafted in Charlotte's voice, and she sends each one herself. Min-jung has MVP, so her request arrives as a card in her own MVP. The Westview Kindergarten office is outside MVP, so MVP hands the note to Charlotte's email app, addressed to the pickup changes contact on the Westview Kindergarten card, which the Westview Kindergarten email updated in C-05b. Sending it adds "Send Westview Kindergarten the pickup note" to her list, where it stays until she ticks it off.*
 
 > To Min-jung Park
@@ -2799,7 +3049,7 @@ She opens violin, which clears its Updated mark.
 > Alexis
 > Dance bag
 >
-> Before you leave
+> Before you leave home
 > Call Brightwater Family Therapy to ask for Dana Whitfield
 > Brightwater Family Therapy · 707-555-0170 · [Call]
 > Send Westview Kindergarten the pickup note
@@ -2807,7 +3057,7 @@ She opens violin, which clears its Updated mark.
 >
 > [Remind me] [Directions]
 
-*Call opens her phone app with Brightwater Family Therapy's number, staged in the prototype. Send from Mail reopens the note to Westview Kindergarten from C-06 in her email app. Tapping either row anywhere but its button ticks it. If she taps Remind me, the sheet is the one in C-06, because the leaving time and the stop are the same and both choices are still ahead. Once set, the button reads "Reminder at 2:00pm". When she ticks the dance bag, Alexis's group folds to "Alexis · 1 packed", and when she ticks both tasks, her tasks fold to "Before you leave · 2 done". With every group ticked, the checklist folds to "Everything is packed for 2:15pm".*
+*Call opens her phone app with Brightwater Family Therapy's number, staged in the prototype. Send from Mail reopens the note to Westview Kindergarten from C-06 in her email app. Tapping either row anywhere but its button ticks it. If she taps Remind me, the sheet is the one in C-06, because the leaving time and the stop are the same and both choices are still ahead. Once set, the button reads "Reminder at 2:00pm". When she ticks the dance bag, Alexis's group folds to "Alexis · 1 packed", and when she ticks both tasks, her tasks fold to "Before you leave home · 2 done". With every group ticked, the checklist folds to "Everything is packed for 2:15pm".*
 
 **Today, as shown: the reminder sheet in C-06b**
 
@@ -2855,7 +3105,7 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 
 **Today, as shown: Friday's Leave sheet, at its foot**
 
-> Leave home for Cedar Grove Elementary
+> Leave home for Northside Pediatrics
 >
 > This Friday afternoon
 >
@@ -2868,7 +3118,7 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 >
 > I don't see another way that keeps both this Friday.
 
-*Above the backup, the sheet draws Friday afternoon as it stands: home, then Cedar Grove Elementary for Alexis at 2:45pm, then home, then Northside Pediatrics for the checkup at 3:30pm with "Conflict: tutoring". Call Northside Pediatrics opens her phone app with the number for Northside Pediatrics, staged in the prototype, and a call leaves no task.*
+*Above the backup, the sheet draws the run the backup is for, which is the checkup's: home, leaving at 3:10pm, then Northside Pediatrics for the checkup at 3:30pm with "Conflict: tutoring", leaving at 4:15pm when the checkup ends, then home, back around 4:30pm. The afternoon pickup is a run of its own and stays off this sheet, because a Leave sheet draws one run (issue T87). Call Northside Pediatrics opens her phone app with the number for Northside Pediatrics, staged in the prototype, and a call leaves no task.*
 
 *The same backups are on the checkup's page in the game plan, which she reaches by tapping the checkup there.*
 
@@ -2978,6 +3228,10 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 >
 > Message · [Send]
 
+**Today, as shown**
+
+*Today matches the board "Wednesday, Oct. 14, 5:10pm · A timed thing at home", except that the pill reads "in 1 hr 40 min". Later today shows its heading and "5 done today", with no rows. Ms. Reyes answered at 3:10pm, and the coach card for Friday kept its thread only until Charlotte left Today, so there is no coach card (issue T72).*
+
 ## C-07 · Wednesday, Oct. 14, 9:10pm · Tonight
 
 *After dinner the dateline reads "Wednesday evening, Oct. 14" and Today turns to the morning ahead. It shows what has to be ready tonight and how tomorrow starts, and it leaves the rest of Thursday to the game plan. Everyone asked about Thursday has answered, so the coach needs nothing from her and no coach card appears.*
@@ -3032,6 +3286,48 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 >
 > Two outfits, not twenty: getting dressed without the standoff
 
+**Today, as shown: the header**
+
+> Thursday evening, Oct. 15
+
+**Today, as shown: tomorrow's pass**
+
+> Drive Alexis's carpool, then take Mallory to Westview Kindergarten
+>
+> 7:40am · [Tomorrow]
+>
+> Home → Cedar Grove Elementary → Westview Kindergarten
+
+| Time | Step |
+| ----- | ----- |
+| 7:40am | Leave home |
+| 7:52am | [Alexis] Cedar Grove Elementary · Drop off · Starts 8:00am |
+| 8:10am | Leave Cedar Grove Elementary |
+| 8:22am | [Mallory] Westview Kindergarten · Drop off · F day · Starts 8:30am |
+| 8:40am | Back home |
+
+> Reminders for tomorrow morning
+>
+> Alexis
+> Pack the lunch and snack tonight to save time in the morning · [✕]
+> Add something else for Alexis
+>
+> Mallory
+> Pack the lunch and snack tonight to save time in the morning · [✕]
+> The green dress for picture day, hanging in the laundry room · [✕]
+> Sneakers, it's a motor skills day · [✕]
+> Add something else for Mallory
+>
+> [Remind me to leave home]
+
+**Today, as shown: for tomorrow**
+
+| Time | Departure | Checklist |
+| ----- | ----- | ----- |
+| 3:10pm | Leave home at 3:10pm to take Mallory to the checkup at Northside Pediatrics | |
+
+*Friday's carpool has two children and two stops, so it is a trip pass. Ada and Sophie ride along and are not named, because they are not Charlotte's children. The dress comes from Charlotte's note on picture day, and C-01 already put Mallory's outfit on this Thursday night's list. Alexis's free dress day needs nothing packed. The checkup has nothing to pack, so its row shows the departure alone. Charlotte's conference and the afternoon pickups leave home without a child, so they stay in the game plan. Nothing needs an answer, so there is no coach card, and the evening shows no MVP Editorial, as on C-07 (issue T72).*
+
 ## C-08b · Thursday, Oct. 15, 9:05pm · A question for Dr. Ortiz
 
 *A few minutes after the picture day answer, Charlotte asks something the coach must not answer itself. The coach doesn't give medical advice, so it names the person in her circle who can, gives her the way to reach that person tonight, and connects the question to the checkup already in her plan. This is the only moment that shows the coach handing a question to a professional.*
@@ -3052,6 +3348,10 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 *No article is attached, because a medical question gets a person, not reading. Call Northside Pediatrics opens her phone app with the number, and it leaves no task. Charlotte taps "Add the cough to tomorrow's checkup", and the checkup in the game plan gains the note "Ask Dr. Ortiz about Mallory's cough". The note is her action, so it carries no Updated mark. The coach's line underneath reads as below.*
 
 > The note is on tomorrow's checkup.
+
+**Today, as shown**
+
+*Today is the same as in C-08, because the note about the cough goes on the checkup's page and not on Today (issue T72).*
 
 ## C-09 · Sunday, Oct. 18, 7:30pm · Looking ahead to next week
 
@@ -3099,7 +3399,7 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 >
 > No thanks
 
-*She taps Add the fair. The fair joins Friday as hers, both it and tutoring show the Conflict mark naming the other, and the card turns to the way through.*
+*She taps Add the fair. The fair joins Friday as hers, the fair reads "Conflict: tutoring" and tutoring reads "Conflict: the harvest fair", and the card turns to the way through.*
 
 > MVP Coach · for next week
 >
@@ -3111,6 +3411,23 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 > Other options
 
 *Other options opens next Friday's Leave sheet at its backups. The fair and tutoring are both at Westview Kindergarten, so Plan B keeps both and depends on nobody.*
+
+**Today, as shown: next Friday's Leave sheet**
+
+> Leave home for Cedar Grove Elementary
+>
+> Next Friday afternoon, Oct. 23 · 2 stops
+>
+> Tap a time to leave earlier or later. The stops come from your game plan, and that's where they change.
+
+| Station | Item | Leave |
+| ----- | ----- | ----- |
+| Home | | Leave home at 2:25pm |
+| Cedar Grove Elementary | 2:45pm · [Alexis] Pick up at Cedar Grove Elementary | Leave Cedar Grove Elementary at 2:45pm |
+| Westview Kindergarten | 3:00pm · [Mallory] Harvest fair · Conflict: tutoring | Leave Westview Kindergarten at 5:00pm |
+| Home | | Back around 5:10pm |
+
+*She can't leave Cedar Grove Elementary before Alexis is due at 2:45pm, so the leg to the fair leaves then and arrives at 2:57pm. Westview Kindergarten keeps kindergartners in class until the fair opens, so Mallory's pickup sits inside the fair rather than being a station of its own (issue G48).*
 
 > Backup plans
 >
@@ -3127,6 +3444,20 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 > [Yes, I can] [No, I can't]
 >
 > [Send]
+
+*Ms. Reyes gets a text message from MVP with the link, as in C-06b.*
+
+**Ms. Reyes's web page, as shown**
+
+> Charlotte is asking you to skip Mallory's tutoring next Friday, Oct. 23.
+> Sent 7:34pm
+>
+> Hi Ms. Reyes, Westview Kindergarten's harvest fair is next Friday, Oct. 23, at 3:00pm, so Mallory will skip tutoring that day. We'll see you next Tuesday, Oct. 20, at 3:00pm. Thank you, Charlotte
+>
+> Next Friday, Oct. 23 · Mallory · Tutoring with Ms. Reyes, Westview Kindergarten library, 3:00pm
+> [Yes, I can] [No, I can't]
+>
+> Add a note for Charlotte
 
 *Back on Today, the card says how next week stands.*
 
@@ -3152,7 +3483,7 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 >
 > A small pumpkin is on Mallory's list for the harvest fair next Friday, Oct. 23.
 
-*Nothing is unresolved, so the strip has no button, and it goes when she scrolls. The pumpkin is hers, because she said it, and it joins Friday morning's checklist under "Mallory".*
+*Nothing is unresolved, so the strip has no button, and it goes when she scrolls. The pumpkin is hers, because she said it, and it joins next Friday morning's checklist under "Mallory" as "A small pumpkin to paint at the fair", with no source link and no mark (issue G47).*
 
 ## The day in full: Thursday
 
@@ -3534,10 +3865,12 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 *Each number shows under its name with its area code, as Where Charlotte is shows the lodge's. Edward reads the weekend, taps I'll take all of it and sends his answers at 6:31am. Charlotte gets the notification "Edward is taking everything suggested for him." The parts become his, the banner gives way to "You have this weekend, from 10:00am this Friday.", and If plans change appears under the weekend:*
 
 > If plans change
+>
 > Ruth Delgado next door can stay with the girls if you need to go out, and Claire can help if it's urgent. The MVP Coach can help you work out anything new, and you can text Charlotte if you need her.
-> [Call Ruth] [Call Claire] [Text Charlotte]
+>
+> Text Charlotte
 
-*From then on his Today carries the line "Weekend playbook · until about 7:30pm this Sunday" above Now, which opens the playbook. Call opens his phone with the number. Text Charlotte opens his own messages app with nothing drafted, because nothing has happened yet. Charlotte asked not to hear from MVP, so MVP never writes to her for him, and texting her is his choice, last on the list.*
+*From then on his Today carries the line "Weekend playbook · until about 7:30pm this Sunday" above Now, which opens the playbook. If plans change is a plain section with no buttons and no coach tint, because the calls live in Who to call, and the guidance is Charlotte's, not the coach's. Each Call in Who to call opens his phone with the number. Text Charlotte opens his own messages app with nothing drafted, because nothing has happened yet. Charlotte asked not to hear from MVP, so MVP never writes to her for him, and texting her is his choice (issue Y19).*
 
 **A playbook shows its state beside its heading.** Both views show the plan's state as a pill beside the heading of the parts suggested for the recipient: "Edward's weekend plan" in Charlotte's view and "Your weekend plan" in Edward's. It reads "Not sent yet" while she builds it, "Proposed" once she sends it and until he answers, "Accepted" when every part has his yes or someone else's, and "Change suggested" when he suggests a change to any part. A part he passes on keeps the plan Proposed until that person answers. The rows say which part, with "Suggested for Edward", "Edward: yes", "Edward suggested a change", "Asked Claire" and "Claire: yes". The pill is a label and never a control.
 
@@ -3551,13 +3884,55 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 
 ## If Charlotte hasn't talked to Ruth
 
-*No moment takes this path. In C-11, Send Ruth a text drafts a text in Charlotte's voice with a link to Ruth's list, one web page headed "Charlotte is asking you to help this weekend." with the parts asked of Ruth, Yes, I can and No, I can't, a section "If Edward calls" with the bedtimes and Edward's number, then "Add a note for Charlotte" and "You don't need MVP to answer." Ruth, who is not the recipient of the playbook, keeps the usual answers. Charlotte sends the playbook to Edward once Ruth has answered, or sooner with the party marked Asked Ruth.*
+*No moment takes this path. In C-11, Send Ruth a text drafts a message in Charlotte's voice, with a line above it saying how it reaches Ruth. Ruth's web page carries the brand header with the steam stars, Charlotte's request, her message, and a card with the party, where Ruth chooses Yes, I can or No, I can't and taps Send. Once she has answered, the page thanks her and shows If Edward calls, her answer with Change, and an offer to add the party to her own calendar. Ruth, who is not the recipient of the playbook, keeps the usual answers. Charlotte sends the playbook to Edward once Ruth has answered, or sooner with the party marked Asked Ruth. Greg redrew these screens on November 20, 2026 (issue Y19).*
 
 > To Ruth Delgado
 >
-> Hi Ruth, I'm away this weekend and Edward has the girls. Could you take Alexis and Mallory to Sophie's birthday party at the Parks' this Saturday at 12:50pm and bring them home at 3:00pm? The details are at the link. Edward may also call you in the evenings if he needs someone to stay with the girls. Thank you, Charlotte
+> Ruth isn't on MVP, so she gets a text from MVP with a link to answer.
+>
+> Hi Ruth, I'm away this weekend and Edward has the girls. Could you take Alexis and Mallory to Sophie's birthday party at the Parks' this Saturday at 12:50pm and bring them home after the party ends at 3:00pm? The details are at the link. Edward may also call you in the evenings if he needs someone to stay with the girls. Thank you, Charlotte
 >
 > [Send]
+
+**Ruth's web page, as shown**
+
+> Charlotte is asking you to help this weekend.
+> Sent 8:26pm
+>
+> Hi Ruth, I'm away this weekend and Edward has the girls. Could you take Alexis and Mallory to Sophie's birthday party at the Parks' this Saturday at 12:50pm and bring them home after the party ends at 3:00pm? The details are at the link. Edward may also call you in the evenings if he needs someone to stay with the girls. Thank you, Charlotte
+>
+> This Saturday
+> Take Alexis and Mallory to Sophie's party at the Parks', 12:50pm, and bring them home at 3:05pm
+> ( ) Yes, I can
+> ( ) No, I can't
+>
+> Add a note for Charlotte
+>
+> [Send]
+>
+> Charlotte plans her family's week with Most Valuable Parent.
+
+**Ruth's web page, after she sends her answer**
+
+> Charlotte is asking you to help this weekend.
+> Sent 8:26pm
+>
+> Thank you!
+>
+> If Edward calls
+> Edward may call you this Friday to this Sunday if he needs someone to stay with Alexis and Mallory in the evening. Mallory goes to bed at 7:30pm and Alexis at 8:30pm.
+> Edward · 707-555-0101
+>
+> This Saturday
+> Take Alexis and Mallory to Sophie's party at the Parks', 12:50pm, and bring them home at 3:05pm
+> Yes, I can · Change
+>
+> Charlotte can see your answer. If anything changes, change your answer here.
+>
+> Add the party to your calendar?
+> [Add to calendar] Not now
+
+*"You don't need MVP to answer." is gone, because the draft's line already tells Charlotte how Ruth answers, and the page itself shows Ruth there is nothing to install. Add to calendar hands Ruth a calendar file that she opens herself, so MVP still writes to nobody's calendar. The frames read "Sent 9:12am", which is corrected to 8:26pm, because Charlotte sends the text during C-11.*
 
 ## If Edward doesn't answer
 
@@ -3711,7 +4086,7 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 >
 > Other options
 
-*Later today holds only the task. There is no MVP Editorial article, because nothing in Sunday gives one a reason. In the game plan, Monday's therapy and violin both show the Conflict mark naming the other every Monday from next week.*
+*Later today holds only the task. There is no MVP Editorial article, because nothing in Sunday gives one a reason. In the game plan, Monday's violin reads "Conflict: therapy" and therapy reads "Conflict: violin", every Monday from next week, until Lakeside Strings Music School moves violin to 4:45pm.*
 
 *Tapping the task opens its item page, which shows her two steps as a checklist. Its reminder opens the sheet below, and it offers times of day, because the task has none of its own. Where the reminder and Ask for help sit on the item page is open (Appendix B item 95, issue T61).*
 
@@ -3944,7 +4319,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Route, under the title | Where she leaves from, an arrow read aloud as "to", and where she is going, such as "Home → Westview Kindergarten" or "Cedar Grove Elementary → Brightwater Family Therapy", followed by a chevron on a leg she travels herself. A child leaving with someone else gets no chevron. For a timed thing at home: At home, with no chevron, and the item as the title, such as "Dinner with Claire". |
 | The next station, under the route | "Then", the next stop and when she is due there, such as "Then Cedar Grove Elementary, 2:45pm", or "Then home, about 4:35pm". When a separate run leaves within 30 minutes: "Then at" the time and where she leaves from, such as "Then at 8:15am, you leave home for Westview Kindergarten". |
 | Checklist group headings | The child's first name alone, such as "Mallory", or Both or All three for items that go with every child, in the children's indigo · Before you leave home, in ink, for her own tasks |
-| A folded group | The heading, a check and the count, such as "Alexis · 3 packed" or "Mallory · 1 packed" · For her own tasks: "Before you leave ·" and the number done, such as "Before you leave · 1 done" · Tapping it opens the group again |
+| A folded group | The heading, a check and the count, such as "Alexis · 3 packed" or "Mallory · 1 packed" · For her own tasks: "Before you leave home ·" and the number done, such as "Before you leave home · 1 done" · Tapping it opens the group again |
 | A folded checklist under Now | A check that draws in once, then "Everything is packed for" and the leaving time, such as "Everything is packed for 7:40am" · Tapping it opens the groups again |
 | Folded evening reminders | On tomorrow's pass, a check that draws in once, then "Everything is packed for" and the leaving time while anything under For tomorrow is open, such as "Everything is packed for 6:55am", and "Everything is ready for" and the phase once nothing for tomorrow is left, such as "Everything is ready for tomorrow morning." · The pass stays |
 | Actions under the departure | Remind me, with a bell icon · Directions, with a navigation arrow icon. Both are outlined buttons. Directions appears only when she is driving. |
@@ -3995,7 +4370,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | A task on a checklist | The task's words, saying what to do and why, such as "Call Brightwater Family Therapy to ask for Dana Whitfield" · Beneath it in Meta, who to reach, such as "Brightwater Family Therapy · 707-555-0170" or "pickups@westviewk.org" · In the same container as other rows, with a button at the end of the row that does it in place of the remove button: Call, for a phone number · "Send from" and the app, such as "Send from Mail", for a handoff, which reopens its draft · Message, for someone on MVP, which opens the composer with them chosen · Tapping the row anywhere but the button ticks it · A task she wrote herself carries only her words |
 | A conflict on the pass | Under the title, in Meta: "Conflict:" and the other item, such as "Conflict: Alexis's carpool" · The pill, the time and the fields are unchanged |
 | Notice for a new conflict | One line saying what overlaps and when, such as "Violin and therapy overlap every Monday from next week." · A link naming where it goes, such as "Show me next Monday, Oct. 12" · Above the tab bar for about four seconds, once per conflict, and until she dismisses it when VoiceOver is on |
-| Leave sheet | Heading: "Leave", where she leaves from, "for" and the first stop, with the day when it isn't today, such as "Leave home for Westview Kindergarten" or "Leave home for Willow Yoga tomorrow" · Line, when the heading does not already name the day: the part of the day and the number of stops, such as "This afternoon · 3 stops", or the day, such as "This Friday afternoon" · Under it, in Body: Tap a time to leave earlier or later. The stops come from your game plan, and that's where they change. · Each leaving time drawn as a control, cerulean text in a cerulean outline on paper · For each station: the place, the item with its chips and start time, and "Leave", the station and the time, such as "Leave home at 2:15pm" or "Leave Westview Kindergarten at 2:30pm" · Last station: "Back around" and the time · Under a station she is changing: "You reach", the stop and the time, then how that sits against the item, such as "You reach Westview Kindergarten at 2:25pm, five minutes before pickup." or "You reach Studio Ten Dance at 4:20pm, five minutes after ballet starts.", in the warning ink when she arrives after the item starts · Under a leaving time she has opened: the time, tinted, and two outlined buttons, 5 min earlier and 5 min later · Under a later stop she would now reach late: the same "You reach" line, in the warning ink · Link on her own items: Change the start time · On a calendar item: Change this in Google Calendar. · Button: Save, shown only after she changes a time |
+| Leave sheet | Heading: "Leave", where she leaves from, "for" and the first stop, with the day when it isn't today, such as "Leave home for Westview Kindergarten" or "Leave home for Willow Yoga tomorrow" · Line, when the heading does not already name the day: the part of the day and the number of stops, such as "This afternoon · 3 stops", or the day, such as "This Friday afternoon" · Under it, in Body: Tap a time to leave earlier or later. The stops come from your game plan, and that's where they change. · Each leaving time drawn as a control, cerulean text in a cerulean outline on paper · For each station: the place, the item with its chips and start time, and "Leave", the station and the time, such as "Leave home at 2:15pm" or "Leave Westview Kindergarten at 2:30pm" · Last station: "Back around" and the time · Under a station she is changing: "You reach", the stop and the time, then how that sits against the item, such as "You reach Westview Kindergarten at 2:25pm, five minutes before pickup." or "You reach Studio Ten Dance at 4:20pm, five minutes after ballet starts.", in the warning ink when she arrives after the item starts · Under a leaving time she has opened: the time, tinted, and two outlined buttons, 5 min earlier and 5 min later · Under a later stop she would now reach late: the same "You reach" line, in the warning ink · On a calendar item: Change this in Google Calendar. · Button: Save, shown only after she changes a time |
 | Backups in the Leave sheet | Heading: Backup plans · Each backup: "Plan B ·" or "Plan C ·" and the coach's line, then one button named for what it does · When there is no second honest backup: the coach's line saying so, such as "I don't see another way that keeps both this Friday." |
 | Every sheet | A grabber · A Close icon at the top right, with the accessible label "Close" |
 | Reminder sheet with notifications off | Above the choices: Notifications are off, so this reminder can't reach you. · When she has said no before: the link Open settings |
@@ -4078,7 +4453,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | After she adds or moves an item | No words on screen: the row takes the coach's tint for about two seconds and fades · For a screen reader: "Added to" or "Moved to" and the day, such as "Added to this Tuesday." |
 | A day with nothing in it | Nothing is planned. |
 | Heading of the following week | Next week, with a sentence in the review card's form beneath it when anything there is waiting for her |
-| Quiet line on an empty day in a thin week, for the wireframes only | Tell the coach about this day, and it will suggest how it could go. |
+| Quiet line on an empty day in a thin week, first seen on her first night (C-00) | Tell the coach about this day, and it will suggest how it could go. |
 | Owner on the parent's own items | You |
 | Conflict mark | "Conflict:" followed by the other item, such as "Conflict: yoga", or the items together, such as "Conflict: both pickups", or a number, such as "Conflict: 3 items". When the other item is on another day, its day follows it, such as "Conflict: therapy next Monday, Oct. 12". |
 | Owner with nobody responsible | Needs an owner |
@@ -4140,7 +4515,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Splash | The MVP mark with "Most Valuable Parent" beneath it |
 | Welcome screen | Headline: Your week has a lot of moving parts, and the MVP Coach helps you keep track of everything. · Line: Just the basics to start us off in the right direction. · Fields: Your name · Zip code, with no helper lines · Button: Continue · Link: Skip for now |
 | Children screen | Heading: "Who are you planning for," followed by her name, such as "Who are you planning for, Charlotte?", or "Who are you planning for?" if she skipped the welcome · For each child: Your kiddo's first name · Birth month and year, such as "October 2016" · Link: + Add another child · Button: Continue · No skip |
-| Grades screen | Heading: what the MVP Coach works out, such as "Alexis is likely in fourth grade, and Mallory is likely in kindergarten.", or with one child, "Mallory is likely in kindergarten.", or with three or more, "Here are the grades the MVP Coach suggests." · Line: The MVP Coach works these out from each child's birth month. Change any grade that's wrong. · For each child: the name and "grade", such as "Alexis's grade", over a list box with a chevron · The list: Not in school yet · Pre-K · Kindergarten · First grade through Twelfth grade · Button: Continue |
+| Grades screen | Heading: what the MVP Coach works out, such as "Alexis is likely in fourth grade, and Mallory is likely in kindergarten.", or with one child, "Mallory is likely in kindergarten.", or with three or more, "Here are the grades the MVP Coach suggests." · Line: The MVP Coach works these out from each child's birth month. Change any grade that's wrong. · For each child: the name and "grade", such as "Alexis's grade", over a list box with a chevron · The list: Not in school yet · Pre-K · Kindergarten · First grade · Second grade · Third grade · Fourth grade · Fifth grade · Sixth grade · Seventh grade · Eighth grade · Ninth grade · Tenth grade · Eleventh grade · Twelfth grade · Button: Continue |
 | First capture screen | Headline: the coach's line in C-00 · Buttons: Take a photo · Attach a file · Talk or type · Link: Skip for now |
 | Check the photo | The photo, full width · Buttons: Use this photo · Retake |
 | Hand-off | The coach's line, saying what the draft will hold and what it keeps for later · Button: "Make" followed by the draft's name, such as "Make Mallory's plan" · Link: Something's not right |
@@ -4203,6 +4578,21 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Language at home | Line: The MVP Coach writes to you in this language. · Row: Language, with the language, such as "English" |
 | Privacy | Line: Here is who sees what you put in MVP. · Nobody sees your plan, your calendar or your MVP Coach conversations. People see only what you send them. · The MVP Coach doesn't read your chats or groups. |
 
+## Demo controls
+
+These words are for presenters only and never appear in a presented demo (issue C74).
+
+| Where | Text |
+| ----- | ----- |
+| Switcher heading | Household switcher |
+| Sections | Moments · View as |
+| Moment rows | The moment's ID and its "What happens" sentence from "The moments" |
+| Layout choices | Phone frame · Full desktop layout |
+| Buttons | Reset · Close |
+| Debug menu heading | Debug menu |
+| Debug menu rows | Current moment · Demo time |
+| Coach responses choice | Scripted responses · A live model |
+
 ## Playbook
 
 | Element | Copy |
@@ -4221,7 +4611,8 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | The plan's state | A pill beside the heading of the recipient's parts: Not sent yet · Proposed · Accepted · Change suggested |
 | Asking someone else | Sheet title: Ask for backup · Line: These are the people who agreed to help this weekend. · Button names his choice, such as Ask Claire · The part: Asked Claire |
 | Her choice for Ruth | On an item's page: Ask someone else, then the person, then Ruth already said yes or Send Ruth a text |
-| Ruth's list | Heading: Charlotte is asking you to help this weekend. · each part asked of her, with Yes, I can and No, I can't · If Edward calls, with when he may call, the bedtimes and Edward's number · Add a note for Charlotte · You don't need MVP to answer. |
+| Ruth's list | Heading: Charlotte is asking you to help this weekend. · Sent and the time · her message · the day and each part asked of her, with Yes, I can and No, I can't as radio rows · Add a note for Charlotte · Button: Send · Footer: Charlotte plans her family's week with Most Valuable Parent. · After she answers: Thank you! · If Edward calls, with when he may call, the bedtimes and Edward's name and number · her answer with Change · Charlotte can see your answer. If anything changes, change your answer here. · Add the party to your calendar?, with Add to calendar and Not now |
+| Draft to someone not on MVP | Line above the message: the person's first name and "isn't on MVP, so she gets a text from MVP with a link to answer.", such as "Ruth isn't on MVP, so she gets a text from MVP with a link to answer." |
 | Her view's suggestions | A box in the coach's tint under the dates: These are the MVP Coach's suggestions. Change anything that won't work for Edward before you send it. · Each item ends "Suggested for Edward" and a Change link |
 | Choosing who has the weekend | Sheet title: Who should help while you are away? · Line: The MVP Coach suggests Edward, because he is home this weekend. Choose who looks after the girls while you're away. · Rows from her circle, with + Add someone · Button names the choice, such as Make the playbook for Edward |
 | Changing a part | Sheet title: the item · Line: the day, the time and its status · Give it to someone else · Move it to another time · Take it out of the playbook · Then: "Who will take" and the item, such as "Who will take Sophie's party?" · Ruth already said yes · Send Ruth a text |
@@ -4230,7 +4621,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | The summary row | The days, and the number of items in words with what they are, such as "This Friday · Two things for you, picking Alexis up and the harvest fair" |
 | His view's title | Weekend playbook, and beneath it the days, then the line under the dates (His answers). After he answers, that line becomes "You have this weekend, from" the time she leaves. |
 | His view's sections | Charlotte's request · The weekend, with each day on a card and each child's rows under the child's name · Where Charlotte is · Who to call, with If plans change under the weekend once he has answered |
-| If plans change | Line: "Ruth Delgado next door can stay with the girls if you need to go out, and Claire can help if it's urgent. The MVP Coach can help you work out anything new, and you can text Charlotte if you need her." · Buttons: Call Ruth · Call Claire · Text Charlotte |
+| If plans change | Heading: If plans change · Line: "Ruth Delgado next door can stay with the girls if you need to go out, and Claire can help if it's urgent. The MVP Coach can help you work out anything new, and you can text Charlotte if you need her." · Link: Text Charlotte · No buttons and no coach tint, because the calls live in Who to call |
 | Her view's source lines | From your game plan, your evening reminders and the girls' pages · Drafted from your evening reminders and the girls' pages · From your itinerary · You choose who's on this list, then You chose these from your circle and the Kids cards · Links: Choose who Edward can call, Change who Edward can call |
 | The sheet for who he can call | Title: Who can Edward call for help? · Line: These are from your circle and the Kids cards. Double check those listed for Edward to call if needed. · + Add someone · Save |
 | The line on his Today | Weekend playbook · until the time she is back, such as "until about 7:30pm this Sunday" |
@@ -4359,6 +4750,11 @@ The user stories left gaps, and everything in this table is a fact we invented t
 | The weekend's meals | Friday: Rosie's Pizza on Elm Street, five minutes from Westview Kindergarten, where Mallory has a plain cheese slice. Saturday: tacos at home, with a plain cheese quesadilla for Mallory. Sunday: delivery from Golden Wok on Main Street, about 30 minutes, with plain rice and the chicken for Mallory. In the alternate path, Edward suggests Cooper's Grill. | The coach suggests what to eat when the plan puts a meal on the road, and Heather asked for dinner near the fair. Every place is invented. |
 | Area codes | Charlotte's town uses the area code 707, so every number in her household reads 707-555-01 and two digits. Harlow Lake Lodge uses 802. | Heather asked that every number carry its area code. 555-01 numbers are reserved for fiction. |
 | The next Cedar Grove Elementary newsletter | Arrives Sunday, Oct. 25 at 4:10pm. Wednesday, Oct. 28 is a minimum day, out at 12:30pm. | Gives the summary something that came in about the week ahead, which waits for Charlotte rather than going to Edward. |
+| Back-to-school night | Westview Kindergarten's back-to-school night is Thursday, Oct. 8, at 6:00pm. | The first night's review card needs a time, and an evening event suits a school night. |
+| The library run's answer | Edward answers at 7:20am on Tuesday, Oct. 13, not 7:05am. | At 7:05am Charlotte is driving Alexis to orchestra, and her pass would read Running late. |
+| The checkup's end | Mallory's checkup at Northside Pediatrics runs from 3:30pm to 4:15pm. | Friday's Leave sheet needs a time to leave Northside Pediatrics and a time home. |
+| Ruth's request | Charlotte sends it at 8:26pm on Monday, Oct. 19, during C-11. | The redrawn frames read 9:12am, which falls before C-11 begins. |
+| The violin case | Alexis's violin case goes to orchestra on Tuesday morning and comes home with Alexis, so nothing is packed for Tuesday's violin lesson. | Keeps Tuesday's violin departure free of a second reminder for the same case. |
 
 # Appendix B: what is still open
 
@@ -4458,7 +4854,7 @@ The user stories left gaps, and everything in this table is a fact we invented t
 85. **Closed in version 3.30.** Heather decided that removing a reminder asks "Just tonight" or "Every night", and that she can add her own item.
 86. **The checklist heading should be a name chip.** Each child's group is headed by the name alone in indigo text, and drawing it as the child's name chip waits on the component library, because changing ChecklistGroup would also change the baseline Figma page.
 87. **Decided November 20, 2026: orchestra starts on Tuesday, Oct. 13 (issue T58).** The text that follows is kept for its history. The first board's Tuesday morning ignored orchestra. Appendix A says Alexis has orchestra at 7:15am on Tuesdays and Thursdays, which makes those mornings two trips, at 6:55am and 8:15am. Oct. 6 is a Tuesday, yet 0i-a recommends taking both girls at 7:40am, and 0i-h shows Alexis dropped off for an 8:00am start. The coach doesn't know about orchestra on her first night, because it is on neither her calendar nor the rotation she photographed, but the real Tuesday would still start at 6:55am. Claude recommends one new invented fact, that orchestra starts on Tuesday, Oct. 13, the first week of the term's schedule, which keeps every approved frame as it is. Greg to decide.
-88. **Decided November 20, 2026: 0i-h stays a single board inside C-00, and its sheet holds Tuesday's afternoon routine in Later today (issue T53).** The text that follows is kept for its history. 0i-h needed a moment ID and a sheet. It shows Tuesday, Oct. 6 at 8:05am, which falls between C-00 and the demo week, so it may deserve its own moment rather than sitting under C-00. The canvas sheet beneath its pass is empty, because nothing in this document says what else is on Charlotte's Tuesday.
+88. **Decided November 20, 2026: 0i-h stays a single board inside C-00, and its sheet holds Tuesday's afternoon routine in Later today (issue T53).** The text that follows is kept for its history. 0i-h needed a moment ID and a sheet. It shows Tuesday, Oct. 6 at 8:05am, which falls between C-00 and the demo week, so it may deserve its own moment rather than sitting under C-00. The canvas sheet beneath its pass is empty, because nothing in this document says what else is on Charlotte's Tuesday. Revised November 21, 2026: the sheet on 0i-h is hidden rather than filled with Tuesday's afternoon, because that Tuesday is outside the demo week (issue T84).
 89. **Five changes wait on the component library,** because changing a library component also changes the baseline Figma page. CoachCard needs two after-answer states, one for agreeing and one for choosing another option. NowBlock needs a trip variant whose timetable replaces the fields, with Past, Current and Ahead states for each row, a "Tomorrow" stage and a "Needs an owner" stage for its status pill, a checklist headed "Reminders for the morning", an "At home" line in place of the route, and a way to show no checklist. ChecklistGroup needs a four-item variant. ChecklistItem no longer needs a remove variant, because every checklist row is now the local ReminderItem (item 111). LaterTodayRow sets its time in JetBrains Mono, which breaks the rule that mono sets only the coach's labels, and its item text starts wherever its chip ends, so rows with different names don't line up. Until then the post-review frames use detached copies.
 90. **Closed in version 3.27.** C-07 repeated the violin case and orchestra folder in Reminders for the morning and under the 6:55am departure. The reminders now sit on tomorrow's pass and hold only what goes with that departure, so each item appears once.
 91. **Closed in version 3.32.** The decline draft is drawn as "C-03 · Draft · Say you can't this week" and written into C-03.
@@ -4517,12 +4913,31 @@ The user stories left gaps, and everything in this table is a fact we invented t
 143. **Decided November 20, 2026: the airport rides leave the playbook, and C-14 is retired.** Heather's fourth review said a parent would get herself to the airport by car, car service or rideshare, so Charlotte drives herself. With no Sunday pickup, the late flight, the call to Ruth and the backups page for the pickup have nothing to do, so C-14 and "If Ruth doesn't answer" are retired and the ID C-14 is not reused. Whether a later version needs a moment where something goes wrong on a playbook day is open.
 144. **Decided November 20, 2026: the playbook runs day by day and child by child.** Heather asked that it start when Charlotte leaves home and spell out, for each day and each child, what a parent carries in her head: the bedtime routine, a snack, medicine, the nightlight, the gift, whether a party is a drop-off and whether a sibling is invited, cash for the fair, and dinner. Both views follow the same days in the same order, with each child's rows under the child's name, and "How the girls' days go" folds into the days.
 145. **Decided November 20, 2026: the coach suggests what to eat.** Greg said this was part of the original plan. When the plan puts a meal on the road, the coach suggests what to eat and a place near where the family will be. Places are invented in the prototype, and a suggestion is never sponsored or paid for.
-146. **Decided November 20, 2026: Edward can text Charlotte.** If plans change offers Call Ruth, Call Claire and Text Charlotte, last. Charlotte stays off Who to call, and MVP never writes to her for him, so texting her is his choice. This revises the decision on issue Y2 made earlier the same day.
+146. **Decided November 20, 2026: Edward can text Charlotte.** If plans change offers Call Ruth, Call Claire and Text Charlotte, last. Charlotte stays off Who to call, and MVP never writes to her for him, so texting her is his choice. This revises the decision on issue Y2 made earlier the same day. Revised November 20, 2026, after the redraw: If plans change is a plain section with its line and a Text Charlotte link, and the calls live only in Who to call, so each call appears once (issue Y19).
 147. **Decided November 20, 2026: Edward can take every part at once.** When two or more parts are suggested for him, I'll take all of it sits at the foot of the weekend, after he has read it.
 148. **Decided November 20, 2026: every phone number carries its area code.** Charlotte's town uses 707, and the lodge 802.
 149. **Heather wants to play the sequence for giving Sophie's party to Ruth before she judges it.** She could not judge the two sheets from their words alone. Nothing changes until she has played it in the redrawn starting point C, and the review is parked for after alpha 2 (issue Y18).
+150. **Decided November 21, 2026: Today is written for every moment that opens on another tab.** C-01, C-02, C-04, C-04b, C-05, C-05b, C-05c, C-06c, C-08 and C-08b each say what Today shows, so the household switcher never lands on a Today the fixtures don't describe (issues T72 and T73).
+151. **Decided November 21, 2026: a Leave sheet draws one run.** Where the backup belongs to one run of an afternoon, as Friday's checkup does in C-06b, the sheet draws that run and leaves the others in the game plan (issue T87).
+152. **Decided November 21, 2026: start times change only in the game plan.** The Leave sheet's "Change the start time" link is gone, because changing what is planned is an edit, and Today changes one thing, when she leaves (issue T88).
+153. **Decided November 21, 2026: the Friday carpool's titles.** Wednesday's single-leg pass reads "Drive Alexis's carpool to Cedar Grove Elementary", and Friday's trip pass reads "Drive Alexis's carpool, then take Mallory to Westview Kindergarten". Carpool children who are not Charlotte's are not named.
+154. **Decided November 21, 2026: the other tabs on her first night are written (issue P4).** They need frames before the build draws them from Figma, and until then the build works from these words.
 
 # Appendix C: change log
+
+## Version 3.49, November 21, 2026
+
+The words the build still lacked, the playbook wording from Greg's redraw, and Greg's decisions on the Stage 3 report. Version 3.48 is kept in the archive.
+
+| # | Change |
+| ----- | ----- |
+| 1 | Today is written for C-01, C-02, C-04, C-04b, C-05, C-05b, C-05c, C-06c, C-08 and C-08b (issues T72 and T73, item 150). |
+| 2 | C-04b moves to 7:20am, and C-05b happens at home before violin rather than in the car line. |
+| 3 | C-00 gains the other four tabs on her first night (issue P4, item 154), and back-to-school night is at 6:00pm. |
+| 4 | The food drive is filed on the Westview Kindergarten card (A12). C-09 gains its Conflict marks, the pumpkin's row, Ms. Reyes's web page and next Friday's Leave sheet (G47, G48). The first newsletter gets a read-back (K8). |
+| 5 | The grade list is written out in full (O25), her own tasks are headed "Before you leave home" everywhere (T74), and section 4 gains Demo controls (C74). |
+| 6 | If plans change is a plain section with a Text Charlotte link, and Ruth's draft and web page follow the redrawn frames (Y19, item 146). |
+| 7 | From the Stage 3 report: Arrive at 2:31pm reads 2:43pm (T76), 0i-h's sheet is hidden (T84), Friday's Leave sheet draws the checkup's run (T87, item 151), "Change the start time" is gone (T88, item 152), and C-06 gains the card after Plan C (T89). |
 
 ## Version 3.48, November 20, 2026
 

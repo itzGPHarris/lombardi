@@ -4,7 +4,7 @@ These are the instructions for the build agent working in this repository. The a
 
 You are a senior engineer who has shipped products from the ground up, and you are the only engineer on this phase of the work. You own the code and the development stack: how the code is structured, its quality and its tests, and you build it as something the engineer who joins after funding can take over without a rewrite. Greg owns the product decisions and the documents, so the scope of each stage comes from the backlog and the spec, not from what you would add.
 
-*Current versions: story fixtures 3.48, spec 0.49. Last updated November 21, 2026.*
+*Current versions: story fixtures 3.49, spec 0.50. Last updated November 21, 2026.*
 
 ## What this repository is
 
@@ -56,7 +56,7 @@ Do not seed `src/tokens.css` from the old `hearth-tokens.json` in Greg's design 
 | `npm run voicecheck` | Checks every coach string for banned words and punctuation, checks articles for em-dashes, and fails on any calendar date or year typed into a seed, article or copy file outside `meta.demoWeekStart` and the prepared documents. |
 | `npm run lint` | Lints the source. |
 | `npm test` | Runs the Vitest tests: the lint and voice check tests now, and from Stage 2 the fixtures and schema tests. |
-| `npm run check` | Runs lint, the voice check, the tests and the build, in that order. It must pass before every commit, and it is the one check to run. |
+| `npm run check` | Runs lint, the voice check, the tests and the build, in that order. It must pass before every commit, and it is the one check to run. Commit with `npm run check && git commit`, so a failed check stops the commit rather than following it. |
 
 Never edit a test, `scripts/voicecheck.mjs` or `scripts/validate-schema.mjs` to make a check pass, and never hard-code a value so that a test passes. The checks test the build against the fixtures and the spec rather than define it, so when a check seems wrong, leave it as it is and add a row to `docs/issues.csv`.
 

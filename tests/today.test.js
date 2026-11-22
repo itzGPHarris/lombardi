@@ -203,7 +203,7 @@ describe('the checklist folds (spec §5, "When a checklist is finished")', () =>
   it('counts her own tasks as done', () => {
     const { now } = view('C-06b');
     const ticks = Object.fromEntries(now.checklist.groups[1].rows.map((row) => [row.key, true]));
-    expect(view('C-06b', 0, undefined, { ticks }).now.checklist.groups[1].foldedLine).toBe('Before you leave · 2 done');
+    expect(view('C-06b', 0, undefined, { ticks }).now.checklist.groups[1].foldedLine).toBe('Before you leave home · 2 done');
   });
 
   it('says packed in the evening while anything for tomorrow is still open', () => {

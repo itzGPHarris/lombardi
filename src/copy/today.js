@@ -53,7 +53,7 @@ export const fields = {
 export const checklist = {
   ownTasks: 'Before you leave home',
   foldedGroup: '{child} · {count} packed',
-  foldedOwnTasks: 'Before you leave · {count} done',
+  foldedOwnTasks: 'Before you leave home · {count} done',
   foldedChecklist: 'Everything is packed for {time}',
   foldedEveningReady: 'Everything is ready for {day} {phase}.',
   eveningHeading: 'Reminders for {day} {phase}',
@@ -170,7 +170,6 @@ export const leaveSheet = {
   youReachAfterStart: 'You reach {place} at {time}, {count} minutes after {item} starts.',
   earlier: '5 min earlier',
   later: '5 min later',
-  changeStartTime: 'Change the start time',
   changeInCalendar: 'Change this in Google Calendar.',
   save: 'Save',
   backups: 'Backup plans',
