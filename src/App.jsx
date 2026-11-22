@@ -15,6 +15,10 @@ import ChatPage from './components/Team/ChatPage.jsx';
 import GroupPage from './components/Team/GroupPage.jsx';
 import MembersPage from './components/Team/MembersPage.jsx';
 import { AddSomeone, Composer, NewGroup } from './components/Team/Composers.jsx';
+import KidsTab from './components/Kids/KidsTab.jsx';
+import ChildPage from './components/Kids/ChildPage.jsx';
+import SchoolCard from './components/Kids/SchoolCard.jsx';
+import AddSchool from './components/Kids/AddSchool.jsx';
 import StillShell from './components/Layout/StillShell.jsx';
 import Onboarding from './components/Onboarding/Onboarding.jsx';
 import { NavigationContext } from './components/Layout/navigation.js';
@@ -42,6 +46,9 @@ function Page({ page }) {
     case 'compose': return <Composer target={page.id} />;
     case 'add-someone': return <AddSomeone />;
     case 'new-group': return <NewGroup />;
+    case 'child': return <ChildPage childId={page.id} />;
+    case 'school': return <SchoolCard schoolId={page.id} />;
+    case 'add-school': return <AddSchool />;
     default: return <PageShell title="" />;
   }
 }
@@ -57,6 +64,7 @@ function Screen({ session }) {
   if (session.tab === 'coach') return <CoachTab />;
   if (session.tab === 'game-plan') return <GamePlanTab />;
   if (session.tab === 'team') return <TeamTab />;
+  if (session.tab === 'kids') return <KidsTab />;
   return <TabListShell title={title} wide={session.tab === 'game-plan'} />;
 }
 

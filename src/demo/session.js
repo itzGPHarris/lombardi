@@ -123,6 +123,8 @@ export function momentState(householdId, momentId, carry = {}) {
     gamePlan: emptyGamePlan(),
     // The chats and groups she has opened in this moment, whose "1 new" has cleared (spec §10).
     team: { seen: [] },
+    // The school card facts she has opened, whose Updated mark has cleared (spec §11).
+    kids: { opened: [] },
   };
 }
 
@@ -148,6 +150,7 @@ export function sessionReducer(state, action) {
     case 'SWITCH_HOUSEHOLD': return momentState(action.householdId, undefined, presenter(state));
     case 'TODAY': return { ...state, today: todayReducer(state.today, action.action) };
     case 'SEEN': return (state.team?.seen ?? []).includes(action.id) ? state : { ...state, team: { seen: [...(state.team?.seen ?? []), action.id] } };
+    case 'OPEN_FACT': return (state.kids?.opened ?? []).includes(action.id) ? state : { ...state, kids: { opened: [...(state.kids?.opened ?? []), action.id] } };
     case 'GAME_PLAN': return { ...state, gamePlan: gamePlanReducer(state.gamePlan ?? emptyGamePlan(), action.action) };
     case 'ONBOARDING': return state.onboarding ? { ...state, onboarding: onboardingReducer(state.onboarding, action.action) } : state;
     // Not now on the account prompt ends the session: nothing she entered is kept, and the app starts

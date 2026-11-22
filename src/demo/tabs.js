@@ -11,6 +11,7 @@ import { confirm, intro } from '../copy/onboarding.js';
 import * as gamePlanWords from '../copy/gamePlan.js';
 import * as requestWords from '../copy/requests.js';
 import * as teamWords from '../copy/team.js';
+import * as kidsWords from '../copy/kids.js';
 
 const capitalize = (text) => text.replace(/^\w/, (letter) => letter.toUpperCase());
 const sameDay = (a, b) => a.week === b.week && a.day === b.day;
@@ -711,5 +712,161 @@ export function newGroupView({ seed, momentId, played = 0 }) {
       .map((person) => ({ id: person.id, name: person.name, initial: initialOf(person.name) })),
     line: teamWords.groupNeedsMvp,
     create: teamWords.createGroup,
+  };
+}
+
+// ---------------------------------------------------------------------------------------------
+// Kids (spec §11; fixtures "The Kids tab" and "The Kids tab and school cards"): a page for each child
+// and a card for each school, as each stands at the moment.
+
+// What the moment knows about each child. On her first night only what setup collected is known
+// (fixtures C-00, "The other tabs"): the activities on her calendar, the reminders from the rotation
+// photo, and no teacher.
+function childrenAt(seed, state) {
+  const known = state.children ? new Map(state.children.map((entry) => [entry.id, entry])) : null;
+  return seed.children.map((child) => {
+    if (!known) return child;
+    const entry = known.get(child.id) ?? {};
+    return {
+      ...child,
+      teacher: entry.teacher ?? null,
+      weekly: child.weekly.filter((activity) => (entry.weekly ?? []).some((item) => item.id === activity.id)),
+      goingWith: child.goingWith.filter((item) => (entry.goingWith ?? []).includes(item.id)),
+    };
+  });
+}
+
+function schoolAt(seed, state, schoolId, opened = []) {
+  const school = seed.schools.find((entry) => entry.id === schoolId);
+  const schoolState = (state.schools ?? []).find((entry) => entry.id === schoolId);
+  if (!school || !schoolState) return null;
+  // Facts keep the card's order, so a changed fact sits where the one it replaced did.
+  const order = (id) => school.facts.findIndex((entry) => entry.id === id);
+  const facts = [...schoolState.facts].sort((a, b) => order(a.id) - order(b.id)).map(({ id, changed }) => {
+    const fact = school.facts.find((entry) => entry.id === id);
+    return fact && { ...fact, changed: changed && !opened.includes(id) };
+  }).filter(Boolean);
+  return { school, facts };
+}
+
+// When a document reached the card, said as the card says it: today, yesterday or this Monday within
+// the week, and "last week" before it (fixtures "Kids, as shown").
+function documentDay(received, now, anchor) {
+  if (!received?.day) return kidsWords.lastWeek;
+  const day = relativeDay(received, now, anchor);
+  return received.week < now.week && day !== 'yesterday' ? kidsWords.lastWeek : day;
+}
+
+function factSource(fact, seed) {
+  if (!fact.source) return null;
+  if (fact.source === 'you') return kidsWords.fromYou;
+  const capture = seed.captures.find((entry) => entry.id === fact.source);
+  return capture ? `From ${capture.sourceName} · ${capture.medium}` : null;
+}
+
+export function kidsView({ seed, momentId, played = 0, opened = [] }) {
+  const { state } = momentAt(seed, momentId, played);
+  const children = childrenAt(seed, state);
+  return {
+    title: kidsWords.title,
+    sections: kidsWords.sections,
+    children: children.map((child) => ({
+      id: child.id,
+      name: child.name,
+      line: `${child.gradeLabel} · ${seed.schools.find((school) => school.id === child.school)?.name}`,
+    })),
+    schools: seed.schools.map((school) => schoolAt(seed, state, school.id, opened)).filter(Boolean).map(({ school, facts }) => ({
+      id: school.id,
+      name: school.name,
+      children: school.children.map((id) => seed.children.find((child) => child.id === id)?.name).join(' and '),
+      updated: facts.some((fact) => fact.changed) ? kidsWords.updated : null,
+    })),
+    addASchool: kidsWords.addASchool,
+  };
+}
+
+export function childPageView({ seed, momentId, played = 0, childId }) {
+  const { state } = momentAt(seed, momentId, played);
+  const child = childrenAt(seed, state).find((entry) => entry.id === childId);
+  if (!child) return null;
+  const school = seed.schools.find((entry) => entry.id === child.school);
+  return {
+    title: `${child.name} · ${child.age} · ${child.gradeLabel}`,
+    school: { heading: kidsWords.childPage.school, id: school.id, text: child.teacher ? `${school.name} · ${child.teacher}` : school.name },
+    everyWeek: { heading: kidsWords.childPage.everyWeek, items: child.weekly.map((activity) => ({ id: activity.id, text: activity.text, calendarMark: activity.fromCalendar })) },
+    goingWith: {
+      heading: kidsWords.childPage.goingWith,
+      items: child.goingWith.map((item) => ({ id: item.id, text: item.text })),
+      empty: fill(kidsWords.childPage.nothingGoesWith, { child: child.name }),
+    },
+  };
+}
+
+export function schoolCardView({ seed, momentId, played = 0, schoolId, opened = [] }) {
+  const { state, now, anchor } = momentAt(seed, momentId, played);
+  const found = schoolAt(seed, state, schoolId, opened);
+  if (!found) return null;
+  const { school, facts } = found;
+  const dates = (text) => fillDates(text, { demoWeekStart: anchor, now });
+  const sections = ['hours', 'contacts', 'rules', 'calendar'].map((section) => ({
+    id: section,
+    heading: kidsWords.schoolCard[section],
+    facts: facts.filter((fact) => fact.section === section).map((fact) => {
+      const text = dates(fact.text);
+      // A contact names who it is for, then how to reach them, as the card draws it on two lines.
+      const split = section === 'contacts' && text.indexOf(': ') > 0 ? text.indexOf(': ') + 1 : -1;
+      return {
+        id: fact.id,
+        label: split > 0 ? text.slice(0, split) : null,
+        text: split > 0 ? text.slice(split + 1) : text,
+        updated: fact.changed ? kidsWords.updated : null,
+        source: factSource(fact, seed),
+        history: fact.history.map((entry) => ({
+          text: entry.text,
+          until: capitalize(entry.until.week === now.week && entry.until.day === now.day ? kidsWords.untilToday : `${kidsWords.until} ${relativeDay(entry.until, now, anchor)}`),
+        })),
+      };
+    }),
+  })).filter((section) => section.facts.length);
+  // The rotation for this week, when the school has one and it is known for this week.
+  const week = school.rotation?.[String(now.week)];
+  if (week && Object.keys(week).length > 1) {
+    sections.push({
+      id: 'rotation',
+      heading: kidsWords.schoolCard.rotation,
+      line: `${kidsWords.thisWeek} ${dayIds.filter((day) => week[day]).map((day) => `${weekdayNames[dayIds.indexOf(day)]} ${week[day]}`).join(' · ')}`,
+      facts: [],
+    });
+  }
+  const captured = new Set(state.captures ?? []);
+  const shown = school.documents.filter((doc) => doc.capture && captured.has(doc.capture)).map((doc) => {
+    const capture = seed.captures.find((entry) => entry.id === doc.capture);
+    const parts = [doc.label, capture.medium === 'photo' ? capture.medium : null, documentDay(capture.received, now, anchor)].filter(Boolean);
+    return { id: doc.capture, text: parts.join(', '), order: capture.received?.day ? dayIndex(capture.received) * 10000 + Number((capture.received.time ?? '0:0').replace(':', '')) : -Infinity };
+  }).sort((a, b) => b.order - a.order);
+  if (shown.length) {
+    school.documents.filter((doc) => !doc.capture).forEach((doc) => shown.push({ id: doc.label, text: doc.label }));
+    sections.push({ id: 'documents', heading: kidsWords.schoolCard.documents, facts: shown.map(({ id, text }) => ({ id, text, label: null })) });
+  }
+  // A card nothing has filled in yet says how it fills (fixtures C-00, the Cedar Grove Elementary card).
+  const thin = facts.length <= 1 && !shown.length;
+  return {
+    title: school.name,
+    sections,
+    emptyLine: thin ? fill(kidsWords.emptyCardLine, { school: school.name }) : null,
+    addToCard: kidsWords.addToThisCard,
+    sheet: {
+      heading: fill(kidsWords.addToCardSheet.heading, { school: school.name }),
+      line: fill(kidsWords.addToCardSheet.line, { school: school.name }),
+      actions: [kidsWords.addToCardSheet.takeAPhoto, kidsWords.addToCardSheet.attachAFile, kidsWords.addToCardSheet.talkOrType],
+    },
+    earlierVersion: kidsWords.earlierVersion,
+  };
+}
+
+export function addSchoolView({ seed }) {
+  return {
+    ...kidsWords.addSchoolPage,
+    children: seed.children.map((child) => ({ id: child.id, name: child.name })),
   };
 }

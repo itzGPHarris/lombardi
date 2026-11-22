@@ -4,7 +4,8 @@ import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
 import { articles } from '../src/demo/articles.js';
 import {
-  askForHelpView, chatView, coachView, composerView, gamePlanView, groupView, itemPageView, membersView, personPageView, teamView,
+  askForHelpView, chatView, childPageView, coachView, composerView, gamePlanView, groupView, itemPageView, kidsView, membersView,
+  personPageView, schoolCardView, teamView,
 } from '../src/demo/tabs.js';
 
 const demoWeek = seed.moments.filter((moment) => /^C-0\d/.test(moment.id)).map((moment) => moment.id);
@@ -268,5 +269,68 @@ describe('Team', () => {
     expect(view.circle.people.map((person) => person.name)).toEqual(['Edward', 'Claire']);
     expect(view.circle.notOnMvp.map((person) => person.name)).toEqual(['Dr. Lena Ortiz', 'Karen Moss', 'Ms. Reyes']);
     expect(view.people).toEqual([{ id: 'cedar-grove-parents', name: 'Cedar Grove parents', line: '8 members' }]);
+  });
+});
+
+describe('Kids', () => {
+  const card = (momentId, schoolId, played = 0, opened = []) => schoolCardView({ seed, momentId, played, schoolId, opened });
+  const section = (view, id) => view.sections.find((entry) => entry.id === id);
+  const texts = (entry) => entry.facts.map((fact) => (fact.label ? `${fact.label} ${fact.text}` : fact.text));
+
+  it('the tab lists both girls and both schools, with the Updated mark where a card has changed', () => {
+    expect(kidsView({ seed, momentId: 'C-01' }).children.map((child) => [child.name, child.line])).toEqual([
+      ['Alexis', 'Fourth grade · Cedar Grove Elementary'], ['Mallory', 'Kindergarten · Westview Kindergarten'],
+    ]);
+    expect(kidsView({ seed, momentId: 'C-01' }).schools.map((school) => [school.name, school.children, school.updated])).toEqual([
+      ['Westview Kindergarten', 'Mallory', null], ['Cedar Grove Elementary', 'Alexis', 'Updated'],
+    ]);
+    expect(kidsView({ seed, momentId: 'C-05b' }).schools[0].updated).toBe('Updated');
+    expect(kidsView({ seed, momentId: 'C-05b', played: 1 }).schools[0].updated).toBeNull();
+  });
+
+  it('child pages on Monday and on her first night', () => {
+    expect(childPageView({ seed, momentId: 'C-01', childId: 'mallory' })).toMatchObject({
+      title: 'Mallory · 6 · Kindergarten',
+      school: { text: 'Westview Kindergarten · Ms. Hollis, Room 3' },
+    });
+    const first = childPageView({ seed, momentId: 'C-00', childId: 'alexis' });
+    expect(first.school.text).toBe('Cedar Grove Elementary');
+    expect(first.everyWeek.items.map((item) => [item.text, item.calendarMark])).toEqual([
+      ['Dance, Studio Ten Dance, Wednesdays 3:45pm', true], ['Therapy, Brightwater Family Therapy, Mondays 3:30pm', true],
+    ]);
+    expect(first.goingWith.items).toEqual([]);
+    expect(first.goingWith.empty).toBe('Nothing goes with Alexis on a set day yet.');
+  });
+
+  it('the Westview Kindergarten card on Monday', () => {
+    const view = card('C-01', 'westview');
+    expect(view.sections.map((entry) => entry.id)).toEqual(['hours', 'contacts', 'rules', 'calendar', 'rotation', 'documents']);
+    expect(texts(section(view, 'calendar'))).toEqual(['Picture day, this Friday', 'Harvest fair, next Friday, Oct. 23, 3:00pm to 5:00pm', 'Fir Hollow Farm field trip, Thursday, Oct. 29']);
+    expect(section(view, 'rotation').line).toBe('This week: Monday B · Tuesday C · Wednesday D · Thursday E · Friday F');
+    expect(texts(section(view, 'documents'))).toEqual(['Rotation calendar, photo, last week', 'Family contact list, photo, last week']);
+    expect(section(view, 'contacts').facts[2]).toMatchObject({ label: 'Changes to who picks up:', text: 'through the family portal', source: 'From the family contact list · photo' });
+  });
+
+  it('the Westview Kindergarten card after the pickup email, with the earlier version kept (C-05b)', () => {
+    const view = card('C-05b', 'westview');
+    const changed = section(view, 'contacts').facts.find((fact) => fact.id === 'wv-pickup-changes-email');
+    expect(changed).toMatchObject({ text: 'pickups@westviewk.org, by 11:00am on the day', updated: 'Updated' });
+    expect(changed.history).toEqual([{ text: 'Changes to who picks up: through the family portal', until: 'Until today' }]);
+    expect(texts(section(view, 'documents'))).toEqual([
+      'Pickup change email, today', 'Fall food drive flyer, photo, yesterday', 'Rotation calendar, photo, last week', 'Family contact list, photo, last week',
+    ]);
+    expect(section(card('C-05b', 'westview', 0, ['wv-pickup-changes-email']), 'contacts').facts.find((fact) => fact.id === 'wv-pickup-changes-email').updated).toBeNull();
+  });
+
+  it('the Cedar Grove Elementary card on Monday and on her first night', () => {
+    const view = card('C-01', 'cedar-grove');
+    expect(texts(section(view, 'hours'))).toEqual(['8:00am to 2:45pm', 'Pickup at the Oak Street gate', 'Early dismissal this Thursday at 1:30pm']);
+    expect(section(view, 'hours').facts[2].updated).toBe('Updated');
+    expect(view.sections.map((entry) => entry.id)).not.toContain('rotation');
+    expect(texts(section(view, 'documents'))).toEqual(['Weekly newsletter, yesterday', 'Weekly newsletters from earlier weeks']);
+    const first = card('C-00', 'cedar-grove');
+    expect(first.sections.map((entry) => texts(entry))).toEqual([['Starts 8:00am']]);
+    expect(first.emptyLine).toBe('Send the MVP Coach a handout or an email from Cedar Grove Elementary, and it fills this card in.');
+    expect(section(card('C-00', 'westview'), 'rotation').line).toBe('This week: Monday C · Tuesday D · Wednesday E · Thursday F · Friday A');
   });
 });
