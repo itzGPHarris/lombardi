@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useId, useRef } from 'react';
+import { createContext, useContext, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Icon from './Icon.jsx';
 import { close } from '../../copy/navigation.js';
@@ -9,6 +9,8 @@ import styles from './Sheet.module.css';
 // A compact sheet fits its content, and only a tall sheet scrolls, inside itself, because it is an
 // overlay. The scrim covers the tab bar and the capture bar. Dragging the sheet down closes it, the
 // same as Close and Escape. A sheet never opens another sheet: rendering one inside another throws.
+// It slides up from the bottom of the screen while the scrim fades in, and slides back down while
+// the scrim fades out, as on iOS (spec §19, "Sheets"). Under reduced motion both fade without sliding.
 const InsideSheet = createContext(false);
 const DRAG_TO_CLOSE = 96;
 
@@ -32,11 +34,19 @@ export function SheetFooter({ children }) {
   return <div className={styles.footer}>{children}</div>;
 }
 
-export default function Sheet({ open, onClose, heading, line, tall = false, footer, children }) {
+export default function Sheet({ open, onClose, heading, line, tall = false, footer, children, bodyRef }) {
   const nested = useContext(InsideSheet);
   const headingId = useId();
   const sheetRef = useRef(null);
   const drag = useRef({ startY: 0, dy: 0, active: false });
+  // The sheet stays on screen while it slides away, and leaves once its closing animation ends.
+  const [shown, setShown] = useState(open);
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) setShown(true);
+  }
+  const closing = shown && !open;
 
   useEffect(() => {
     if (!open) return undefined;
@@ -50,7 +60,7 @@ export default function Sheet({ open, onClose, heading, line, tall = false, foot
   }, [open, onClose]);
 
   if (nested) throw new Error('A sheet never opens another sheet (spec §2). Close this sheet first.');
-  if (!open) return null;
+  if (!shown) return null;
 
   const dragHandlers = {
     onPointerDown(event) {
@@ -73,19 +83,20 @@ export default function Sheet({ open, onClose, heading, line, tall = false, foot
 
   return createPortal(
     <InsideSheet.Provider value>
-      <div className={styles.layer}>
-        <div className={styles.scrim} onClick={onClose} aria-hidden="true" />
+      <div className={styles.layer} data-closing={closing || undefined}>
+        <div className={styles.scrim} onClick={closing ? undefined : onClose} aria-hidden="true" />
         <div
           ref={sheetRef}
           className={styles.sheet}
           data-height={tall ? 'tall' : 'compact'}
+          onAnimationEnd={(event) => { if (closing && event.target === event.currentTarget) setShown(false); }}
           role="dialog"
           aria-modal="true"
           aria-labelledby={heading ? headingId : undefined}
           tabIndex={-1}
         >
           <SheetHeader heading={heading} line={line} headingId={headingId} onClose={onClose} dragHandlers={dragHandlers} />
-          <div className={styles.body}>{children}</div>
+          <div className={styles.body} ref={bodyRef}>{children}</div>
           {footer && <SheetFooter>{footer}</SheetFooter>}
         </div>
       </div>

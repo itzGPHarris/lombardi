@@ -1,0 +1,6 @@
+.backups { display: flex; flex-direction: column; gap: var(--space-24); padding-top: var(--space-32); }
+.heading { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
+.backup { display: flex; flex-direction: column; gap: var(--space-8); }
+.prefix { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.line { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.button { align-self: flex-start; }

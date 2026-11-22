@@ -24,7 +24,7 @@ export function placeFor(opensOn) {
 export function emptyToday() {
   return {
     ticks: {}, openedGroups: [], openedChecklists: [], removed: {}, added: {}, reminders: {}, cardAnswers: {},
-    leaveOverrides: {}, sheet: null, notice: null, passShown: null, foldsDrawn: [],
+    leaveOverrides: {}, sheet: null, sheetClosed: false, notice: null, passShown: null, foldsDrawn: [],
   };
 }
 
@@ -54,10 +54,11 @@ export function todayReducer(today, action) {
     case 'ADD_ROW': return { ...today, added: { ...today.added, [action.group]: [...(today.added[action.group] ?? []), action.text] } };
     case 'ANSWER_CARD': return { ...today, cardAnswers: { ...today.cardAnswers, [action.card]: action.answer } };
     case 'UNDO_CARD': return { ...today, cardAnswers: { ...today.cardAnswers, [action.card]: null } };
-    case 'SET_REMINDER': return { ...today, reminders: { ...today.reminders, [action.key]: action.reminder }, sheet: null };
-    case 'SAVE_LEAVE': return { ...today, leaveOverrides: { ...today.leaveOverrides, [action.run]: action.overrides }, sheet: null };
-    case 'OPEN_SHEET': return { ...today, sheet: action.sheet };
-    case 'CLOSE_SHEET': return { ...today, sheet: null };
+    case 'SET_REMINDER': return { ...today, reminders: { ...today.reminders, [action.key]: action.reminder }, sheet: null, sheetClosed: true };
+    case 'SAVE_LEAVE': return { ...today, leaveOverrides: { ...today.leaveOverrides, [action.run]: action.overrides }, sheet: null, sheetClosed: true };
+    case 'OPEN_SHEET': return { ...today, sheet: action.sheet, sheetClosed: false };
+    // A sheet the seed opened in a step stays closed once she closes it.
+    case 'CLOSE_SHEET': return { ...today, sheet: null, sheetClosed: true };
     case 'DISMISS_NOTICE': return { ...today, notice: null };
     case 'PASS_SHOWN': return today.passShown === action.key ? today : { ...today, passShown: action.key };
     case 'FOLD_DRAWN': return today.foldsDrawn.includes(action.key) ? today : { ...today, foldsDrawn: [...today.foldsDrawn, action.key] };
@@ -78,6 +79,7 @@ export function momentState(householdId, momentId, carry = {}) {
     // set them, so every Today state can be opened for evidence.
     played: carry.played ?? 0,
     at: carry.at ?? null,
+    notifications: carry.notifications ?? null,
     ...placeFor(moment.opensOn),
     stack: [],
     switcherOpen: false,
@@ -88,8 +90,8 @@ export function momentState(householdId, momentId, carry = {}) {
   };
 }
 
-export function initialSession({ householdId = households[0].id, momentId, played, at, tab } = {}) {
-  const session = momentState(householdId, momentId, { played, at });
+export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications } = {}) {
+  const session = momentState(householdId, momentId, { played, at, notifications });
   return tab ? { ...session, tab, still: null } : session;
 }
 

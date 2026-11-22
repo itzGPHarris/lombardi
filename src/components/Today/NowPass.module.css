@@ -39,7 +39,7 @@
 .below { display: flex; flex-direction: column; gap: var(--space-16); }
 .perforation { margin: 0 var(--space-20); border: 0; border-top: thin dashed var(--border-hairline); }
 .actions { display: flex; gap: var(--space-8); padding: 0 var(--space-20); }
-.action { flex: 1 0 0; min-width: 0; }
+.action { flex: 1 0 0; min-width: max-content; }
 
 /* Today's pass swings in from a 3.8° tilt and settles level (spec §19, "Today's pass swings in"),
    then the stops or fields, with the list and actions beneath them, rise into place. The tilt is the

@@ -266,6 +266,8 @@ function legPass({ now: nowState, find, clock, local }) {
     kind: 'leg',
     key: `leg:${run.id}:${from}:${tomorrow ? 'day' : 'today'}`,
     runId: run.id,
+    reminderKey: `${run.id}:${from}`,
+    leavesFrom: stop.place,
     title: item ? withLetter(item.spoken ?? item.title, letterDay(item, find)) : null,
     titleCalendarMark: !!item?.fromCalendar,
     conflict: conflict ? `${words.pass.conflict} ${conflict.label}` : null,
@@ -292,6 +294,8 @@ function withSomeonePass({ now: nowState, find, clock }) {
   return {
     kind: 'with-someone',
     key: `with:${item.id}:${tomorrow ? 'day' : 'today'}`,
+    reminderKey: item.id,
+    leavesFrom: 'home',
     title: item.spoken ?? item.title,
     tint: item.children.length ? 'kid' : 'subtle',
     time: formatTime(nowState.leaveAt),
@@ -346,7 +350,7 @@ function tripPass({ now: nowState, find, clock, local }) {
     const item = find.item(to.item);
     const leaveTime = at(run.day, stop.leaveAt);
     return {
-      kind: 'trip', key: `trip:${run.id}`, leg: `${run.id}:${from}`, runId: run.id,
+      kind: 'trip', key: `trip:${run.id}`, leg: `${run.id}:${from}`, runId: run.id, reminderKey: `${run.id}:${from}`, leavesFrom: stop.place,
       title: item ? item.spoken ?? item.title : null,
       tint: 'kid', time: formatTime(stop.leaveAt), leaveTime,
       pill: statusPill({ now: clock, leaveTime, anchor: find.anchor }),
@@ -356,7 +360,7 @@ function tripPass({ now: nowState, find, clock, local }) {
   }
   const leaveTime = at(run.day, run.stops[0].leaveAt);
   return {
-    kind: 'trip', key: `trip:${run.id}`, leg: `${run.id}:start`, runId: run.id,
+    kind: 'trip', key: `trip:${run.id}`, leg: `${run.id}:start`, runId: run.id, reminderKey: `${run.id}:0`, leavesFrom: run.stops[0].place,
     title: run.title,
     tint: 'kid', time: formatTime(run.stops[0].leaveAt), leaveTime,
     pill: statusPill({ now: clock, leaveTime, needsOwner: nowState.needsOwner, anchor: find.anchor }),
@@ -369,8 +373,7 @@ function tripPass({ now: nowState, find, clock, local }) {
 
 function actionsFor(pass, nowState, { find, clock, local }) {
   const list = nowState.actions ?? [];
-  const reminderKey = pass.runId ?? pass.key;
-  const reminder = local.reminders?.[reminderKey] ?? seededReminder(pass, find, clock);
+  const reminder = movedReminder(local.reminders?.[pass.reminderKey], pass, clock) ?? seededReminder(pass, find, clock);
   const actions = [];
   for (const action of list) {
     if (action === 'directions') actions.push({ id: 'directions', label: words.actions.directions, icon: 'directions' });
@@ -388,9 +391,21 @@ function actionsFor(pass, nowState, { find, clock, local }) {
   return actions;
 }
 
-// A reminder the seed has set for a run, with the time it goes off.
+// A reminder she set keeps its offset from the leaving time, so it moves when she changes when she
+// leaves on the Leave sheet. If its new time has already passed, it is removed and the button reads
+// Remind me again (spec §5, "The Leave sheet").
+const offsets = { 5: -5, 15: -15, 30: -30, leave: 0 };
+function movedReminder(reminder, pass, clock) {
+  if (!reminder?.set || !(reminder.choice in offsets)) return reminder;
+  const goesOff = addMinutes(pass.leaveTime.time, offsets[reminder.choice]);
+  if (compareDemoTimes(at(pass.leaveTime, goesOff), clock) <= 0) return { set: false, fired: true };
+  return { ...reminder, at: goesOff };
+}
+
+// A reminder the seed has set for a run, which belongs to the run's first departure, with the time it
+// goes off.
 function seededReminder(pass, find, clock) {
-  if (!pass.runId) return null;
+  if (!pass.runId || pass.reminderKey !== `${pass.runId}:0`) return null;
   const reminder = find.reminder(pass.runId);
   if (!reminder) return null;
   const run = find.run(pass.runId);
@@ -564,5 +579,152 @@ export function todayView({ seed, articles, momentId, played = 0, at: atTime, lo
     sheet,
     find,
     state,
+  };
+}
+
+// ---------------------------------------------------------------------------------------------
+// The Leave sheet (spec §5, "The Leave sheet"): her run as a line of stations, each with the time she
+// leaves it. A leaving time she changes ripples down the line: each later stop's leaving time becomes
+// the later of its own and the time she reaches it, so a stop she is already early for keeps its time
+// (fixtures C-03b). A late arrival is stated in the warning ink and never blocked.
+
+const spokenPlace = (place) => (place.kind === 'home' ? place.name.toLowerCase() : place.name);
+
+export function rippleRun(run, find, changes = {}) {
+  const leave = run.stops.map((stop) => stop.leaveAt ?? null);
+  const reach = run.stops.map(() => null);
+  for (let index = 0; index < run.stops.length; index += 1) {
+    if (index > 0 && leave[index - 1]) {
+      const drive = find.drive(run.stops[index - 1].place, run.stops[index].place);
+      reach[index] = drive === undefined ? null : addMinutes(leave[index - 1], drive);
+    }
+    if (changes[index]) leave[index] = changes[index];
+    else if (leave[index] && reach[index] && minutesOf(reach[index]) > minutesOf(leave[index])) leave[index] = reach[index];
+  }
+  return { leave, reach };
+}
+
+// The earliest she can leave a stop: never before she reaches it, and never before it is due.
+export function earliestLeave(run, find, index, changes) {
+  if (index === 0) return null;
+  const { reach } = rippleRun(run, find, changes);
+  return [reach[index], run.stops[index].dueAt].filter(Boolean).sort((a, b) => minutesOf(b) - minutesOf(a))[0] ?? null;
+}
+
+function reachLine(stop, item, place, time) {
+  if (!stop.dueAt) return null;
+  const difference = minutesOf(time) - minutesOf(stop.dueAt);
+  const pickup = stop.on.length > 0;
+  const values = { place: place.name, time: formatTime(time), count: countInWords(Math.abs(difference)), item: item?.conflictName ?? item?.stopLabel?.toLowerCase() ?? item?.title };
+  if (difference === 0) return { text: fill(words.leaveSheet.youReachOnTime, values), late: false };
+  const template = pickup
+    ? (difference < 0 ? words.leaveSheet.youReachBeforePickup : words.leaveSheet.youReachAfterPickup)
+    : (difference < 0 ? words.leaveSheet.youReachBeforeStart : words.leaveSheet.youReachAfterStart);
+  return { text: fill(template, values), late: difference > 0 };
+}
+
+export function leaveSheetView({ runId, find, clock, local, draft = {}, open = null }) {
+  const saved = local.leaveOverrides?.[runId] ?? {};
+  const base = find.run(runId);
+  const changes = { ...saved, ...draft };
+  const run = runWith(base, changes);
+  const { leave, reach } = rippleRun(base, find, changes);
+  const last = base.stops.length - 1;
+  const first = base.stops.find((stop, index) => index > 0 && stop.place !== 'home');
+  const firstLeave = at(base.day, leave[0] ?? base.stops[0].leaveAt);
+  const phase = phaseOf(firstLeave);
+  const dayWord = relativeDay(firstLeave, clock, find.anchor);
+  const from = spokenPlace(find.place(base.stops[0].place));
+  const to = find.place(first.place).name;
+  const tomorrow = dayWord === 'tomorrow';
+  const stopCount = base.stops.filter((stop) => stop.place !== 'home').length;
+  let line = null;
+  if (sameDay(firstLeave, clock)) line = fill(words.leaveSheet.lineToday, { phase, count: stopCount });
+  else if (!tomorrow) line = fill(words.leaveSheet.lineDay, { day: capitalize(dayWord), phase });
+
+  const stations = base.stops.map((stop, index) => {
+    const place = find.place(stop.place);
+    const item = stop.item ? find.item(stop.item) : null;
+    const conflict = item?.marks?.find((mark) => mark.kind === 'conflict');
+    const isLast = index === last;
+    const station = {
+      index,
+      home: place.kind === 'home',
+      place: place.name,
+      item: item && {
+        time: item.time?.time ? formatTime(item.time.time) : null,
+        chips: item.children,
+        calendarMark: !!item.fromCalendar,
+        text: item.stopLabel ?? item.title,
+      },
+      note: conflict ? `${words.pass.conflict} ${conflict.label}` : item?.fromCalendar ? words.leaveSheet.changeInCalendar : null,
+      backAround: isLast && reach[index] ? fill(words.leaveSheet.backAround, { time: formatTime(reach[index]) }) : null,
+      leaveLabel: !isLast && leave[index] ? fill(words.leaveSheet.leaveAt, { from: spokenPlace(place) }) : null,
+      leaveAt: !isLast ? leave[index] : null,
+      changed: changes[index] !== undefined && changes[index] !== base.stops[index].leaveAt,
+      open: open === index,
+      reach: null,
+    };
+    return station;
+  });
+  // The "You reach" line: under the station she is changing, for the stop it leads to, and under any
+  // later stop she would now reach after it is due.
+  stations.forEach((station, index) => {
+    if (index === 0) return;
+    const stop = base.stops[index];
+    const line = reach[index] && reachLine(stop, stop.item ? find.item(stop.item) : null, find.place(stop.place), reach[index]);
+    if (!line) return;
+    if (open === index - 1) stations[index - 1].reach = line;
+    else if (Object.keys(draft).length && line.late) station.lateReach = line;
+  });
+
+  return {
+    runId,
+    heading: tomorrow ? fill(words.leaveSheet.headingDay, { from, to, day: dayWord }) : fill(words.leaveSheet.heading, { from, to }),
+    line,
+    changed: Object.keys(draft).some((index) => draft[index] !== (saved[index] ?? base.stops[index].leaveAt)),
+    stations,
+    backups: (base.backups ?? []).map((backup) => ({ ...backup, prefix: backup.label === 'B' ? words.leaveSheet.planB : words.leaveSheet.planC })),
+    noMoreBackups: base.coachNoMoreBackups ?? null,
+    run,
+  };
+}
+
+// ---------------------------------------------------------------------------------------------
+// The reminder sheet (spec §5, "Reminders and directions"): 15 minutes before, 30 minutes before and
+// when it's time to leave, offering only the choices still ahead, the first preselected, and five
+// minutes before when fewer than two are left. For a child leaving with someone else, the last choice
+// names the family, and there is no traffic check.
+
+const article = (group) => group?.replace(/^The /, 'the ');
+
+export function reminderSheetView({ pass, find, clock, local }) {
+  const leaveTime = pass.leaveTime;
+  const key = pass.reminderKey;
+  const leaveAt = leaveTime.time;
+  const ahead = (time) => compareDemoTimes(at(leaveTime, time), clock) > 0;
+  const withSomeone = pass.kind === 'with-someone';
+  const from = spokenPlace(find.place(pass.leavesFrom));
+  const choices = [
+    { id: '15', at: addMinutes(leaveAt, -15), label: fill(words.reminderSheet.minutesBefore, { time: formatTime(addMinutes(leaveAt, -15)), minutes: 15 }) },
+    { id: '30', at: addMinutes(leaveAt, -30), label: fill(words.reminderSheet.minutesBefore, { time: formatTime(addMinutes(leaveAt, -30)), minutes: 30 }) },
+    withSomeone
+      ? { id: 'leave', at: leaveAt, label: fill(words.reminderSheet.whenFamilyComes, { time: formatTime(leaveAt), group: article(pass.family) }) }
+      : { id: 'leave', at: leaveAt, label: fill(words.reminderSheet.whenTimeToLeave, { from, time: formatTime(leaveAt) }) },
+  ].filter((choice) => ahead(choice.at));
+  if (choices.length < 2 && ahead(addMinutes(leaveAt, -5))) {
+    choices.unshift({ id: '5', at: addMinutes(leaveAt, -5), label: fill(words.reminderSheet.minutesBefore, { time: formatTime(addMinutes(leaveAt, -5)), minutes: 5 }) });
+  }
+  const set = local.reminders?.[key];
+  const destination = pass.route.at(-1);
+  return {
+    key,
+    heading: withSomeone ? words.reminderSheet.headingWithSomeone : fill(words.reminderSheet.headingLeave, { from }),
+    line: withSomeone
+      ? fill(words.reminderSheet.lineWithSomeone, { time: pass.time, child: pass.childName, group: article(pass.family) })
+      : fill(words.reminderSheet.line, { time: pass.time, place: destination }),
+    choices,
+    selected: set?.set ? set.choice : choices[0]?.id,
+    isSet: !!set?.set,
   };
 }

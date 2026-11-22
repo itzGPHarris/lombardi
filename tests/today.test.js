@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
 import conference from '../src/data/articles/conference.json';
 import {
-  applySteps, countdown, legFromClock, legStage, lookups, nextDeparture, nothingLeftLine, statusPill, todayView,
+  applySteps, countdown, leaveSheetView, legFromClock, legStage, lookups, nextDeparture, nothingLeftLine, reminderSheetView, statusPill, todayView,
 } from '../src/demo/today.js';
 
 const articles = { conference };
@@ -239,5 +239,92 @@ describe('when nothing timed is left today (spec §5, "What leads Now")', () => 
   });
   it('finds her next departure on a later day', () => {
     expect(nextDeparture(seed, { week: 0, day: 'sun', time: '11:15' }).run.id).toBe('run-w1-mon-am-mallory');
+  });
+});
+
+describe('the Leave sheet (spec §5, "The Leave sheet")', () => {
+  const sheetAt = (draft = {}, open = null) => {
+    const { find, clock } = view('C-03b', 1, '14:06');
+    return leaveSheetView({ runId: 'run-mon-pm', find, clock, local: {}, draft, open });
+  };
+
+  it('draws her afternoon run as a line, as C-03b does', () => {
+    const sheet = sheetAt();
+    expect(sheet.heading).toBe('Leave home for Westview Kindergarten');
+    expect(sheet.line).toBe('This afternoon · 3 stops');
+    expect(sheet.stations.map((station) => station.leaveLabel && `${station.leaveLabel} ${station.leaveAt}`)).toEqual([
+      'Leave home at 14:15', 'Leave Westview Kindergarten at 14:30', 'Leave Cedar Grove Elementary at 15:05', 'Leave Brightwater Family Therapy at 16:15', null,
+    ]);
+    expect(sheet.stations[3].note).toBe('Change this in Google Calendar.');
+    expect(sheet.stations[4].backAround).toBe('Back around 4:35pm');
+    expect(sheet.changed).toBe(false);
+  });
+
+  it('says where she arrives when she opens a leaving time', () => {
+    expect(sheetAt({}, 0).stations[0].reach).toEqual({ text: 'You reach Westview Kindergarten at 2:25pm, five minutes before pickup.', late: false });
+  });
+
+  it('ripples a later leaving time down the line, and states every late arrival', () => {
+    const sheet = sheetAt({ 0: '14:25' }, 0);
+    expect(sheet.changed).toBe(true);
+    expect(sheet.stations[0].reach).toEqual({ text: 'You reach Westview Kindergarten at 2:35pm, five minutes after pickup.', late: true });
+    expect(sheet.stations[1].leaveAt).toBe('14:35');
+    expect(sheet.stations[2].lateReach).toEqual({ text: 'You reach Cedar Grove Elementary at 2:47pm, two minutes after pickup.', late: true });
+    expect(sheet.stations[2].leaveAt).toBe('15:05');
+    expect(sheet.stations[4].backAround).toBe('Back around 4:35pm');
+  });
+
+  it('names the day and its backups for tomorrow\'s run', () => {
+    const { find, clock } = view('C-06');
+    const sheet = leaveSheetView({ runId: 'run-thu-yoga', find, clock, local: {} });
+    expect(sheet.heading).toBe('Leave home for Willow Yoga tomorrow');
+    expect(sheet.line).toBeNull();
+    expect(sheet.stations[1].note).toBe("Conflict: Mallory's pickup");
+    expect(sheet.stations[2].backAround).toBe('Back around 3:25pm');
+    expect(sheet.backups.map((backup) => `${backup.prefix} ${backup.button.label}`)).toEqual(['Plan B · Ask Min-jung', 'Plan C · Skip yoga this week']);
+  });
+});
+
+describe('the reminder sheet (spec §5, "Reminders and directions")', () => {
+  const sheetFor = (momentId, played, at, local = {}) => {
+    const shown = view(momentId, played, at, local);
+    return reminderSheetView({ pass: shown.now, find: shown.find, clock: shown.clock, local });
+  };
+  const labels = (sheet) => sheet.choices.map((choice) => choice.label);
+
+  it('offers the three choices when all are ahead', () => {
+    const sheet = sheetFor('C-06');
+    expect(sheet.heading).toBe('Remind me to leave home');
+    expect(sheet.line).toBe('For 2:15pm · Westview Kindergarten');
+    expect(labels(sheet)).toEqual(['At 2:00pm · 15 min before', 'At 1:45pm · 30 min before', "When it's time to leave home · at 2:15pm, with traffic checked"]);
+    expect(sheet.selected).toBe('15');
+  });
+
+  it('adds five minutes before when fewer than two choices are left', () => {
+    expect(labels(sheetFor('C-03b', 1, '14:05'))).toEqual(['At 2:10pm · 5 min before', "When it's time to leave home · at 2:15pm, with traffic checked"]);
+  });
+
+  it('names the family when a child leaves with someone else', () => {
+    const sheet = sheetFor('C-03');
+    expect(sheet.heading).toBe('Remind me');
+    expect(sheet.line).toBe('For 7:40am · Alexis leaves home with the Parks');
+    expect(labels(sheet)).toEqual(['At 7:35am · 5 min before', 'At 7:40am · when the Parks come']);
+  });
+
+  it('reminds her to leave the stop she is at', () => {
+    const sheet = sheetFor('C-03b', 3);
+    expect(sheet.heading).toBe('Remind me to leave Cedar Grove Elementary');
+    expect(sheet.line).toBe('For 3:05pm · Brightwater Family Therapy');
+    expect(labels(sheet)).toEqual(['At 2:50pm · 15 min before', "When it's time to leave Cedar Grove Elementary · at 3:05pm, with traffic checked"]);
+    expect(view('C-03b', 3).now.actions[0].label).toBe('Remind me');
+  });
+
+  it('moves a set reminder with the leaving time, and removes it once its time has passed', () => {
+    const reminders = { 'run-wed-pm:0': { set: true, at: '14:00', choice: '15' } };
+    expect(view('C-06', 0, undefined, { reminders }).now.actions[0].label).toBe('Reminder at 2:00pm');
+    const later = { reminders, leaveOverrides: { 'run-wed-pm': { 0: '14:25' } } };
+    expect(view('C-06', 0, undefined, later).now.actions[0].label).toBe('Reminder at 2:10pm');
+    const passed = { reminders, leaveOverrides: { 'run-wed-pm': { 0: '11:55' } } };
+    expect(view('C-06', 0, undefined, passed).now.actions[0].label).toBe('Remind me again');
   });
 });
