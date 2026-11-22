@@ -18,9 +18,9 @@ function Hers({ message }) {
   return <div className={styles.hers}><p className={styles.bubble}>{message.text}</p></div>;
 }
 
-function Coach({ message, onAction, onChoose, onOpenArticle }) {
+function Coach({ message, onAction, onChoose, onAddToItem, onOpenArticle }) {
   if (message.kind === 'options') return <Options message={message} onChoose={onChoose} />;
-  if (message.kind === 'answer') return <CoachAnswer message={message} onAction={onAction} onOpenArticle={onOpenArticle} />;
+  if (message.kind === 'answer') return <CoachAnswer message={message} onAction={onAction} onAddToItem={onAddToItem} onOpenArticle={onOpenArticle} />;
   return (
     <div className={styles.coach}>
       {message.greeting && <p className={styles.text}>{message.greeting}</p>}
@@ -37,7 +37,7 @@ function Coach({ message, onAction, onChoose, onOpenArticle }) {
   );
 }
 
-export default function Conversation({ days, onAction, onChoose, onOpenArticle }) {
+export default function Conversation({ days, onAction, onChoose, onAddToItem, onOpenArticle }) {
   return (
     <div className={styles.conversation}>
       {days.map((day) => (
@@ -45,7 +45,7 @@ export default function Conversation({ days, onAction, onChoose, onOpenArticle }
           <h2 className={styles.dayHeading}>{day.heading}</h2>
           {day.messages.map((message) => (message.from === 'parent'
             ? <Hers key={message.id} message={message} />
-            : <Coach key={message.id} message={message} onAction={onAction} onChoose={onChoose} onOpenArticle={onOpenArticle} />))}
+            : <Coach key={message.id} message={message} onAction={onAction} onChoose={onChoose} onAddToItem={onAddToItem} onOpenArticle={onOpenArticle} />))}
         </section>
       ))}
     </div>

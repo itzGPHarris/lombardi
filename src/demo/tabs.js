@@ -95,7 +95,7 @@ function messageView(entry, { seed, articles, now, anchor, find, conversation })
   }
   if (entry.addToAppointment) {
     const item = find.item(entry.addToAppointment.item);
-    view.addToAppointment = { label: entry.addToAppointment.label, done: item?.note === entry.addToAppointment.note, after: entry.addToAppointment.coachAfter };
+    view.addToAppointment = { label: entry.addToAppointment.label, item: entry.addToAppointment.item, done: item?.note === entry.addToAppointment.note, after: entry.addToAppointment.coachAfter };
   }
   return view;
 }

@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
 import { initialSession, sessionReducer } from '../src/demo/session.js';
 import { notificationFor, stepsFor } from '../src/demo/steps.js';
-import { composerView, gamePlanView, itemPageView, teamView } from '../src/demo/tabs.js';
+import { coachView, composerView, gamePlanView, itemPageView, teamView } from '../src/demo/tabs.js';
 
 const at = (momentId) => sessionReducer(initialSession(), { type: 'JUMP', momentId });
 const play = (session, ...actions) => actions.reduce((state, action) => sessionReducer(state, action), session);
@@ -138,5 +138,16 @@ describe('Team (spec §10)', () => {
 
   it('addresses the composer opened from a person page to that person (M12)', () => {
     expect(composerView({ seed, momentId: 'C-06c' }).toNamed('Claire')).toBe('To: Claire');
+  });
+});
+
+describe('the coach\'s answers (spec §6)', () => {
+  it('adds the cough to Friday\'s checkup as her note, with no Updated mark, and says so (C-08b)', () => {
+    const answer = (played) => coachView({ seed, articles: {}, momentId: 'C-08b', played }).days.flatMap((day) => day.messages).find((message) => message.id === 'c08b-answer');
+    expect(answer(0).addToAppointment).toMatchObject({ done: false, item: 'fri-checkup-mallory' });
+    expect(answer(1).addToAppointment).toMatchObject({ done: true, after: "The note is on tomorrow's checkup." });
+    const page = itemPageView({ seed, momentId: 'C-08b', played: 1, itemId: 'fri-checkup-mallory' });
+    expect(page.note.text).toBe("Ask Dr. Ortiz about Mallory's cough");
+    expect(page.marks.some((mark) => mark.kind === 'updated')).toBe(false);
   });
 });

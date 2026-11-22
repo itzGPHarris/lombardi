@@ -30,6 +30,7 @@ export default function CoachTab() {
         days={view.days}
         onAction={(action) => run(action.action)}
         onChoose={(messageId, optionId) => step(`option:${messageId}:${optionId}`)}
+        onAddToItem={(itemId) => step(`add-to-item:${itemId}`)}
         onOpenArticle={(id) => openPage('article', id)}
       />
     </ConversationShell>
