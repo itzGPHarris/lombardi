@@ -26,6 +26,8 @@ export const audience = { circle: 'Circle', people: 'People' };
 export const everyoneOnMvp = 'Everyone on MVP';
 export const notInChat = "People who aren't on MVP can't be in a chat. Call or text them from their page.";
 export const to = 'To';
+// The composer opened for one person or one group, such as "To: Claire" (fixtures C-05 and C-06c).
+export const toNamed = 'To: {person}';
 export const writeAMessage = 'Write a message';
 export const send = 'Send';
 export const post = 'Post';

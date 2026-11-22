@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
 import { initialSession, sessionReducer } from '../src/demo/session.js';
 import { notificationFor, stepsFor } from '../src/demo/steps.js';
-import { gamePlanView, itemPageView } from '../src/demo/tabs.js';
+import { composerView, gamePlanView, itemPageView, teamView } from '../src/demo/tabs.js';
 
 const at = (momentId) => sessionReducer(initialSession(), { type: 'JUMP', momentId });
 const play = (session, ...actions) => actions.reduce((state, action) => sessionReducer(state, action), session);
@@ -123,5 +123,20 @@ describe('working the game plan (spec §8)', () => {
     const strip = gamePlanView({ seed, momentId: 'C-09', played: 3 }).readBackStrip;
     expect(strip).toEqual({ label: 'MVP Coach · for next Friday, Oct. 23', text: "A small pumpkin is on Mallory's list for the harvest fair next Friday, Oct. 23." });
     expect(gamePlanView({ seed, momentId: 'C-09', played: 2 }).readBackStrip).toBeNull();
+  });
+});
+
+describe('Team (spec §10)', () => {
+  it('brings "1 new" back when a message arrives after she has opened the chat (C-06c)', () => {
+    let session = play(at('C-06c'), step('send-chat:chat-claire'), { type: 'SEEN', id: 'chat-claire' });
+    session = play(session, next);
+    const chats = (state) => teamView({ seed, momentId: 'C-06c', played: state.played, seen: state.team.seen }).chats;
+    expect(chats(session).find((chat) => chat.id === 'chat-claire').unread).toBe('1 new');
+    session = play(session, { type: 'SEEN', id: 'chat-claire' });
+    expect(chats(session).find((chat) => chat.id === 'chat-claire').unread).toBeNull();
+  });
+
+  it('addresses the composer opened from a person page to that person (M12)', () => {
+    expect(composerView({ seed, momentId: 'C-06c' }).toNamed('Claire')).toBe('To: Claire');
   });
 });

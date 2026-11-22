@@ -1,4 +1,5 @@
-/* At the top of the screen, inside the column beside the sidebar from the tablet width. */
+/* At the top of the screen, inside the column beside the sidebar from the tablet width. It holds no
+   control, so a tap passes through it, such as the long press on the monogram beneath it. */
 .layer {
   position: fixed;
   inset: var(--space-8) 0 auto;
@@ -8,7 +9,7 @@
 .column {
   width: 100%;
   margin-inline: auto;
-  pointer-events: auto;
+  pointer-events: none;
 }
 @media (min-width: 768px) {
   .layer { left: var(--layout-sidebar); }

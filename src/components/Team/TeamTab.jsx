@@ -15,7 +15,7 @@ export default function TeamTab() {
   const { session, household } = useSession();
   const { openPage } = useNavigation();
   const view = useMemo(
-    () => teamView({ seed: household.seed, momentId: session.momentId, played: session.played, seen: session.team?.seen ?? [] }),
+    () => teamView({ seed: household.seed, momentId: session.momentId, played: session.played, seen: session.team?.seen ?? {} }),
     [household.seed, session.momentId, session.played, session.team],
   );
   return (

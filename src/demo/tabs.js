@@ -513,8 +513,20 @@ function namesOf(seed, members) {
   return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}` : names[0];
 }
 
-export function teamView({ seed, momentId, played = 0, seen = [] }) {
-  const { state, now, anchor } = momentAt(seed, momentId, played);
+// When a chat's or a group's "1 new" last came: the step that brought it, or 0 for the moment's start.
+function arrivedAt(moment, played, id) {
+  let at = 0;
+  (moment.steps ?? []).slice(0, played).forEach((step, index) => {
+    if (step.set?.chats?.[id]?.unread || step.set?.groups?.[id]?.unread) at = index + 1;
+  });
+  return at;
+}
+
+export function teamView({ seed, momentId, played = 0, seen = {} }) {
+  const { moment, state, now, anchor } = momentAt(seed, momentId, played);
+  // seen maps each chat or group she has opened to the step she opened it at; a list counts as opened now.
+  const seenAt = Array.isArray(seen) ? Object.fromEntries(seen.map((id) => [id, played])) : seen;
+  const isSeen = (id) => seenAt[id] !== undefined && seenAt[id] >= arrivedAt(moment, played, id);
   const parentId = seed.people.find((person) => person.group === 'parent')?.id;
   const chats = (state.chats ?? []).map((chatState) => {
     const chat = seed.chats.find((entry) => entry.id === chatState.id);
@@ -528,7 +540,7 @@ export function teamView({ seed, momentId, played = 0, seen = [] }) {
       name: namesOf(seed, chat.members),
       latest: `${author}: ${latest.text}`,
       when: timeOrDay(latest.at, now, anchor),
-      unread: chatState.unread && !seen.includes(chat.id) ? teamWords.oneNew : null,
+      unread: chatState.unread && !isSeen(chat.id) ? teamWords.oneNew : null,
     };
   }).filter(Boolean).sort((a, b) => byTimeAsc(b, a));
   const groups = (state.groups ?? []).map((groupState) => {
@@ -542,7 +554,7 @@ export function teamView({ seed, momentId, played = 0, seen = [] }) {
       members: fill(teamWords.members, { count: group.members.length }),
       latest: latest ? `${authorName(seed, latest.by, parentId)}: ${latest.text}` : teamWords.createdLastWeek,
       when: latest ? timeOrDay(latest.at, now, anchor) : null,
-      unread: groupState.unread && !seen.includes(group.id) ? teamWords.oneNew : null,
+      unread: groupState.unread && !isSeen(group.id) ? teamWords.oneNew : null,
     };
   });
   const everyone = teamPeople(seed, state);
@@ -698,6 +710,7 @@ export function composerView({ seed, momentId, played = 0, to = [] }) {
   return {
     heading: teamWords.newMessage,
     to: teamWords.to,
+    toNamed: (name) => fill(teamWords.toNamed, { person: name }),
     audiences: [{ id: 'circle', label: teamWords.audience.circle }, { id: 'people', label: teamWords.audience.people }],
     circle: {
       everyone: teamWords.everyoneOnMvp,

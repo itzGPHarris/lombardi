@@ -17,7 +17,7 @@ export default function GroupPage({ groupId }) {
     () => groupView({ seed: household.seed, momentId: session.momentId, played: session.played, groupId }),
     [household.seed, session.momentId, session.played, groupId],
   );
-  useEffect(() => { dispatch({ type: 'SEEN', id: groupId }); }, [dispatch, groupId]);
+  useEffect(() => { dispatch({ type: 'SEEN', id: groupId }); }, [dispatch, groupId, session.played]);
   if (!view) return null;
   const entry = (item) => (
     <div className={styles.postHead}>

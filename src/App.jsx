@@ -118,7 +118,7 @@ export default function App({ start = {}, embedded = false }) {
   // Anything unread on Team puts a dot on its tab (spec §10).
   const teamUnread = useMemo(() => {
     if (session.onboarding || session.viewAs) return 0;
-    return teamView({ seed: household.seed, momentId: session.momentId, played: session.played, seen: session.team?.seen ?? [] }).unread;
+    return teamView({ seed: household.seed, momentId: session.momentId, played: session.played, seen: session.team?.seen ?? {} }).unread;
   }, [household.seed, session.momentId, session.played, session.team, session.onboarding, session.viewAs]);
   const viewer = session.viewAs ? household.viewAs.find((person) => person.id === session.viewAs)?.label : household.parent;
   const navigation = useMemo(() => ({

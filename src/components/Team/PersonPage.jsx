@@ -27,7 +27,7 @@ export default function PersonPage({ personId }) {
   const message = () => {
     const alone = view.chats?.items.find((chat) => seed.chats.find((entry) => entry.id === chat.id)?.members.length === 1);
     if (alone) openPage('chat', alone.id);
-    else openPage('compose', `circle:${view.id}`);
+    else openPage('compose', `person:${view.id}`);
   };
   return (
     <PageShell title={view.name}>

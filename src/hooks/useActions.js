@@ -15,6 +15,8 @@ export default function useActions() {
     const [kind, target] = colon < 0 ? [action, null] : [action.slice(0, colon), action.slice(colon + 1)];
     switch (kind) {
       case 'open-request': openPage('draft', target); return true;
+      // "Ask my parent group": the composer with People chosen and the coach's draft (spec §10).
+      case 'open-post': openPage('compose', `post:${target}`); return true;
       case 'open-tab': openTab(target); return true;
       case 'open-school':
         dispatch({ type: 'STEP', trigger: `open-card:${target}` });
