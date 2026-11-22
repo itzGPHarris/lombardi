@@ -110,6 +110,7 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 4. §11: Kids, with both girls' pages and both school cards
 5. §12: the MVP Editorial article view
 6. §13: Settings
+7. §2, §3, O30, O32, O29: onboarding follow-ups from Stage 4, with Back on every onboarding and setup screen after 0w, the coach's introduction for the skipped paths, and the steam stars on the `brand-star` token
 
 ### Stage 6: What she does
 

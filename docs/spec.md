@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.50 · November 21, 2026*
+*Investor prototype · Version 0.51 · November 22, 2026*
 
 ## **Summary of this version**
+
+Version 0.51 follows story fixtures 3.50 and Greg's decisions on the Stage 4 report. Back is on every onboarding and setup screen after the welcome, even where a frame draws none (§2, §3, issue O30). The coach's introduction says only what she gave on her path (§3, O32). The steam stars take a new token, `brand-star`, on saffron, because amber belongs to the coach (§19, O29).
 
 Version 0.50 follows story fixtures 3.49 and Greg's decisions on the Stage 3 report. A tall Now scrolls away with the page, as "Scrolling" already said (§5, issue T85). The dateline may wrap to a second line on a narrow phone rather than lose its date (§5, T86). A Leave sheet draws one run, the run its backups belong to (§5, T87), and start times change only in the game plan, so the Leave sheet's "Change the start time" link is gone (§5, T88). The household switcher also opens from a long press on a still screen or a top bar where no monogram is drawn (§15, X4). `meta.invented` points to the fixtures' Appendix A by gap name (§16, D5). If plans change on the playbook is a plain section with a Text Charlotte link, and the calls live in Who to call (§20, Y19).
 
@@ -180,7 +182,7 @@ Every screen in the app is one of eight types, and each type has one rule for wh
 | Page | A person page, a child page, a school card, an article, the members of a group, and Settings | The title bar, holding Back and the page's actions | The large title and everything beneath it | The tab bar |
 | Conversation | The Coach tab, a chat, and a group's page | The title bar, holding the title or Back, and the monogram on the Coach tab | The messages or posts | The capture bar or the message field. The Coach tab also keeps the tab bar beneath it. |
 | Composer | New message, a post to a group, a request draft, a draft handed to another app, Add someone and New group | The title bar, holding Back and the heading | The fields and the message | The primary button, such as Send, Post, Add or Create group |
-| Onboarding and setup | 0w to 0j, except the thinking screens | The top bar, holding Back and, on setup screens, the step counter | The content | The primary button and the skip link |
+| Onboarding and setup | 0w to 0j, except the thinking screens | The top bar, holding Back on every screen after 0w, even where a frame draws none (issue O30), and, on setup screens, the step counter | The content | The primary button and the skip link |
 | Sheet | The reminder sheet, the answer sheet, the Leave sheet, Ask someone and the other sheets on Today | The grabber, Close and the heading | Only a tall sheet scrolls, and a compact sheet fits its content | The primary button and its link |
 | Still | The splash, the thinking screens, getting ready, a notification, the staged calendar permission and Ms. Reyes's web page | Nothing | Nothing, except Ms. Reyes's web page, which scrolls as any web page does | Nothing |
 
@@ -275,7 +277,7 @@ The wireframes are the onboarding flow map and screens onboarding-01 to onboardi
 | 0f | Where do they go to school: each child's school and start time | Setup | 03 of 04 | No |
 | 0g | Your household: household type, home language and, under the subheading "Who else helps?", the adults she counts on | Setup | 04 of 04 | No |
 | 0p | Getting everything ready, while the account is created | Finishing | None | No |
-| 0j | Welcome to the team: the coach's introduction and a recap | Finishing | None | No |
+| 0j | Welcome to the team: the coach's introduction and a recap built from the sentences that apply to her path, as fixtures C-00 "If she skipped a step" sets out (issue O32) | Finishing | None | No |
 | 0i | Her first board on Today: on arrival (0i-a), the other options (0i-b), after she agrees (0i-c), with nothing captured (0i-d), ready for the morning (0i-f), after she removes a reminder (0i-i), adding a reminder (0i-j) and after she picks Plan B (0i-g), with 0i-h showing the next morning | Finishing | None | No |
 
 The words on every screen are in fixtures C-00 and fixtures section 4, "Onboarding".
@@ -1685,7 +1687,7 @@ Every design value in the app, including color, spacing, radius, type, duration 
 
 **Which surface a screen sits on.** Today is the only screen with canvas, for the sheet that carries the coach card, Later today and MVP Editorial, and its header and Now sit on `bg/card` as §5 sets out. Every other screen sits on `bg/card`: the Coach tab, the game plan, Team, Kids, every page opened inside a tab, every sheet and composer, Settings and onboarding. On those screens, a part that has no fill of its own, such as a field, a row of choices or a list group, takes `bg/control` so it stands clear of the card behind it. Canvas was too dark as the background for a whole screen, and Greg moved the boards to card on October 18, 2026 (issue C48). The capture bar and the tab bar take the surface of the screen they sit on.
 
-The design system is called Hearth: warm, editorial and quiet, with a cream canvas, ink rather than black, and cerulean as the anchor color and for anything the parent can tap. Children share one indigo, `kid` #22549A on `kid-bg` #DDE5ED, and the coach has one amber, each with its own tokens (`kid` and `kid-bg`, and `coach`, `coach-ink` and `coach-bg`). Lateness uses `status/warning` and `status/warning-tint`, always with words or an icon beside the color.
+The design system is called Hearth: warm, editorial and quiet, with a cream canvas, ink rather than black, and cerulean as the anchor color and for anything the parent can tap. Children share one indigo, `kid` #22549A on `kid-bg` #DDE5ED, and the coach has one amber, each with its own tokens (`kid` and `kid-bg`, and `coach`, `coach-ink` and `coach-bg`). Lateness uses `status/warning` and `status/warning-tint`, always with words or an icon beside the color. The steam stars use `brand-star`, which is saffron, and nothing else uses it, because amber belongs to the coach (issue O29).
 
 ## **Type**
 
@@ -1849,6 +1851,16 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.51, November 22, 2026**
+
+Follows story fixtures 3.50 and Greg's decisions on the Stage 4 report.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §2 | Back is on every onboarding and setup screen after 0w, even where a frame draws none (O30). |
+| 2 | §3 | The coach's introduction is built from the sentences that apply to her path (O32). |
+| 3 | §19 | A new token, `brand-star`, on saffron, for the steam stars only (O29). |
 
 ## **v0.50, November 21, 2026**
 
