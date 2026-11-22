@@ -545,7 +545,8 @@
       "forEvent": null,
       "fromCalendar": false,
       "source": ["you"],
-      "stopLabel": "Drop off"
+      "stopLabel": "Drop off",
+      "spoken": "Drop Mallory off at Westview Kindergarten"
     },
     {
       "id": "w-1-thu-back-to-school",
@@ -831,7 +832,8 @@
       "forEvent": null,
       "fromCalendar": false,
       "source": ["cap-voice-note"],
-      "conflictName": "yoga"
+      "conflictName": "yoga",
+      "stopLabel": "Yoga"
     },
     {
       "id": "thu-pickup-mallory",
@@ -958,7 +960,8 @@
       "fromCalendar": true,
       "source": ["calendar"],
       "conflictName": "the checkup",
-      "practice": "dr-ortiz"
+      "practice": "dr-ortiz",
+      "stopLabel": "Checkup"
     },
     {
       "id": "fri-pickup-mallory",

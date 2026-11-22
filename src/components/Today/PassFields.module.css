@@ -1,0 +1,7 @@
+.fields { display: flex; gap: var(--space-16); margin: 0; padding: 0 var(--space-20); }
+.field { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.label { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.value { display: flex; align-items: center; gap: var(--space-4); margin: 0; font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); white-space: nowrap; }
+.value[data-late] { color: var(--status-warning); }
+.clock { display: inline-flex; }
+.clock > span { width: var(--size-icon-mark); height: var(--size-icon-mark); }

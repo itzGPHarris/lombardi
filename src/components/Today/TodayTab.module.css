@@ -1,0 +1,2 @@
+/* The parts on the canvas sheet, with space between them instead of borders or divider lines. */
+.sheet { display: flex; flex-direction: column; gap: var(--space-32); }

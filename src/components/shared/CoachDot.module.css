@@ -1,0 +1,1 @@
+.dot { display: inline-block; flex-shrink: 0; width: var(--space-8); height: var(--space-8); border-radius: var(--radius-pill); background: var(--coach); }

@@ -1,0 +1,36 @@
+/* RouteStation in the library: the rail runs through the stations, with a filled dot at home and an
+   open one at each stop. The rail inside the Leave sheet is one of the two lines Today draws. */
+.line { display: flex; flex-direction: column; }
+.station { position: relative; display: flex; gap: var(--space-16); padding-bottom: var(--space-24); }
+.station:last-child { padding-bottom: 0; }
+.rail { position: relative; display: flex; justify-content: center; width: var(--space-12); flex-shrink: 0; }
+.rail::before { content: ''; position: absolute; top: var(--space-12); bottom: calc(var(--space-24) * -1); left: 50%; border-left: thin solid var(--border-hairline); }
+.station:last-child .rail::before { display: none; }
+.dot { position: relative; margin-top: var(--space-4); width: var(--space-12); height: var(--space-12); border: thin solid var(--ink-muted); border-radius: var(--radius-pill); background: var(--bg-card); }
+.station[data-home] .dot { border-color: var(--ink-primary); background: var(--ink-primary); }
+.body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-8); }
+.place { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.item { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8); font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.time { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.note { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.leave { display: flex; align-items: center; gap: var(--space-8); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+/* Each leaving time is a control: cerulean text in a cerulean outline on paper. Open, it takes the
+   cerulean tint (spec §5). */
+.control {
+  min-height: calc(var(--size-tap-target) - var(--space-12));
+  padding: 0 var(--space-8);
+  border: thin solid var(--interactive-default);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  color: var(--interactive-default);
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
+  position: relative;
+}
+.control::after { content: ''; position: absolute; inset: calc(var(--space-12) / -2) 0; }
+.control[data-open] { border-color: transparent; background: var(--interactive-tint); color: var(--ink-primary); font: var(--text-body-large); padding: 0 var(--space-12); border-radius: var(--radius-md); }
+.steps { display: flex; gap: var(--space-8); }
+.reach { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.reach[data-late] { color: var(--status-warning); }
+.back { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.backTime { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }

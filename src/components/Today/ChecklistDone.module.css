@@ -1,0 +1,21 @@
+.done {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--size-tap-target);
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
+  color: var(--ink-primary);
+  text-align: left;
+}
+.check { display: inline-flex; color: var(--interactive-default); }
+/* The check draws in once, from left to right, over the standard duration (spec §19, "Check and
+   fold"). Under reduced motion it appears without drawing in. */
+.check[data-draw] { animation: draw var(--motion-duration-standard) var(--motion-ease-out) both; }
+@keyframes draw {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .check[data-draw] { animation: none; }
+}

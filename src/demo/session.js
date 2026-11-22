@@ -16,6 +16,56 @@ export function placeFor(opensOn) {
   return { tab: 'today', still: opensOn ?? null, viewAs: null };
 }
 
+// What she does on Today during a moment (spec §5): her ticks, what she has removed or added, the
+// reminders she sets, her answers on the coach card, the leaving times she changes, the sheet that is
+// open and the notice above the capture bar. It lives for the moment and clears on any jump (§15).
+// passShown and foldsDrawn hold which pass has already swung in and which folds have already drawn
+// their check, so neither replays when she comes back to Today from another tab (spec §19, "Motion").
+export function emptyToday() {
+  return {
+    ticks: {}, openedGroups: [], openedChecklists: [], removed: {}, added: {}, reminders: {}, cardAnswers: {},
+    leaveOverrides: {}, sheet: null, sheetClosed: false, notice: null, passShown: null, foldsDrawn: [],
+  };
+}
+
+const without = (list, value) => list.filter((entry) => entry !== value);
+
+export function todayReducer(today, action) {
+  switch (action.type) {
+    case 'TICK': {
+      const ticked = !action.ticked;
+      const next = { ...today, ticks: { ...today.ticks, [action.row]: ticked } };
+      // Ticking the last row of a group folds it again, and ticking the last row of all folds the
+      // checklist again. Unticking leaves an opened group open.
+      if (ticked && action.completesGroup) next.openedGroups = without(today.openedGroups, action.group);
+      if (ticked && action.completesChecklist) next.openedChecklists = without(today.openedChecklists, action.checklist);
+      // Unticking unfolds the checklist, so the check draws in again when it folds again.
+      if (!ticked) next.foldsDrawn = without(today.foldsDrawn, action.checklist);
+      return next;
+    }
+    case 'OPEN_GROUP': return { ...today, openedGroups: [...without(today.openedGroups, action.group), action.group] };
+    case 'OPEN_CHECKLIST': return { ...today, openedChecklists: [...without(today.openedChecklists, action.checklist), action.checklist] };
+    case 'REMOVE_ROW': return {
+      ...today,
+      removed: { ...today.removed, [action.group]: [...(today.removed[action.group] ?? []), action.item] },
+      notice: action.notice ? { text: action.notice, undo: { type: 'RESTORE_ROW', group: action.group, item: action.item } } : null,
+    };
+    case 'RESTORE_ROW': return { ...today, removed: { ...today.removed, [action.group]: without(today.removed[action.group] ?? [], action.item) }, notice: null };
+    case 'ADD_ROW': return { ...today, added: { ...today.added, [action.group]: [...(today.added[action.group] ?? []), action.text] } };
+    case 'ANSWER_CARD': return { ...today, cardAnswers: { ...today.cardAnswers, [action.card]: action.answer } };
+    case 'UNDO_CARD': return { ...today, cardAnswers: { ...today.cardAnswers, [action.card]: null } };
+    case 'SET_REMINDER': return { ...today, reminders: { ...today.reminders, [action.key]: action.reminder }, sheet: null, sheetClosed: true };
+    case 'SAVE_LEAVE': return { ...today, leaveOverrides: { ...today.leaveOverrides, [action.run]: action.overrides }, sheet: null, sheetClosed: true };
+    case 'OPEN_SHEET': return { ...today, sheet: action.sheet, sheetClosed: false };
+    // A sheet the seed opened in a step stays closed once she closes it.
+    case 'CLOSE_SHEET': return { ...today, sheet: null, sheetClosed: true };
+    case 'DISMISS_NOTICE': return { ...today, notice: null };
+    case 'PASS_SHOWN': return today.passShown === action.key ? today : { ...today, passShown: action.key };
+    case 'FOLD_DRAWN': return today.foldsDrawn.includes(action.key) ? today : { ...today, foldsDrawn: [...today.foldsDrawn, action.key] };
+    default: return today;
+  }
+}
+
 export function momentState(householdId, momentId, carry = {}) {
   const household = householdById(householdId);
   const { moments } = household.seed;
@@ -24,24 +74,39 @@ export function momentState(householdId, momentId, carry = {}) {
     householdId: household.id,
     momentId: moment.id,
     now: moment.time,
+    // Steps played within the moment, and a demo time inside it. Both stay at the moment's start in
+    // the app until Stage 6 plays steps as the presenter taps. The development-only start parameters
+    // set them, so every Today state can be opened for evidence.
+    played: carry.played ?? 0,
+    at: carry.at ?? null,
+    notifications: carry.notifications ?? null,
     ...placeFor(moment.opensOn),
     stack: [],
     switcherOpen: false,
     // The presenter's own choices carry over a jump; nothing of the household's does.
     phoneFrame: carry.phoneFrame ?? false,
     coachMode: carry.coachMode ?? 'scripted',
+    today: emptyToday(),
   };
 }
 
-export function initialSession({ householdId = households[0].id, momentId } = {}) {
-  return momentState(householdId, momentId);
+export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications } = {}) {
+  const session = momentState(householdId, momentId, { played, at, notifications });
+  return tab ? { ...session, tab, still: null } : session;
 }
+
+// Only the presenter's own choices carry over a jump.
+const presenter = (state) => ({ phoneFrame: state.phoneFrame, coachMode: state.coachMode });
 
 export function sessionReducer(state, action) {
   switch (action.type) {
-    case 'JUMP': return momentState(state.householdId, action.momentId, state);
-    case 'RESET': return momentState(state.householdId, householdById(state.householdId).seed.moments[0].id, state);
-    case 'SWITCH_HOUSEHOLD': return momentState(action.householdId, undefined, state);
+    case 'JUMP': return momentState(state.householdId, action.momentId, presenter(state));
+    case 'RESET': return momentState(state.householdId, householdById(state.householdId).seed.moments[0].id, presenter(state));
+    case 'SWITCH_HOUSEHOLD': return momentState(action.householdId, undefined, presenter(state));
+    case 'TODAY': return { ...state, today: todayReducer(state.today, action.action) };
+    // Development only: plays steps inside the moment without a jump, so the motion a step brings can
+    // be recorded for evidence before Stage 6 plays steps as the presenter taps.
+    case 'DEV_PLAY': return { ...state, played: action.played, at: action.at ?? null };
     case 'VIEW_AS': return { ...state, viewAs: action.person, still: null, tab: 'today', stack: [], switcherOpen: false };
     case 'SET_PHONE_FRAME': return { ...state, phoneFrame: action.on, switcherOpen: false };
     case 'SET_COACH_MODE': return { ...state, coachMode: action.mode };

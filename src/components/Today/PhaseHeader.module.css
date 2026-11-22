@@ -1,0 +1,4 @@
+.header { display: flex; align-items: center; gap: var(--space-8); min-width: 0; }
+.icon { display: inline-flex; color: var(--ink-primary); }
+/* One line at 440. On a narrower phone a long dateline wraps rather than losing its date. */
+.dateline { font: var(--text-title); letter-spacing: var(--text-title-tracking); color: var(--ink-secondary); }

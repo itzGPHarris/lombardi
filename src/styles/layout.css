@@ -3,6 +3,9 @@
    write the values themselves. Replace a line with the library token once it is exported. */
 :root {
   --size-icon: 24px;              /* The icon frame on the library's Icons page. */
+  --size-icon-small: 20px;        /* An icon inside a Button, the Now chevron and a StopMarker, as the frames size them. */
+  --size-icon-mark: 18px;         /* The calendar mark and the ticked check, as LaterTodayRow and ReminderItem size them. */
+  --size-check: 22px;             /* ReminderItem's check circle. */
   --layout-phone-column: 440px;   /* The phone frame width, the column Today, Coach, Team and Kids keep from 768. */
   --layout-sidebar: 248px;        /* The sidebar from 768. No frame draws it. */
   --layout-phone-height: 956px;   /* The phone frame's height, for the phone frame in the switcher. */

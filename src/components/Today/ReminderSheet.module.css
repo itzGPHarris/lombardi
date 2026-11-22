@@ -1,0 +1,16 @@
+.off { display: flex; flex-direction: column; align-items: flex-start; padding-bottom: var(--space-8); font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.choices { display: flex; flex-direction: column; margin: 0; padding: 0; border: 0; }
+.legend { position: absolute; width: var(--space-4); height: var(--space-4); overflow: hidden; clip-path: inset(50%); }
+.choice { display: flex; align-items: center; gap: var(--space-12); min-height: var(--size-tap-target); font: var(--text-body-large); letter-spacing: var(--text-body-large-tracking); color: var(--ink-primary); cursor: pointer; }
+/* A radio row in the sheet's choices: an ink ring, filled in cerulean when chosen. */
+.radio {
+  appearance: none;
+  flex-shrink: 0;
+  width: var(--size-icon-small);
+  height: var(--size-icon-small);
+  margin: 0;
+  border: thin solid var(--ink-primary);
+  border-radius: var(--radius-pill);
+  background: var(--bg-control);
+}
+.radio:checked { border-color: var(--interactive-default); background: var(--interactive-default); box-shadow: inset 0 0 0 var(--space-4) var(--bg-control); }

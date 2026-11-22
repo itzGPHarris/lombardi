@@ -24,6 +24,24 @@ export const pass = {
   tripTitle: 'Take {children} to school',
 };
 
+export const fieldLabels = {
+  drive: 'Drive',
+  arrive: 'Arrive',
+  pickup: 'Pickup',
+  starts: 'Starts',
+  with: 'With',
+};
+
+export const fieldValues = {
+  minutes: '{minutes} min',
+};
+
+export const timetable = {
+  leaveHome: 'Leave home',
+  leave: 'Leave {place}',
+  backHome: 'Back home',
+};
+
 export const fields = {
   drive: 'Drive {minutes} min',
   arrive: 'Arrive {time}',
@@ -65,6 +83,7 @@ export const reminderSheet = {
   headingLeave: 'Remind me to leave {from}',
   headingWithSomeone: 'Remind me',
   line: 'For {time} · {place}',
+  lineWithSomeone: 'For {time} · {child} leaves home with {group}',
   minutesBefore: 'At {time} · {minutes} min before',
   whenTimeToLeave: "When it's time to leave {from} · at {time}, with traffic checked",
   whenFamilyComes: 'At {time} · when {group} come',
@@ -84,6 +103,7 @@ export const reminderNotification = {
 export const coachCard = {
   label: 'MVP Coach',
   labelFor: 'MVP Coach · for {day}',
+  labelNextWeek: 'MVP Coach · for next week',
   agreed: 'Agreed',
   undo: 'Undo',
   otherOptions: 'Other options',
@@ -137,10 +157,17 @@ export const leaveSheet = {
   heading: 'Leave {from} for {to}',
   headingDay: 'Leave {from} for {to} {day}',
   stops: '{count} stops',
+  lineToday: 'This {phase} · {count} stops',
+  lineDay: '{day} {phase}',
   instructions: "Tap a time to leave earlier or later. The stops come from your game plan, and that's where they change.",
   leaveAt: 'Leave {from} at',
   backAround: 'Back around {time}',
   youReach: 'You reach {place} at {time}',
+  youReachOnTime: 'You reach {place} at {time}.',
+  youReachBeforePickup: 'You reach {place} at {time}, {count} minutes before pickup.',
+  youReachAfterPickup: 'You reach {place} at {time}, {count} minutes after pickup.',
+  youReachBeforeStart: 'You reach {place} at {time}, {count} minutes before {item} starts.',
+  youReachAfterStart: 'You reach {place} at {time}, {count} minutes after {item} starts.',
   earlier: '5 min earlier',
   later: '5 min later',
   changeStartTime: 'Change the start time',

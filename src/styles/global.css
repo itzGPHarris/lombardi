@@ -16,6 +16,5 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 a { color: var(--interactive-default); }
 :focus { outline: none; }
 :focus-visible { outline: thin solid var(--focus-ring); outline-offset: var(--space-4); border-radius: var(--radius-sm); }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-}
+/* Reduced motion is set row by row, in each component that moves (spec §19, "Motion"): anything that
+   slides, rises, tilts or changes size appears in place, and fades keep their timing. */

@@ -15,7 +15,24 @@
   padding: var(--space-12) var(--space-20) calc(var(--space-32) + var(--keyboard-inset, 0px));
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   background: var(--bg-card);
-  transition: transform 0.2s ease-out;
+  /* Opening: up from the bottom of the screen. The fill is backwards only, so dragging still moves it. */
+  animation: sheetUp var(--motion-duration-standard) var(--motion-ease-out) backwards;
+}
+.scrim { animation: scrimIn var(--motion-duration-standard) var(--motion-ease-out) backwards; }
+/* Closing: back down while the scrim fades out. */
+.layer[data-closing] .sheet { animation: sheetDown var(--motion-duration-quick) var(--motion-ease-in-out) forwards; }
+.layer[data-closing] .scrim { animation: scrimOut var(--motion-duration-quick) var(--motion-ease-in-out) forwards; }
+.layer[data-closing] { pointer-events: none; }
+@keyframes sheetUp { from { transform: translateY(100%); } }
+@keyframes sheetDown { to { transform: translateY(100%); } }
+@keyframes scrimIn { from { opacity: 0; } }
+@keyframes scrimOut { to { opacity: 0; } }
+@keyframes sheetFadeIn { from { opacity: 0; } }
+@keyframes sheetFadeOut { to { opacity: 0; } }
+/* Under reduced motion the sheet and the scrim fade without sliding, at the same timing. */
+@media (prefers-reduced-motion: reduce) {
+  .sheet { animation-name: sheetFadeIn; }
+  .layer[data-closing] .sheet { animation-name: sheetFadeOut; }
 }
 .sheet:focus { outline: none; }
 .sheet[data-height='tall'] { height: calc(100dvh - var(--space-56)); }

@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useReducer } from 'react';
 import TodayShell from './components/Layout/TodayShell.jsx';
+import TodayTab from './components/Today/TodayTab.jsx';
+import { SessionContext } from './demo/SessionContext.js';
 import TabListShell from './components/Layout/TabListShell.jsx';
 import PageShell from './components/Layout/PageShell.jsx';
 import ConversationShell from './components/Layout/ConversationShell.jsx';
@@ -11,8 +13,8 @@ import { householdById } from './demo/households.js';
 import { initialSession, sessionReducer } from './demo/session.js';
 import { settings, tabs } from './copy/navigation.js';
 
-// Root: the household session, tab routing and the presenter's controls. Stage 1 draws no screen
-// content, so each place in the app is its empty shell.
+// Root: the household session, tab routing and the presenter's controls. Today is built (Stage 3);
+// every other place in the app is still its empty shell. View as keeps its empty Today until Stage 6.
 const PHONE_FRAME_MESSAGE = 'mvp-phone-frame';
 
 function Screen({ session }) {
@@ -20,7 +22,7 @@ function Screen({ session }) {
   if (session.stack.at(-1) === 'settings') return <PageShell title={settings} />;
   if (session.viewAs) return <TodayShell />;
   const title = tabs.find((item) => item.id === session.tab)?.label;
-  if (session.tab === 'today') return <TodayShell />;
+  if (session.tab === 'today') return <TodayTab />;
   if (session.tab === 'coach') return <ConversationShell title={title} isTab />;
   return <TabListShell title={title} wide={session.tab === 'game-plan'} />;
 }
@@ -61,16 +63,27 @@ export default function App({ start = {}, embedded = false }) {
     parentInitial: viewer?.[0] ?? '',
   }), [session.tab, page, viewer]);
 
+  const sessionValue = useMemo(() => ({ session, dispatch, household }), [session, household]);
+
+  // Development only, never in a build: lets the evidence recordings play a step in place.
+  useEffect(() => {
+    if (!import.meta.env.DEV) return undefined;
+    window.mvpDevPlay = (played, at) => dispatch({ type: 'DEV_PLAY', played, at });
+    return () => { delete window.mvpDevPlay; };
+  }, []);
+
   if (session.phoneFrame && isDesktop && !embedded) {
     return <PhoneFrameView householdId={session.householdId} momentId={session.momentId} />;
   }
 
   return (
+    <SessionContext.Provider value={sessionValue}>
     <NavigationContext.Provider value={navigation}>
       <Screen key={`${session.householdId}:${session.momentId}:${session.viewAs}`} session={session} />
       {session.switcherOpen && (
         <HouseholdSwitcher session={session} dispatch={dispatch} household={household} embedded={embedded} onPhoneFrame={setPhoneFrame} />
       )}
     </NavigationContext.Provider>
+    </SessionContext.Provider>
   );
 }
