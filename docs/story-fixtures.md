@@ -1,6 +1,6 @@
 # Demo fixtures: the MVP families
 
-*MVP (Lombardi) · Version 3.50 · November 22, 2026 · Charlotte and Edward only*
+*MVP (Lombardi) · Version 3.51 · November 22, 2026 · Charlotte and Edward only*
 
 # 1. What this document is for
 
@@ -539,7 +539,7 @@ The Kids tab holds a page for each child and a card for each school. Settings, w
 | Rotation | The letter for each school day | A new sheet each month |
 | Documents | The original photos, PDFs and emails the card was built from | With every capture |
 
-Every fact on a card links to where it came from, which is the same source link rule as everywhere else. The link appears when she opens a fact, not under every line. A fact she told the coach herself, such as a start time, shows "From you". Sections with nothing in them are hidden. On the Kids tab, a school's row carries the Updated mark when anything on its card has changed. Keeping the originals also answers one of the most common questions a parent has, which is where a particular handout went.
+Every fact on a card links to where it came from, which is the same source link rule as everywhere else. The link appears when she opens a fact, not under every line. A fact she told the coach herself, such as a start time, shows "From you". A fact from a document names who sent it and, for a photo, the kind, such as "From Westview Kindergarten · photo". In Documents, the day a document came reads "today" or "yesterday" when one of them applies, "this" and the day for another day this week, and "last week" for anything earlier (issue L6). Sections with nothing in them are hidden. On the Kids tab, a school's row carries the Updated mark when anything on its card has changed. Keeping the originals also answers one of the most common questions a parent has, which is where a particular handout went.
 
 **Cards are kept current through capture.** There is no separate flow for adding school information, because the four entry points already cover it. When a capture contains reference, the coach files it on the right card and says so in its read-back, while events still go to the game plan and rules still become standing items. A changed fact carries the Updated mark on the card until the parent opens it, and the previous version stays in the card's history. If a new document contradicts an old one in a way the coach cannot resolve, such as two different end times, the coach asks which is right instead of choosing. Each card also has its own "Add to this card" button, which opens capture already addressed to that school.
 
@@ -831,7 +831,7 @@ A row's latest message is cut to one line. Chats and groups are ordered by their
 | Line | Your husband · On MVP |
 | Actions | [Message] [Call] |
 | Contact | Mobile · 707-555-0101 |
-| This week | Thu · [Alexis] Pick up at Cedar Grove Elementary, 1:30pm · thumbs up<br>Thu · [Mallory] Pick up at Westview Kindergarten, 2:30pm · thumbs down<br>Sat · Library run, 10:00am · thumbs up |
+| This week | Thu · [Alexis] Pick up at Cedar Grove Elementary, early dismissal, 1:30pm · thumbs up<br>Thu · [Mallory] Pick up at Westview Kindergarten, 2:30pm · thumbs down<br>Sat · Library run, 10:00am · thumbs up |
 | Chats | Edward and Claire |
 
 **Team, as shown: Claire's page, on Wednesday after C-06c**
@@ -1024,7 +1024,7 @@ The two switches under Notifications read On because she allowed notifications o
 
 ## The week in the game plan
 
-Each item shows the time the thing itself starts, such as ballet at 4:15pm, and the departure on Today shows when to leave, such as 3:55pm. This table is every item in the game plan for the demo week, as it stands at 6:00am on Monday before C-01. Routine items repeat every week, and the others happen this week only. The last column records how each item changes during the demo. A school run shows the time school starts, such as 8:30am at Westview Kindergarten, and the seed holds the run with its stops, due times and leaving times, which Today uses.
+Each item shows the time the thing itself starts, such as ballet at 4:15pm, and the departure on Today shows when to leave, such as 3:55pm. This table is every item in the game plan for the demo week, as it stands at 6:00am on Monday before C-01. Routine items repeat every week, and the others happen this week only. The last column records how each item changes during the demo. A school run shows the time school starts, such as 8:30am at Westview Kindergarten, and on screen it carries the day's letter, as section 4 says, although this table leaves the letter out. The seed holds the run with its stops, due times and leaving times, which Today uses.
 
 | Day | Time | On screen | Owner | Kind | Status or mark at start | Changes during the demo |
 | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
@@ -1199,7 +1199,7 @@ Tapping any row in the game plan opens its page ("The game plan holds the week")
 > Back
 >
 > [Alexis] Pick up at Cedar Grove Elementary, early dismissal
-> Tomorrow · 1:30pm · Cedar Grove Elementary, Oak Street gate
+> Tomorrow · 1:30pm · Cedar Grove Elementary
 >
 > Owner
 > Edward · thumbs up · Edward: yes
@@ -1803,7 +1803,7 @@ The recap opens with "Here is what I have so far." whichever sentences follow. T
 
 *These are the four other tabs as they stand at the end of C-00, after she agrees on her first board. The words follow from what onboarding collected and nothing more, and Greg approved them on November 21, 2026 before they are drawn (issue P4).*
 
-**Coach, as shown.** The conversation from onboarding, under the heading "Today", oldest first: her photo of the rotation calendar, the coach's read-back, "Whose calendar is this?" with her choice, "Mallory · K", the coach's question about the highlights, her answer, the hand-off, and "Welcome to the team, Charlotte." with its recap. In the history, the welcome shows without its tick boxes and Next, because those belong to onboarding.
+**Coach, as shown.** The conversation from onboarding, under the heading "Today", oldest first: her photo of the rotation calendar, the coach's read-back, "Whose calendar is this?" with her choice, "Mallory · K", the coach's question about the highlights, her answer, the hand-off, and "Welcome to the team, Charlotte." with its recap. In the history, the welcome shows without its tick boxes and Next, and the hand-off without its button, Make Mallory's plan, and its link, Something's not right, because those belong to onboarding (issue K12).
 
 **Game plan, as shown.** The agenda opens at today, Monday, Oct. 5.
 
@@ -1837,7 +1837,7 @@ The recap opens with "Here is what I have so far." whichever sentences follow. T
 | Team | Edward · Your husband · [Circle]<br>Claire · Your sister · [Circle] |
 | Below the lists | [Add someone] [New group] |
 
-*Setup asked for names and relationships but no mobile numbers, so MVP can't yet tell whether Edward and Claire are on MVP, and neither row says so.*
+*Setup asked for names and relationships but no mobile numbers, so MVP can't yet tell whether Edward and Claire are on MVP, and neither row says so. Their pages that night show the name and the line only, with no On MVP or Not on MVP, no Message, Call or Text and no contact, and This week reads "Nothing in this week's plan with Edward." or "Nothing in this week's plan with Claire." (issue M11).*
 
 **Kids, as shown: Alexis**
 
@@ -1966,7 +1966,7 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 >
 > [Show the newsletter]
 
-*She opens WhatsApp, presses and holds Jenna's message, and shares it to MVP. MVP shows "Sent to the coach" and returns her to the Coach tab. She taps the microphone and talks for about twenty seconds, correcting herself partway through, because that is how people actually talk to a phone.*
+*She opens WhatsApp, presses and holds Jenna's message, and shares it to MVP. MVP shows "Sent to the coach" and returns her to the Coach tab, where the shared message shows as she shared it, with the author's name, a colon and the words: "Jenna Okafor: Who can do Wednesday morning? I can't this week." She taps the microphone and talks for about twenty seconds, correcting herself partway through, because that is how people actually talk to a phone.*
 
 > "Alexis gets out early Thursday, one thirty, it's conferences. Violin moved to Tuesday at four. Mallory needs something for picture day Friday, I think. Edward's home Thursday. And I really want the Thursday yoga class at two, actually it's two fifteen."
 
@@ -4356,7 +4356,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | At the foot of Later today | A line in Meta with the number done so far, shown once anything is done: before noon, such as "2 done this morning", and from noon, such as "3 done today" |
 | Rows in Later today | The time, the chips, the calendar mark when the item came from her calendar, and the item, such as "2:30pm · [Mallory] Pick up at Westview Kindergarten" or "3:30pm · [Alexis] [calendar mark] Brightwater Family Therapy, with Mallory" |
 | Calendar mark | A small calendar icon in ink/muted, never cerulean, drawn before the item's text on every row that carries it, with no tap target · Accessible label: From your calendar |
-| Letter day | After the school's name, such as "To Westview Kindergarten · B day" in Later today, or "Westview Kindergarten · D day" in For tomorrow |
+| Letter day | After the school's name, such as "To Westview Kindergarten · B day" in Later today, or "Westview Kindergarten · D day" in For tomorrow, and on every school run in the game plan, such as "[Mallory] To Westview Kindergarten · D day" (issue G49) |
 | Time not known yet, in For tomorrow | Start time needed, in the time column, in Meta |
 | Coach card with nothing captured yet | MVP Coach · Your week is empty so far. Send me a school email, a handout or a few words about your week, and I'll start the plan. · Buttons: Take a photo · Attach a file · Talk or type |
 | Capture bar | The placeholder "Type, talk or add an image" · Icons: Attach · Camera · Microphone, with those accessible labels · No coach's dot, which came off on Oct. 28, 2026 |
@@ -4936,6 +4936,19 @@ The user stories left gaps, and everything in this table is a fact we invented t
 154. **Decided November 21, 2026: the other tabs on her first night are written (issue P4).** They need frames before the build draws them from Figma, and until then the build works from these words.
 
 # Appendix C: change log
+
+## Version 3.51, November 22, 2026
+
+Greg's decisions on the Stage 5 report. Version 3.50 is kept in the archive.
+
+| # | Change |
+| ----- | ----- |
+| 1 | Every school run in the game plan carries its letter day, as C-00 writes it (G49). |
+| 2 | Alexis's early pickup page names Cedar Grove Elementary without the gate, which stays on the school card (G55). |
+| 3 | Edward's page writes the early pickup with its title from the plan, "Pick up at Cedar Grove Elementary, early dismissal, 1:30pm" (M10). |
+| 4 | Edward's and Claire's pages on her first night show the name and the line only (M11). |
+| 5 | In the Coach history the hand-off loses its button and link, and the message she shared from WhatsApp shows the author's name, a colon and the words (K12). |
+| 6 | A fact's source names the document's sender, and Documents dates a document from today, yesterday, this week or last week (L6). |
 
 ## Version 3.50, November 22, 2026
 
