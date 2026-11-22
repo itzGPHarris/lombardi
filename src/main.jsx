@@ -35,6 +35,8 @@ if (import.meta.env.DEV && params.has('shell')) {
       branch: params.get('branch') ?? undefined,
       // The staged notification states on the reminder sheet: off-never-asked or off-declined.
       notifications: params.get('notifications') ?? undefined,
+      // A page opened inside the tab, such as &page=item:fri-checkup-mallory or &page=settings.
+      page: params.get('page') ?? undefined,
     });
   }
   root.render(<StrictMode><App start={start} embedded={embedded} /></StrictMode>);

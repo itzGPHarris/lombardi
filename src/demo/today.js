@@ -48,6 +48,20 @@ function mergeOverlay(list = [], changes = {}) {
   return [...byId.values()];
 }
 
+// A school's facts change one by one, such as a fact the coach files or one she has seen.
+function mergeSchools(list = [], changes = {}) {
+  return mergeOverlay(list, Object.fromEntries(Object.entries(changes).map(([id, facts]) => {
+    const school = list.find((entry) => entry.id === id) ?? { id, facts: [] };
+    return [id, { facts: mergeOverlay(school.facts, facts) }];
+  })));
+}
+
+// Captures are a list of IDs in a moment's state, and a step adds to it.
+function mergeCaptures(list = [], added = []) {
+  const ids = Array.isArray(added) ? added : Object.keys(added);
+  return [...list, ...ids.filter((id) => !list.includes(id))];
+}
+
 function mergeToday(today = {}, show = {}) {
   const next = { ...today };
   for (const [key, value] of Object.entries(show)) {
@@ -86,6 +100,15 @@ export function applySteps(moment, played = 0) {
       planItems: set.items ? mergeOverlay(state.planItems, set.items) : state.planItems,
       reminders: set.reminders ? mergeOverlay(state.reminders, set.reminders) : state.reminders,
       requests: set.requests ? mergeOverlay(state.requests, set.requests) : state.requests,
+      // The other tabs (Stage 5): the conversation grows, chats, groups and school cards change in
+      // place, and the review card and the unread counts are replaced.
+      conversation: set.conversation ? [...(state.conversation ?? []), ...set.conversation] : state.conversation,
+      chats: set.chats ? mergeOverlay(state.chats, set.chats) : state.chats,
+      groups: set.groups ? mergeOverlay(state.groups, set.groups) : state.groups,
+      schools: set.schools ? mergeSchools(state.schools, set.schools) : state.schools,
+      reviewCard: set.reviewCard ?? state.reviewCard,
+      unread: set.unread ? { ...state.unread, ...set.unread } : state.unread,
+      captures: set.captures ? mergeCaptures(state.captures, set.captures) : state.captures,
     };
     if (step.show?.today !== undefined) state = { ...state, today: mergeToday(state.today, step.show.today) };
     if (step.show?.sheet !== undefined) sheet = step.show.sheet;

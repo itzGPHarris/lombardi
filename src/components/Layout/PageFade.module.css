@@ -1,0 +1,2 @@
+.fade { animation: page-in var(--motion-duration-quick) var(--motion-ease-in-out); }
+@keyframes page-in { from { opacity: 0; } to { opacity: 1; } }

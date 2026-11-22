@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useMemo, useReducer } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
 import TodayShell from './components/Layout/TodayShell.jsx';
 import TodayTab from './components/Today/TodayTab.jsx';
 import { SessionContext } from './demo/SessionContext.js';
 import TabListShell from './components/Layout/TabListShell.jsx';
 import PageShell from './components/Layout/PageShell.jsx';
-import ConversationShell from './components/Layout/ConversationShell.jsx';
+import CoachTab from './components/Coach/CoachTab.jsx';
+import PageFade from './components/Layout/PageFade.jsx';
 import StillShell from './components/Layout/StillShell.jsx';
 import Onboarding from './components/Onboarding/Onboarding.jsx';
 import { NavigationContext } from './components/Layout/navigation.js';
@@ -14,19 +15,40 @@ import { householdById } from './demo/households.js';
 import { initialSession, sessionReducer } from './demo/session.js';
 import { settings, tabs } from './copy/navigation.js';
 
-// Root: the household session, tab routing and the presenter's controls. Today is built (Stage 3);
-// every other place in the app is still its empty shell. View as keeps its empty Today until Stage 6.
+// Root: the household session, tab routing, the pages opened inside a tab, and the presenter's
+// controls. View as keeps its empty Today until Stage 6.
 const PHONE_FRAME_MESSAGE = 'mvp-phone-frame';
+
+// A page opened inside a tab, by its kind (spec §2): each has Back and returns to where she was.
+function Page({ page }) {
+  switch (page.kind) {
+    case 'settings': return <PageShell title={settings} />;
+    default: return <PageShell title="" />;
+  }
+}
 
 function Screen({ session }) {
   if (session.onboarding) return <Onboarding />;
   if (session.still) return <StillShell />;
-  if (session.stack.at(-1) === 'settings') return <PageShell title={settings} />;
+  const page = session.stack.at(-1);
+  if (page) return <Page page={page} />;
   if (session.viewAs) return <TodayShell />;
   const title = tabs.find((item) => item.id === session.tab)?.label;
   if (session.tab === 'today') return <TodayTab />;
-  if (session.tab === 'coach') return <ConversationShell title={title} isTab />;
+  if (session.tab === 'coach') return <CoachTab />;
   return <TabListShell title={title} wide={session.tab === 'game-plan'} />;
+}
+
+// Where she was on the screen beneath a page, so Back returns her there (spec §2, "the page scrolls").
+function useScrollMemory(stack, memory) {
+  const depth = useRef(stack.length);
+  useLayoutEffect(() => {
+    const popped = stack.length < depth.current;
+    depth.current = stack.length;
+    if (popped) {
+      window.scrollTo(0, memory.current[stack.length] ?? 0);
+    } else if (stack.length > 0) window.scrollTo(0, 0);
+  }, [stack, memory]);
 }
 
 export default function App({ start = {}, embedded = false }) {
@@ -37,7 +59,9 @@ export default function App({ start = {}, embedded = false }) {
 
   // Switching households or moments leaves no scroll position behind (spec §15).
   const onboardingScreen = session.onboarding?.screen;
-  useEffect(() => { window.scrollTo(0, 0); }, [session.householdId, session.momentId, session.viewAs, session.tab, page, onboardingScreen]);
+  useEffect(() => { window.scrollTo(0, 0); }, [session.householdId, session.momentId, session.viewAs, session.tab, onboardingScreen]);
+  const scrollMemory = useRef([]);
+  useScrollMemory(session.stack, scrollMemory);
 
   // The phone frame's iframe asks this page to turn the frame off, carrying its current moment.
   useEffect(() => {
@@ -58,13 +82,17 @@ export default function App({ start = {}, embedded = false }) {
 
   const viewer = session.viewAs ? household.viewAs.find((person) => person.id === session.viewAs)?.label : household.parent;
   const navigation = useMemo(() => ({
-    tab: page === 'settings' ? 'settings' : session.tab,
+    tab: page?.kind === 'settings' ? 'settings' : session.tab,
     openTab: (tab) => dispatch({ type: 'OPEN_TAB', tab }),
     back: () => dispatch({ type: 'POP' }),
-    openSettings: () => { if (page !== 'settings') dispatch({ type: 'PUSH', page: 'settings' }); },
+    openPage: (kind, id = null) => {
+      scrollMemory.current[session.stack.length] = window.scrollY;
+      dispatch({ type: 'PUSH', page: { kind, id } });
+    },
+    openSettings: () => { if (page?.kind !== 'settings') dispatch({ type: 'PUSH', page: { kind: 'settings', id: null } }); },
     openSwitcher: () => dispatch({ type: 'OPEN_SWITCHER' }),
     parentInitial: viewer?.[0] ?? '',
-  }), [session.tab, page, viewer]);
+  }), [session.tab, session.stack.length, page, viewer]);
 
   const sessionValue = useMemo(() => ({ session, dispatch, household }), [session, household]);
 
@@ -82,7 +110,9 @@ export default function App({ start = {}, embedded = false }) {
   return (
     <SessionContext.Provider value={sessionValue}>
     <NavigationContext.Provider value={navigation}>
-      <Screen key={`${session.householdId}:${session.momentId}:${session.viewAs}:${session.visit}`} session={session} />
+      <PageFade pageKey={session.pageMoves ?? 0}>
+        <Screen key={`${session.householdId}:${session.momentId}:${session.viewAs}:${session.visit}`} session={session} />
+      </PageFade>
       {session.switcherOpen && (
         <HouseholdSwitcher session={session} dispatch={dispatch} household={household} embedded={embedded} onPhoneFrame={setPhoneFrame} />
       )}

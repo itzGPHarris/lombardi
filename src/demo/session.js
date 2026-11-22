@@ -108,11 +108,15 @@ export function momentState(householdId, momentId, carry = {}) {
   };
 }
 
-export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch } = {}) {
+export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch, page } = {}) {
   const session = momentState(householdId, momentId, { played, at, notifications, onboarding });
   // Development only: open her first board on one of its branches, such as 0i-d or 0i-g.
   const withBranch = branch ? { ...session, onboarding: null, still: null, today: emptyToday(branch) } : session;
-  return tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
+  const opened = tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
+  // Development only: open a page inside the tab, written as kind:id.
+  if (!page) return opened;
+  const [kind, id = null] = page.split(':');
+  return { ...opened, stack: [{ kind, id }] };
 }
 
 // Only the presenter's own choices carry over a jump, with the count of jumps.
@@ -149,8 +153,10 @@ export function sessionReducer(state, action) {
     case 'OPEN_SWITCHER': return { ...state, switcherOpen: true };
     case 'CLOSE_SWITCHER': return { ...state, switcherOpen: false };
     case 'OPEN_TAB': return { ...state, tab: action.tab, still: null, stack: [] };
-    case 'PUSH': return { ...state, stack: [...state.stack, action.page] };
-    case 'POP': return { ...state, stack: state.stack.slice(0, -1) };
+    // Opening a page or going Back counts, so the page fades in (spec §19, "Pages"); a tab change does
+    // not, because tabs change at once.
+    case 'PUSH': return { ...state, stack: [...state.stack, action.page], pageMoves: (state.pageMoves ?? 0) + 1 };
+    case 'POP': return { ...state, stack: state.stack.slice(0, -1), pageMoves: (state.pageMoves ?? 0) + 1 };
     default: return state;
   }
 }

@@ -1,0 +1,99 @@
+/* The Coach tab's conversation (frame 2853:13617). The coach speaks in Body on the page, with no
+   bubble; what she says sits at the right on the control surface with a hairline, its top right
+   corner square because it is hers. Day headings are set in Label, as the frame draws them. */
+.conversation { display: flex; flex-direction: column; gap: var(--space-24); padding-top: var(--space-8); }
+.day { display: flex; flex-direction: column; gap: var(--space-24); }
+.dayHeading { font: var(--text-meta-strong); letter-spacing: var(--text-meta-strong-tracking); color: var(--ink-muted); }
+
+.coach { display: flex; flex-direction: column; gap: var(--space-12); }
+.text { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.source { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.actions > :first-child:not(:only-child) { flex: 1 0 auto; }
+.link { align-self: flex-start; }
+.confirm { display: flex; flex-direction: column; gap: var(--space-8); }
+
+.hers { display: flex; justify-content: flex-end; padding-left: calc(var(--space-40) + var(--space-12)); }
+.bubble, .voiceNote {
+  padding: var(--space-16);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-md) 0 var(--radius-md) var(--radius-md);
+  background: var(--bg-control);
+  font: var(--text-body);
+  letter-spacing: var(--text-body-tracking);
+  color: var(--ink-primary);
+}
+.photo { display: block; width: calc(var(--space-56) * 2 + var(--space-40)); height: auto; border-radius: var(--radius-sm); }
+
+.voiceNote { display: flex; flex-direction: column; gap: var(--space-8); width: 100%; }
+.player { display: flex; align-items: center; gap: var(--space-12); }
+/* The play button: a ring with a triangle, the size the library's VoiceNote draws it. */
+.play {
+  position: relative;
+  flex: none;
+  width: var(--space-32);
+  height: var(--space-32);
+  border: thin solid var(--ink-primary);
+  border-radius: var(--radius-pill);
+}
+.play::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: var(--space-8);
+  height: var(--space-12);
+  background: var(--ink-primary);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform: translateX(10%);
+}
+.waveform { flex: 1; height: var(--space-16); border-radius: var(--radius-sm); background: var(--border-hairline); }
+.voiceLabel { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+
+/* The coach's options (library OptionCard 2760:40639), in the coach's tint with its amber outline. */
+.options { display: flex; flex-direction: column; gap: var(--space-8); }
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-16);
+  border: thin solid var(--coach);
+  border-radius: var(--radius-md);
+  background: var(--coach-bg);
+}
+.optionTop { display: flex; align-items: center; gap: var(--space-8); min-height: var(--space-20); }
+.radio {
+  flex: none;
+  width: var(--space-20);
+  height: var(--space-20);
+  border: thin solid var(--ink-primary);
+  border-radius: var(--radius-pill);
+  background: var(--bg-control);
+}
+.radio[data-on] { box-shadow: inset 0 0 0 var(--space-4) var(--bg-control); background: var(--ink-primary); }
+.tag {
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-sm);
+  background: var(--coach);
+  font: var(--text-meta);
+  letter-spacing: var(--text-meta-tracking);
+  color: var(--ink-on-accent);
+}
+.optionTitle { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+
+/* An answer's "Based on" and its attached article. */
+.basedOn { display: flex; flex-direction: column; gap: var(--space-4); }
+.basedOnHeading { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.basedOnList { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: var(--space-16);
+  border-top: thin solid var(--border-hairline);
+  text-align: left;
+}
+.articleLine { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.articleTitle { font: var(--text-voice-strong); letter-spacing: var(--text-voice-strong-tracking); color: var(--ink-primary); }
+
+.capture { padding: var(--space-8) var(--space-20); }
