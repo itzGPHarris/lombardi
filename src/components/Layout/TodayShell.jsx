@@ -52,7 +52,10 @@ export default function TodayShell({ dateline, now, sheet, capture }) {
         </div>
         {now}
       </div>
-      {sheet && <div className={styles.todaySheet} style={{ '--today-foot': `${footHeight}px` }}>{sheet}</div>}
+      {/* With nothing beneath Now (0i-h), the sheet is hidden and the foot stays at the bottom. */}
+      {sheet
+        ? <div className={styles.todaySheet} style={{ '--today-foot': `${footHeight}px` }}>{sheet}</div>
+        : <div className={styles.todayNoSheet} />}
       <div ref={footRef} className={styles.todayFootWrap}>
         <Foot surface="canvas">
           {capture}

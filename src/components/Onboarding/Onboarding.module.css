@@ -2,7 +2,7 @@
    Headlines in Fraunces, everything else in Inter, the coach's lines in Voice (spec §3, standing
    decision 8). Every value is a token or a layout property from src/styles/layout.css. */
 .page { display: flex; flex-direction: column; gap: var(--space-16); padding-top: var(--space-32); }
-.page[data-top='none'] { padding-top: var(--space-8); }
+.page[data-top='none'] { padding-top: var(--space-24); }
 .intro { display: flex; flex-direction: column; gap: var(--space-16); }
 .mark { display: block; align-self: flex-start; }
 .headline { font: var(--text-headline); letter-spacing: var(--text-headline-tracking); color: var(--ink-primary); }
@@ -28,7 +28,7 @@
   border-radius: var(--radius-md);
   background: var(--bg-card);
 }
-.box:focus-within { outline: var(--space-4) solid var(--focus-ring); outline-offset: calc(var(--space-4) / -2); }
+.box:has(:focus-visible), .box:focus-visible { outline: var(--space-4) solid var(--focus-ring); outline-offset: calc(var(--space-4) / -2); }
 .input {
   flex: 1;
   width: 100%;

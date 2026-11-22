@@ -11,9 +11,9 @@ import styles from './Onboarding.module.css';
 
 // The grades the MVP Coach suggests (0k-b, 2858:11639). Each grade is a list box with a chevron, and
 // tapping one opens the list over the field below it with the grade selected (0k-c, 2863:11708).
-export default function Grades({ entries, flags, onOpen, onChoose, onBack, onContinue }) {
+export default function Grades({ entries, flags, onOpen, onChoose, onContinue }) {
   return (
-    <OnboardingShell onBack={onBack} primary={<Button kind="primary" full onClick={onContinue}>{words.continue}</Button>}>
+    <OnboardingShell primary={<Button kind="primary" full onClick={onContinue}>{words.continue}</Button>}>
       <div className={styles.page}>
         <div className={styles.intro}>
           <Entrance order={0}><Mark /></Entrance>
@@ -40,11 +40,12 @@ export default function Grades({ entries, flags, onOpen, onChoose, onBack, onCon
 
 function GradeField({ index, label, grade, open, onOpen, onChoose }) {
   const listRef = useRef(null);
-  // The open list shows the selected grade in its middle, as 0k-c draws it.
+  // The open list shows six whole grades with the selected one third, as 0k-c draws it.
   useEffect(() => {
-    if (!open || !listRef.current) return;
-    const selected = listRef.current.querySelector('[aria-selected="true"]');
-    if (selected) listRef.current.scrollTop = selected.offsetTop - (listRef.current.clientHeight - selected.offsetHeight) / 2;
+    const list = listRef.current;
+    if (!open || !list) return;
+    const selected = list.querySelector('[aria-selected="true"]');
+    if (selected) list.scrollTop = selected.offsetTop - selected.offsetHeight * 2 - parseFloat(getComputedStyle(list).paddingTop);
   }, [open]);
   const id = `grade-${index}`;
   return (

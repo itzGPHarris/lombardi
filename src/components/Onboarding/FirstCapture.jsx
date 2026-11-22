@@ -8,10 +8,9 @@ import styles from './Onboarding.module.css';
 // Show me one thing (0a, 2853:11894): the coach's line as the headline, then the three ways in. A
 // photo is checked first; a file or a voice note goes straight to reading. Skip for now goes on to the
 // account, and her first board then asks for one thing (0i-d).
-export default function FirstCapture({ onCapture, onSkip, onBack }) {
+export default function FirstCapture({ onCapture, onSkip }) {
   return (
     <OnboardingShell
-      onBack={onBack}
       primary={(
         <Entrance order={3} className={styles.buttons}>
           <Button kind="primary" full icon="camera" onClick={() => onCapture('photo')}>{words.takeAPhoto}</Button>

@@ -22,7 +22,8 @@ import { fillDates } from '../../demo/dateTokens.js';
 import { fill } from '../../demo/today.js';
 import { gettingReady, grades as gradeWords, thinking } from '../../copy/onboarding.js';
 
-// C-00 from the splash to the coach's introduction (spec §3). Each screen is its own component in the
+// C-00 from the splash to the coach's introduction (spec §3). The screens before the account draw no
+// Back, as their frames do; the setup screens carry Back and the step counter. Each screen is its own component in the
 // shell for its layout type, and this one moves her from screen to screen through the session, so a
 // jump or Reset returns everything to the splash. The coach's lines, the capture and the draft come
 // from the seed's C-00; nothing calls a network or a model.
@@ -62,7 +63,6 @@ export default function Onboarding() {
         flags={flags}
         setChild={setRow('children')}
         addChild={() => act({ type: 'ADD_ROW', field: 'children', value: { id: null, name: '', birth: null, grade: gradeWords.list[0] } })}
-        onBack={back}
         onContinue={() => go('0k-b')}
       />
     );
@@ -72,12 +72,11 @@ export default function Onboarding() {
         flags={flags}
         onOpen={(index) => act({ type: 'OPEN_GRADE_LIST', index })}
         onChoose={(index, grade) => act({ type: 'CHOOSE_GRADE', index, grade })}
-        onBack={back}
         onContinue={() => go('0a')}
       />
     );
-    case '0a': return <FirstCapture onCapture={(kind) => act({ type: 'CAPTURE', kind })} onSkip={() => act({ type: 'SKIP_CAPTURE' })} onBack={back} />;
-    case '0v': return <CheckPhoto alt={capture.label} onUse={() => go('0r')} onRetake={() => go('0v')} onBack={back} />;
+    case '0a': return <FirstCapture onCapture={(kind) => act({ type: 'CAPTURE', kind })} onSkip={() => act({ type: 'SKIP_CAPTURE' })} />;
+    case '0v': return <CheckPhoto alt={capture.label} onUse={() => go('0r')} onRetake={() => go('0v')} />;
     case '0r': {
       const line = { photo: thinking.photo, file: thinking.file, voice: thinking.listening }[flags.captureKind ?? 'photo'];
       return <Thinking key="0r" line={line} slow={failure === 'slow-read'} onDone={toReadBack} onTryAgain={() => go('0r')} />;
@@ -122,7 +121,7 @@ export default function Onboarding() {
       );
     }
     case '0e': return <Account email={entries.email} setEmail={(value) => set('email', value)} onContinue={() => go('0e-p')} onBack={flags.skippedCapture ? () => go('0a') : back} />;
-    case '0e-p': return <ChoosePlan onBuy={() => go('0q')} onBack={back} />;
+    case '0e-p': return <ChoosePlan onBuy={() => go('0q')} />;
     case '0q': return <Calendar onPick={(calendar) => act({ type: 'ASK_CALENDAR', calendar })} onSkip={() => act({ type: 'SKIP_CALENDAR' })} onBack={back} />;
     case '0q-b': return <CalendarPermission calendar={flags.pendingCalendar ?? seed.calendar.name} onAllow={() => act({ type: 'ALLOW_CALENDAR' })} onCancel={() => act({ type: 'CANCEL_CALENDAR' })} />;
     case '0q-c': return <Connected calendar={flags.calendar ?? seed.calendar.name} onContinue={() => go('0f')} onBack={back} />;

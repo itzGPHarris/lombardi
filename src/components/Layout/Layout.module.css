@@ -128,6 +128,7 @@
   /* Tall enough to rise over the header and Now all the way to the top of the screen. */
   min-height: calc(100dvh - var(--today-foot, var(--space-0)));
 }
+.todayNoSheet { flex: 1; }
 .todayFootWrap { position: sticky; bottom: var(--keyboard-inset, 0); z-index: 20; }
 .todayFootWrap > * { position: static; }
 
