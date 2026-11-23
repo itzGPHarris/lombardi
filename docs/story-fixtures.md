@@ -4501,7 +4501,7 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 
 | Where | Text |
 | ----- | ----- |
-| Splash | The MVP mark with "Most Valuable Parent" beneath it |
+| Splash | The MVP mark with "Most Valuable Parent" beneath it, and beneath that the tagline "Master the parental logistics of life for every season. Build community. Solve for the win. Be the MVP." (issue O26) |
 | Welcome screen | Headline: Your week has a lot of moving parts, and the MVP Coach helps you keep track of everything. · Line: Just the basics to start us off in the right direction. · Fields: Your name · Zip code, with no helper lines · Button: Continue · Link: Skip for now |
 | Children screen | Heading: "Who are you planning for," followed by her name, such as "Who are you planning for, Charlotte?", or "Who are you planning for?" if she skipped the welcome · For each child: Your kiddo's first name · Birth month and year, such as "October 2016" · Link: + Add another child · Button: Continue · No skip |
 | Grades screen | Heading: what the MVP Coach works out, such as "Alexis is likely in fourth grade, and Mallory is likely in kindergarten.", or with one child, "Mallory is likely in kindergarten.", or with three or more, "Here are the grades the MVP Coach suggests." · Line: The MVP Coach works these out from each child's birth month. Change any grade that's wrong. · For each child: the name and "grade", such as "Alexis's grade", over a list box with a chevron · The list: Not in school yet · Pre-K · Kindergarten · First grade · Second grade · Third grade · Fourth grade · Fifth grade · Sixth grade · Seventh grade · Eighth grade · Ninth grade · Tenth grade · Eleventh grade · Twelfth grade · Button: Continue |
@@ -4916,11 +4916,12 @@ The user stories left gaps, and everything in this table is a fact we invented t
 
 ## Version 3.53, November 23, 2026
 
-Greg's decision on QA-003. Version 3.52 is kept in the archive.
+Greg's decisions on QA-003 and on the onboarding frames. Version 3.52 is kept in the archive.
 
 | # | Change |
 | ----- | ----- |
 | 1 | A request draft shows the address line, the message and its send button, as the draft to Ruth does. The preview of the recipient's Yes, I can and No, I can't buttons, and the line above it, come off every draft (S14). |
+| 2 | The splash keeps the tagline from its frame, for now (O26). |
 
 ## Version 3.52, November 22, 2026
 

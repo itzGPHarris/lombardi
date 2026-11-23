@@ -134,6 +134,8 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 ## Alpha 1 follow-ups
 
 1. S14: request drafts show the address line, the message and the send button only
+2. O26: the splash's tagline beneath the wordmark
+3. O27, §19: the thinking dots pulse in turn
 
 ## Alpha 2: The weekend Charlotte is away
 
