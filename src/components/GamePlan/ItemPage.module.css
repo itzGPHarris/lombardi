@@ -31,3 +31,17 @@
 .noMore { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-secondary); }
 .line { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
 .move { align-self: flex-start; }
+button.noteField { width: 100%; text-align: start; }
+textarea.noteField { resize: none; }
+/* The day and time picker, opened in place (fixtures section 4, "Move picker"). */
+.picker { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); }
+.pickerField {
+  min-height: var(--size-tap-target);
+  padding: 0 var(--space-12);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--bg-control);
+  font: var(--text-body);
+  letter-spacing: var(--text-body-tracking);
+  color: var(--ink-primary);
+}

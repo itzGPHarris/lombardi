@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
-import TodayShell from './components/Layout/TodayShell.jsx';
 import TodayTab from './components/Today/TodayTab.jsx';
 import { SessionContext } from './demo/SessionContext.js';
 import TabListShell from './components/Layout/TabListShell.jsx';
@@ -20,19 +19,23 @@ import ChildPage from './components/Kids/ChildPage.jsx';
 import SchoolCard from './components/Kids/SchoolCard.jsx';
 import AddSchool from './components/Kids/AddSchool.jsx';
 import ArticleView from './components/Recommends/ArticleView.jsx';
+import RequestDraft from './components/Requests/RequestDraft.jsx';
+import RecipientView from './components/Requests/RecipientView.jsx';
+import StagedCamera from './components/Capture/StagedCamera.jsx';
 import SettingsPage from './components/Settings/SettingsPage.jsx';
 import StillShell from './components/Layout/StillShell.jsx';
 import Onboarding from './components/Onboarding/Onboarding.jsx';
 import { NavigationContext } from './components/Layout/navigation.js';
 import HouseholdSwitcher from './components/Demo/HouseholdSwitcher.jsx';
+import Arrival from './components/shared/Arrival.jsx';
 import { PhoneFrameView, useIsDesktop } from './components/Demo/PhoneFrame.jsx';
 import { householdById } from './demo/households.js';
 import { teamView } from './demo/tabs.js';
 import { initialSession, sessionReducer } from './demo/session.js';
 import { settings, tabs } from './copy/navigation.js';
 
-// Root: the household session, tab routing, the pages opened inside a tab, and the presenter's
-// controls. View as keeps its empty Today until Stage 6.
+// Root: the household session, tab routing, the pages opened inside a tab, the recipient's side
+// through View as, and the presenter's controls.
 const PHONE_FRAME_MESSAGE = 'mvp-phone-frame';
 
 // A page opened inside a tab, by its kind (spec §2): each has Back and returns to where she was.
@@ -52,6 +55,8 @@ function Page({ page }) {
     case 'school': return <SchoolCard schoolId={page.id} />;
     case 'add-school': return <AddSchool />;
     case 'article': return <ArticleView articleId={page.id} />;
+    case 'draft': return <RequestDraft requestId={page.id} />;
+    case 'camera': return <StagedCamera captureId={page.id} />;
     default: return <PageShell title={settings} />;
   }
 }
@@ -61,7 +66,7 @@ function Screen({ session }) {
   if (session.still) return <StillShell />;
   const page = session.stack.at(-1);
   if (page) return <Page page={page} />;
-  if (session.viewAs) return <TodayShell />;
+  if (session.viewAs) return <RecipientView personId={session.viewAs} />;
   const title = tabs.find((item) => item.id === session.tab)?.label;
   if (session.tab === 'today') return <TodayTab />;
   if (session.tab === 'coach') return <CoachTab />;
@@ -115,7 +120,7 @@ export default function App({ start = {}, embedded = false }) {
   // Anything unread on Team puts a dot on its tab (spec §10).
   const teamUnread = useMemo(() => {
     if (session.onboarding || session.viewAs) return 0;
-    return teamView({ seed: household.seed, momentId: session.momentId, played: session.played, seen: session.team?.seen ?? [] }).unread;
+    return teamView({ seed: household.seed, momentId: session.momentId, played: session.played, seen: session.team?.seen ?? {} }).unread;
   }, [household.seed, session.momentId, session.played, session.team, session.onboarding, session.viewAs]);
   const viewer = session.viewAs ? household.viewAs.find((person) => person.id === session.viewAs)?.label : household.parent;
   const navigation = useMemo(() => ({
@@ -151,6 +156,7 @@ export default function App({ start = {}, embedded = false }) {
       <PageFade pageKey={session.pageMoves ?? 0}>
         <Screen key={`${session.householdId}:${session.momentId}:${session.viewAs}:${session.visit}`} session={session} />
       </PageFade>
+      {!session.viewAs && !session.onboarding && <Arrival arrival={session.arrival} dispatch={dispatch} />}
       {session.switcherOpen && (
         <HouseholdSwitcher session={session} dispatch={dispatch} household={household} embedded={embedded} onPhoneFrame={setPhoneFrame} />
       )}

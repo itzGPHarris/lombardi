@@ -7,7 +7,7 @@ import styles from './GamePlan.module.css';
 // with its count and the dot. Open wraps the day's rows in a container on bg/subtle at radius/md,
 // which is not a card. Tapping the heading opens or closes it, and its rows expand or collapse
 // (spec §19, "Days open and close"). An empty day says so, with the quiet line in a thin week.
-export default function DayGroup({ day, open, onToggle, childName, onOpen, id }) {
+export default function DayGroup({ day, open, onToggle, childName, onOpen, id, highlight = null }) {
   if (day.empty) {
     return (
       <div className={styles.day} id={id} data-key={day.key}>
@@ -30,7 +30,7 @@ export default function DayGroup({ day, open, onToggle, childName, onOpen, id })
       </button>
       <div className={styles.rowsWrap} inert={!open || undefined} aria-hidden={!open || undefined}>
         <div className={styles.rows}>
-          {day.rows.map((row) => <PlanRow key={row.id} row={row} childName={childName} onOpen={onOpen} />)}
+          {day.rows.map((row) => <PlanRow key={row.id} row={row} childName={childName} onOpen={onOpen} highlight={row.id === highlight} />)}
         </div>
       </div>
     </div>

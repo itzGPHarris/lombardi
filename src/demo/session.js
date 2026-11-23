@@ -1,5 +1,8 @@
 import { householdById, households } from './households.js';
 import { onboardingReducer, startOnboarding } from './onboarding.js';
+import { fillDates } from './dateTokens.js';
+import { conflictNotice, conflictNoticeLink } from '../copy/gamePlan.js';
+import { nextStep, notificationFor, playsFromPresenter, playsFromTrigger, stepsFor, undoable } from './steps.js';
 
 // One session per household (spec §17): the moment, the demo time, where she is in the app, and the
 // presenter's controls. Nothing is saved, so a reload starts again on C-00 (spec §15, issue X3).
@@ -28,6 +31,9 @@ export function emptyToday(branch = null) {
   return {
     ticks: {}, openedGroups: [], openedChecklists: [], removed: {}, added: {}, reminders: {}, cardAnswers: {},
     leaveOverrides: {}, sheet: null, sheetClosed: false, notice: null, passShown: null, foldsDrawn: [], branch,
+    // What she is giving the coach through the capture bar: her words and a photo from the staged
+    // camera, kept while the camera is open (fixtures C-03a).
+    captureText: '', photo: null,
   };
 }
 
@@ -67,6 +73,9 @@ export function todayReducer(today, action) {
     // A sheet the seed opened in a step stays closed once she closes it.
     case 'CLOSE_SHEET': return { ...today, sheet: null, sheetClosed: true };
     case 'DISMISS_NOTICE': return { ...today, notice: null };
+    case 'CAPTURE_TEXT': return { ...today, captureText: action.text };
+    case 'ATTACH': return { ...today, photo: action.capture };
+    case 'CLEAR_CAPTURE': return { ...today, captureText: '', photo: null };
     case 'PASS_SHOWN': return today.passShown === action.key ? today : { ...today, passShown: action.key };
     case 'FOLD_DRAWN': return today.foldsDrawn.includes(action.key) ? today : { ...today, foldsDrawn: [...today.foldsDrawn, action.key] };
     default: return today;
@@ -74,9 +83,12 @@ export function todayReducer(today, action) {
 }
 
 // What she has opened or closed on the game plan, which stays as she left it until she leaves the
-// game plan (spec §8, "Day"), and the items she has opened, whose Updated mark has cleared.
-export function emptyGamePlan(opened = []) {
-  return { days: {}, pastOpen: false, opened };
+// game plan (spec §8, "Day"), and the items she has opened, whose Updated mark has cleared. Her notes
+// and the items she has opened stay until she jumps to another moment. landing is the item she has
+// just added or moved, which takes the coach's tint on its day (spec §8, "She sees where an item
+// lands"); strip is the read-back strip she has sent away; notice is a conflict notice above the bar.
+export function emptyGamePlan(opened = [], notes = {}) {
+  return { days: {}, pastOpen: false, opened, notes, landing: null, stripGone: false, notice: null };
 }
 
 export function gamePlanReducer(gamePlan, action) {
@@ -84,6 +96,12 @@ export function gamePlanReducer(gamePlan, action) {
     case 'TOGGLE_DAY': return { ...gamePlan, days: { ...gamePlan.days, [action.key]: action.open } };
     case 'TOGGLE_PAST': return { ...gamePlan, pastOpen: !gamePlan.pastOpen };
     case 'OPEN_ITEM': return gamePlan.opened.includes(action.id) ? gamePlan : { ...gamePlan, opened: [...gamePlan.opened, action.id] };
+    case 'SAVE_NOTE': return { ...gamePlan, notes: { ...gamePlan.notes, [action.id]: action.text } };
+    case 'LAND': return { ...gamePlan, landing: { id: action.id, key: action.key, said: action.said } };
+    case 'CLEAR_LANDING': return { ...gamePlan, landing: null };
+    case 'STRIP_GONE': return gamePlan.stripGone ? gamePlan : { ...gamePlan, stripGone: true };
+    case 'NOTICE': return { ...gamePlan, notice: action.notice };
+    case 'DISMISS_NOTICE': return { ...gamePlan, notice: null };
     default: return gamePlan;
   }
 }
@@ -102,9 +120,9 @@ export function momentState(householdId, momentId, carry = {}) {
     householdId: household.id,
     momentId: moment.id,
     now: moment.time,
-    // Steps played within the moment, and a demo time inside it. Both stay at the moment's start in
-    // the app until Stage 6 plays steps as the presenter taps. The development-only start parameters
-    // set them, so every Today state can be opened for evidence.
+    // Steps played within the moment, and a demo time inside it. Steps play as the presenter taps
+    // (src/demo/steps.js). The development-only start parameters set them, so every state can be
+    // opened for evidence.
     played: carry.played ?? 0,
     at: carry.at ?? null,
     notifications: carry.notifications ?? null,
@@ -114,6 +132,8 @@ export function momentState(householdId, momentId, carry = {}) {
     // left behind, even when the presenter jumps to the moment already showing (spec §15).
     visit: (carry.visit ?? 0) + 1,
     playedFrom: null,
+    // The notification for the last step that brought her one, such as Edward's yes (spec §9, §10).
+    arrival: null,
     stack: [],
     switcherOpen: false,
     // The presenter's own choices carry over a jump; nothing of the household's does.
@@ -121,23 +141,55 @@ export function momentState(householdId, momentId, carry = {}) {
     coachMode: carry.coachMode ?? 'scripted',
     today: emptyToday(),
     gamePlan: emptyGamePlan(),
-    // The chats and groups she has opened in this moment, whose "1 new" has cleared (spec §10).
-    team: { seen: [] },
+    // The chats and groups she has opened in this moment, each with the step it was opened at, so a
+    // message that arrives after she has looked brings "1 new" back (spec §10).
+    team: { seen: {} },
     // The school card facts she has opened, whose Updated mark has cleared (spec §11).
     kids: { opened: [] },
   };
 }
 
-export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch, page } = {}) {
-  const session = momentState(householdId, momentId, { played, at, notifications, onboarding });
+export function initialSession({ householdId = households[0].id, momentId, played, at, tab, notifications, onboarding, branch, page, viewAs, notice } = {}) {
+  const opening = momentState(householdId, momentId, { played, at, notifications, onboarding });
+  // Development only: a moment opened with steps played shows the last one's notification, so the
+  // evidence can show what she hears.
+  const last = opening.played ? stepsFor(opening.momentId)[opening.played - 1] : null;
+  const text = last ? notificationFor(householdById(opening.householdId).seed, last) : null;
+  const session = text ? { ...opening, arrival: { text, key: `${opening.momentId}:${opening.played}` } } : opening;
   // Development only: open her first board on one of its branches, such as 0i-d or 0i-g.
   const withBranch = branch ? { ...session, onboarding: null, still: null, today: emptyToday(branch) } : session;
-  const opened = tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
+  const tabbed = tab ? { ...withBranch, tab, still: null, onboarding: null } : withBranch;
+  // Development only: open the moment from a recipient's side.
+  const viewed = viewAs ? { ...tabbed, viewAs, tab: 'today', still: null, onboarding: null } : tabbed;
+  // Development only: the conflict notice above the bar on the game plan, which no moment raises
+  // (spec §8; fixtures section 2, "A new conflict reaches her as a notice").
+  const demoWeekStart = householdById(viewed.householdId).seed.meta.demoWeekStart;
+  const opened = notice === 'conflict' ? {
+    ...viewed,
+    gamePlan: { ...viewed.gamePlan, notice: { text: conflictNotice, link: fillDates(conflictNoticeLink, { demoWeekStart }), day: '0.mon' } },
+  } : viewed;
   // Development only: open a page inside the tab, written as kind:id.
   if (!page) return opened;
   const colon = page.indexOf(':');
   const [kind, id] = colon < 0 ? [page, null] : [page.slice(0, colon), page.slice(colon + 1)];
   return { ...opened, stack: [{ kind, id }] };
+}
+
+// Plays the moment's next step. Undo is kept only after her own change from the coach card or the
+// Coach tab, never after a send or anyone else's step (spec §5, §9). A step that brings her a
+// notification raises it, and one that returns her to a tab, such as the share in C-01, opens it.
+function playStep(state, step) {
+  const seed = householdById(state.householdId).seed;
+  const text = notificationFor(seed, step);
+  const moved = step.tab && step.tab !== state.tab;
+  return {
+    ...state,
+    played: state.played + 1,
+    at: null,
+    playedFrom: undoable(step) ? state.played : null,
+    arrival: text ? { text, key: `${state.momentId}:${state.played + 1}` } : state.arrival,
+    ...(moved ? { tab: step.tab, still: null, stack: [] } : {}),
+  };
 }
 
 // Only the presenter's own choices carry over a jump, with the count of jumps.
@@ -149,7 +201,7 @@ export function sessionReducer(state, action) {
     case 'RESET': return momentState(state.householdId, householdById(state.householdId).seed.moments[0].id, presenter(state));
     case 'SWITCH_HOUSEHOLD': return momentState(action.householdId, undefined, presenter(state));
     case 'TODAY': return { ...state, today: todayReducer(state.today, action.action) };
-    case 'SEEN': return (state.team?.seen ?? []).includes(action.id) ? state : { ...state, team: { seen: [...(state.team?.seen ?? []), action.id] } };
+    case 'SEEN': return state.team?.seen?.[action.id] === state.played ? state : { ...state, team: { seen: { ...state.team?.seen, [action.id]: state.played } } };
     case 'OPEN_FACT': return (state.kids?.opened ?? []).includes(action.id) ? state : { ...state, kids: { opened: [...(state.kids?.opened ?? []), action.id] } };
     case 'GAME_PLAN': return { ...state, gamePlan: gamePlanReducer(state.gamePlan ?? emptyGamePlan(), action.action) };
     case 'ONBOARDING': return state.onboarding ? { ...state, onboarding: onboardingReducer(state.onboarding, action.action) } : state;
@@ -170,6 +222,20 @@ export function sessionReducer(state, action) {
     case 'PLAY': return { ...state, played: action.played, at: null, playedFrom: action.from ?? null };
     // Development only: plays steps inside the moment without a jump, so the motion a step brings can
     // be recorded for evidence before Stage 6 plays steps as the presenter taps.
+    // A tap of hers, or of the recipient's in View as, plays the next step when it is the step that
+    // tap plays. Any other tap changes nothing, so the story never jumps ahead (spec §15).
+    case 'STEP': {
+      const step = nextStep(state.momentId, state.played);
+      return playsFromTrigger(step, action.trigger) ? playStep(state, step) : state;
+    }
+    // Play the next step, in the household switcher, plays a step with no tap of hers, such as a reply
+    // arriving or the share from WhatsApp in C-01. Nothing plays on a timer (issue C80).
+    case 'NEXT_STEP': {
+      const step = nextStep(state.momentId, state.played);
+      const closed = { ...state, switcherOpen: false };
+      return playsFromPresenter(step) ? playStep(closed, step) : closed;
+    }
+    case 'DISMISS_ARRIVAL': return { ...state, arrival: null };
     case 'DEV_PLAY': return { ...state, played: action.played, at: action.at ?? null };
     case 'VIEW_AS': return { ...state, viewAs: action.person, still: null, tab: 'today', stack: [], switcherOpen: false };
     case 'SET_PHONE_FRAME': return { ...state, phoneFrame: action.on, switcherOpen: false };
@@ -179,7 +245,7 @@ export function sessionReducer(state, action) {
     // Leaving the game plan returns its days to how the game plan always opens.
     case 'OPEN_TAB': return {
       ...state, tab: action.tab, still: null, stack: [],
-      gamePlan: action.tab === state.tab ? state.gamePlan : emptyGamePlan(state.gamePlan?.opened),
+      gamePlan: action.tab === state.tab ? state.gamePlan : emptyGamePlan(state.gamePlan?.opened, state.gamePlan?.notes),
     };
     // Opening a page or going Back counts, so the page fades in (spec §19, "Pages"); a tab change does
     // not, because tabs change at once.

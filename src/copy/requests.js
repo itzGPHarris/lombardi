@@ -9,10 +9,18 @@ export const change = 'Change';
 export const yourNote = 'Your note:';
 export const notificationNo = "{person} can't do {day}.";
 export const notificationArrived = '{person} asked you about';
+// Notification when someone answers, as the fixtures write each one (C-02, C-04b and C-06b).
+export const notificationYes = {
+  'req-edward-thu': 'Edward: yes to both pickups this Thursday.',
+  'req-edward-library': 'Edward: yes to this Saturday.',
+  'req-reyes-fri': 'Ms. Reyes: yes to this Friday.',
+};
 export const notificationChanged = '{person} changed his answer for {day}.';
 export const send = 'Send';
 export const sendFrom = 'Send from {app}';
 export const sent = 'Sent {time}';
+// On a later day the day comes first, such as "Sent yesterday, 8:52pm" or "Sent this Monday, 6:40am".
+export const sentOnDay = 'Sent {day}, {time}';
 export const noMvpNeeded = "You don't need MVP to answer.";
 export const textMessage = 'Charlotte sent you a request through MVP. You can answer here:';
 export const yesICan = 'Yes, I can';

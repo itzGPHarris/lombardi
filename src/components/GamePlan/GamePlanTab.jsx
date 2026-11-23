@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import TabListShell from '../Layout/TabListShell.jsx';
 import CaptureBar from '../Coach/CaptureBar.jsx';
 import Icon from '../shared/Icon.jsx';
@@ -6,19 +6,31 @@ import WeekStrip from './WeekStrip.jsx';
 import ReviewCard from './ReviewCard.jsx';
 import DayGroup from './DayGroup.jsx';
 import WeekColumns from './WeekColumns.jsx';
+import ReadBackStrip from './ReadBackStrip.jsx';
+import Notice from '../shared/Notice.jsx';
 import { useNavigation } from '../Layout/navigation.js';
 import { useSession } from '../../demo/SessionContext.js';
 import { gamePlanView } from '../../demo/tabs.js';
 import useWide from '../../hooks/useWide.js';
+import { nextScripted, nextStep, playsFromTrigger } from '../../demo/steps.js';
+import { relativeDay } from '../../demo/dateTokens.js';
+import { fill } from '../../demo/today.js';
 import * as people from '../../copy/people.js';
-import { title } from '../../copy/gamePlan.js';
+import { added, moved, title } from '../../copy/gamePlan.js';
 import styles from './GamePlan.module.css';
 
 // The game plan (spec §8): the review card when anything is hers to choose, the week strip that
 // sticks under the title bar, then the days, with past days folded, today and tomorrow open, and next
-// week beneath. From the tablet width it opens into seven columns. It reads the week from the seed at
-// the moment; adding, moving and asking play in Stage 6.
+// week beneath. From the desktop width it opens into seven columns, and below it the agenda keeps the
+// centered column (issue G52). It reads the week from the seed at the moment. Adding from the review
+// card, opening an item and giving the coach something play the moment's steps (src/demo/steps.js).
+// An item she adds or moves lands where she can see it: its day opens, the agenda scrolls to it, and
+// the row takes the coach's tint for about two seconds before fading back, with no mark left behind
+// (spec §8, "She sees where an item lands"; §19, "Item lands"). With reduced motion the tint appears
+// without fading and clears when she scrolls or taps, and a screen reader hears where it went.
 const dayId = (key) => `day-${key.replace('.', '-')}`;
+const HOLD = 2000;
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export default function GamePlanTab() {
   const { session, dispatch, household } = useSession();
@@ -26,8 +38,8 @@ export default function GamePlanTab() {
   const wide = useWide();
   const local = session.gamePlan;
   const view = useMemo(
-    () => gamePlanView({ seed: household.seed, momentId: session.momentId, played: session.played, opened: local.opened }),
-    [household.seed, session.momentId, session.played, local.opened],
+    () => gamePlanView({ seed: household.seed, momentId: session.momentId, played: session.played, opened: local.opened, notes: local.notes }),
+    [household.seed, session.momentId, session.played, local.opened, local.notes],
   );
   const childName = useCallback((id) => {
     if (id === 'family') return people.family;
@@ -36,7 +48,61 @@ export default function GamePlanTab() {
   }, [household.seed]);
   const plan = (action) => dispatch({ type: 'GAME_PLAN', action });
   const isOpen = (day) => local.days[day.key] ?? day.open;
-  const openItem = (id) => { plan({ type: 'OPEN_ITEM', id }); openPage('item', id); };
+  const step = (trigger) => {
+    if (!playsFromTrigger(nextStep(session.momentId, session.played), trigger)) return false;
+    dispatch({ type: 'STEP', trigger });
+    return true;
+  };
+  const openItem = (id) => {
+    plan({ type: 'OPEN_ITEM', id });
+    // In C-04 opening violin, which clears its Updated mark, is the moment's last step.
+    step(`open-item:${id}`);
+    openPage('item', id);
+  };
+  // Add to the game plan, on the review card: the item joins its day as hers and lands there.
+  const addFromReview = (id) => {
+    const item = household.seed.planItems.find((entry) => entry.id === id);
+    if (item && step(`review-add:${id}`)) plan({ type: 'LAND', id, key: `${item.time.week}.${item.time.day}`, said: 'added' });
+  };
+
+  // Where an item lands: open its day, bring it into view, hold the tint, then let it fade.
+  const landing = local.landing;
+  const [said, setSaid] = useState('');
+  useEffect(() => {
+    if (!landing) return undefined;
+    const [week] = landing.key.split('.');
+    if (Number(week) > view.now.week) plan({ type: 'TOGGLE_DAY', key: 'nextWeek', open: true });
+    plan({ type: 'TOGGLE_DAY', key: landing.key, open: true });
+    const [w, d] = landing.key.split('.');
+    setSaid(fill(landing.said === 'moved' ? moved : added, { day: relativeDay({ week: Number(w), day: d, time: null }, view.now, household.seed.meta.demoWeekStart) }));
+    const clear = () => plan({ type: 'CLEAR_LANDING' });
+    if (!reducedMotion()) {
+      const timer = window.setTimeout(clear, HOLD);
+      return () => window.clearTimeout(timer);
+    }
+    // With reduced motion the tint stays until she scrolls or taps.
+    let armed = false;
+    const arm = window.setTimeout(() => { armed = true; }, 0);
+    const onMove = () => { if (armed) clear(); };
+    window.addEventListener('scroll', onMove, { passive: true });
+    document.addEventListener('pointerdown', onMove);
+    return () => {
+      window.clearTimeout(arm);
+      window.removeEventListener('scroll', onMove);
+      document.removeEventListener('pointerdown', onMove);
+    };
+    // The landing runs once for each item that lands.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [landing]);
+  // Once its day has opened and the row is drawn, the agenda brings it into view, once.
+  const brought = useRef(null);
+  useLayoutEffect(() => {
+    if (!landing || brought.current === landing) return;
+    const row = document.getElementById(`row-${landing.id}`);
+    if (!row || row.closest('[inert]')) return;
+    brought.current = landing;
+    row.scrollIntoView({ block: 'center' });
+  });
 
   // The strip marks the day she is reading: the last day whose heading has reached the strip. At rest
   // only today's ring shows, as the frames draw it.
@@ -66,6 +132,12 @@ export default function GamePlanTab() {
     });
   };
 
+  // What she tells the coach on the game plan in C-09, filled in as the field takes focus.
+  const scripted = nextScripted(household.seed, session.momentId, session.played);
+  const captureId = scripted?.entry.trigger === 'capture:game-plan' ? scripted.step.set.captures?.[0] : null;
+  const typed = captureId ? household.seed.captures.find((capture) => capture.id === captureId)?.typed ?? '' : '';
+  const stripGone = useCallback(() => dispatch({ type: 'GAME_PLAN', action: { type: 'STRIP_GONE' } }), [dispatch]);
+  const dismissNotice = useCallback(() => dispatch({ type: 'GAME_PLAN', action: { type: 'DISMISS_NOTICE' } }), [dispatch]);
   const nextOpen = local.days.nextWeek ?? view.nextWeek.open;
   const day = (entry) => (
     <DayGroup
@@ -76,12 +148,32 @@ export default function GamePlanTab() {
       onToggle={() => plan({ type: 'TOGGLE_DAY', key: entry.key, open: !isOpen(entry) })}
       childName={childName}
       onOpen={openItem}
+      highlight={landing?.id}
     />
   );
 
   return (
-    <TabListShell title={title} wide capture={<div className={styles.capture}><CaptureBar /></div>}>
-      {view.reviewCard && <ReviewCard card={view.reviewCard} childName={childName} onOpen={openItem} />}
+    <TabListShell
+      title={title}
+      wide={wide}
+      capture={(
+        <>
+          {view.readBackStrip && !local.stripGone && <ReadBackStrip strip={view.readBackStrip} onGone={stripGone} />}
+          {local.notice && (
+            <Notice
+              rises
+              text={local.notice.text}
+              link={local.notice.link}
+              onLink={() => { plan({ type: 'DISMISS_NOTICE' }); goToDay(local.notice.day); }}
+              onDismiss={dismissNotice}
+            />
+          )}
+          <div className={styles.capture}><CaptureBar scripted={typed} onGive={() => step('capture:game-plan')} /></div>
+        </>
+      )}
+    >
+      <p className={styles.said} aria-live="polite">{said}</p>
+      {view.reviewCard && <ReviewCard card={view.reviewCard} childName={childName} onOpen={openItem} onAdd={addFromReview} />}
       {wide ? <WeekColumns view={view} childName={childName} onOpen={openItem} /> : (
         <>
           <WeekStrip strip={view.strip} reading={reading} onDay={goToDay} />

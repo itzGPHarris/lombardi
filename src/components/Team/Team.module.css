@@ -125,3 +125,6 @@
 }
 .toLabel { margin-bottom: calc(var(--space-12) * -1); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
 .nowrap { white-space: nowrap; }
+
+/* "To:" and the one person or group a composer was opened for (fixtures C-05 and C-06c, issue M12). */
+.toNamed { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }

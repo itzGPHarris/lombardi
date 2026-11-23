@@ -21,8 +21,8 @@ const sameDay = (a, b) => a.week === b.week && a.day === b.day;
 // seed's lookups over it.
 export function momentAt(seed, momentId, played = 0) {
   const moment = seed.moments.find((entry) => entry.id === momentId) ?? seed.moments[0];
-  const { state, now } = applySteps(moment, played);
-  return { moment, state, now, find: lookups(seed, state), anchor: seed.meta.demoWeekStart };
+  const { state, now, strip } = applySteps(moment, played);
+  return { moment, state, now, strip, find: lookups(seed, state), anchor: seed.meta.demoWeekStart };
 }
 
 // A day heading in the conversation, said from today: Today, Yesterday, This Monday or Last Monday
@@ -95,7 +95,7 @@ function messageView(entry, { seed, articles, now, anchor, find, conversation })
   }
   if (entry.addToAppointment) {
     const item = find.item(entry.addToAppointment.item);
-    view.addToAppointment = { label: entry.addToAppointment.label, done: item?.note === entry.addToAppointment.note, after: entry.addToAppointment.coachAfter };
+    view.addToAppointment = { label: entry.addToAppointment.label, item: entry.addToAppointment.item, done: item?.note === entry.addToAppointment.note, after: entry.addToAppointment.coachAfter };
   }
   return view;
 }
@@ -282,13 +282,18 @@ function reviewCardView(review, ctx) {
   };
 }
 
-export function gamePlanView({ seed, momentId, played = 0, opened = [] }) {
-  const { state, now, find, anchor } = momentAt(seed, momentId, played);
+// What she has done on the game plan in this moment, over the item: opening it clears its Updated
+// mark (spec §8, "Behavior notes"), and a note she has saved shows under it.
+function withLocal(item, { opened = [], notes = {} }) {
+  const seen = opened.includes(item.id) ? { ...item, marks: (item.marks ?? []).filter((mark) => mark.kind !== 'updated') } : item;
+  return notes[item.id] !== undefined ? { ...seen, note: notes[item.id] || null } : seen;
+}
+
+export function gamePlanView({ seed, momentId, played = 0, opened = [], notes = {} }) {
+  const { state, now, find, anchor, strip } = momentAt(seed, momentId, played);
   const parentId = seed.people.find((person) => person.group === 'parent')?.id;
   const ctx = { find, now, anchor, parentId };
-  // Opening an item clears its Updated mark (spec §8, "Behavior notes").
-  const items = planRows(find).map((item) => (opened.includes(item.id)
-    ? { ...item, marks: (item.marks ?? []).filter((mark) => mark.kind !== 'updated') } : item));
+  const items = planRows(find).map((item) => withLocal(item, { opened, notes }));
   const review = (state.reviewCard ?? []).map((id) => find.item(id)).filter(Boolean);
   const todayIndex = dayIds.indexOf(now.day);
   // On Sunday, once nothing is left this week, the agenda opens at next week and the review card
@@ -314,6 +319,11 @@ export function gamePlanView({ seed, momentId, played = 0, opened = [] }) {
   const allDays = [...days, ...nextWeekDays];
   return {
     now,
+    // The read-back strip: its label names the day the coach's line concerns (spec §8).
+    readBackStrip: strip ? {
+      label: fill(gamePlanWords.readBackLabel, { day: relativeDay(strip.day, now, anchor) }),
+      text: fillDates(strip.coachText, { demoWeekStart: anchor, now }),
+    } : null,
     reviewCard: reviewCardView(cardItems, ctx),
     strip: {
       label: weekOver ? gamePlanWords.nextWeek : null,
@@ -381,20 +391,20 @@ function backupsFor(item, ctx, seed) {
   const text = card ? dates(card.text) : '';
   const recommendation = text.includes("I'd") ? text.slice(text.indexOf("I'd")) : null;
   return {
-    recommendation: recommendation && { text: recommendation, button: card.button && { label: dates(card.button.label), line: card.button.line ?? null } },
-    plans: run.backups.map((backup) => ({ label: `Plan ${backup.label} · ${dates(backup.coachLine)}`, button: { label: dates(backup.button.label) } })),
+    recommendation: recommendation && { text: recommendation, card: card.id, button: card.button && { label: dates(card.button.label), line: card.button.line ?? null, action: card.button.action } },
+    plans: run.backups.map((backup) => ({ label: `Plan ${backup.label} · ${dates(backup.coachLine)}`, button: { label: dates(backup.button.label), action: backup.button.action } })),
     noMore: dates(run.coachNoMoreBackups) ?? null,
     find,
   };
 }
 
-export function itemPageView({ seed, momentId, played = 0, itemId, opened = [] }) {
+export function itemPageView({ seed, momentId, played = 0, itemId, opened = [], notes = {} }) {
   const { now, find, anchor } = momentAt(seed, momentId, played);
   const parentId = seed.people.find((person) => person.group === 'parent')?.id;
   const ctx = { find, now, anchor, parentId };
   const found = find.item(itemId);
   if (!found) return null;
-  const item = opened.includes(itemId) ? { ...found, marks: (found.marks ?? []).filter((mark) => mark.kind !== 'updated') } : found;
+  const item = withLocal(found, { opened, notes });
   const suggested = item.status?.state === 'proposed' && !item.inPlan;
   const place = item.place && item.place !== 'home' ? find.place(item.place)?.name : null;
   const when = [capitalize(relativeDay(item.time, now, anchor)), timeLabel(item), place].filter(Boolean).join(' · ');
@@ -416,10 +426,20 @@ export function itemPageView({ seed, momentId, played = 0, itemId, opened = [] }
       askForHelp: !suggested && owner.kind !== 'person' ? gamePlanWords.askForHelp : null,
     },
     answerNote: item.answerNote && answerer ? `${answerer.shortName ?? answerer.name}: ${item.answerNote}` : null,
-    note: suggested ? null : { heading: gamePlanWords.note, text: item.note ?? null, placeholder: gamePlanWords.addANote },
+    note: suggested ? null : { heading: gamePlanWords.note, text: item.note ?? null, placeholder: gamePlanWords.addANote, save: gamePlanWords.save },
     source: itemSource(item, find, now, anchor, seed),
     backups: backups && { heading: gamePlanWords.backupPlans, recommendation: backups.recommendation, plans: backups.plans, noMore: backups.noMore },
-    move: item.fromCalendar ? { calendar: gamePlanWords.changeInCalendar } : { label: gamePlanWords.moveToAnotherDate },
+    move: item.fromCalendar ? { calendar: gamePlanWords.changeInCalendar } : {
+      label: gamePlanWords.moveToAnotherDate,
+      save: gamePlanWords.save,
+      // The picker offers the days of this week and next, said from today, and a time (fixtures
+      // section 4, "Move picker").
+      days: [now.week, now.week + 1].flatMap((week) => dayIds.map((day) => ({ week, day, time: null })))
+        .filter((time) => dayIndex(time) >= dayIndex(now))
+        .map((time) => ({ key: `${time.week}.${time.day}`, label: capitalize(relativeDay(time, now, anchor)) })),
+      day: `${item.time.week}.${item.time.day}`,
+      time: item.time.time,
+    },
     takeOut: item.fromCalendar && item.kind === 'this-week' ? gamePlanWords.takeOut : null,
   };
 }
@@ -493,8 +513,20 @@ function namesOf(seed, members) {
   return names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names.at(-1)}` : names[0];
 }
 
-export function teamView({ seed, momentId, played = 0, seen = [] }) {
-  const { state, now, anchor } = momentAt(seed, momentId, played);
+// When a chat's or a group's "1 new" last came: the step that brought it, or 0 for the moment's start.
+function arrivedAt(moment, played, id) {
+  let at = 0;
+  (moment.steps ?? []).slice(0, played).forEach((step, index) => {
+    if (step.set?.chats?.[id]?.unread || step.set?.groups?.[id]?.unread) at = index + 1;
+  });
+  return at;
+}
+
+export function teamView({ seed, momentId, played = 0, seen = {} }) {
+  const { moment, state, now, anchor } = momentAt(seed, momentId, played);
+  // seen maps each chat or group she has opened to the step she opened it at; a list counts as opened now.
+  const seenAt = Array.isArray(seen) ? Object.fromEntries(seen.map((id) => [id, played])) : seen;
+  const isSeen = (id) => seenAt[id] !== undefined && seenAt[id] >= arrivedAt(moment, played, id);
   const parentId = seed.people.find((person) => person.group === 'parent')?.id;
   const chats = (state.chats ?? []).map((chatState) => {
     const chat = seed.chats.find((entry) => entry.id === chatState.id);
@@ -508,7 +540,7 @@ export function teamView({ seed, momentId, played = 0, seen = [] }) {
       name: namesOf(seed, chat.members),
       latest: `${author}: ${latest.text}`,
       when: timeOrDay(latest.at, now, anchor),
-      unread: chatState.unread && !seen.includes(chat.id) ? teamWords.oneNew : null,
+      unread: chatState.unread && !isSeen(chat.id) ? teamWords.oneNew : null,
     };
   }).filter(Boolean).sort((a, b) => byTimeAsc(b, a));
   const groups = (state.groups ?? []).map((groupState) => {
@@ -522,7 +554,7 @@ export function teamView({ seed, momentId, played = 0, seen = [] }) {
       members: fill(teamWords.members, { count: group.members.length }),
       latest: latest ? `${authorName(seed, latest.by, parentId)}: ${latest.text}` : teamWords.createdLastWeek,
       when: latest ? timeOrDay(latest.at, now, anchor) : null,
-      unread: groupState.unread && !seen.includes(group.id) ? teamWords.oneNew : null,
+      unread: groupState.unread && !isSeen(group.id) ? teamWords.oneNew : null,
     };
   });
   const everyone = teamPeople(seed, state);
@@ -678,6 +710,7 @@ export function composerView({ seed, momentId, played = 0, to = [] }) {
   return {
     heading: teamWords.newMessage,
     to: teamWords.to,
+    toNamed: (name) => fill(teamWords.toNamed, { person: name }),
     audiences: [{ id: 'circle', label: teamWords.audience.circle }, { id: 'people', label: teamWords.audience.people }],
     circle: {
       everyone: teamWords.everyoneOnMvp,

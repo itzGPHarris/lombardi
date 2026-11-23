@@ -37,6 +37,10 @@ if (import.meta.env.DEV && params.has('shell')) {
       notifications: params.get('notifications') ?? undefined,
       // A page opened inside the tab, such as &page=item:fri-checkup-mallory or &page=settings.
       page: params.get('page') ?? undefined,
+      // The recipient's side, such as &viewas=edward or &viewas=ms-reyes.
+      viewAs: params.get('viewas') ?? undefined,
+      // The conflict notice on the game plan, which no moment raises: &notice=conflict.
+      notice: params.get('notice') ?? undefined,
     });
   }
   root.render(<StrictMode><App start={start} embedded={embedded} /></StrictMode>);

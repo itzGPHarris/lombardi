@@ -7,8 +7,9 @@ import styles from './GamePlan.module.css';
 // The review card (spec §8, issue G33; library ReviewCard, ReviewDay and ReviewItem): what is hers to
 // choose, in the coach's tint, headed with a full sentence. Each day sits on the card's paper in the
 // coach's amber outline, labeled in the Label style, and each item has No thanks and Add to the game
-// plan. Tapping the item opens its page. Add, No thanks and Add them all play in Stage 6.
-export default function ReviewCard({ card, childName, onOpen }) {
+// plan. Tapping the item opens its page. Add to the game plan plays the moment's step for it; No
+// thanks and Add them all have no scripted result in the demo and change nothing (docs/issues.csv).
+export default function ReviewCard({ card, childName, onOpen, onAdd }) {
   return (
     <section className={styles.review} aria-label={card.heading}>
       <h2 className={styles.reviewHeading}>{card.heading}</h2>
@@ -25,7 +26,7 @@ export default function ReviewCard({ card, childName, onOpen }) {
               <Marks marks={item.marks} />
               <div className={styles.reviewActions}>
                 <Button kind="text">{noThanks}</Button>
-                <Button kind="text" icon="add">{addToTheGamePlan}</Button>
+                <Button kind="text" icon="add" onClick={() => onAdd?.(item.id)}>{addToTheGamePlan}</Button>
               </div>
             </div>
           ))}

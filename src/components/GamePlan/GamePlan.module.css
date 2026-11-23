@@ -98,7 +98,7 @@
 
 .capture { padding: var(--space-8) var(--space-12); }
 
-/* From the tablet width: seven columns under the strip's headings, and next week beneath. */
+/* From the desktop width: seven columns under the strip's headings, and next week beneath. */
 .columns { display: flex; flex-direction: column; gap: var(--space-16); }
 .week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-8); }
 .column { display: flex; flex-direction: column; gap: var(--space-8); min-width: 0; padding: var(--space-8); border-radius: var(--radius-md); background: var(--bg-subtle); }
@@ -118,7 +118,6 @@
 .columnName { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
 .columnRows { display: flex; flex-direction: column; }
 .columnsHeading { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
-@media (max-width: 1279px) {
-  .week { gap: var(--space-4); }
-  .column { padding: var(--space-4); }
-}
+
+/* Where an item landed, for a screen reader only (spec §8, "She sees where an item lands"). */
+.said { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

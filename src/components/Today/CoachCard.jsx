@@ -14,11 +14,22 @@ export default function CoachCard({ card, onButton, onSecondary, onNext, onUndo,
   const firstState = useRef(card.state);
   const answered = card.state !== firstState.current;
   const after = card.state !== 'open';
+  // While the coach reads a capture: the label and the line saying so (fixtures C-03a).
+  if (card.state === 'reading') {
+    return (
+      <article className={styles.card} aria-label={card.label} aria-busy="true">
+        <p className={styles.label}><CoachDot /><span>{card.label}</span></p>
+        <p className={styles.text}>{card.text}</p>
+      </article>
+    );
+  }
   return (
     <article className={styles.card} aria-label={card.label}>
       <p className={styles.label}><CoachDot /><span>{card.label}</span></p>
       <div className={styles.body} key={card.state} data-crossfade={answered || undefined}>
-        <p className={styles.text} data-muted={after || undefined}>{card.text}</p>
+        {/* After she adds what the coach read from a capture, the card says only how the plan stands
+            (spec §5; fixtures C-03a). */}
+        {!(after && card.fromCapture) && <p className={styles.text} data-muted={after || undefined}>{card.text}</p>}
         {!after && (
           <>
             {card.button && <Button kind="primary" full onClick={() => onButton(card)}>{card.button.label}</Button>}
@@ -31,10 +42,12 @@ export default function CoachCard({ card, onButton, onSecondary, onNext, onUndo,
         )}
         {after && (
           <>
-            <p className={styles.answer} data-chosen={card.state === 'choice' || undefined}>
-              <span className={styles.check}><Icon name="check" /></span>
-              <span>{card.state === 'agree' ? words.agreed : card.chosenText}</span>
-            </p>
+            {!card.fromCapture && (
+              <p className={styles.answer} data-chosen={card.state === 'choice' || undefined}>
+                <span className={styles.check}><Icon name="check" /></span>
+                <span>{card.state === 'agree' ? words.agreed : card.chosenText}</span>
+              </p>
+            )}
             {card.followUp && <p className={styles.text}>{card.followUp}</p>}
             {card.nextButton && (
               <Button kind="primary" full icon={card.nextButton.external ? 'external-link' : undefined} onClick={() => onNext(card)}>

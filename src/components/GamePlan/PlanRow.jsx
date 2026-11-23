@@ -74,7 +74,7 @@ export default function PlanRow({ row, childName, onOpen, initial = true, highli
       <Owner owner={row.owner} initial={initial} />
     </>
   );
-  const props = { className: styles.row, 'data-quiet': row.quiet || undefined, 'data-highlight': highlight || undefined, 'data-stacked': stacked || undefined, 'data-day': dayLabel || undefined };
+  const props = { id: `row-${row.id}`, className: styles.row, 'data-quiet': row.quiet || undefined, 'data-highlight': highlight || undefined, 'data-stacked': stacked || undefined, 'data-day': dayLabel || undefined };
   return onOpen
     ? <button type="button" {...props} onClick={() => onOpen(row.id)}>{body}</button>
     : <div {...props}>{body}</div>;

@@ -26,6 +26,8 @@ export const audience = { circle: 'Circle', people: 'People' };
 export const everyoneOnMvp = 'Everyone on MVP';
 export const notInChat = "People who aren't on MVP can't be in a chat. Call or text them from their page.";
 export const to = 'To';
+// The composer opened for one person or one group, such as "To: Claire" (fixtures C-05 and C-06c).
+export const toNamed = 'To: {person}';
 export const writeAMessage = 'Write a message';
 export const send = 'Send';
 export const post = 'Post';
@@ -36,6 +38,11 @@ export const seeMembers = 'See members';
 export const newPost = 'New post';
 export const reply = 'Reply';
 export const groupPrivacy = "Only the people in this group see this. The MVP Coach doesn't read it.";
+// A message arriving in a chat, as the fixtures write it (C-05c and C-06c).
+export const messageNotifications = {
+  'm-ec-2': "Claire: Tell her together, and tell her Karen is helping choose who's next.",
+  'm-c-2': "Claire: Yes, see you at 6:30. I'll bring dessert.",
+};
 export const repliedToYourPost = '{person} replied to your post in {group}.';
 export const add = 'Add';
 export const fields = { name: 'Name', mobileNumber: 'Mobile number', relationship: 'Relationship', relationshipHelper: 'Shown under their name on your Team.' };

@@ -7,7 +7,14 @@
   gap: var(--space-12);
   width: 100%;
   padding: var(--space-10) 0;
+  border-radius: var(--radius-sm);
   text-align: left;
+  /* Item lands (spec §19, "Motion"): the coach's tint fades back over standard once it has held. */
+  transition: background-color var(--motion-duration-standard) var(--motion-ease-out);
+}
+.row[data-highlight] { background: var(--coach-bg); }
+@media (prefers-reduced-motion: reduce) {
+  .row { transition: none; }
 }
 .time {
   display: flex;

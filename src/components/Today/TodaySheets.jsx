@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import LeaveSheet from './LeaveSheet.jsx';
 import ReminderSheet from './ReminderSheet.jsx';
 import { useSession } from '../../demo/SessionContext.js';
+import useActions from '../../hooks/useActions.js';
 import { reminderSheetView } from '../../demo/today.js';
 import * as people from '../../copy/people.js';
 
@@ -12,6 +13,7 @@ export default function TodaySheets({ view }) {
   const { session, dispatch, household } = useSession();
   const local = session.today;
   const today = useCallback((action) => dispatch({ type: 'TODAY', action }), [dispatch]);
+  const run = useActions();
   const close = useCallback(() => today({ type: 'CLOSE_SHEET' }), [today]);
   const childName = (id) => (id === 'family' ? people.family : view.find.child(id)?.name);
 
@@ -26,10 +28,12 @@ export default function TodaySheets({ view }) {
   const pass = view.now;
   const reminder = shown?.kind === 'reminder' && pass ? reminderSheetView({ pass, find: view.find, clock: view.clock, local }) : null;
 
-  // A backup that changes only her plan works like accepting from the card; one that asks someone or
-  // calls somewhere opens its draft or call in Stage 6, after the sheet has closed.
+  // A backup that changes only her plan works like accepting from the card. One that asks someone opens
+  // its draft once the sheet has closed (spec §2, "Sheets never nest"), and a call is staged.
   const choose = (backup) => {
     const [kind, plan] = backup.button.action.split(':');
+    // A call is handed to her phone app, staged in the prototype, and leaves no task (spec §5, §9).
+    if (kind === 'call' || kind === 'open-request') { close(); run(backup.button.action); return; }
     if (kind === 'choose') {
       const card = view.coachCard;
       const moment = household.seed.moments.find((entry) => entry.id === session.momentId);
