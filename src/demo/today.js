@@ -383,7 +383,10 @@ function tripPass({ now: nowState, find, clock, local }) {
     }
   });
   const started = sameDay(clock, run.day) && compareDemoTimes(clock, at(run.day, run.stops[0].leaveAt)) >= 0;
-  const nextIndex = started ? rows.findIndex((row) => row.time && compareDemoTimes(clock, at(run.day, row.time)) < 0) : 0;
+  // Once every time on the trip has passed, she is on her way to the last row, so it is next, as on
+  // the Leave sheet.
+  const upcoming = rows.findIndex((row) => row.time && compareDemoTimes(clock, at(run.day, row.time)) < 0);
+  const nextIndex = !started ? 0 : upcoming === -1 ? rows.length - 1 : upcoming;
   const timetable = rows.map((row, index) => ({ ...row, time: row.time && formatTime(row.time), state: index < nextIndex ? 'behind' : index === nextIndex ? 'next' : 'ahead' }));
 
   // Under way, the top of the pass is the next leg: the seed's `next` stop, or the one the clock gives.
@@ -733,15 +736,19 @@ export function leaveSheetView({ runId, find, clock, local, draft = {}, open = n
     return station;
   });
   // Each station's marker (spec §5, standing decision 26; T91): the place she leaves next is Current,
-  // places she has left are Behind and the rest are Ahead. As on the trip timetable, a run counts as
-  // under way only on its own day once its first leaving time has passed; until then home is Current.
-  // A stop with no leaving time, such as a drop-off, counts as left once she reaches it, or once it
-  // is due when no arrival can be worked out. Once every stop is behind her, she is on her way to the
-  // last station, so it is Current.
-  const leftAt = (index) => leave[index] ?? reach[index] ?? base.stops[index].dueAt ?? null;
-  const started = sameDay(clock, base.day) && leave[0] && compareDemoTimes(clock, at(base.day, leave[0])) >= 0;
+  // places she has left are Behind and the rest are Ahead. The markers follow the saved run, so they
+  // hold still while she tries a time. As on the trip timetable, a run is under way only on its own day
+  // once its first leaving time has passed, and until then home is Current. A stop with no leaving
+  // time, such as a drop-off, counts as left once she reaches it, or once it is due when no arrival can
+  // be worked out. Once every stop is behind her, she is on her way to the last station, so it is
+  // Current. On a later day the whole run is behind her, so every station is Behind.
+  const kept = rippleRun(base, find, saved);
+  const keptStart = kept.leave[0] && at(base.day, kept.leave[0]);
+  const leftAt = (index) => kept.leave[index] ?? kept.reach[index] ?? base.stops[index].dueAt ?? null;
+  const pastDay = !sameDay(clock, base.day) && keptStart && compareDemoTimes(clock, keptStart) > 0;
+  const started = sameDay(clock, base.day) && keptStart && compareDemoTimes(clock, keptStart) >= 0;
   const ahead = stations.findIndex((station, index) => index < last && (!leftAt(index) || compareDemoTimes(clock, at(base.day, leftAt(index))) < 0));
-  const current = !started ? 0 : ahead === -1 ? last : ahead;
+  const current = pastDay ? stations.length : !started ? 0 : ahead === -1 ? last : ahead;
   stations.forEach((station, index) => {
     station.kind = find.place(base.stops[index].place).kind;
     station.state = index < current ? 'behind' : index === current ? 'current' : 'ahead';
@@ -754,7 +761,7 @@ export function leaveSheetView({ runId, find, clock, local, draft = {}, open = n
     const line = reach[index] && reachLine(stop, stop.item ? find.item(stop.item) : null, find.place(stop.place), reach[index]);
     if (!line) return;
     if (open === index - 1) stations[index - 1].reach = line;
-    else if (Object.keys(draft).length && line.late) station.lateReach = line;
+    else if (open !== index && Object.keys(draft).length && line.late) station.lateReach = line;
   });
 
   return {

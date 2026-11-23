@@ -99,6 +99,11 @@ describe('Now at each moment, as fixtures section 3 shows it', () => {
     expect(now.actions.map((action) => action.label)).toEqual(['Directions']);
   });
 
+  it('once every time on the trip has passed, the last row is next and the rest are behind', () => {
+    const { now } = view('C-00', 3, '08:45');
+    expect(now.timetable.map((row) => row.state)).toEqual(['behind', 'behind', 'behind', 'behind', 'next']);
+  });
+
   it('C-06: the leg to Westview Kindergarten with her task, and the card for tomorrow', () => {
     const { now, coachCard, laterToday } = view('C-06');
     expect(now.pill.text).toBe('in 2 hr 30 min');
@@ -377,11 +382,19 @@ describe('the Leave sheet (spec §5, "The Leave sheet")', () => {
     expect(states('run-tue-pm', 'tue', '14:31')).toEqual(['behind', 'behind', 'current', 'ahead']);
   });
 
-  it('marks home Current on a run that is not under way today', () => {
+  it('marks home Current before a run is under way, and every station Behind once its day has passed', () => {
     const { find, clock } = view('C-03b', 1, '14:06');
-    const states = (day, time) => leaveSheetView({ runId: 'run-mon-pm', find, clock: { ...clock, day, time }, local: {} }).stations.map((station) => station.state);
-    expect(states('sun', '20:00')).toEqual(['current', 'ahead', 'ahead', 'ahead', 'ahead']);
-    expect(states('tue', '10:00')).toEqual(['current', 'ahead', 'ahead', 'ahead', 'ahead']);
+    const states = (day, time, week = clock.week) => leaveSheetView({ runId: 'run-mon-pm', find, clock: { ...clock, week, day, time }, local: {} }).stations.map((station) => station.state);
+    expect(states('sun', '20:00', clock.week - 1)).toEqual(['current', 'ahead', 'ahead', 'ahead', 'ahead']);
+    expect(states('tue', '10:00')).toEqual(['behind', 'behind', 'behind', 'behind', 'behind']);
+  });
+
+  it('holds the markers still while she tries a time, and keeps a late line off the station she opens', () => {
+    const { find, clock } = view('C-03b', 1, '14:06');
+    const sheet = (draft, open) => leaveSheetView({ runId: 'run-mon-pm', find, clock: { ...clock, time: '14:16' }, local: {}, draft, open });
+    expect(sheet({ 0: '14:20' }, 0).stations.map((station) => station.state)).toEqual(['behind', 'current', 'ahead', 'ahead', 'ahead']);
+    const late = sheetAt({ 0: '14:25' }, 2);
+    expect(late.stations[2].lateReach).toBeUndefined();
   });
 
   it('names the day and its backups for tomorrow\'s run', () => {
