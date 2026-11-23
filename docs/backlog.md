@@ -128,7 +128,8 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 1. Compare every screen with its frame at 440 px, then check 390, 768, 1440 and 1920, and log what is left in `docs/issues.csv`
 2. C78: Settings in the type spec §13 gives it
 3. A15: the notifications for Edward's chat message in C-05c and Min-jung's answer in C-06
-4. Deploy to Netlify, and Greg plays the alpha end to end
+4. C81: MVP opens full screen from a phone's Home Screen
+5. Deploy to Netlify, and Greg plays the alpha end to end
 
 ## Alpha 2: The weekend Charlotte is away
 
