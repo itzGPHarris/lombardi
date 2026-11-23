@@ -274,7 +274,7 @@ End the session with the commands you ran and their output, screenshots beside t
 
 ## Alpha 2: The weekend Charlotte is away
 
-This prompt doesn't run until Y19 and Y5 land, because the playbook frames are out of date until they are redrawn to fixtures 3.47.
+Y19 and Y5 landed on November 23, 2026, and Greg accepted starting point C as drawn (Y14), so this prompt is ready to run. Edward's view after he answers, frame 3160:16646, keeps an older layout that Greg accepted for now (Y20), so the agent builds it as drawn.
 
 ```text
 This session builds Alpha 2, the weekend Charlotte is away. Its lines are under "Alpha 2: The weekend Charlotte is away" in docs/backlog.md.

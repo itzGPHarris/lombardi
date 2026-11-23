@@ -22,8 +22,7 @@ This file holds IDs and sequence. Nothing else.
 
 *Greg decided every item on November 20, 2026. What is left:*
 
-1. Y14: Greg plays starting point C again after the redraw
-2. C60: Claude checks the stale rows and brings Greg one list to approve
+1. C60: Claude checks the stale rows and brings Greg one list to approve
 
 ### Step 3: The missing words, in one fixtures pass
 
@@ -141,14 +140,18 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 
 ## Alpha 2: The weekend Charlotte is away
 
-1. Y14: Greg replays starting point C in the Figma prototype
-2. §20, F37: C-10 to C-13 and C-15, with Edward's side through View as
+1. §20, F37: C-10 to C-13 and C-15, with Edward's side through View as
+
+## The other three households
+
+*Greg moved these forward on November 23, 2026, so each household's nuances are captured in the fixtures before more of Charlotte's detail is polished. Each household gets its own town, its own fixtures section and its own seed, and builds once its fixtures are written.*
+
+1. C17: rewrite Calypso's, Alexandra and Ben's, and Marcus's weeks in the fixtures, each in its own invented town
 
 ## Blocked
 
 *Waiting on an answer or on other work, not on a build slot.*
 
-- C17: the other three households' rewrites, each in its own town, once Charlotte's build has been reviewed
 - R10: a staff writer for six articles, once C17 gives each household its week
 - C79: each household's seed loaded on its own, once a second household's seed is in the build
 - A18: the food-drive flyer photo for C-03a, once Greg has it
