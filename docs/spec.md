@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.53 · November 22, 2026*
+*Investor prototype · Version 0.54 · November 23, 2026*
 
 ## **Summary of this version**
+
+Version 0.54 follows story fixtures 3.53. The thinking screens' dots pulse in turn, so a wait never looks frozen (§19, issue O27). A request draft shows the address line, the message and its send button, as the draft to Ruth does, and no longer previews the recipient's buttons, because Charlotte is asking for help and the preview read as buttons for her to tap (§9, issue S14).
 
 Version 0.53 follows story fixtures 3.52 and Greg's decisions on the Stage 6 report. In the demo week, the recipient's Today in View as shows his monogram, the dateline and the request cards, as every recipient frame draws them, and the items he owns appear only on the playbook days (§9, issue S12). C-06b opens with the checkup already in the plan, as the fixtures write it, rather than adding it in a scripted step (§7, §16, A17).
 
@@ -1061,7 +1063,7 @@ Charlotte's week uses all three: Edward and Min-jung through their own MVP, Ms. 
 
 ## **The draft screen**
 
-The draft shows the address line, the text in an editable field, a preview of each item with the recipient's two buttons under "Edward answers each item with" (in-MVP and text-link requests only), and the button: Send, or "Send from WhatsApp", "Send from Mail" or the app that applies.
+The draft shows the address line, the text in an editable field, and the button: Send, or "Send from WhatsApp", "Send from Mail" or the app that applies. It shows no preview of how the recipient answers, because Charlotte is asking for help, and the recipient's buttons on her side read as buttons for her to tap. The draft to Ruth on the playbook works the same way (issue S14).
 
 ## **The recipient's view**
 
@@ -1745,6 +1747,7 @@ When the phone asks for reduced motion, anything that slides, rises, tilts or ch
 | Motion | Where | When | What moves and how | Timing and easing | Reduced motion | Figma source | Stage |
 | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
 | Steam stars | The splash (0s), "Investor demo · start", and the brand header on Ruth's web page | While the screen is open | Three small stars rise from the mark like steam. Each grows from 20% to 120% of its size as it climbs about 80 px, turns from 15° to −15°, fades out over the last sixth of its climb and starts again. They run a third of a loop apart, so one is always rising. They keep moving wherever they appear. | A 3 s loop, linear | The stars stand still | 0s `2853:12205`, Ruth's page `3167:18251` | 4, and Alpha 2 for Ruth's page |
+| Thinking dots | The thinking screens, 0r and 0t | While the screen is open | The three cerulean dots under the headline brighten one after another, each rising from 40% to full opacity and falling back, a third of a loop apart, so one is always lit and the screen never looks frozen. They are the only dots on the screen (issue O27). | A 1.2 s loop, `ease-in-out` | Unchanged, because it only fades | 0r `2853:11922`, 0t `2853:11947` | Alpha 1 follow-ups |
 | Onboarding entrance | The splash, 0a, 0k, 0k-b, 0k-c, 0r, 0t, 0w, 0e, 0q and 0j | The screen opens | Each block fades in and rises 30 px into place, in order: the illustration, the headline, the line beneath it, then the fields or choices. On 0j, the coach's two lines rise in turn and the button and tick boxes fade in last. | `standard` each, starting at 0, 120, 250 and 410 ms (0j's controls at about 1.1 s); fade `ease-in-out`, rise `ease-out` | Fade only | 0w `2853:12929`, 0j `2853:12168` | 4 |
 | Getting ready steps | 0p | The screen opens | Each step's bar fills from left to right, its check pops in, and the next step's label brightens. | `slow` a step; the check `standard` with `ease-overshoot` | Each check appears as its step finishes | `2853:12907` | 4 |
 | Account prompt | 0c | The draft has shown | For You slides up from below the draft. | `quick`, `ease-out` | Appears in place | `2853:12042` | 4 |
@@ -1855,6 +1858,15 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.54, November 23, 2026**
+
+Follows story fixtures 3.53 and Greg's decision on QA-003.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §9 | A request draft shows the address line, the message and its send button, with no preview of the recipient's buttons (S14). |
+| 2 | §19 | A Motion row for the thinking dots on 0r and 0t (O27). |
 
 ## **v0.53, November 22, 2026**
 

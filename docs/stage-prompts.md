@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): stage prompts
 
-*Alpha 1 and alpha 2. Fixtures 3.52, spec 0.53. Written November 20, 2026, with motion added November 21, 2026.*
+*Alpha 1 and alpha 2. Fixtures 3.53, spec 0.54. Written November 20, 2026, with motion added November 21, 2026.*
 
 This file holds one prompt for each stage of the alpha build, ready to paste into a fresh build agent session, together with the review prompt Greg runs before his own review of each stage and the prompt that restarts a stage that has stopped early. The build order lives in `docs/backlog.md`, and these prompts name its lines rather than copying them, so the backlog stays the only list. When a backlog line changes, the prompt that names it does not need to.
 

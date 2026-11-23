@@ -25,26 +25,20 @@ function itemRows(seed, request, find, now) {
 }
 
 // The draft (spec §9, "The draft screen"; frames 2853:15379, 2853:15394, 2853:15411, 2853:15426 and
-// 2853:15905): the address line, her text in an editable field, a preview of the recipient's buttons
-// for a request in MVP or by text, and Send or "Send from" the app it is handed to.
+// 2853:15905): the address line, her text in an editable field, and Send or "Send from" the app it is
+// handed to. It previews none of the recipient's buttons, which read as buttons for her to tap
+// (spec 0.54, issue S14); the frames still draw the preview until the Figma pass redraws them.
 export function draftView({ seed, momentId, played = 0, requestId }) {
   const request = seed.requests.find((entry) => entry.id === requestId);
   if (!request) return null;
-  const { now, find, anchor } = momentAt(seed, momentId, played);
+  const { now, anchor } = momentAt(seed, momentId, played);
   const person = request.to ? seed.people.find((entry) => entry.id === request.to) : null;
   const handoff = request.channel === 'handoff';
   const addressee = handoff ? [request.toName, request.contact].filter(Boolean).join(' · ') : person?.name;
-  const rows = handoff ? [] : itemRows(seed, request, find, now);
   return {
     id: request.id,
     to: fill(words.to, { person: addressee }),
     text: fillDates(request.text, { demoWeekStart: anchor, now }),
-    answers: handoff ? null : {
-      line: fill(rows.length > 1 ? words.answersEach : words.answersOne, { person: person?.shortName ?? person?.name }),
-      rows,
-      yes: words.yesICan,
-      no: words.noICant,
-    },
     send: handoff ? fill(words.sendFrom, { app: request.app }) : words.send,
   };
 }

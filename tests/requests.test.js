@@ -5,26 +5,23 @@ import seed from '../src/data/households/charlotte.json';
 import { draftView, recipientView } from '../src/demo/requests.js';
 
 describe('the draft', () => {
-  it('addresses Edward, previews his buttons on each item and sends from MVP (C-02)', () => {
+  // Spec 0.54 takes the preview of the recipient's buttons off every draft (issue S14).
+  it('addresses Edward, previews none of his buttons and sends from MVP (C-02)', () => {
     const view = draftView({ seed, momentId: 'C-02', requestId: 'req-edward-thu' });
     expect(view.to).toBe('To Edward');
-    expect(view.answers.line).toBe('Edward answers each item with');
-    expect(view.answers.rows.map((row) => `${row.day} · ${row.label}`)).toEqual([
-      'This Thursday · Pick Alexis up at Cedar Grove Elementary, 1:30pm',
-      'This Thursday · Pick Mallory up at Westview Kindergarten, 2:30pm',
-    ]);
+    expect(view).not.toHaveProperty('answers');
     expect(view.send).toBe('Send');
   });
 
   it('hands the Westview Kindergarten note to Mail, addressed from the card (C-06)', () => {
     const view = draftView({ seed, momentId: 'C-06', played: 2, requestId: 'mail-pickup-note' });
     expect(view.to).toBe('To Westview Kindergarten, pickup changes · pickups@westviewk.org');
-    expect(view.answers).toBeNull();
+    expect(view).not.toHaveProperty('answers');
     expect(view.send).toBe('Send from Mail');
   });
 
-  it('draws Mallory as a chip where the words don\'t name her (C-06b)', () => {
-    const [row] = draftView({ seed, momentId: 'C-06b', requestId: 'req-reyes-fri' }).answers.rows;
+  it('draws Mallory as a chip where the words don\'t name her, on Ms. Reyes\'s card (C-06b)', () => {
+    const [row] = recipientView({ seed, momentId: 'C-06b', played: 1, personId: 'ms-reyes' }).cards[0].rows;
     expect(row).toMatchObject({ day: 'This Friday', chips: ['mallory'], label: 'Tutoring with Ms. Reyes, Westview Kindergarten library, 3:00pm' });
   });
 });

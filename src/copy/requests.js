@@ -1,7 +1,5 @@
 // Interface copy for requests, from fixtures section 4, "Requests".
 export const to = 'To {person}';
-export const answersEach = '{person} answers each item with';
-export const answersOne = '{person} answers with';
 export const addNoteFor = 'Add a note for {person}';
 export const afterAnswering = 'Charlotte can see your answers. If anything changes, change your answer here.';
 export const afterAnsweringWeb = 'Charlotte can see your answer. If anything changes, change your answer here.';

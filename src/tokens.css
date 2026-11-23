@@ -1,5 +1,5 @@
 /* Most Valuable Parent: design tokens.
-   Checked against the Figma library mvp-design-library (A3SHbWiO5cyRDtIZ9sNNz7), Hearth collection, Light mode, and its 13 text styles on November 20, 2026 (issue C59), with the six motion variables added on November 21, 2026 (spec 0.49, issue C75) and brand-star on November 22, 2026 (issue O29). All 99 variables and 13 text styles match the library.
+   Checked against the Figma library mvp-design-library (A3SHbWiO5cyRDtIZ9sNNz7), Hearth collection, Light mode, and its 13 text styles on November 20, 2026 (issue C59), with the six motion variables added on November 21, 2026 (spec 0.49, issue C75) and brand-star on November 22, 2026 (issue O29), and the disabled fill (issue C83) and the eleven layout values from src/styles/layout.css (issue C76) on November 23, 2026. All 112 variables and 13 text styles match the library.
    Do not edit by hand. Change the library, then export again (issue C20).
    Components use the semantic tokens. Primitives are listed so the semantic tokens can point at them, and no component reads a primitive directly.
    Open in the library, not here (issue C33): the title style's 20px size has no type/size variable. */
@@ -18,6 +18,7 @@
   --primitives-neutral-paper: #f9f7f3;
   --primitives-neutral-paper-bright: #fffefc;
   --primitives-cerulean-100: #e1eefc;
+  --primitives-cerulean-300: #8fbac8;
   --primitives-cerulean-600: #007198;
   --primitives-cerulean-700: #004f6b;
   --primitives-pine-100: #ddefe4;
@@ -52,6 +53,7 @@
   --interactive-default: var(--primitives-cerulean-600);
   --interactive-pressed: var(--primitives-cerulean-700);
   --interactive-tint: var(--primitives-cerulean-100);
+  --interactive-disabled: var(--primitives-cerulean-300);
   --focus-ring: var(--primitives-cerulean-600);
   --kid: var(--primitives-indigo-600);
   --kid-bg: var(--primitives-indigo-100);
@@ -88,7 +90,18 @@
   --size-tap-target: 44px;
   --size-chip: 26px;
   --size-chip-small: 22px;
+  --size-icon: 24px;
+  --size-icon-small: 20px;
+  --size-icon-mark: 18px;
+  --size-check: 22px;
+  --size-progress-bar: 4px;
+  --size-brand-steam-width: 260px;
+  --size-brand-steam-height: 460px;
   --layout-content-max: 1200px;
+  --layout-phone-column: 440px;
+  --layout-sidebar: 248px;
+  --layout-phone-height: 956px;
+  --layout-status: var(--space-56);
   --breakpoint-tablet: 768px;
   --breakpoint-desktop: 1280px;
 
