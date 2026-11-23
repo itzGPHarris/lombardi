@@ -20,6 +20,13 @@
 .button[data-kind='outlined'][data-active] { background: var(--interactive-tint); color: var(--interactive-default); border-color: transparent; }
 .button[data-kind='text'] { padding: 0; color: var(--interactive-default); }
 .button[data-kind='text']:active { color: var(--interactive-pressed); }
+/* Disabled, as the library's State=Disabled variants draw it (C83): Primary takes the disabled fill
+   at full opacity, and the other kinds keep their colors at 40%. A disabled button has no pressed
+   state. */
+.button:disabled { cursor: default; }
+.button[data-kind='primary']:disabled, .button[data-kind='primary']:disabled:active { background: var(--interactive-disabled); }
+.button[data-kind='secondary']:disabled, .button[data-kind='outlined']:disabled, .button[data-kind='text']:disabled { opacity: 0.4; }
+.button[data-kind='text']:disabled:active { color: var(--interactive-default); }
 .icon { display: inline-flex; }
 .icon > span { width: var(--size-icon-small); height: var(--size-icon-small); }
 .label { min-width: 0; }
