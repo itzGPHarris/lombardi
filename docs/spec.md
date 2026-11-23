@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.53 · November 22, 2026*
+*Investor prototype · Version 0.54 · November 23, 2026*
 
 ## **Summary of this version**
+
+Version 0.54 follows story fixtures 3.53. A request draft shows the address line, the message and its send button, as the draft to Ruth does, and no longer previews the recipient's buttons, because Charlotte is asking for help and the preview read as buttons for her to tap (§9, issue S14).
 
 Version 0.53 follows story fixtures 3.52 and Greg's decisions on the Stage 6 report. In the demo week, the recipient's Today in View as shows his monogram, the dateline and the request cards, as every recipient frame draws them, and the items he owns appear only on the playbook days (§9, issue S12). C-06b opens with the checkup already in the plan, as the fixtures write it, rather than adding it in a scripted step (§7, §16, A17).
 
@@ -1061,7 +1063,7 @@ Charlotte's week uses all three: Edward and Min-jung through their own MVP, Ms. 
 
 ## **The draft screen**
 
-The draft shows the address line, the text in an editable field, a preview of each item with the recipient's two buttons under "Edward answers each item with" (in-MVP and text-link requests only), and the button: Send, or "Send from WhatsApp", "Send from Mail" or the app that applies.
+The draft shows the address line, the text in an editable field, and the button: Send, or "Send from WhatsApp", "Send from Mail" or the app that applies. It shows no preview of how the recipient answers, because Charlotte is asking for help, and the recipient's buttons on her side read as buttons for her to tap. The draft to Ruth on the playbook works the same way (issue S14).
 
 ## **The recipient's view**
 
@@ -1855,6 +1857,14 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.54, November 23, 2026**
+
+Follows story fixtures 3.53 and Greg's decision on QA-003.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §9 | A request draft shows the address line, the message and its send button, with no preview of the recipient's buttons (S14). |
 
 ## **v0.53, November 22, 2026**
 

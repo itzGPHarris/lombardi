@@ -1,6 +1,6 @@
 # Demo fixtures: the MVP families
 
-*MVP (Lombardi) · Version 3.52 · November 22, 2026 · Charlotte and Edward only*
+*MVP (Lombardi) · Version 3.53 · November 23, 2026 · Charlotte and Edward only*
 
 # 1. What this document is for
 
@@ -1187,9 +1187,6 @@ Tapping any row in the game plan opens its page ("The game plan holds the week")
 >
 > Can you take both girls to the library this Saturday morning, around 10:00am?
 >
-> Edward answers with
-> This Saturday · Library run, 10:00am · [Yes, I can] [No, I can't]
->
 > [Send]
 
 *Once she sends it, the page shows Edward's initial and an hourglass with "Asked Edward" under Owner. After Edward answers in C-04b, Owner reads Edward with his initial, a thumbs up and "Edward: yes", his note sits beneath it as "Edward: We'll get lunch after and be home by 1:00pm.", and the page shows the Updated mark until she goes Back.*
@@ -2023,10 +2020,6 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 > To Edward
 >
 > Hi Edward, can you manage both pickups this Thursday? It's an early day at Cedar Grove Elementary for conferences, so Alexis will be waiting at the Oak Street gate at 1:30pm. Mallory gets out of Westview Kindergarten at 2:30pm as usual. I'm at yoga from 2:15pm and home by 3:30pm, and then I'll take Mallory to ballet. There are snacks in the pantry for both girls. Thank you!
->
-> Edward answers each item with
-> This Thursday · Pick Alexis up at Cedar Grove Elementary, 1:30pm · [Yes, I can] [No, I can't]
-> This Thursday · Pick Mallory up at Westview Kindergarten, 2:30pm · [Yes, I can] [No, I can't]
 >
 > [Send]
 
@@ -2969,9 +2962,6 @@ She opens violin, which clears its Updated mark.
 >
 > Hi Min-jung, could you bring Mallory home with Hana tomorrow? Edward got pulled into a meeting and I'm at yoga until 3:15pm. We're on Linden, right on your way, and Edward will be home to meet her. Happy to return the favor.
 >
-> Min-jung answers with
-> Tomorrow · Pick Mallory up at Westview Kindergarten, 2:30pm · [Yes, I can] [No, I can't]
->
 > [Send]
 
 > To Westview Kindergarten, pickup changes · pickups@westviewk.org
@@ -3180,9 +3170,6 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 > To Ms. Reyes
 >
 > Ms. Reyes, Mallory has an appointment at 3:30pm this Friday and will miss tutoring this week. Going forward, Tuesdays at 3:00pm will work best for us. Please confirm. Thank you, Charlotte
->
-> Ms. Reyes answers with
-> [Yes, I can] [No, I can't]
 >
 > [Send]
 
@@ -3451,9 +3438,6 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 > To Ms. Reyes
 >
 > Hi Ms. Reyes, Westview Kindergarten's harvest fair is next Friday, Oct. 23, at 3:00pm, so Mallory will skip tutoring that day. We'll see you next Tuesday, Oct. 20, at 3:00pm. Thank you, Charlotte
->
-> Ms. Reyes answers with
-> [Yes, I can] [No, I can't]
 >
 > [Send]
 
@@ -4124,9 +4108,6 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 >
 > Can you take a look at the washing machine today? It's leaking again.
 >
-> Edward answers with
-> Today · Fix the washing machine · [Yes, I can] [No, I can't]
->
 > [Send]
 
 *Text Lakeside Strings Music School on the coach card opens this draft, handed to her messages app, and sending it leaves the task "Text Lakeside Strings Music School about Mondays".*
@@ -4203,9 +4184,6 @@ Later today is the same as in C-06, with "2 done today" at its foot, because C-0
 > To Edward
 >
 > Can you take Mallory to Westview Kindergarten this morning? It's the early start for the assembly, so leave home at 7:45am. The Parks' car won't start, so I'm taking Alexis.
->
-> Edward answers with
-> Today · Take Mallory to Westview Kindergarten, 8:00am · [Yes, I can] [No, I can't]
 >
 > [Send]
 
@@ -4426,7 +4404,6 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Where | Text |
 | ----- | ----- |
 | Address line on a draft | "To" followed by the name, such as "To Edward" |
-| Line above the preview of the recipient's buttons | "Edward answers each item with", with the recipient's name, or "Edward answers with" when the request has one item |
 | Each item on a request | The day and the item as it appears in the plan, said from the day it is sent, such as "This Thursday · Pick Mallory up at Westview Kindergarten, 2:30pm", each with its own two buttons |
 | Note field on a request | "Add a note for" followed by the parent's name, such as "Add a note for Charlotte" |
 | After answering | Charlotte can see your answers. If anything changes, change your answer here. · Each item shows the answer given and a Change link |
@@ -4936,6 +4913,14 @@ The user stories left gaps, and everything in this table is a fact we invented t
 154. **Decided November 21, 2026: the other tabs on her first night are written (issue P4).** They need frames before the build draws them from Figma, and until then the build works from these words.
 
 # Appendix C: change log
+
+## Version 3.53, November 23, 2026
+
+Greg's decision on QA-003. Version 3.52 is kept in the archive.
+
+| # | Change |
+| ----- | ----- |
+| 1 | A request draft shows the address line, the message and its send button, as the draft to Ruth does. The preview of the recipient's Yes, I can and No, I can't buttons, and the line above it, come off every draft (S14). |
 
 ## Version 3.52, November 22, 2026
 
