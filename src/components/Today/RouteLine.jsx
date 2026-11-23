@@ -18,7 +18,7 @@ import styles from './RouteLine.module.css';
 // across the leave row, and the "You reach" line beneath in the warning ink.
 export function RouteStation({ station, childName, onOpen, onStep, earliest }) {
   return (
-    <li className={styles.station} data-late={station.lateReach ? true : undefined}>
+    <li className={styles.station} data-late={station.lateReach && !station.open ? true : undefined} aria-current={station.state === 'current' ? 'step' : undefined}>
       <span className={styles.rail} aria-hidden="true">
         <span className={styles.railTop} />
         <StopMarker place={station.kind} state={station.state} />
