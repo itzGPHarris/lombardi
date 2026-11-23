@@ -1,6 +1,7 @@
 // Interface copy for onboarding and setup, from fixtures section 4, "Onboarding". The coach's lines
 // in onboarding come from the seed's conversation, not from here.
 export const splash = 'Most Valuable Parent';
+export const splashTagline = 'Master the parental logistics of life for every season. Build community. Solve for the win. Be the MVP.';
 export const welcome = {
   headline: 'Your week has a lot of moving parts, and the MVP Coach helps you keep track of everything.',
   line: 'Just the basics to start us off in the right direction.',
