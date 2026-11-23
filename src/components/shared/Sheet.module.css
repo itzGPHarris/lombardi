@@ -12,7 +12,7 @@
   max-width: var(--layout-phone-column);
   margin-inline: auto;
   max-height: calc(100dvh - var(--space-56));
-  padding: var(--space-12) var(--space-20) calc(var(--space-32) + var(--keyboard-inset, 0px));
+  padding: var(--space-12) var(--space-20) calc(max(var(--space-32), var(--safe-bottom)) + var(--keyboard-inset, 0px));
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   background: var(--bg-card);
   /* Opening: up from the bottom of the screen. The fill is backwards only, so dragging still moves it. */

@@ -30,7 +30,7 @@
   background: var(--bg-card);
 }
 .foot[data-surface='canvas'] { background: var(--bg-canvas); }
-.primaryFoot { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); padding: var(--space-16) var(--space-24) var(--space-24); }
+.primaryFoot { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); padding: var(--space-16) var(--space-24) max(var(--space-24), var(--safe-bottom)); }
 .primaryFoot:empty { display: none; }
 
 /* The title bar shared by tab lists and pages, as the frames place it: its row of controls 56 from
@@ -40,7 +40,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  padding: var(--space-56) var(--space-24) 0;
+  padding: var(--layout-status) var(--space-24) 0;
   background: var(--bg-card);
 }
 .barRow {
@@ -78,7 +78,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  padding: var(--space-56) var(--space-24) var(--space-16);
+  padding: var(--layout-status) var(--space-24) var(--space-16);
   background: var(--bg-card);
 }
 .fixedTitleRow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); min-height: var(--size-tap-target); }
@@ -93,11 +93,11 @@
   display: flex;
   align-items: center;
   gap: var(--space-16);
-  min-height: calc(var(--size-tap-target) + var(--space-56));
-  padding: var(--space-56) var(--space-24) 0;
+  min-height: calc(var(--size-tap-target) + var(--layout-status));
+  padding: var(--layout-status) var(--space-24) 0;
   background: var(--bg-canvas);
 }
-.topBar:empty, .topBar[data-empty] { min-height: var(--space-56); }
+.topBar:empty, .topBar[data-empty] { min-height: var(--layout-status); }
 .topBarBack {
   display: inline-flex;
   align-items: center;
@@ -115,7 +115,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  padding: var(--space-56) var(--space-24) var(--space-32);
+  padding: var(--layout-status) var(--space-24) var(--space-32);
   background: var(--bg-card);
 }
 .todayHeader[data-tall] { position: relative; }

@@ -76,7 +76,7 @@
 .messageText { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
 
 /* The field at the foot of a chat or a group */
-.fieldBar { display: flex; align-items: flex-end; gap: var(--space-8); padding: var(--space-8) var(--space-12) var(--space-24); }
+.fieldBar { display: flex; align-items: flex-end; gap: var(--space-8); padding: var(--space-8) var(--space-12) max(var(--space-24), var(--safe-bottom)); }
 .field {
   flex: 1;
   min-height: var(--size-tap-target);
