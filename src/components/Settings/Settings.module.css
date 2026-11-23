@@ -1,9 +1,10 @@
-/* Settings (frame 2853:15443): each card on the control surface at the large radius, its heading set
-   as the frame draws it, a line in Meta, then rows divided by hairlines, values right-aligned in muted
-   ink and links in Body strong in cerulean (spec §13). */
+/* Settings (frame 2853:15443 for layout): each card on the control surface at the large radius, set in
+   the type spec §13 gives it rather than the frame's, because the frame was drawn before the type
+   scale (issue C78): the heading in Subtitle, the line in Meta, the rows in Body with values
+   right-aligned in muted ink, and links in Body strong in cerulean. */
 .cards { display: flex; flex-direction: column; gap: var(--space-24); }
 .card { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-32) var(--space-32) var(--space-24); border-radius: var(--radius-lg); background: var(--bg-control); }
-.heading { font: var(--text-header); letter-spacing: var(--text-header-tracking); color: var(--ink-primary); font-variation-settings: "SOFT" 0, "WONK" 1; }
+.heading { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
 .line { padding-bottom: var(--space-8); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
 .rows { display: flex; flex-direction: column; border-top: thin solid var(--border-hairline); }
 .row {
@@ -16,10 +17,10 @@
   border-bottom: thin solid var(--border-hairline);
 }
 .row[data-stacked] { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
-.label { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
-.value { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); text-align: right; overflow-wrap: anywhere; }
+.label { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.value { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-muted); text-align: right; overflow-wrap: anywhere; }
 .row[data-stacked] .value { text-align: left; }
-.statement { padding: var(--space-12) 0; border-bottom: thin solid var(--border-hairline); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
+.statement { padding: var(--space-12) 0; border-bottom: thin solid var(--border-hairline); font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
 .switchRow { display: inline-flex; align-items: center; gap: var(--space-8); flex-shrink: 0; }
 /* A staged switch: its position and the word beside it say whether it is on, never its color alone. */
 .switch {
