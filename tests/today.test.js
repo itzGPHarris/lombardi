@@ -361,6 +361,29 @@ describe('the Leave sheet (spec §5, "The Leave sheet")', () => {
     expect(sheet.stations[4].backAround).toEqual({ label: 'Back around', time: '4:35pm' });
   });
 
+  it('marks each station by its place and where she is on the run (standing decision 26, T91)', () => {
+    const marks = (sheet) => sheet.stations.map((station) => `${station.kind} ${station.state}`);
+    expect(marks(sheetAt())).toEqual(['home current', 'school ahead', 'school ahead', 'place ahead', 'home ahead']);
+    const { find, clock } = view('C-03b', 1, '14:06');
+    const run = (time) => leaveSheetView({ runId: 'run-mon-pm', find, clock: { ...clock, time }, local: {} });
+    expect(marks(run('14:20')).map((mark) => mark.split(' ')[1])).toEqual(['behind', 'current', 'ahead', 'ahead', 'ahead']);
+    expect(marks(run('16:20')).map((mark) => mark.split(' ')[1])).toEqual(['behind', 'behind', 'behind', 'behind', 'current']);
+  });
+
+  it('keeps a stop with no leaving time ahead until she reaches it', () => {
+    const { find, clock } = view('C-03b', 1, '14:06');
+    const states = (runId, day, time) => leaveSheetView({ runId, find, clock: { ...clock, day, time }, local: {} }).stations.map((station) => station.state);
+    expect(states('run-mon-am-mallory', 'mon', '08:16')).toEqual(['behind', 'current', 'ahead']);
+    expect(states('run-tue-pm', 'tue', '14:31')).toEqual(['behind', 'behind', 'current', 'ahead']);
+  });
+
+  it('marks home Current on a run that is not under way today', () => {
+    const { find, clock } = view('C-03b', 1, '14:06');
+    const states = (day, time) => leaveSheetView({ runId: 'run-mon-pm', find, clock: { ...clock, day, time }, local: {} }).stations.map((station) => station.state);
+    expect(states('sun', '20:00')).toEqual(['current', 'ahead', 'ahead', 'ahead', 'ahead']);
+    expect(states('tue', '10:00')).toEqual(['current', 'ahead', 'ahead', 'ahead', 'ahead']);
+  });
+
   it('names the day and its backups for tomorrow\'s run', () => {
     const { find, clock } = view('C-06');
     const sheet = leaveSheetView({ runId: 'run-thu-yoga', find, clock, local: {} });

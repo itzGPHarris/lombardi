@@ -1,9 +1,25 @@
 /* The thinking screens hold the mark and the headline above the middle of the screen, as 0r and 0t
-   draw them: the mark's top about 260 down a 956 phone, so the block's middle sits about 86 above the
-   screen's, which three of the largest space step below it gives. The three dots stand still: no motion is listed for them (spec §19). */
-.thinking { display: flex; flex-direction: column; justify-content: center; gap: var(--space-16); height: 100%; padding: 0 var(--space-24) calc(var(--space-56) * 3); }
-.dots { display: flex; gap: var(--space-4); }
-.dot { width: var(--space-8); height: var(--space-8); border-radius: var(--radius-pill); background: var(--interactive-default); }
-.dot:nth-child(2) { opacity: 0.6; }
-.dot:nth-child(3) { opacity: 0.2; }
+   draw them: the mark's top about 258 down a 956 phone, which four of the largest space step below the
+   block gives. */
+.thinking { display: flex; flex-direction: column; justify-content: center; gap: var(--space-16); height: 100%; padding: 0 var(--space-24) calc(var(--space-56) * 4); }
+/* The thinking dots (spec §19, "Motion"; library ThinkingDots 397:1936): each dot rises from 40% to
+   full opacity and falls back, a third of a 1.2 s loop apart, so one is always lit. The delays start
+   the first dot at its brightest, as the library's first step draws it. The loop is four
+   of the standard duration, so it comes from a motion token. Under reduced motion the row is
+   unchanged, because the dots only fade. The frame's 9 px dots 6 px apart are 8 and 4 (issue O29). */
+.dots { --thinking-loop: calc(var(--motion-duration-standard) * 4); display: flex; gap: var(--space-4); }
+.dot {
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-pill);
+  background: var(--interactive-default);
+  opacity: 0.4;
+  animation: thinking-dot var(--thinking-loop) var(--motion-ease-in-out) infinite both;
+}
+.dot:nth-child(1) { animation-delay: calc(var(--thinking-loop) / -3); }
+.dot:nth-child(3) { animation-delay: calc(var(--thinking-loop) * -2 / 3); }
+@keyframes thinking-dot {
+  0%, 66.667%, 100% { opacity: 0.4; }
+  33.333% { opacity: 1; }
+}
 .failure { display: flex; flex-direction: column; gap: var(--space-24); }

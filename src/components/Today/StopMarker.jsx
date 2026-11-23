@@ -1,10 +1,18 @@
+import Icon from '../shared/Icon.jsx';
 import styles from './StopMarker.module.css';
 
-// The marker on each row of a trip timetable (spec §5, standing decision 26; library StopMarker
-// 3088:12996). Current marks the row she acts on next in a solid cerulean circle, Ahead is in primary
-// ink and Behind is muted. The library draws each marker with icon/place-home or icon/place-school,
-// which the Icon component cannot take until its list of library names includes them, so the markers
-// are drawn as their circles alone for now (see docs/issues.csv).
-export default function StopMarker({ place, state }) {
-  return <span className={styles.marker} data-place={place} data-state={state} aria-hidden="true" />;
+// The marker on each station of the Leave sheet and each row of a trip timetable (spec §5, standing
+// decision 26; library StopMarker 355:1192). The place's kind in the seed chooses the glyph: home,
+// school, or a dot for any other place. The state says where she is on the run: Current is the place
+// she leaves next, in the cerulean circle, Behind is a place she has left, in muted ink, and Ahead is
+// every other place (T91).
+const glyphs = { home: 'home', school: 'school' };
+
+export default function StopMarker({ place, state = 'ahead' }) {
+  const glyph = glyphs[place];
+  return (
+    <span className={styles.marker} data-state={state} aria-hidden="true">
+      {glyph ? <Icon name={glyph} /> : <span className={styles.dot} />}
+    </span>
+  );
 }

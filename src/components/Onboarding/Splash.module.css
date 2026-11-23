@@ -1,7 +1,9 @@
 /* The splash's art at its drawn sizes: the mug in the box its steam rises through, with the star on
    the mug and the stars' layer placed as the frame places them, then the MVP letters and the full
-   wordmark. Positions are proportions of the box, so no pixel size is typed here. */
-.splash { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-16); height: 100%; }
+   wordmark, and the tagline beneath in Body strong, centered in a 299 px measure (the nearest the
+   space tokens give is 300). Positions are proportions of the box, so no pixel size is typed here. */
+.splash { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-40); height: 100%; }
+.art { display: flex; flex-direction: column; align-items: center; gap: var(--space-16); }
 .steam { position: relative; width: var(--size-brand-steam-width); height: var(--size-brand-steam-height); flex-shrink: 0; }
 .mug { position: absolute; left: 7.89%; top: 26.08%; display: block; }
 .mug > img { display: block; }
@@ -9,3 +11,10 @@
 .stars { left: 76.13%; top: 8.7%; }
 .wordmark { display: flex; justify-content: center; }
 .wordmark img { display: block; }
+.tagline {
+  max-width: calc(var(--space-56) * 5 + var(--space-20));
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
+  color: var(--ink-primary);
+  text-align: center;
+}

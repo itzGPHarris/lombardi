@@ -715,7 +715,6 @@ export function leaveSheetView({ runId, find, clock, local, draft = {}, open = n
     const isLast = index === last;
     const station = {
       index,
-      home: place.kind === 'home',
       place: place.name,
       item: item && {
         time: item.time?.time ? formatTime(item.time.time) : null,
@@ -732,6 +731,20 @@ export function leaveSheetView({ runId, find, clock, local, draft = {}, open = n
       reach: null,
     };
     return station;
+  });
+  // Each station's marker (spec §5, standing decision 26; T91): the place she leaves next is Current,
+  // places she has left are Behind and the rest are Ahead. As on the trip timetable, a run counts as
+  // under way only on its own day once its first leaving time has passed; until then home is Current.
+  // A stop with no leaving time, such as a drop-off, counts as left once she reaches it, or once it
+  // is due when no arrival can be worked out. Once every stop is behind her, she is on her way to the
+  // last station, so it is Current.
+  const leftAt = (index) => leave[index] ?? reach[index] ?? base.stops[index].dueAt ?? null;
+  const started = sameDay(clock, base.day) && leave[0] && compareDemoTimes(clock, at(base.day, leave[0])) >= 0;
+  const ahead = stations.findIndex((station, index) => index < last && (!leftAt(index) || compareDemoTimes(clock, at(base.day, leftAt(index))) < 0));
+  const current = !started ? 0 : ahead === -1 ? last : ahead;
+  stations.forEach((station, index) => {
+    station.kind = find.place(base.stops[index].place).kind;
+    station.state = index < current ? 'behind' : index === current ? 'current' : 'ahead';
   });
   // The "You reach" line: under the station she is changing, for the stop it leads to, and under any
   // later stop she would now reach after it is due.
