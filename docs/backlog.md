@@ -66,7 +66,6 @@ This file holds IDs and sequence. Nothing else.
 
 - C51, C55, C30, O18, C33: the library's remaining states and components, the onboarding components, the October photo and the Voice style
 - P5, P6, P7, P10: the Figma prototype's remaining substitutions and dead ends
-- Y5: the playbook's draft components into the library, which alpha 2 waits on
 
 ## Confirm and close
 
@@ -136,10 +135,13 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 1. S14: request drafts show the address line, the message and the send button only
 2. O26: the splash's tagline beneath the wordmark
 3. O27, §19: the thinking dots pulse in turn
+4. T91, T75: the Leave sheet's stations and the timetable's stop markers follow the redesigned RouteStation and StopMarker
+5. K10: the voice note's play glyph and the option card's radio drawn through Icon
+6. C83: Button's disabled state from --interactive-disabled
 
 ## Alpha 2: The weekend Charlotte is away
 
-1. Y5: starting point C's draft components in the library
+1. Y14: Greg replays starting point C in the Figma prototype
 2. §20, F37: C-10 to C-13 and C-15, with Edward's side through View as
 
 ## Blocked
