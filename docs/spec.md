@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.52 · November 22, 2026*
+*Investor prototype · Version 0.53 · November 22, 2026*
 
 ## **Summary of this version**
+
+Version 0.53 follows story fixtures 3.52 and Greg's decisions on the Stage 6 report. In the demo week, the recipient's Today in View as shows his monogram, the dateline and the request cards, as every recipient frame draws them, and the items he owns appear only on the playbook days (§9, issue S12). C-06b opens with the checkup already in the plan, as the fixtures write it, rather than adding it in a scripted step (§7, §16, A17).
 
 Version 0.52 follows story fixtures 3.51, Greg's decisions on the Stage 5 report and his Stage 6 plan review. A day in the game plan opens by itself only for a "can't" or a conflict, and a day that only needs an owner, or holds something on the review card, keeps its dot and stays closed (§8, issue G51). At tablet width the game plan keeps its agenda in the centered column, and it opens into seven columns from desktop width, 1280 and up (§2, §8, §19, G52). A stop that belongs to a larger trip names the trip in `partOf`, so the game plan shows the trip as one row (§16, D13).
 
@@ -869,7 +871,7 @@ Most parents already keep one main calendar, and much of the family's week is al
 | Duplicates | When a capture and a calendar event describe the same thing, the coach keeps one item with both source links. |
 | Privacy | Nobody else sees her calendar. People see only what she sends them. |
 
-In the prototype, the connect screen and the permission screen are staged, Charlotte's calendar events are written into the seed, and the checkup in C-06b arrives as a scripted step that adds it to Friday. The real product reads Google Calendar and Outlook through their own accounts, and reads Apple Calendar through the native app on an iPhone.
+In the prototype, the connect screen and the permission screen are staged, Charlotte's calendar events are written into the seed, and C-06b opens with the checkup already on Friday, as the fixtures write it (issue A17). The real product reads Google Calendar and Outlook through their own accounts, and reads Apple Calendar through the native app on an iPhone.
 
 ### **Standing decisions**
 
@@ -1063,7 +1065,7 @@ The draft shows the address line, the text in an editable field, a preview of ea
 
 ## **The recipient's view**
 
-Edward's own MVP shows his monogram, the dateline, such as "Monday morning, Oct. 12". His Today holds only the items he owns and the requests Charlotte sends him, with the request card at the top. The web page for someone without MVP shows the same heading, text and buttons, with "You don't need MVP to answer." under the buttons, and no tabs.
+Edward's own MVP shows his monogram, the dateline, such as "Monday morning, Oct. 12". In the demo week his Today holds the request cards Charlotte sends him and nothing else of hers, as every recipient frame draws it. It shows a request while an item on it is unanswered, or on the day it was sent or answered. The items he owns fill his Today only on the playbook days (§20, issue S12). The web page for someone without MVP shows the same heading, text and buttons, with "You don't need MVP to answer." under the buttons, and no tabs.
 
 The fixtures write every recipient screen in Charlotte's week, and View as (§15) shows each of them.
 
@@ -1547,7 +1549,7 @@ Every `leaveAt` follows the rule in fixtures "Dates, times and places": the next
 | name | string | As shown in copy, such as "Google Calendar". |
 | events | array | Each event with an id, a title as it appears on her calendar, demo time, whether it repeats weekly, the place, and the plan item it became. |
 
-Calendar events are written into the seed from fixtures Appendix A. An event that arrives during a moment, such as the checkup in C-06b, is a scripted step in that moment.
+Calendar events are written into the seed from fixtures Appendix A. An event that arrives between moments, such as the checkup in C-06b, is already in the next moment's state when it opens (issue A17).
 
 ## **Conversation, coach cards and reminders**
 
@@ -1853,6 +1855,15 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.53, November 22, 2026**
+
+Follows story fixtures 3.52 and Greg's decisions on the Stage 6 report.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §9 | In the demo week the recipient's Today holds the request cards only, as the frames draw it (S12). |
+| 2 | §7, §16 | C-06b opens with the checkup already in the plan (A17). |
 
 ## **v0.52, November 22, 2026**
 

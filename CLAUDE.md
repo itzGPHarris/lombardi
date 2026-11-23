@@ -2,7 +2,7 @@
 
 This file is for Claude working in the MVP repository. The build rules live in `AGENTS.md`, which applies to whoever writes code here, and it is imported below so there is one copy of those rules rather than two.
 
-*Current versions: story fixtures 3.51, spec 0.52. Last updated November 22, 2026.*
+*Current versions: story fixtures 3.52, spec 0.53. Last updated November 22, 2026.*
 
 @AGENTS.md
 

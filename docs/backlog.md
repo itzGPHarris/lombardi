@@ -127,7 +127,8 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 
 1. Compare every screen with its frame at 440 px, then check 390, 768, 1440 and 1920, and log what is left in `docs/issues.csv`
 2. C78: Settings in the type spec §13 gives it
-3. Deploy to Netlify, and Greg plays the alpha end to end
+3. A15: the notifications for Edward's chat message in C-05c and Min-jung's answer in C-06
+4. Deploy to Netlify, and Greg plays the alpha end to end
 
 ## Alpha 2: The weekend Charlotte is away
 
@@ -141,6 +142,7 @@ T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, 
 - C17: the other three households' rewrites, each in its own town, once Charlotte's build has been reviewed
 - R10: a staff writer for six articles, once C17 gives each household its week
 - C79: each household's seed loaded on its own, once a second household's seed is in the build
+- A18: the food-drive flyer photo for C-03a, once Greg has it
 
 ## Parked
 

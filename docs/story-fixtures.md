@@ -1,6 +1,6 @@
 # Demo fixtures: the MVP families
 
-*MVP (Lombardi) · Version 3.51 · November 22, 2026 · Charlotte and Edward only*
+*MVP (Lombardi) · Version 3.52 · November 22, 2026 · Charlotte and Edward only*
 
 # 1. What this document is for
 
@@ -2036,7 +2036,7 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 
 **Edward's screen, as shown**
 
-*Edward's own Today shows his monogram, E, and the dateline "Monday morning, Oct. 12". It holds only the items he owns and the requests Charlotte sends him.*
+*Edward's own Today shows his monogram, E, and the dateline "Monday morning, Oct. 12". In the demo week it holds the request cards Charlotte sends him and nothing else (issue S12).*
 
 > Monday morning, Oct. 12
 >
@@ -2766,7 +2766,7 @@ She opens violin, which clears its Updated mark.
 >
 > Message · [Send]
 
-*Messages are listed oldest first, because a chat is read as a conversation, while the group page lists posts newest first. Claire's and Edward's messages each arrive as a notification, such as "Claire: Tell her together, and tell her Karen is helping choose who's next." Nothing in the chat reaches the plan. If Charlotte wants Sunday night on the plan, she adds it herself, and in the demo she doesn't.*
+*Messages are listed oldest first, because a chat is read as a conversation, while the group page lists posts newest first. Claire's and Edward's messages each arrive as a notification: "Claire: Tell her together, and tell her Karen is helping choose who's next." and "Edward: Agree. Sunday night, not before school. I'll be home." (issue A15) Nothing in the chat reaches the plan. If Charlotte wants Sunday night on the plan, she adds it herself, and in the demo she doesn't.*
 
 **Today, as shown: the header**
 
@@ -2998,7 +2998,7 @@ She opens violin, which clears its Updated mark.
 
 *Min-jung taps "Yes, I can" at 12:30pm and adds no note. Her card then shows "Yes, I can · Change" and the line "Charlotte can see your answers. If anything changes, change your answer here."*
 
-*Min-jung answers at 12:30pm, and Mallory's pickup changes to "Min-jung: yes".*
+*Min-jung answers at 12:30pm, and Mallory's pickup changes to "Min-jung: yes". Charlotte gets the notification "Min-jung: yes to tomorrow." (issue A15).*
 
 *If she had tapped Move yoga to 12:15pm instead, yoga would move to 12:15pm on Thursday and Mallory's pickup would change from "Edward can't" to "You", with no Updated mark, because the change is hers. Alexis's pickup would stay "Edward: yes". Nothing would change on her Google Calendar, because yoga is not on it, and Willow Yoga would still need booking. The card would then keep the thread, as below, until she leaves Today: the recommendation in muted ink, "Agreed" beside the check, and only what comes next. Undo would put yoga back at 2:15pm and Mallory's pickup back to "Edward can't", and return the card to its first form, with Move yoga to 12:15pm and Other options. Book at Willow Yoga opens willow.example in her browser, staged in the prototype, and Today keeps the card.*
 
@@ -4936,6 +4936,15 @@ The user stories left gaps, and everything in this table is a fact we invented t
 154. **Decided November 21, 2026: the other tabs on her first night are written (issue P4).** They need frames before the build draws them from Figma, and until then the build works from these words.
 
 # Appendix C: change log
+
+## Version 3.52, November 22, 2026
+
+Greg's decisions on the Stage 6 report. Version 3.51 is kept in the archive.
+
+| # | Change |
+| ----- | ----- |
+| 1 | Edward's chat message in C-05c and Min-jung's answer in C-06 each arrive with a notification (A15). |
+| 2 | In the demo week, the recipient's Today holds the request cards only (S12). |
 
 ## Version 3.51, November 22, 2026
 
