@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): stage prompts
 
-*Alpha 1 and alpha 2. Fixtures 3.51, spec 0.52. Written November 20, 2026, with motion added November 21, 2026.*
+*Alpha 1 and alpha 2. Fixtures 3.52, spec 0.53. Written November 20, 2026, with motion added November 21, 2026.*
 
 This file holds one prompt for each stage of the alpha build, ready to paste into a fresh build agent session, together with the review prompt Greg runs before his own review of each stage and the prompt that restarts a stage that has stopped early. The build order lives in `docs/backlog.md`, and these prompts name its lines rather than copying them, so the backlog stays the only list. When a backlog line changes, the prompt that names it does not need to.
 
@@ -209,7 +209,7 @@ End the stage with the commands you ran and their output, a recording or a seque
 ## Stage 7: Fidelity and deploy
 
 ```text
-This session builds Stage 7 of Alpha 1, fidelity and deploy. Its three lines are under "Stage 7: Fidelity and deploy" in docs/backlog.md.
+This session builds Stage 7 of Alpha 1, fidelity and deploy. Its four lines are under "Stage 7: Fidelity and deploy" in docs/backlog.md.
 
 Read these before anything else:
 - docs/screen-map.md in full.
@@ -223,7 +223,9 @@ For the first line, render every screen the screen map lists for C-00 to C-09 at
 
 For the second line, set Settings in the type spec section 13 gives it, with card headings in Subtitle, rows in Body and links in Body strong, rather than the frame's type, because the frame was drawn before the type scale (C78). This is the one place where the spec's type wins over a frame's.
 
-For the third line, prepare the deploy and stop before it goes out. The prototype deploys from main, so pushing to main publishes it. Show me the branch, the commits that will go out and the result of npm run check, and push only when I confirm.
+For the third line, add the two notification lines fixtures 3.52 writes, Edward's chat message in C-05c and Min-jung's answer in C-06, to their arrival steps in src/demo/steps.js (A15).
+
+For the fourth line, prepare the deploy and stop before it goes out. The prototype deploys from main, so pushing to main publishes it. Show me the branch, the commits that will go out and the result of npm run check, and push only when I confirm.
 
 Before you change any code, write a plan and wait for my review of it. The plan should list every screen and size you will check, in the order you will check them.
 
