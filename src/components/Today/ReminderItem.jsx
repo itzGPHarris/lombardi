@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import Button from '../shared/Button.jsx';
 import Icon from '../shared/Icon.jsx';
+import KeepWhole from '../shared/KeepWhole.jsx';
 import { checklist as words } from '../../copy/today.js';
 import styles from './ReminderItem.module.css';
 
@@ -28,7 +29,7 @@ export default function ReminderItem({ row, onTick, onRemove, choosing, choices,
         </span>
         <span className={styles.body}>
           <span className={styles.text}>{row.text}</span>
-          {row.contact && <span className={styles.contact}>{row.contact}</span>}
+          {row.contact && <span className={styles.contact}><KeepWhole text={row.contact} /></span>}
         </span>
       </button>
       {row.kind === 'task' && (
