@@ -26,7 +26,7 @@ export default function RecipientView({ personId }) {
   const childName = (id) => seed.children.find((child) => child.id === id)?.name;
   const answer = (requestId) => dispatch({ type: 'STEP', trigger: `answer:${requestId}` });
   if (!view) return <StillShell />;
-  const cards = view.cards.map((card) => <RequestCard key={card.id} card={card} childName={childName} onAnswer={answer} />);
+  const cards = view.cards.map((card) => <RequestCard key={card.id} card={card} childName={childName} onAnswer={answer} keepsText={!view.hasMVP} />);
 
   if (!view.hasMVP) {
     // The text message, until she follows its link; a request sent with no code opens the page.
