@@ -17,7 +17,6 @@
   color: var(--ink-primary);
   resize: none;
 }
-.answersLine { padding-bottom: var(--space-16); border-bottom: thin solid var(--border-hairline); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
 
 /* An item on a request, with its two buttons */
 .item { display: flex; flex-direction: column; gap: var(--space-12); }
