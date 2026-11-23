@@ -715,7 +715,6 @@ export function leaveSheetView({ runId, find, clock, local, draft = {}, open = n
     const isLast = index === last;
     const station = {
       index,
-      home: place.kind === 'home',
       place: place.name,
       item: item && {
         time: item.time?.time ? formatTime(item.time.time) : null,
@@ -732,6 +731,15 @@ export function leaveSheetView({ runId, find, clock, local, draft = {}, open = n
       reach: null,
     };
     return station;
+  });
+  // Each station's marker (spec §5, standing decision 26; T91): the place she leaves next is Current,
+  // places she has left are Behind and the rest are Ahead. Once every leaving time has passed, she is
+  // on her way to the last station, so it is Current.
+  const leavesLeft = stations.findIndex((station, index) => index < last && leave[index] && compareDemoTimes(clock, at(base.day, leave[index])) < 0);
+  const current = leavesLeft === -1 ? last : leavesLeft;
+  stations.forEach((station, index) => {
+    station.kind = find.place(base.stops[index].place).kind;
+    station.state = index < current ? 'behind' : index === current ? 'current' : 'ahead';
   });
   // The "You reach" line: under the station she is changing, for the stop it leads to, and under any
   // later stop she would now reach after it is due.

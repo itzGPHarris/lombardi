@@ -1,11 +1,18 @@
+/* StopMarker (355:1192): a 20 px circle holding the glyph, or a 12 px dot for a place that is neither
+   home nor a school. Current fills the circle with cerulean and draws the glyph, or an 8 px dot, in
+   ink on accent. */
 .marker {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   width: var(--size-icon-small);
   height: var(--size-icon-small);
-  border: thin solid var(--ink-primary);
   border-radius: var(--radius-pill);
-  background: var(--bg-card);
+  color: var(--ink-primary);
 }
-.marker[data-state='behind'] { border-color: var(--ink-muted); }
-.marker[data-state='next'] { border-color: var(--interactive-default); background: var(--interactive-default); }
+.marker > span:not(.dot) { width: var(--space-16); height: var(--space-16); }
+.dot { width: var(--space-12); height: var(--space-12); border-radius: var(--radius-pill); background: currentColor; }
+.marker[data-state='behind'] { color: var(--ink-muted); }
+.marker[data-state='current'] { background: var(--interactive-default); color: var(--ink-on-accent); }
+.marker[data-state='current'] .dot { width: var(--space-8); height: var(--space-8); }

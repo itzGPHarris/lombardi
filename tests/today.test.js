@@ -361,6 +361,15 @@ describe('the Leave sheet (spec §5, "The Leave sheet")', () => {
     expect(sheet.stations[4].backAround).toEqual({ label: 'Back around', time: '4:35pm' });
   });
 
+  it('marks each station by its place and where she is on the run (standing decision 26, T91)', () => {
+    const marks = (sheet) => sheet.stations.map((station) => `${station.kind} ${station.state}`);
+    expect(marks(sheetAt())).toEqual(['home current', 'school ahead', 'school ahead', 'place ahead', 'home ahead']);
+    const { find, clock } = view('C-03b', 1, '14:06');
+    const run = (time) => leaveSheetView({ runId: 'run-mon-pm', find, clock: { ...clock, time }, local: {} });
+    expect(marks(run('14:20')).map((mark) => mark.split(' ')[1])).toEqual(['behind', 'current', 'ahead', 'ahead', 'ahead']);
+    expect(marks(run('16:20')).map((mark) => mark.split(' ')[1])).toEqual(['behind', 'behind', 'behind', 'behind', 'current']);
+  });
+
   it('names the day and its backups for tomorrow\'s run', () => {
     const { find, clock } = view('C-06');
     const sheet = leaveSheetView({ runId: 'run-thu-yoga', find, clock, local: {} });

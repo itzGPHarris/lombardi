@@ -34,6 +34,8 @@ import Voice from '@material-symbols/svg-400/outlined/mic.svg?react';
 import Reminder from '@material-symbols/svg-400/outlined/notifications.svg?react';
 import Directions from '@material-symbols/svg-400/outlined/near_me.svg?react';
 import Clock from '@material-symbols/svg-400/outlined/schedule.svg?react';
+import Home from '@material-symbols/svg-400/outlined/home.svg?react';
+import School from '@material-symbols/svg-400/outlined/school.svg?react';
 import {
   ArrowUp, Calendar1, ChevronRight, CircleDashed, CircleDot, ExternalLink, Hourglass, MessageCircle,
   ThumbsDown, ThumbsUp, TriangleAlert, Users,
@@ -74,6 +76,8 @@ const icons = {
   reminder: Reminder,
   directions: Directions,
   clock: Clock,
+  home: Home,
+  school: School,
   // Custom drawings, where neither package has the glyph.
   'update-calendar': UpdateCalendar,
   // Lucide only, as the library gives them.

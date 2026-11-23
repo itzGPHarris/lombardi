@@ -13,7 +13,7 @@ export default function Timetable({ rows, childName }) {
         <li key={row.key} className={styles.row} data-state={row.state} aria-current={row.state === 'next' ? 'step' : undefined}>
           <span className={styles.rail} data-first={index === 0 || undefined} data-last={index === rows.length - 1 || undefined}>
             <span className={styles.railTop} />
-            <StopMarker place={row.marker} state={row.state} />
+            <StopMarker place={row.marker} state={row.state === 'next' ? 'current' : row.state} />
             <span className={styles.railBottom} />
           </span>
           <span className={styles.time}>{row.time}</span>
