@@ -22,8 +22,9 @@ export default function Grades({ entries, flags, onOpen, onChoose, onContinue, o
         <Entrance order={2} as="p" className={styles.line}>{words.line}</Entrance>
         <Entrance order={3} className={styles.fields}>
           {entries.children.map((child, index) => (
+            // Each child's grade sits in its own group, divided by a hairline, as 0k-b draws it.
+            <div key={child.id ?? index} className={styles.group}>
             <GradeField
-              key={child.id ?? index}
               index={index}
               label={fill(words.label, { child: child.name })}
               grade={child.grade}
@@ -31,6 +32,7 @@ export default function Grades({ entries, flags, onOpen, onChoose, onContinue, o
               onOpen={() => onOpen(index)}
               onChoose={(grade) => onChoose(index, grade)}
             />
+            </div>
           ))}
         </Entrance>
       </div>
