@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): stage prompts
 
-*Alpha 1 and alpha 2. Fixtures 3.53, spec 0.54. Written November 20, 2026, with motion added November 21, 2026.*
+*Alpha 1 and alpha 2. Fixtures 3.53, spec 0.54. Written November 20, 2026, with motion added November 21, 2026 and the Alpha 1 follow-ups November 23, 2026.*
 
 This file holds one prompt for each stage of the alpha build, ready to paste into a fresh build agent session, together with the review prompt Greg runs before his own review of each stage and the prompt that restarts a stage that has stopped early. The build order lives in `docs/backlog.md`, and these prompts name its lines rather than copying them, so the backlog stays the only list. When a backlog line changes, the prompt that names it does not need to.
 
@@ -235,6 +235,40 @@ End the stage with the commands you ran and their output, a table of every scree
 ```
 
 **Why this stage is shaped this way.** The deploy publishes to a shared address, so the prompt makes it the one step that waits for Greg's confirmation rather than one the agent takes itself. The cross-screen rules are listed because they are easy to check at the end and easy to miss screen by screen.
+
+---
+
+## Alpha 1 follow-ups
+
+These lines change screens that Alpha 1 already built, so they run as one session after Stage 7, against frames and library components Greg updated on November 23, 2026.
+
+```text
+This session builds the Alpha 1 follow-ups. Their lines are under "Alpha 1 follow-ups" in docs/backlog.md. S14 is already built and merged, so start at line 2.
+
+Read these before anything else:
+- docs/spec.md section 5, "The Leave sheet" and standing decision 26, and section 19, the Motion table's Thinking dots row.
+- The issue rows O26, O27, T91, T92, T75, K10 and C83 in docs/issues.csv.
+- docs/screen-map.md for the Leave sheet frames (2853:13934, 2955:12152, 2853:13958, 2853:14046, 2853:14094, 2853:14265), 0s (2853:12205), 0r (2853:11922) and 0t (2853:11947).
+- In mvp-design-library: RouteStation (258:666), StopMarker (355:1192), ThinkingDots (397:1936), Button's Primary Disabled variant (216:227), VoiceNote (226:392), OptionCard (226:413), and the Icons page (147:163) for icon/home, icon/school, icon/play, icon/radio-on and icon/radio-off.
+
+For line 2 (O26), draw the splash's tagline beneath the wordmark in the words fixtures 3.53 section 4 gives.
+
+For line 3 (O27), the thinking screens show one set of cerulean dots under the headline. Each dot brightens from 40% to full opacity in turn, a third of a 1.2 second loop apart, as the Motion row says, using only the motion tokens. With reduced motion on, do what the Motion row says for reduced motion.
+
+For line 4 (T91 and T75), add home and school to Icon.jsx and to the list in tests/icon.test.js. Draw StopMarker from the library: a 20 px circle holding the home glyph, the school glyph or a dot, chosen from the place's kind in the seed, with a dot for any place that is neither home nor a school. Current is the cerulean circle with the glyph in ink/on-accent, Ahead is the glyph in ink/primary and Behind is in ink/muted. The trip timetable keeps its states. On the Leave sheet, replace the dot on the rail with StopMarker: the place she leaves next is Current, places behind her are Behind and the rest are Ahead, as standing decision 26 sets out. The frames draw some stops ahead in the Behind state and put the school glyph on Brightwater Family Therapy, Willow Yoga and Northside Pediatrics; follow the rule here, not the frames, because T92 asks Greg to correct them. Then lay out an open station as RouteStation's Editing variants do: the leave row spans the station with a hairline beneath it, "Leave at" on the left, the time in the tinted picker on the right, and "5 min earlier" and "5 min later" stacked beneath the picker at its width as Outlined buttons. Keep every word the build already shows, because the words come from the fixtures, not the library's sample text.
+
+For line 5 (K10), swap the CSS drawings of the voice note's play button and the option card's radio for Icon with play, radio-on and radio-off, at the sizes the library draws them, and add the three names to tests/icon.test.js.
+
+For line 6 (C83), style Button's disabled state from --interactive-disabled at full opacity, as the library's Primary Disabled variant draws it, so the empty forms' Add a school, Add and Create group buttons stop looking tappable.
+
+Before you change any code, write a plan and wait for my review of it. The plan should list each line with the files it touches and the frame or library component you will compare it with.
+
+When each line is done, commit with npm run check && git commit. Render each changed screen at 440 beside its frame, including C-03b's Leave sheet with Home's time open and C-06b's Leave sheet, and fix the differences. A difference you can't fix goes in docs/issues.csv with the frame ID.
+
+End the session with the commands you ran and their output, screenshots beside their frames, and the issue rows you changed or added.
+```
+
+**Why this session is shaped this way.** Every line touches a screen Alpha 1 already ships, so the prompt names the exact frames and library components to compare against. It also settles the one place where the frames and the spec disagree, the markers' states and kinds, so the agent doesn't copy a frame that T92 says is wrong.
 
 ---
 
