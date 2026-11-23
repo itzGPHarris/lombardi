@@ -96,7 +96,9 @@
   .rowsWrap { transition: none; }
 }
 
-.capture { padding: var(--space-8) var(--space-12); }
+/* The game plan frames set the capture bar 12 from the sides, 8 closer than the bar's own 20
+   (2853:14327). */
+.capture { margin-inline: calc(var(--space-8) * -1); }
 
 /* From the desktop width: seven columns under the strip's headings, and next week beneath. */
 .columns { display: flex; flex-direction: column; gap: var(--space-16); }

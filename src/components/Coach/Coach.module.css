@@ -97,4 +97,5 @@ button.option { width: 100%; text-align: start; color: inherit; cursor: pointer;
 .articleLine { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
 .articleTitle { font: var(--text-voice-strong); letter-spacing: var(--text-voice-strong-tracking); color: var(--ink-primary); }
 
-.capture { padding: var(--space-8) var(--space-20); }
+/* The capture bar brings its own 20 at the sides and 8 above and below, as 2853:13617 places it. */
+.capture { padding: 0; }
