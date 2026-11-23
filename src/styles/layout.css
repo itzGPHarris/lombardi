@@ -1,27 +1,15 @@
-/* Layout values the library has no token for yet. Each one is defined here and only here, and each
-   has a row in docs/issues.csv asking for a library token. Components read these properties and never
-   write the values themselves. Replace a line with the library token once it is exported. */
+/* Layout values that depend on where the page is running, so they cannot live in the library.
+   The values themselves are library tokens in src/tokens.css (issue C76). This file only changes them
+   for the situations a token cannot describe. */
 :root {
-  --size-icon: 24px;              /* The icon frame on the library's Icons page. */
-  --size-icon-small: 20px;        /* An icon inside a Button, the Now chevron and a StopMarker, as the frames size them. */
-  --size-icon-mark: 18px;         /* The calendar mark and the ticked check, as LaterTodayRow and ReminderItem size them. */
-  --size-check: 22px;             /* ReminderItem's check circle. */
-  --layout-phone-column: 440px;   /* The phone frame width, the column Today, Coach, Team and Kids keep from 768. */
-  --layout-sidebar: 248px;        /* The sidebar from 768. No frame draws it. */
-  --layout-phone-height: 956px;   /* The phone frame's height, for the phone frame in the switcher. */
-  /* Onboarding's brand art, at the sizes the frames draw it (issue C76). */
-  --size-brand-steam-width: 260px;  /* The splash's mug and the space its steam stars rise through (0s, 2853:12205). */
-  --size-brand-steam-height: 460px;
-  --size-progress-bar: 4px;       /* The step counter's segments and getting ready's bars (StepCounter 2716:55011). */
-  /* The room the frames leave above the first row for the phone's status bar (issue C81). In the
-     browser the page starts under the browser's own bar, so the frames' 56 stays. Opened from the Home
-     Screen, the page starts beneath the phone's opaque status bar, so only the gap the frames leave
-     below that bar is kept. */
-  --layout-status: var(--space-56);
   /* The home indicator's inset, which every anchored foot clears. While the keyboard is up it covers
      the indicator, so the inset drops to nothing. */
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
+/* The room the frames leave above the first row for the phone's status bar (issue C81). In the
+   browser the page starts under the browser's own bar, so --layout-status keeps the frames' 56 from
+   src/tokens.css. Opened from the Home Screen, the page starts beneath the phone's opaque status bar,
+   so only the gap the frames leave below that bar is kept. */
 @media (display-mode: standalone) {
   :root { --layout-status: var(--space-8); }
 }

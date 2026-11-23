@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): screen map
 
-*Last updated November 22, 2026 · Fixtures 3.53 · Spec 0.54 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
+*Last updated November 23, 2026 · Fixtures 3.53 · Spec 0.54 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
 
 This file ties every screen in the alpha to the one Figma frame it is built from. Use the frame ID in this file and no other. The Figma file holds older frames with the same or similar names on other pages, and none of those is a target.
 
@@ -35,9 +35,9 @@ The order is the fixtures' order. Each frame is named "C-00", then its fixtures 
 | 3c | C-00 · 0k-c · Grade list open | `2863:11708` | Alexis's list open over Mallory's field, with Fourth grade selected. | Onboarding and setup |
 | 4 | C-00 · 0a · Show me one thing | `2853:11894` | | Onboarding and setup |
 | 5 | C-00 · 0v · Check the photo | `2853:11916` | The prepared photo on the board still reads "SEPTEMBER 2026". The build uses the prepared photo the fixtures describe, headed "Westview Kindergarten" with "October 2026", which Greg supplies (issues O9, O18). Until it arrives, use the board's photo and log it. | Onboarding and setup |
-| 6 | C-00 · 0r · Reading | `2853:11922` | | Still |
-| 7 | C-00 · 0b · Read-back and hand-off | `2853:11972` | The conversation runs in the fixtures' order: the photo, the read-back, the "Whose calendar is this?" control, which the frame misspells as "Who's" (issue O21), the coach's question, Charlotte's answer, then the hand-off. The coach's lines are in the Voice style (but see issue C33). | Onboarding and setup |
-| 8 | C-00 · 0t · Making the draft | `2853:11947` | | Still |
+| 6 | C-00 · 0r · Reading | `2853:11922` | One set of dots under the headline, drawn with the library's ThinkingDots, whose three steps show the pulse (O27). | Still |
+| 7 | C-00 · 0b · Read-back and hand-off | `2853:11972` | The conversation runs in the fixtures' order: the photo, the read-back, the "Whose calendar is this?" control, the coach's question, Charlotte's answer, then the hand-off. The coach's lines are in the Voice style (but see issue C33). | Onboarding and setup |
+| 8 | C-00 · 0t · Making the draft | `2853:11947` | The same dots as 0r (O27). | Still |
 | 9 | C-00 · 0c · Draft and account prompt | `2853:12011` | | Onboarding and setup |
 | 10 | C-00 · 0e · Create your account, 01 of 05 | `2853:12979` | The counter reads 01 of 04 since fixtures 3.46 (issue G46). | Onboarding and setup |
 | 11 | C-00 · 0e-p · Choose a plan | `2853:12857` | Staged. Either Buy button moves on to 0q, and nothing opens Stripe. The words are proposed (issue O17). Build the frame at 440 px with Hearth colors, and show "Most Valuable Parent" as the wordmark in place of "MVP" alone. | Onboarding and setup |
@@ -87,8 +87,15 @@ These frames were drawn for fixtures 3.15 on October 15, 2026. Now is a NowBlock
 | C-06 | Notifications off | `2853:14192` | | Sheet, over Today |
 | C-06 | Notifications off, declined before | `2853:14217` | | Sheet, over Today |
 | C-06b | The checkup runs into tutoring, 1:15 pm | `2853:14242` | | Today |
-| C-06b | Friday's Leave sheet, at its backup | `2853:14265` | Leaving Northside and getting home read "[time]", because the fixtures give neither. Northside shows "Conflict: tutoring" instead of "Change this in Google Calendar." | Sheet, over Today |
+| C-06b | Friday's Leave sheet, at its backup | `2853:14265` | Draws one run, the checkup's: home at 3:10pm, Northside Pediatrics at 3:30pm with "Conflict: tutoring", leaving at 4:15pm, and home around 4:30pm (T87). | Sheet, over Today |
 | C-07 | The evening, getting ready for Thursday | `2853:14291` | Redrawn for fixtures 3.27 with the 6:55am pass for Alexis. Since November 19, 2026 the frame scrolls as one page, in "Page, scrolls as one", with For tomorrow directly under Now, so the 8:15am and 3:55pm rows can be reached (fixtures item 114, issue P2). Its reminders read as fixtures 3.30 writes them. |
+
+The in-app notification that shows when someone answers or replies has two frames, both drawn on the C-03 Today frame with the library's Notice at the top and its link turned off (A14). Each frame carries a note asking whether the notice slides or fades in, which decides whether it gets a Motion row.
+
+| Moment | Screen | Frame ID | Notes | Type |
+| ----- | ----- | ----- | ----- | ----- |
+| Any | Notification · Answer | `3232:15681` | "Edward: yes to both pickups this Thursday." | Today |
+| Any | Notification · Message | `3232:15888` | "Claire: Yes, see you at 6:30. I'll bring dessert." | Today |
 
 The coach card after a move with Undo, and the card when Min-jung says no, have no frames. Build them from the CoachCard component's AfterMove and Recommendation states with the fixtures' words. The running-late board, Wednesday at 5:10 pm and the Sunday boards are wireframes only. Since fixtures 3.27 each of them leads with a pass, so the NowBlock variants Task and Quiet are retired, AtHome gains the pass with "At home" in place of the route, and the Sunday boards show Monday's 7:40am pass (issue T63).
 
@@ -96,6 +103,10 @@ The coach card after a move with Undo, and the card when Min-jung says no, have 
 
 | Moment | Screen | Frame ID | Notes | Type |
 | ----- | ----- | ----- | ----- | ----- |
+| C-01 | Share · The message | `3232:15558` | Jenna Okafor's message in the parents' group chat at 5:50am, drawn as a neutral messaging app with no real app's branding (A13). | Still |
+| C-01 | Share · Forward | `3232:15582` | The message pressed and held, with its menu open on Forward. | Still |
+| C-01 | Share · Selected | `3232:15610` | The message selected, with the share button. | Still |
+| C-01 | Share · Share sheet | `3232:15640` | The phone's share sheet, with Most Valuable Parent among the apps. "Sent to the coach" and the conversation follow. | Still |
 | C-01 | The conversation | `2853:13617` | | Conversation |
 
 ## Game plan
