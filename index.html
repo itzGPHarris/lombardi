@@ -4,6 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
     <title>Most Valuable Parent</title>
+    <!-- Opened from a phone's Home Screen, MVP runs full screen like an installed app (issue C81). The
+         theme and background colors are the paper token, --primitives-neutral-paper in src/tokens.css,
+         copied here because a manifest and a meta tag cannot read a custom property. The status bar
+         stays opaque with dark text so the clock reads on Hearth's cream (Greg, Stage 7). The icons
+         are the ones Greg exported from Figma. -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icon-180.png" />
+    <meta name="theme-color" content="#f9f7f3" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Most Valuable Parent" />
+    <meta name="application-name" content="Most Valuable Parent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   </head>
   <body>
     <div id="root"></div>

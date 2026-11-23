@@ -41,6 +41,7 @@ export const groupPrivacy = "Only the people in this group see this. The MVP Coa
 // A message arriving in a chat, as the fixtures write it (C-05c and C-06c).
 export const messageNotifications = {
   'm-ec-2': "Claire: Tell her together, and tell her Karen is helping choose who's next.",
+  'm-ec-3': "Edward: Agree. Sunday night, not before school. I'll be home.",
   'm-c-2': "Claire: Yes, see you at 6:30. I'll bring dessert.",
 };
 export const repliedToYourPost = '{person} replied to your post in {group}.';

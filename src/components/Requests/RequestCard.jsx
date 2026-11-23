@@ -13,7 +13,7 @@ import styles from './Requests.module.css';
 // so her plan changes as the fixtures write it, and a tap the moment doesn't script changes nothing.
 // In C-02 the first "Yes, I can" holds on the card and the second plays the step. Focusing the note
 // field fills in the note the fixtures write, as in C-04b.
-export default function RequestCard({ card, childName, onAnswer }) {
+export default function RequestCard({ card, childName, onAnswer, keepsText = false }) {
   const [taps, setTaps] = useState({});
   const [note, setNote] = useState('');
   // Edward changing his answer in C-06: the item reopens with his note until he sends it.
@@ -31,7 +31,9 @@ export default function RequestCard({ card, childName, onAnswer }) {
     return row.answer ?? taps[row.id] ?? null;
   };
   const answered = card.rows.every((row) => answerFor(row));
-  const showText = !card.answered && !changing;
+  // In MVP the answered card folds Charlotte's text away (2853:13527, 2853:15922). The web page a text
+  // message opens keeps it after the answer, as 2853:13611 draws it.
+  const showText = keepsText || (!card.answered && !changing);
   const fillNote = () => { if (!note && card.scripted?.note) setNote(card.scripted.note); };
 
   return (

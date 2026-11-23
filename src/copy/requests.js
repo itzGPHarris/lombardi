@@ -13,6 +13,7 @@ export const notificationArrived = '{person} asked you about';
 export const notificationYes = {
   'req-edward-thu': 'Edward: yes to both pickups this Thursday.',
   'req-edward-library': 'Edward: yes to this Saturday.',
+  'req-min-jung-thu': 'Min-jung: yes to tomorrow.',
   'req-reyes-fri': 'Ms. Reyes: yes to this Friday.',
 };
 export const notificationChanged = '{person} changed his answer for {day}.';

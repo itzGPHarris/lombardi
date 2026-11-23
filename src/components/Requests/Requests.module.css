@@ -52,11 +52,11 @@
 .noMvp { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
 
 /* The recipient's Today: the dateline and the monogram, then the cards */
-.recipientHeader { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); padding: calc(var(--space-56) - var(--space-8)) var(--space-24) var(--space-24); }
+.recipientHeader { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); padding: calc(var(--layout-status) - var(--space-8)) var(--space-24) var(--space-24); }
 
 /* Someone without MVP: the text message, then the web page under the wordmark */
-.still { display: flex; flex-direction: column; gap: var(--space-16); padding: calc(var(--space-56) * 2) var(--space-24) var(--space-40); }
+.still { display: flex; flex-direction: column; gap: var(--space-16); padding: calc(var(--layout-status) + var(--space-56)) var(--space-24) var(--space-40); }
 .bubble { align-self: flex-start; padding: var(--space-12) var(--space-16); border-radius: var(--radius-lg); background: var(--bg-card); font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
 .link { display: inline; padding: 0; font: inherit; color: var(--interactive-default); text-decoration: underline; }
-.web { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--space-56) var(--space-24) var(--space-40); }
+.web { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--layout-status) var(--space-24) calc(var(--space-40) + var(--safe-bottom)); }
 .wordmark { font: var(--text-wordmark); letter-spacing: var(--text-wordmark-tracking); color: var(--ink-primary); }

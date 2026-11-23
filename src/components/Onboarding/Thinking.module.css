@@ -1,6 +1,7 @@
-/* The thinking screens hold the mark and the headline a little above the middle of the screen, as
-   0r draws them. The three dots stand still: no motion is listed for them (spec §19). */
-.thinking { display: flex; flex-direction: column; justify-content: center; gap: var(--space-16); height: 100%; padding: 0 var(--space-24) var(--space-56); }
+/* The thinking screens hold the mark and the headline above the middle of the screen, as 0r and 0t
+   draw them: the mark's top about 260 down a 956 phone, so the block's middle sits about 86 above the
+   screen's, which three of the largest space step below it gives. The three dots stand still: no motion is listed for them (spec §19). */
+.thinking { display: flex; flex-direction: column; justify-content: center; gap: var(--space-16); height: 100%; padding: 0 var(--space-24) calc(var(--space-56) * 3); }
 .dots { display: flex; gap: var(--space-4); }
 .dot { width: var(--space-8); height: var(--space-8); border-radius: var(--radius-pill); background: var(--interactive-default); }
 .dot:nth-child(2) { opacity: 0.6; }

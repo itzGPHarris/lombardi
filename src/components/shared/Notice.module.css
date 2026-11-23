@@ -10,7 +10,9 @@
   color: var(--ink-on-accent);
 }
 .notice[data-undo] { padding-bottom: var(--space-4); }
-.notice button { min-height: var(--size-tap-target); color: var(--ink-on-accent); }
+/* Undo is paper on the ink notice, as 0i-i (2936:11688) draws it. Cerulean on ink falls short of
+   contrast, and the selector outranks the text button's own color. */
+.notice button[data-kind] { min-height: var(--size-tap-target); color: var(--ink-on-accent); }
 .text { font: var(--text-body); letter-spacing: var(--text-body-tracking); }
 /* The conflict notice rises in and goes out over standard (spec §19, "Motion"). */
 .notice[data-rises] { animation: noticeIn var(--motion-duration-standard) var(--motion-ease-out) both; }

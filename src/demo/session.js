@@ -23,14 +23,15 @@ export function placeFor(opensOn) {
 // What she does on Today during a moment (spec §5): her ticks, what she has removed or added, the
 // reminders she sets, her answers on the coach card, the leaving times she changes, the sheet that is
 // open and the notice above the capture bar. It lives for the moment and clears on any jump (§15).
-// passShown and foldsDrawn hold which pass has already swung in and which folds have already drawn
-// their check, so neither replays when she comes back to Today from another tab (spec §19, "Motion").
+// passShown, cardsShown and foldsDrawn hold which pass has already swung in, which coach cards have
+// already faded in and which folds have already drawn their check, so none of them replays when she
+// comes back to Today from another tab (spec §19, "Motion").
 // branch names a choice she made that the scripted path does not take, such as skipping her first
 // capture or picking Plan B on her first board, which the moment's seed writes under "branches".
 export function emptyToday(branch = null) {
   return {
     ticks: {}, openedGroups: [], openedChecklists: [], removed: {}, added: {}, reminders: {}, cardAnswers: {},
-    leaveOverrides: {}, sheet: null, sheetClosed: false, notice: null, passShown: null, foldsDrawn: [], branch,
+    leaveOverrides: {}, sheet: null, sheetClosed: false, notice: null, passShown: null, cardsShown: [], foldsDrawn: [], branch,
     // What she is giving the coach through the capture bar: her words and a photo from the staged
     // camera, kept while the camera is open (fixtures C-03a).
     captureText: '', photo: null,
@@ -77,6 +78,7 @@ export function todayReducer(today, action) {
     case 'ATTACH': return { ...today, photo: action.capture };
     case 'CLEAR_CAPTURE': return { ...today, captureText: '', photo: null };
     case 'PASS_SHOWN': return today.passShown === action.key ? today : { ...today, passShown: action.key };
+    case 'CARD_SHOWN': return today.cardsShown.includes(action.key) ? today : { ...today, cardsShown: [...today.cardsShown, action.key] };
     case 'FOLD_DRAWN': return today.foldsDrawn.includes(action.key) ? today : { ...today, foldsDrawn: [...today.foldsDrawn, action.key] };
     default: return today;
   }

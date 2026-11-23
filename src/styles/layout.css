@@ -13,4 +13,16 @@
   --size-brand-steam-width: 260px;  /* The splash's mug and the space its steam stars rise through (0s, 2853:12205). */
   --size-brand-steam-height: 460px;
   --size-progress-bar: 4px;       /* The step counter's segments and getting ready's bars (StepCounter 2716:55011). */
+  /* The room the frames leave above the first row for the phone's status bar (issue C81). In the
+     browser the page starts under the browser's own bar, so the frames' 56 stays. Opened from the Home
+     Screen, the page starts beneath the phone's opaque status bar, so only the gap the frames leave
+     below that bar is kept. */
+  --layout-status: var(--space-56);
+  /* The home indicator's inset, which every anchored foot clears. While the keyboard is up it covers
+     the indicator, so the inset drops to nothing. */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
+@media (display-mode: standalone) {
+  :root { --layout-status: var(--space-8); }
+}
+:root[data-keyboard='open'] { --safe-bottom: 0px; }

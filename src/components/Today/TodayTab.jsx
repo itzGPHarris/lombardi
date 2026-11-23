@@ -42,6 +42,7 @@ export default function TodayTab() {
   }, [view.find]);
 
   const onShown = useCallback((key) => today({ type: 'PASS_SHOWN', key }), [today]);
+  const onCardShown = useCallback((key) => today({ type: 'CARD_SHOWN', key }), [today]);
   const openLeave = (runId, at = null) => today({ type: 'OPEN_SHEET', sheet: { kind: 'leave', run: runId, at } });
   const onAction = (action, pass) => {
     if (action.id === 'remind') today({ type: 'OPEN_SHEET', sheet: { kind: 'reminder', pass: pass.key } });
@@ -106,6 +107,8 @@ export default function TodayTab() {
         <CoachCard
           key={view.coachCard.id}
           card={view.coachCard}
+          shown={local.cardsShown.includes(view.coachCard.id)}
+          onShown={onCardShown}
           onButton={onCardButton}
           onSecondary={onCardSecondary}
           onNext={onCardNext}

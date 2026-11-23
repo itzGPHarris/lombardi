@@ -1,21 +1,34 @@
 .done {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-12);
   min-height: var(--size-tap-target);
   font: var(--text-body-strong);
   letter-spacing: var(--text-body-strong-tracking);
   color: var(--ink-primary);
   text-align: left;
 }
-.check { display: inline-flex; color: var(--interactive-default); }
+/* The check sits in a filled ink circle, as a ticked ReminderItem's does, which is how the folded
+   checklist line draws it on 0i-f (2875:11838). */
+.check {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-check);
+  height: var(--size-check);
+  border-radius: var(--radius-pill);
+  background: var(--ink-primary);
+  color: var(--ink-on-accent);
+}
+.check > span { width: var(--size-icon-mark); height: var(--size-icon-mark); }
 /* The check draws in once, from left to right, over the standard duration (spec §19, "Check and
    fold"). Under reduced motion it appears without drawing in. */
-.check[data-draw] { animation: draw var(--motion-duration-standard) var(--motion-ease-out) both; }
+.check[data-draw] > span { animation: draw var(--motion-duration-standard) var(--motion-ease-out) both; }
 @keyframes draw {
   from { clip-path: inset(0 100% 0 0); }
   to { clip-path: inset(0 0 0 0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .check[data-draw] { animation: none; }
+  .check[data-draw] > span { animation: none; }
 }

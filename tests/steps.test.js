@@ -68,8 +68,9 @@ describe('playing steps', () => {
       .toBe('Jenna Okafor replied to your post in Cedar Grove parents.');
     expect(play(at('C-06c'), step('send-chat:chat-claire'), next).arrival.text)
       .toBe("Claire: Yes, see you at 6:30. I'll bring dessert.");
-    // The fixtures write no line for Edward's message in C-05c, so it arrives without one.
-    expect(notificationFor(seed, stepsFor('C-05c')[2])).toBeNull();
+    // Fixtures 3.52 writes Edward's message in C-05c and Min-jung's yes in C-06 (issue A15).
+    expect(notificationFor(seed, stepsFor('C-05c')[2])).toBe("Edward: Agree. Sunday night, not before school. I'll be home.");
+    expect(notificationFor(seed, stepsFor('C-06')[3])).toBe('Min-jung: yes to tomorrow.');
   });
 
   it('leaves nothing behind after a jump', () => {

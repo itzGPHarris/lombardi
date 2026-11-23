@@ -16,8 +16,8 @@
 //
 // notify names what she hears when the step plays: the notification the fixtures write for an answer
 // or a message, the line for a reply in a group, or "Sent to the coach" after the share (§7, §9, §10).
-// Where the fixtures write no line, such as Min-jung's yes in C-06 or Edward's message in C-05c, the
-// step plays with no notification (docs/issues.csv).
+// Where the fixtures write no line, the step plays with no notification. Fixtures 3.52 writes the two
+// that were missing, Edward's message in C-05c and Min-jung's yes in C-06 (issue A15).
 
 import { sentToTheCoach } from '../copy/coach.js';
 import { notificationYes } from '../copy/requests.js';
