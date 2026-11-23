@@ -1,9 +1,11 @@
+import Icon from '../shared/Icon.jsx';
 import styles from './Coach.module.css';
 import { recommends } from '../../copy/coach.js';
 
 // The coach's options (spec §6, "Options"; library OptionCard 2760:40639): what changed, the coach's
 // reading of the day, then two or three ways it could go, the recommended one first with its tag.
-// The option she chose shows its radio filled, and every option stays in view after she chooses.
+// The option she chose shows icon/radio-on and the others icon/radio-off (K10), and every option
+// stays in view after she chooses.
 // Until she chooses, each option is a control, and choosing one plays the moment's step for it (C-01).
 export default function Options({ message, onChoose }) {
   const open = onChoose && !message.options.some((option) => option.chosen);
@@ -16,7 +18,7 @@ export default function Options({ message, onChoose }) {
           const body = (
             <>
               <div className={styles.optionTop}>
-                <span className={styles.radio} data-on={option.chosen || undefined} aria-hidden="true" />
+                <span className={styles.radio}><Icon name={option.chosen ? 'radio-on' : 'radio-off'} /></span>
                 {option.recommended && <span className={styles.tag}>{recommends}</span>}
               </div>
               <p className={styles.optionTitle}>{option.title}</p>

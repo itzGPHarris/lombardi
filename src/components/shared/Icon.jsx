@@ -36,6 +36,9 @@ import Directions from '@material-symbols/svg-400/outlined/near_me.svg?react';
 import Clock from '@material-symbols/svg-400/outlined/schedule.svg?react';
 import Home from '@material-symbols/svg-400/outlined/home.svg?react';
 import School from '@material-symbols/svg-400/outlined/school.svg?react';
+import Play from '@material-symbols/svg-400/outlined/play_arrow.svg?react';
+import RadioOn from '@material-symbols/svg-400/outlined/radio_button_checked.svg?react';
+import RadioOff from '@material-symbols/svg-400/outlined/radio_button_unchecked.svg?react';
 import {
   ArrowUp, Calendar1, ChevronRight, CircleDashed, CircleDot, ExternalLink, Hourglass, MessageCircle,
   ThumbsDown, ThumbsUp, TriangleAlert, Users,
@@ -78,6 +81,9 @@ const icons = {
   clock: Clock,
   home: Home,
   school: School,
+  play: Play,
+  'radio-on': RadioOn,
+  'radio-off': RadioOff,
   // Custom drawings, where neither package has the glyph.
   'update-calendar': UpdateCalendar,
   // Lucide only, as the library gives them.

@@ -27,26 +27,19 @@
 
 .voiceNote { display: flex; flex-direction: column; gap: var(--space-8); width: 100%; }
 .player { display: flex; align-items: center; gap: var(--space-12); }
-/* The play button: a ring with a triangle, the size the library's VoiceNote draws it. */
+/* The play button: a ring holding icon/play at 20 px, the sizes the library's VoiceNote draws (K10). */
 .play {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: none;
   width: var(--space-32);
   height: var(--space-32);
   border: thin solid var(--ink-primary);
   border-radius: var(--radius-pill);
+  color: var(--ink-primary);
 }
-.play::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: var(--space-8);
-  height: var(--space-12);
-  background: var(--ink-primary);
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
-  transform: translateX(10%);
-}
+.play > span { width: var(--size-icon-small); height: var(--size-icon-small); }
 .waveform { flex: 1; height: var(--space-16); border-radius: var(--radius-sm); background: var(--border-hairline); }
 .voiceLabel { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
 
@@ -63,15 +56,8 @@
 }
 button.option { width: 100%; text-align: start; color: inherit; cursor: pointer; }
 .optionTop { display: flex; align-items: center; gap: var(--space-8); min-height: var(--space-20); }
-.radio {
-  flex: none;
-  width: var(--space-20);
-  height: var(--space-20);
-  border: thin solid var(--ink-primary);
-  border-radius: var(--radius-pill);
-  background: var(--bg-control);
-}
-.radio[data-on] { box-shadow: inset 0 0 0 var(--space-4) var(--bg-control); background: var(--ink-primary); }
+/* The radio is icon/radio-on or icon/radio-off at 24 px, as the library's OptionCard draws it (K10). */
+.radio { display: inline-flex; flex: none; color: var(--ink-primary); }
 .tag {
   padding: 0 var(--space-8);
   border-radius: var(--radius-sm);
