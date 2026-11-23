@@ -6,7 +6,7 @@
 
 Alpha 1, Charlotte's demo week (C-00 to C-09), is built, merged to main and live on Netlify, because main deploys. The Alpha 1 follow-ups merged in pull requests #23 and #24: the splash's tagline (O26), the thinking dots that pulse (O27), StopMarker and the redesigned RouteStation on the Leave sheet and the trip timetable (T91, T75), the play and radio glyphs drawn through Icon (K10), and Button's disabled state (C83). C81 is closed after Greg checked the deploy on his phone from the Home Screen.
 
-Main is the only branch, locally and on GitHub, once docs-y14-accepted is merged. That branch holds Greg's acceptance of starting point C (Y14 closed, Y20 added), the backlog's move of C17 into its own section, and this handoff.
+Main is the only branch, locally and on GitHub, once docs-y14-accepted is merged. That branch holds Greg's acceptance of starting point C (Y14 closed, Y20 added), the backlog's move of C17 into its own section, a tidy of the backlog that drops every line whose rows are fixed and folds Alpha 1's finished stages into one line, and this handoff.
 
 ## What the Figma pass changed
 

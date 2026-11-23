@@ -14,9 +14,9 @@ This file holds IDs and sequence. Nothing else.
 
 ---
 
-## Before the alpha
+## Before the alpha, still open
 
-*Greg set this order on November 20, 2026. Each step's output is the next step's input: decisions come before words so nothing is written twice, and words come before frames because the fixtures win. Step 1, consolidating the documents, is done.*
+*Alpha 1 was built without waiting on these, and they still stand as documents and frames work. Greg set this order on November 20, 2026. Each step's output is the next step's input: decisions come before words so nothing is written twice, and words come before frames because the fixtures win. Step 1, consolidating the documents, is done.*
 
 ### Step 2: Greg's decisions, in one sitting
 
@@ -27,11 +27,10 @@ This file holds IDs and sequence. Nothing else.
 ### Step 3: The missing words, in one fixtures pass
 
 1. P4: the Day 0 tabs
-2. T72: Today at the moments that open on another tab
-3. T63, O21: C-09 and the wireframe-only Today boards leading with a pass, and the 0b confirmation
-4. A12: C-03a, capture on Today
-5. K2: the coach's options wherever a problem still lacks them
-6. R13: the conference article's screen, with its title over placeholder lines
+2. T63, O21: C-09 and the wireframe-only Today boards leading with a pass, and the 0b confirmation
+3. A12: C-03a, capture on Today
+4. K2: the coach's options wherever a problem still lacks them
+5. R13: the conference article's screen, with its title over placeholder lines
 
 ### Step 4: Heather's batch, alongside steps 5 and 6
 
@@ -43,21 +42,18 @@ This file holds IDs and sequence. Nothing else.
 ### Step 5: The missing frames
 
 1. P4: the Day 0 tab frames
-2. T72: any Today board the step 3 words call for
-3. T63, O21: C-09, the wireframe-only Today boards and the 0b confirmation
-4. R13: the conference article frame
-5. G46, C62: the frames that still show words fixtures 3.46 changed, and every phone number with its area code
-6. O22, O24: the combined 0g screen from draft 3088:12922 with a four-step StepCounter, and 0h retired
-7. T61: the anytime task's item page
-8. P3, P11: For You as an overlay on 0c set to Bottom center, and the Cedar Grove card as a 956 px page
-9. P8, P12, P13: the jump screen opened by the M key and from Settings, Skip for now off 0w, and the three stranded frames archived
-10. Greg's review: check the boards on "Design - lombardi · post-review" against `docs/screen-map.md`, and mark each one Ready for dev
+2. T63, O21: C-09, the wireframe-only Today boards and the 0b confirmation
+3. R13: the conference article frame
+4. G46, C62: the frames that still show words fixtures 3.46 changed, and every phone number with its area code
+5. O22, O24: the combined 0g screen from draft 3088:12922 with a four-step StepCounter, and 0h retired
+6. T61: the anytime task's item page
+7. P3, P11: For You as an overlay on 0c set to Bottom center, and the Cedar Grove card as a 956 px page
+8. P8, P12, P13: the jump screen opened by the M key and from Settings, Skip for now off 0w, and the three stranded frames archived
+9. Greg's review: check the boards on "Design - lombardi · post-review" against `docs/screen-map.md`, and mark each one Ready for dev
 
 ### Step 6: Get the repository ready
 
-1. C64: move the repository out of iCloud Drive and make `npm run check` pass
-2. C65: commit the current documents and push them to GitHub
-3. C58: the wireframes into `docs/wireframes/`, or frames for the screens that have none
+1. C58: the wireframes into `docs/wireframes/`, or frames for the screens that have none
 
 ## Alongside, not blocking the alpha
 
@@ -70,73 +66,11 @@ This file holds IDs and sequence. Nothing else.
 
 *Rows that look done or replaced by the post-review page and later fixtures. Greg confirms them under C60, and each leaves this list as it is closed or rewritten.*
 
-T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, G33, G35, G37, G38, G40, G41, G42, G43, A10, C31, C39, M8, L4, K6, R14, O19, O20, W1, W6, W7, W8, W9
+X3, D3, T27, O9, T8, T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48, T49, T50, T51, G27, G33, G35, G37, G38, G40, G41, G42, G43, A10, C31, C39, M8, L4, K6, R14, O19, O20, W1, W6, W7, W8, W9
 
 ## Alpha 1: Charlotte's demo week
 
-*C-00 to C-09 on Netlify. It opens on the splash, every tab works at every moment, the scripted steps play in order, and the switcher and View as work. One run per stage, one commit per line, and a review by Greg between stages. Every screen is built at 440 px first from the frame or fallback named in `docs/screen-map.md`, then extended to tablet and desktop in the same commit.*
-
-### Stage 1: Scaffold
-
-1. §17, §19: tokens, fonts, the Icon component and the component folders
-2. §2: the eight layout shells, the tab bar and the sidebar, the monogram and Back
-3. X3, §15: the demo calendar from `meta.demoWeekStart`, opening on C-00, and the switcher with moments, View as, the phone frame, reset and the debug menu
-
-### Stage 2: The seed
-
-1. §16: Charlotte's household written from fixtures 3.48, one moment at a time
-2. D3: the fixtures test covering every string in the seed, the articles and the copy
-3. T27: the leaving time rule checked against every run
-4. §14: the voice and date check passing on the seed and the articles
-
-### Stage 3: Today
-
-1. §5: the dateline, Now with the single-leg and trip passes, the status pill, the checklist and its folding, the coach card and its after-answer forms, Later today, MVP Editorial, the evening and the capture bar
-2. §5, T36: the header and Now holding in place as the sheet rises
-3. §5: the Leave sheet with its line and backups, and the reminder sheet
-
-### Stage 4: Onboarding
-
-1. §16: the seed brought up to fixtures 3.49, with Today at the T72 and T73 moments, the new runs for Tuesday, Wednesday and Friday, the checkup run's child (D9), the food drive (A12), C-09 (G47, G48), the first newsletter (K8), the full grade list (O25), the card after Plan C (T89), C-00's other tabs as data for Stage 5 (P4), and the exemption for `src/copy/demo.js` taken out of the fixtures test (C74)
-2. §3, O9, T8: C-00 from the splash (0s) to the coach's introduction (0j), and her first board from 0i-a to 0i-h
-
-### Stage 5: The other tabs, at every moment
-
-1. §6: the Coach tab
-2. §8, G33: the game plan, with the week strip, the review card, the days and the item page
-3. §10: Team, with chats, groups, person pages and the group page
-4. §11: Kids, with both girls' pages and both school cards
-5. §12: the MVP Editorial article view
-6. §13: Settings
-7. §2, §3, O30, O32, O29: onboarding follow-ups from Stage 4, with Back on every onboarding and setup screen after 0w, the coach's introduction for the skipped paths, and the steam stars on the `brand-star` token
-
-### Stage 6: What she does
-
-1. §2, §8, G52: the game plan's agenda at tablet width, with seven columns from 1280
-2. §7: capture, including the staged share sequence and her calendar's conflicts
-3. §9: requests for C-02, C-04b, C-06 and C-06b, including View as
-4. §8: working the game plan, with adding, moving, asking for help, the backups and the read-back strip
-5. §10, M12: the group post from C-05 and the chats in C-05c and C-06c
-6. §6: the C-08 and C-08b answers
-7. §5, A12: capture on Today in C-03a
-8. §5, §8, F35: the Sunday look-ahead and C-09
-
-### Stage 7: Fidelity and deploy
-
-1. Compare every screen with its frame at 440 px, then check 390, 768, 1440 and 1920, and log what is left in `docs/issues.csv`
-2. C78: Settings in the type spec §13 gives it
-3. A15: the notifications for Edward's chat message in C-05c and Min-jung's answer in C-06
-4. C81: MVP opens full screen from a phone's Home Screen
-5. Deploy to Netlify, and Greg plays the alpha end to end
-
-## Alpha 1 follow-ups
-
-1. S14: request drafts show the address line, the message and the send button only
-2. O26: the splash's tagline beneath the wordmark
-3. O27, §19: the thinking dots pulse in turn
-4. T91, T75: the Leave sheet's stations and the timetable's stop markers follow the redesigned RouteStation and StopMarker
-5. K10: the voice note's play glyph and the option card's radio drawn through Icon
-6. C83: Button's disabled state from --interactive-disabled
+*Built in seven stages and its follow-ups, and live on Netlify since November 23, 2026. The stage prompts in `docs/stage-prompts.md` keep the order it was built in. IDs its stages carried that are still open in `docs/issues.csv` are under "Confirm and close" for C60.*
 
 ## Alpha 2: The weekend Charlotte is away
 
