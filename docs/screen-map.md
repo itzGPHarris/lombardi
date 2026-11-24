@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): screen map
 
-*Last updated November 24, 2026 (onboarding redrawn) · Fixtures 3.56 · Spec 0.57 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
+*Last updated November 24, 2026 (onboarding redrawn) · Fixtures 3.57 · Spec 0.58 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
 
 This file ties every screen in the alpha to the one Figma frame it is built from. Use the frame ID in this file and no other. The Figma file holds older frames with the same or similar names on other pages, and none of those is a target.
 
@@ -45,9 +45,9 @@ Onboarding was shortened twice on November 24, 2026. O35 (fixtures 3.54) merged 
 | 6 | C-00 · 0r · Reading | Retired | Joined 0a as 0a-c on November 24, 2026 (O36), and its frame was redrawn as 0a-c. | |
 | 7 | C-00 · 0b · Read-back and hand-off | Retired | Joined 0a as 0a-d and 0a-e on November 24, 2026 (O36), and its frame was redrawn as 0a-e. | |
 | 8 | C-00 · 0t · Making the draft | `2853:11947` | The same dots as 0a-c (O27), with "Making Mallory's plan…". | Still |
-| 9 | C-00 · 0c · Draft | `2853:12011` | The top of the page, with each reminder as a ReminderItem with Remove and "Add something else for Mallory" after each day with reminders (O36). | Onboarding and setup |
-| 9a | C-00 · 0c-c · Draft, keeping the plan | `3282:17819` | The end of the page: the suggested event with Add to the plan and Not this time, the coach link, then "Keep Mallory's plan" as part of the page under a hairline, with the email TextInput, Continue and Not now. | Onboarding and setup |
-| 9c | C-00 · 0c-d · Draft, after an edit | `3282:17866` | Library book removed, with the Notice and Undo at the foot of the screen, and back-to-school night added. | Onboarding and setup |
+| 9 | C-00 · 0c · Draft | `2853:12011` | Drawn at full height: each school day as a card under "Mallory's plan: Oct. 6 to 9", Keep, Change and Skip on every suggestion, the coach link, and keeping the plan at the end with Continue disabled (O46). Remove is hidden on arrival by an instance override, because ReminderItem has no read-only variant (O39). | Onboarding and setup |
+| 9a | C-00 · 0c-c · Draft, keeping the plan | `3282:17819` | The same page with charlotte@mail.example typed and Continue enabled (O46). | Onboarding and setup |
+| 9c | C-00 · 0c-d · Draft, after Keep, Change and Skip | `3282:17866` | Tuesday kept, Thursday's reminders opened with Change and Done, back-to-school night skipped and folded, Friday untouched (O46). | Onboarding and setup |
 | 9b | C-00 · 0c-b · Account prompt, nothing captured | `3282:18620` | A prompt over 0a, headed "Create your account", with the email TextInput and Continue, no line, no Not now and no Continue with Apple (O35, O36). The scrim is the same unbound rectangle as 0q-b's (O39). | Sheet, over 0a |
 | 10 | C-00 · 0e · Create your account | Retired | Joined 0c on November 24, 2026 (O35). The frame `2853:12979` is on "Archive - not for build". Do not build it. | |
 | 11 | C-00 · 0e-p · Choose a plan | `2853:12857` | Staged. Either Buy button moves on to 0q, and nothing opens Stripe. The words are proposed (issue O17). Build the frame at 440 px with Hearth colors, and show "Most Valuable Parent" as the wordmark in place of "MVP" alone. | Onboarding and setup |
