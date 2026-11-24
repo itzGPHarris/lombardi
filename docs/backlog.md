@@ -74,11 +74,11 @@ X3, D3, T27, O9, T8, T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48,
 
 ## Before Alpha 2: shorter onboarding and editing in the demo
 
-*Greg set this stage on November 24, 2026, after playing the Stage 7 build on his phone. Line 3 waits for F39's spec section.*
+*Greg set this stage on November 24, 2026, after playing the Stage 7 build on his phone, and put X6 and C87 first the same day, before he shares Alpha 1 with Heather. Line 4 waits for F39's spec section.*
 
-1. O35: onboarding at fourteen screens, as spec 0.55 §3 sets out
-2. C86: the tab bar's bottom padding (QA-002)
-3. F39, L7, L8, U5: editing a child, a school and Settings, and adding a child
+1. X6, C87: the switcher for Heather's review, and MVP on the Home Screen
+2. O35: onboarding at fourteen screens, as spec 0.55 §3 sets out
+4. F39, L7, L8, U5: editing a child, a school and Settings, and adding a child
 
 ## Alpha 2: The weekend Charlotte is away
 

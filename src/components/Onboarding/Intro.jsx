@@ -8,7 +8,7 @@ import own from './Intro.module.css';
 
 // Welcome to the team (0j, 2853:12168): the coach's introduction and its recap, then Next with the two
 // ticked lines beneath it. The calendar line shows only when she connected a calendar. Next goes to
-// her first board. The greeting drops her name when she skipped the welcome, and the reminder line
+// her first board. The greeting drops her name when she left it blank on the welcome, and the reminder line
 // shows only when she made a capture (fixtures C-00, "If she skipped a step"). The phone's own request to allow notifications is not drawn (docs/issues.csv).
 export default function Intro({ name, recap, calendarConnected, captured = true, ticks, onTick, onNext, onBack }) {
   return (

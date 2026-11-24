@@ -1,18 +1,15 @@
 import { useCallback, useMemo } from 'react';
 import Splash from './Splash.jsx';
 import Welcome from './Welcome.jsx';
-import Children from './Children.jsx';
-import Grades from './Grades.jsx';
 import FirstCapture from './FirstCapture.jsx';
 import CheckPhoto from './CheckPhoto.jsx';
 import Thinking from './Thinking.jsx';
 import ReadBack from './ReadBack.jsx';
 import Draft from './Draft.jsx';
-import Account from './Account.jsx';
+import AccountPrompt from './Account.jsx';
 import ChoosePlan from './ChoosePlan.jsx';
-import { Calendar, CalendarPermission, Connected } from './Calendar.jsx';
+import { Calendar, CalendarPermission } from './Calendar.jsx';
 import Schools from './Schools.jsx';
-import Household from './Household.jsx';
 import GettingReady from './GettingReady.jsx';
 import Intro from './Intro.jsx';
 import { useSession } from '../../demo/SessionContext.js';
@@ -20,12 +17,12 @@ import { backFrom, childrenInWords, draftDates, introRecap } from '../../demo/on
 import { dateOf } from '../../demo/calendar.js';
 import { fillDates } from '../../demo/dateTokens.js';
 import { fill } from '../../demo/today.js';
-import { gettingReady, grades as gradeWords, thinking } from '../../copy/onboarding.js';
+import { accountPrompt, gettingReady, grades as gradeList, thinking } from '../../copy/onboarding.js';
 
-// C-00 from the splash to the coach's introduction (spec §3). Every onboarding and setup screen after
-// 0w carries Back, even where its frame draws none (spec §2, issue O30), and the setup screens carry
-// the step counter. Each screen is its own component in the
-// shell for its layout type, and this one moves her from screen to screen through the session, so a
+// C-00 from the splash to the coach's introduction (spec §3), fourteen screens on Charlotte's path
+// since fixtures 3.54 (issue O35). Every onboarding and setup screen after 0w carries Back, even where
+// its frame draws none (spec §2, issue O30), and no screen carries a step counter. Each screen is its
+// own component in the shell for its layout type, and this one moves her from screen to screen through the session, so a
 // jump or Reset returns everything to the splash. The coach's lines, the capture and the draft come
 // from the seed's C-00; nothing calls a network or a model.
 export default function Onboarding() {
@@ -57,28 +54,27 @@ export default function Onboarding() {
 
   switch (screen) {
     case '0s': return <Splash onNext={() => go('0w')} />;
-    case '0w': return <Welcome entries={entries} set={set} onContinue={() => go('0k')} onSkip={() => act({ type: 'SKIP_WELCOME' })} />;
-    case '0k': return (
-      <Children
+    case '0w': return (
+      <Welcome
         entries={entries}
-        flags={flags}
+        openGrade={flags.gradeListOpen}
+        set={set}
         setChild={setRow('children')}
-        addChild={() => act({ type: 'ADD_ROW', field: 'children', value: { id: null, name: '', birth: null, grade: gradeWords.list[0] } })}
-        onContinue={() => go('0k-b')}
-        onBack={back}
-      />
-    );
-    case '0k-b': return (
-      <Grades
-        entries={entries}
-        flags={flags}
-        onOpen={(index) => act({ type: 'OPEN_GRADE_LIST', index })}
-        onChoose={(index, grade) => act({ type: 'CHOOSE_GRADE', index, grade })}
+        setBirth={(index, birth) => act({ type: 'SET_BIRTH', index, birth, demoWeekStart: anchor })}
+        addChild={() => act({ type: 'ADD_ROW', field: 'children', value: { id: null, name: '', birth: null, grade: gradeList[0] } })}
+        openGradeList={(index) => act({ type: 'OPEN_GRADE_LIST', index })}
+        chooseGrade={(index, grade) => act({ type: 'CHOOSE_GRADE', index, grade })}
         onContinue={() => go('0a')}
-        onBack={back}
       />
     );
-    case '0a': return <FirstCapture onCapture={(kind) => act({ type: 'CAPTURE', kind })} onSkip={() => act({ type: 'SKIP_CAPTURE' })} onBack={back} />;
+    case '0a':
+    case '0c-b': {
+      // With nothing captured, the account prompt opens over 0a, and Back closes it (0c-b).
+      const prompt = screen === '0c-b' && (
+        <AccountPrompt heading={accountPrompt.headingNoCapture} email={entries.email} setEmail={(value) => set('email', value)} onContinue={() => go('0e-p')} />
+      );
+      return <FirstCapture prompt={prompt || undefined} onCapture={(kind) => act({ type: 'CAPTURE', kind })} onSkip={() => act({ type: 'SKIP_CAPTURE' })} onBack={back} />;
+    }
     case '0v': return <CheckPhoto alt={capture.label} onUse={() => go('0r')} onRetake={() => go('0v')} onBack={back} />;
     case '0r': {
       const line = { photo: thinking.photo, file: thinking.file, voice: thinking.listening }[flags.captureKind ?? 'photo'];
@@ -119,38 +115,39 @@ export default function Onboarding() {
           dates={draftDates(answers.draft, anchor)}
           line={conversation[4].text}
           rows={rows}
-          onCreate={() => go('0e')}
-          onNotNow={() => dispatch({ type: 'START_OVER' })}
+          prompt={(
+            <AccountPrompt
+              heading={fill(accountPrompt.heading, { child: draftChild.name })}
+              line={accountPrompt.line}
+              email={entries.email}
+              setEmail={(value) => set('email', value)}
+              onContinue={() => go('0e-p')}
+              onNotNow={() => dispatch({ type: 'START_OVER' })}
+            />
+          )}
           onBack={back}
         />
       );
     }
-    case '0e': return <Account email={entries.email} setEmail={(value) => set('email', value)} onContinue={() => go('0e-p')} onBack={flags.skippedCapture ? () => go('0a') : back} />;
     case '0e-p': return <ChoosePlan onBuy={() => go('0q')} onBack={back} />;
     case '0q': return <Calendar onPick={(calendar) => act({ type: 'ASK_CALENDAR', calendar })} onSkip={() => act({ type: 'SKIP_CALENDAR' })} onBack={back} />;
     case '0q-b': return <CalendarPermission calendar={flags.pendingCalendar ?? seed.calendar.name} onAllow={() => act({ type: 'ALLOW_CALENDAR' })} onCancel={() => act({ type: 'CANCEL_CALENDAR' })} />;
-    case '0q-c': return <Connected calendar={flags.calendar ?? seed.calendar.name} onContinue={() => go('0f')} onBack={back} />;
     case '0f': return (
       <Schools
         kids={entries.children}
         schools={entries.schools}
-        notInSchool={gradeWords.list[0]}
+        notInSchool={gradeList[0]}
         capturedFrom={!flags.skippedCapture}
+        calendar={flags.calendar}
+        entries={entries}
+        set={set}
         setSchool={setRow('schools')}
+        setHelper={setRow('helpers')}
+        addHelper={() => act({ type: 'ADD_ROW', field: 'helpers', value: { name: '', relationship: '' } })}
         onAdd={() => {
           act({ type: 'ADD_ROW', field: 'children', value: { id: null, name: '', birth: null, grade: '' } });
           act({ type: 'ADD_ROW', field: 'schools', value: { school: '', startTime: '', fromCapture: null, age: '' } });
         }}
-        onBack={back}
-        onContinue={() => go('0g')}
-      />
-    );
-    case '0g': return (
-      <Household
-        entries={entries}
-        set={set}
-        setHelper={setRow('helpers')}
-        addHelper={() => act({ type: 'ADD_ROW', field: 'helpers', value: { name: '', relationship: '' } })}
         onBack={back}
         onDone={() => go('0p')}
       />
@@ -169,7 +166,7 @@ export default function Onboarding() {
     }
     case '0j': return (
       <Intro
-        name={flags.skippedWelcome ? null : entries.name}
+        name={entries.name.trim() || null}
         recap={introRecap(conversation[5], session.onboarding)}
         calendarConnected={!!flags.calendar}
         captured={!flags.skippedCapture}

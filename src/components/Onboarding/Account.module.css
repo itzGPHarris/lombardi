@@ -1,4 +1,28 @@
-/* Continue with Apple, as 0e draws it: a dark pill with the Apple logo, in Inter (no fourth font). */
+/* The account prompt, anchored at the foot and sliding up from below the draft or the first capture
+   screen (spec §19, `quick`, `ease-out`). Under reduced motion it appears in place. */
+.prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-32) var(--space-24) var(--space-24);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--bg-card);
+  text-align: center;
+  animation: prompt-rise var(--motion-duration-quick) var(--motion-ease-out) both;
+}
+.heading { font: var(--text-header); letter-spacing: var(--text-header-tracking); color: var(--ink-primary); }
+.line { font: var(--text-body-large); letter-spacing: var(--text-body-large-tracking); color: var(--ink-primary); }
+.signIn { display: flex; flex-direction: column; gap: var(--space-10); width: 100%; padding-top: var(--space-16); text-align: left; }
+@keyframes prompt-rise {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prompt { animation: none; }
+}
+
+/* Continue with Apple, as 0e drew it: a dark pill with the Apple logo, in Inter (no fourth font). */
 .apple {
   display: inline-flex;
   align-items: center;

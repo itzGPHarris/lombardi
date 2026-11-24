@@ -1,6 +1,7 @@
 import { householdById, households } from './households.js';
 import { onboardingReducer, startOnboarding } from './onboarding.js';
 import { fillDates } from './dateTokens.js';
+import { momentAvailable } from './moments.js';
 import { conflictNotice, conflictNoticeLink } from '../copy/gamePlan.js';
 import { nextStep, notificationFor, playsFromPresenter, playsFromTrigger, stepsFor, undoable } from './steps.js';
 
@@ -199,7 +200,10 @@ const presenter = (state) => ({ phoneFrame: state.phoneFrame, coachMode: state.c
 
 export function sessionReducer(state, action) {
   switch (action.type) {
-    case 'JUMP': return momentState(state.householdId, action.momentId, presenter(state));
+    // A moment the seed holds no state for yet reads Coming soon and can't be opened (spec §15, X6).
+    case 'JUMP': return momentAvailable(householdById(state.householdId).seed, action.momentId)
+      ? momentState(state.householdId, action.momentId, presenter(state))
+      : state;
     case 'RESET': return momentState(state.householdId, householdById(state.householdId).seed.moments[0].id, presenter(state));
     case 'SWITCH_HOUSEHOLD': return momentState(action.householdId, undefined, presenter(state));
     case 'TODAY': return { ...state, today: todayReducer(state.today, action.action) };

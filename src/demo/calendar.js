@@ -75,6 +75,13 @@ export function datelineParts(demoTime, demoWeekStart, options) {
   return { weekday: date.weekday, phase, month: monthNames[date.month - 1], day: date.day, icon: phaseIcons[phase] };
 }
 
+// A day heading in the household switcher, such as "Monday, Oct. 12" (fixtures section 4, "Demo
+// controls").
+export function formatDay(demoTime, demoWeekStart) {
+  const date = dateOf(demoTime, demoWeekStart);
+  return `${date.weekday}, ${monthNames[date.month - 1]} ${date.day}`;
+}
+
 export function formatDateline(parts) {
   return `${parts.weekday} ${parts.phase}, ${parts.month} ${parts.day}`;
 }

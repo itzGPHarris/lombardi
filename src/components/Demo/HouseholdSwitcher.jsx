@@ -46,7 +46,7 @@ export default function HouseholdSwitcher({ session, dispatch, household, embedd
             </li>
           ))}
         </ul>
-        <MomentList moments={household.seed.moments} current={session.momentId} onJump={(momentId) => dispatch({ type: 'JUMP', momentId })} />
+        <MomentList seed={household.seed} current={session.momentId} onJump={(momentId) => dispatch({ type: 'JUMP', momentId })} />
         <ViewAs household={household} current={session.viewAs} onChoose={(person) => dispatch({ type: 'VIEW_AS', person })} />
         <PhoneFrameControl on={session.phoneFrame || embedded} onChange={onPhoneFrame} />
         <section className={styles.section}>

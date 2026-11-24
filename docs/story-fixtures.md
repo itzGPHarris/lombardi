@@ -1,6 +1,6 @@
 # Demo fixtures: the MVP families
 
-*MVP (Lombardi) · Version 3.54 · November 24, 2026 · Charlotte and Edward only*
+*MVP (Lombardi) · Version 3.55 · November 24, 2026 · Charlotte and Edward only*
 
 # 1. What this document is for
 
@@ -4531,17 +4531,20 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 
 ## Demo controls
 
-These words are for presenters only and never appear in a presented demo (issue C74). Play the next step plays the moment's next step that has no tap of Charlotte's, such as a reply arriving or the share from WhatsApp in C-01, so the presenter sets the pace (issue C80).
+These words are for presenters only and never appear in a presented demo (issue C74). Heather reviews the alpha from the switcher, so each moment reads as its day, time and title, the way a parent would describe that part of the week, rather than as its ID, which belongs to the fixtures, the frames and the screen map (issue X6). Play the next step plays the moment's next step that has no tap of Charlotte's, such as a reply arriving or the share from WhatsApp in C-01, so the presenter sets the pace (issue C80).
 
 | Where | Text |
 | ----- | ----- |
 | Switcher heading | Household switcher |
 | Sections | Moments · View as |
-| Moment rows | The moment's ID and its "What happens" sentence from "The moments" |
+| Moment groups | Charlotte's week · The weekend Charlotte is away |
+| Day headings | The day and date, such as "Monday, Oct. 12" |
+| Moment rows | The moment's time, such as "6:15am", then its title from its heading in "The moments", such as "Charlotte talks to the coach" |
+| A moment that isn't built yet | The row stays in its place in muted ink and can't be tapped, with "Coming soon" beneath its title |
 | Layout choices | Phone frame · Full desktop layout |
 | Buttons | Play the next step · Reset · Close |
 | Debug menu heading | Debug menu |
-| Debug menu rows | Current moment · Demo time |
+| Debug menu rows | Current moment, shown by its ID, such as "C-03" · Demo time |
 | Coach responses choice | Scripted responses · A live model |
 
 ## Playbook
@@ -4876,6 +4879,15 @@ The user stories left gaps, and everything in this table is a fact we invented t
 155. **Decided November 24, 2026: onboarding is shorter (issue O35).** Greg played the alpha on his phone and found too many steps. The children and grades join the welcome, sign-in moves onto the account prompt, the calendar's connected state becomes a line on the school screen, and the household joins the school screen. The plan screen stays in the flow, and the household questions stay as Heather wrote them. Three pieces of wording are new and need Heather's review: the subheading "Who are you planning for?" on the welcome, which replaces the children screen's heading with her name, the grade line "The MVP Coach works out each grade from the birth month. Change any grade that's wrong.", which replaces the grades screen's heading and line, and "Your Google Calendar is connected." on the school screen. The welcome loses its skip link, because her name and zip code can be left blank. The frames for 0w, 0w-b, 0c and 0f are redrawn in place, and 0c-b is a new frame.
 
 # Appendix C: change log
+
+## Version 3.55, November 24, 2026
+
+Greg's change request before Heather reviews Alpha 1 (issue X6). Version 3.54 is kept in the archive.
+
+| # | Change |
+| ----- | ----- |
+| 1 | The household switcher groups its moments under Charlotte's week and the weekend she is away, then under each day, and each row reads as its time and its title from "The moments", such as "6:15am" and "Charlotte talks to the coach". The ID moves to the debug menu's Current moment row. |
+| 2 | A moment that isn't built yet stays in its row in muted ink, can't be tapped, and reads "Coming soon" beneath its title. |
 
 ## Version 3.54, November 24, 2026
 

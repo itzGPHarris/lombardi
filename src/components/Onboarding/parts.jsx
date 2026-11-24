@@ -1,25 +1,10 @@
 import markArt from '../../assets/brand/mark-small.svg';
 import Icon from '../shared/Icon.jsx';
-import { STEPS } from '../../demo/onboarding.js';
-import { stepCounter } from '../../copy/onboarding.js';
 import styles from './Onboarding.module.css';
-import counter from './StepCounter.module.css';
 
-// The small MVP mark above an onboarding headline (0w, 0k, 0a, 0r, 0t, 0p).
+// The small MVP mark above an onboarding headline (0w, 0a, 0r, 0t, 0p).
 export function Mark() {
   return <img className={styles.mark} src={markArt} alt="" />;
-}
-
-// The step counter on the four setup screens (StepCounter 2716:55011, four segments since O24).
-export function StepCounter({ step }) {
-  return (
-    <div className={counter.counter}>
-      <p className={counter.label}>{stepCounter.replace('{count}', step)}</p>
-      <div className={counter.segments} aria-hidden="true">
-        {Array.from({ length: STEPS }, (_, index) => <span key={index} className={counter.segment} data-done={index < step || undefined} />)}
-      </div>
-    </div>
-  );
 }
 
 // A labeled text field, filled with what she entered, with a helper line beneath it where the

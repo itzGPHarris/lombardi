@@ -4,36 +4,33 @@
 // splash with Charlotte's answers from the seed (spec §3, standing decision 2).
 import { dateOf, formatTime, parseAnchor } from './calendar.js';
 import { dateRange, monthYear } from './dateTokens.js';
-import { fill } from './today.js';
 import * as words from '../copy/onboarding.js';
 
 // Spec §3, "Prototype timing": the prototype reads nothing, so each thinking screen lasts two seconds.
 // Getting ready takes as long as its steps, each one the motion token's slow duration (spec §19).
 export const THINKING_MS = 2000;
 
-// The screens in the order she meets them, with the layout type each is built in (docs/screen-map.md).
+// The screens in the order she meets them, with the layout type each is built in and where Back goes
+// (docs/screen-map.md). Charlotte's path is fourteen screens and thirteen taps (spec §3, issue O35).
+// 0c-b is the account prompt over 0a when she skipped the capture, and Back closes it. Onboarding has
+// no step counter (spec §3, standing decision 4).
 export const screens = {
   '0s': { type: 'still' },
   '0w': { type: 'onboarding' },
-  '0k': { type: 'onboarding', back: '0w' },
-  '0k-b': { type: 'onboarding', back: '0k' },
-  '0a': { type: 'onboarding', back: '0k-b' },
+  '0a': { type: 'onboarding', back: '0w' },
   '0v': { type: 'onboarding', back: '0a' },
   '0r': { type: 'still' },
   '0b': { type: 'onboarding', back: '0v' },
   '0t': { type: 'still' },
   '0c': { type: 'onboarding', back: '0b' },
-  '0e': { type: 'onboarding', back: '0c', step: 1 },
-  '0e-p': { type: 'onboarding', back: '0e' },
-  '0q': { type: 'onboarding', back: '0e-p', step: 2 },
-  '0q-b': { type: 'still', step: 2 },
-  '0q-c': { type: 'onboarding', back: '0q', step: 2 },
-  '0f': { type: 'onboarding', step: 3 },
-  '0g': { type: 'onboarding', back: '0f', step: 4 },
+  '0c-b': { type: 'onboarding', back: '0a' },
+  '0e-p': { type: 'onboarding', back: '0c' },
+  '0q': { type: 'onboarding', back: '0e-p' },
+  '0q-b': { type: 'still' },
+  '0f': { type: 'onboarding', back: '0q' },
   '0p': { type: 'still' },
-  '0j': { type: 'onboarding', back: '0g' },
+  '0j': { type: 'onboarding', back: '0f' },
 };
-export const STEPS = 4;
 
 // The school year a birth month is measured against: the one that started on the September before the
 // demo week, worked out from meta.demoWeekStart.
@@ -46,7 +43,7 @@ function schoolYear(demoWeekStart) {
 // Appendix A, "Grade cutoff"). A child born in September or later turns that age after the cutoff.
 export function suggestGrade(birth, demoWeekStart) {
   const age = schoolYear(demoWeekStart) - birth.year - (birth.month >= 9 ? 1 : 0);
-  const list = words.grades.list;
+  const list = words.grades;
   if (age < 4) return list[0];
   const index = Math.min(age - 4 + 1, list.length - 1);
   return list[index];
@@ -55,17 +52,6 @@ export function suggestGrade(birth, demoWeekStart) {
 // How a grade reads inside a sentence, such as "fourth grade" or "kindergarten".
 export function gradeInSentence(grade) {
   return grade === 'Pre-K' ? grade : grade.charAt(0).toLowerCase() + grade.slice(1);
-}
-
-export function gradesHeading(children) {
-  if (children.length === 1) return fill(words.grades.headingOne, { child: children[0].name, grade: gradeInSentence(children[0].grade) });
-  if (children.length === 2) {
-    return fill(words.grades.headingTwo, {
-      child: children[0].name, grade: gradeInSentence(children[0].grade),
-      child2: children[1].name, grade2: gradeInSentence(children[1].grade),
-    });
-  }
-  return words.grades.headingMany;
 }
 
 // Charlotte's answers, as the seed writes them for C-00, so every field opens filled as the frames
@@ -99,8 +85,8 @@ export function startOnboarding(seed, moment, { screen = '0s', failure = null } 
       helpers: answers.household.helpers.map(({ name, relationship }) => ({ name, relationship })),
     },
     flags: {
-      skippedWelcome: false,
-      skippedCapture: false,
+      // A development link straight to 0c-b opens it as she would reach it, with nothing captured.
+      skippedCapture: screen === '0c-b',
       captureKind: null,
       // The read-back preselects the child whose grade matches the document's (fixtures C-00).
       chosenChild: seed.conversation.find((entry) => entry.capture === answers.capture && entry.confirm)?.confirm.chosen ?? null,
@@ -126,12 +112,21 @@ export function onboardingReducer(state, action) {
       entries: { ...state.entries, [action.field]: state.entries[action.field].map((row, index) => (index === action.index ? { ...row, ...action.value } : row)) },
     };
     case 'ADD_ROW': return { ...state, entries: { ...state.entries, [action.field]: [...state.entries[action.field], action.value] } };
-    case 'SKIP_WELCOME': return { ...state, screen: '0k', flags: { ...state.flags, skippedWelcome: true } };
-    case 'SKIP_CAPTURE': return { ...state, screen: '0e', flags: { ...state.flags, skippedCapture: true, captureKind: null } };
+    case 'SKIP_CAPTURE': return { ...state, screen: '0c-b', flags: { ...state.flags, skippedCapture: true, captureKind: null } };
     // A photo is checked first; a file or a voice note goes straight to reading, because there is
     // nothing to frame (fixtures C-00).
     case 'CAPTURE': return { ...state, screen: action.kind === 'photo' ? '0v' : '0r', flags: { ...state.flags, captureKind: action.kind, skippedCapture: false } };
     case 'OPEN_GRADE_LIST': return flags({ gradeListOpen: state.flags.gradeListOpen === action.index ? null : action.index });
+    // A birth month brings the grade the MVP Coach suggests for it, which she can change (spec §3).
+    case 'SET_BIRTH': return {
+      ...state,
+      entries: {
+        ...state.entries,
+        children: state.entries.children.map((child, index) => (index === action.index
+          ? { ...child, birth: action.birth, grade: suggestGrade(action.birth, action.demoWeekStart) }
+          : child)),
+      },
+    };
     case 'CHOOSE_GRADE': return {
       ...state,
       entries: { ...state.entries, children: state.entries.children.map((child, index) => (index === action.index ? { ...child, grade: action.grade } : child)) },
@@ -139,7 +134,8 @@ export function onboardingReducer(state, action) {
     };
     case 'CHOOSE_CHILD': return flags({ chosenChild: action.child });
     case 'ASK_CALENDAR': return { ...state, screen: '0q-b', flags: { ...state.flags, pendingCalendar: action.calendar } };
-    case 'ALLOW_CALENDAR': return { ...state, screen: '0q-c', flags: { ...state.flags, calendar: state.flags.pendingCalendar, pendingCalendar: null } };
+    // Allowing the calendar goes straight to the school screen, which names it (spec §3, O35).
+    case 'ALLOW_CALENDAR': return { ...state, screen: '0f', flags: { ...state.flags, calendar: state.flags.pendingCalendar, pendingCalendar: null } };
     case 'CANCEL_CALENDAR': return { ...state, screen: '0q', flags: { ...state.flags, pendingCalendar: null } };
     case 'SKIP_CALENDAR': return { ...state, screen: '0f', flags: { ...state.flags, calendar: null } };
     case 'TICK': return flags({ ticks: { ...state.flags.ticks, [action.tick]: !state.flags.ticks[action.tick] } });
@@ -148,14 +144,19 @@ export function onboardingReducer(state, action) {
   }
 }
 
-// Back from the school screen returns to the calendar screen she left, connected or not.
 // Back is on every onboarding and setup screen after 0w (spec §2, issue O30). It skips the still
 // screens between, so Back from the read-back returns to the photo, or to the first capture when she
-// gave a file or talked, and Back from the introduction returns to the household screen.
+// gave a file or talked, and Back from the plan screen returns to the account prompt she signed in on,
+// over the draft or, when she skipped the capture, over 0a.
 export function backFrom(state) {
-  if (state.screen === '0f') return state.flags.calendar ? '0q-c' : '0q';
   if (state.screen === '0b' && state.flags.captureKind && state.flags.captureKind !== 'photo') return '0a';
+  if (state.screen === '0e-p' && state.flags.skippedCapture) return '0c-b';
   return screens[state.screen]?.back ?? null;
+}
+
+// Continue on the welcome works once every child has a name and a birth month (spec §3, issue O18).
+export function welcomeComplete(children) {
+  return children.length > 0 && children.every((child) => child.name.trim() && child.birth);
 }
 
 // The children she named, in order, joined as the getting ready screen says them.
@@ -175,7 +176,7 @@ export { monthYear };
 // The coach's introduction says only what MVP learned on her path (fixtures C-00, "If she skipped a
 // step"; issue O32): the opening and the grades always, the rotation only after a capture, the
 // calendar only when she connected one, named as she connected it, and her circle only when she added
-// someone on the household screen.
+// someone on the school screen.
 export function introRecap(welcome, { flags, entries }) {
   const applies = {
     always: true,

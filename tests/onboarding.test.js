@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
 import {
-  backFrom, childrenInWords, draftDates, gradesHeading, introRecap, onboardingReducer, startOnboarding, suggestGrade,
+  backFrom, childrenInWords, draftDates, introRecap, onboardingReducer, screens, startOnboarding, suggestGrade, welcomeComplete,
 } from '../src/demo/onboarding.js';
 import { monthYear } from '../src/demo/dateTokens.js';
 import { initialSession, sessionReducer } from '../src/demo/session.js';
@@ -29,11 +29,13 @@ describe('onboarding opens with what the fixtures write for C-00 (spec §3)', ()
     expect(suggestGrade({ month: 1, year: 2024 }, seed.meta.demoWeekStart)).toBe('Not in school yet');
   });
 
-  it('writes the grades heading for one, two and three or more children', () => {
-    const { children } = start().entries;
-    expect(gradesHeading(children)).toBe('Alexis is likely in fourth grade, and Mallory is likely in kindergarten.');
-    expect(gradesHeading(children.slice(1))).toBe('Mallory is likely in kindergarten.');
-    expect(gradesHeading([...children, children[0]])).toBe('Here are the grades the MVP Coach suggests.');
+  it('suggests the grade again when she changes a birth month, and Continue waits for every name and birth month', () => {
+    const changed = play(start(), { type: 'SET_BIRTH', index: 1, birth: { month: 8, year: 2021 }, demoWeekStart: seed.meta.demoWeekStart });
+    expect(changed.entries.children[1]).toMatchObject({ birth: { month: 8, year: 2021 }, grade: 'Kindergarten' });
+    expect(welcomeComplete(start().entries.children)).toBe(true);
+    const added = play(start(), { type: 'ADD_ROW', field: 'children', value: { id: null, name: '', birth: null, grade: 'Not in school yet' } });
+    expect(welcomeComplete(added.entries.children)).toBe(false);
+    expect(welcomeComplete(play(added, { type: 'SET_ROW', field: 'children', index: 2, value: { name: 'Sam' } }).entries.children)).toBe(false);
   });
 
   it('dates the draft and names the children as the screens say them', () => {
@@ -43,20 +45,20 @@ describe('onboarding opens with what the fixtures write for C-00 (spec §3)', ()
 });
 
 describe('she moves through onboarding in the fixtures\' order', () => {
-  it('walks Charlotte\'s path from the splash to the coach\'s introduction', () => {
+  it('walks Charlotte\'s path from the splash to the coach\'s introduction in fourteen screens (O35)', () => {
     const go = (screen) => ({ type: 'GO', screen });
-    const state = play(start(),
-      go('0w'), go('0k'), go('0k-b'), go('0a'), { type: 'CAPTURE', kind: 'photo' });
+    const state = play(start(), go('0w'), go('0a'), { type: 'CAPTURE', kind: 'photo' });
     expect(state.screen).toBe('0v');
-    const connected = play(state, go('0r'), go('0b'), go('0t'), go('0c'), go('0e'), go('0e-p'), go('0q'),
+    const connected = play(state, go('0r'), go('0b'), go('0t'), go('0c'), go('0e-p'), go('0q'),
       { type: 'ASK_CALENDAR', calendar: 'Google Calendar' }, { type: 'ALLOW_CALENDAR' });
-    expect(connected).toMatchObject({ screen: '0q-c', flags: { calendar: 'Google Calendar', skippedCapture: false } });
-    expect(play(connected, go('0f'), go('0g'), go('0p'), go('0j')).screen).toBe('0j');
+    expect(connected).toMatchObject({ screen: '0f', flags: { calendar: 'Google Calendar', skippedCapture: false } });
+    expect(play(connected, go('0p'), go('0j')).screen).toBe('0j');
+    expect(Object.keys(screens)).toEqual(['0s', '0w', '0a', '0v', '0r', '0b', '0t', '0c', '0c-b', '0e-p', '0q', '0q-b', '0f', '0p', '0j']);
   });
 
-  it('skips the welcome to the children screen and the capture to the account', () => {
-    expect(play(start(), { type: 'SKIP_WELCOME' })).toMatchObject({ screen: '0k', flags: { skippedWelcome: true } });
-    expect(play(start(), { type: 'SKIP_CAPTURE' })).toMatchObject({ screen: '0e', flags: { skippedCapture: true } });
+  it('skips the capture to the account prompt over the first capture screen', () => {
+    expect(play(start(), { type: 'SKIP_CAPTURE' })).toMatchObject({ screen: '0c-b', flags: { skippedCapture: true } });
+    expect(startOnboarding(seed, c00, { screen: '0c-b' }).flags.skippedCapture).toBe(true);
   });
 
   it('reads a file or a voice note without checking a photo first', () => {
@@ -96,7 +98,7 @@ describe('the demo returns to C-00 with a clean state (spec §15)', () => {
     const fromC03 = sessionReducer(sessionReducer(before, { type: 'JUMP', momentId: 'C-03' }), { type: 'JUMP', momentId: 'C-00' });
     const reset = sessionReducer(before, { type: 'RESET' });
     for (const session of [fromC00, fromC03, reset]) {
-      expect(session.onboarding).toMatchObject({ screen: '0s', failure: null, entries: { name: 'Charlotte' }, flags: { skippedWelcome: false, skippedCapture: false, calendar: null } });
+      expect(session.onboarding).toMatchObject({ screen: '0s', failure: null, entries: { name: 'Charlotte' }, flags: { skippedCapture: false, calendar: null } });
       expect(session.visit).toBeGreaterThan(before.visit);
     }
     expect(sessionReducer(before, { type: 'JUMP', momentId: 'C-03' }).onboarding).toBeNull();
@@ -136,7 +138,9 @@ describe('Back on every onboarding and setup screen after 0w (spec §2, O30)', (
   it('returns each screen to the one before it, past the still screens', () => {
     const state = start();
     const from = (screen, flags = {}) => backFrom({ ...state, screen, flags: { ...state.flags, ...flags } });
-    expect(['0k', '0k-b', '0a', '0v', '0b', '0c', '0e-p', '0j'].map((screen) => from(screen))).toEqual(['0w', '0k', '0k-b', '0a', '0v', '0b', '0e', '0g']);
+    expect(['0a', '0v', '0b', '0c', '0c-b', '0e-p', '0q', '0f', '0j'].map((screen) => from(screen))).toEqual(['0w', '0a', '0v', '0b', '0a', '0c', '0e-p', '0q', '0f']);
     expect(from('0b', { captureKind: 'file' })).toBe('0a');
+    expect(from('0e-p', { skippedCapture: true })).toBe('0c-b');
+    expect(from('0w')).toBeNull();
   });
 });

@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.55 · November 24, 2026*
+*Investor prototype · Version 0.56 · November 24, 2026*
 
 ## **Summary of this version**
+
+Version 0.56 follows story fixtures 3.55 and Greg's change request before Heather reviews Alpha 1. The household switcher groups its moments by week and day and shows each as its time and title rather than its ID, and a moment the seed doesn't hold yet reads "Coming soon" and can't be opened, so C-10 to C-15 wait for Alpha 2 without breaking the demo (§15, issue X6). The Home Screen label reads "MVP", because iOS cut "Most Valuable Parent" short, while the wordmark keeps the full name (§19, issue C87).
 
 Version 0.55 follows story fixtures 3.54 and Greg's decision to shorten onboarding after playing the alpha on his phone (§3, issue O35). The children and their suggested grades join the welcome, sign-in moves onto the account prompt over the draft, allowing the calendar goes straight to the school screen, and the household joins the school screen, so Charlotte's path drops from nineteen screens to fourteen and onboarding loses its step counter. The plan screen stays in the flow. F39 records Greg's request to edit a child, a school and Settings in the demo (QA-005 to QA-007), which moves into the prototype as a stage before Alpha 2.
 
@@ -1418,11 +1420,11 @@ MVP Editorial articles are written by staff in their own voice and follow only t
 | ----- | ----- | ----- |
 | Opening | Loading the prototype | Opens on C-00 at the splash, so a reviewer goes through onboarding first. Every other moment, such as C-03, is a jump in the switcher. |
 | Household switcher | Long press on the parent's monogram, on every tab and at every size. Where no monogram is drawn, as on the splash, onboarding, a still screen, a composer or a chat, a long press anywhere on a still screen or on the top bar opens it (issue X4). | Switches between households that are built. There is no keyboard shortcut, because the demo runs on phones and tablets as well as laptops. |
-| Moments | Inside the switcher | Jumps the current household to a moment by ID. |
+| Moments | Inside the switcher | Jumps the current household to a moment. Moments are grouped under Charlotte's week and the weekend she is away, then under each day, and each reads as its time and its title, such as "6:15am" and "Charlotte talks to the coach". A moment that isn't built yet reads "Coming soon" and can't be opened (issue X6). |
 | View as | Inside the switcher | Shows the current moment from the recipient's side: their Today with the requests she has sent them, and the screens they answer on, for Edward, Min-jung, or Ms. Reyes's text and web page (§9). The recipient's other tabs are not part of the demo. |
 | Phone frame | Inside the switcher | At desktop widths, shows the app inside a phone frame or in its full desktop layout. |
 | Reset | Inside the switcher | Returns the current household to its first moment. |
-| Debug menu | Inside the switcher | Switches the coach between scripted responses and a live model, and shows the current moment and demo time. |
+| Debug menu | Inside the switcher | Switches the coach between scripted responses and a live model, and shows the current moment by its ID and the demo time. |
 
 ## **Charlotte's moments**
 
@@ -1435,7 +1437,7 @@ MVP Editorial articles are written by staff in their own voice and follow only t
 | C-03a | Monday, Oct. 12, 7:45am | Min-jung leaves Hana with Charlotte for the run to Westview Kindergarten and hands her a Westview Kindergarten flyer, and Charlotte tells the coach through the capture bar on Today | Today, the capture bar | Core |
 | C-03b | Monday, Oct. 12, 2:00pm | The afternoon run as a line: the reminder, two pickups and therapy, and the Leave sheet | Lock screen, the reminder, then Today | Core |
 | C-04 | Monday, Oct. 12, 8:50pm | Working the game plan without the coach: adding the second tutoring session from the review card, moving it to next Tuesday, two notes, and asking Edward to take the library run | Game plan | Optional |
-| C-04b | Tuesday, Oct. 13, 7:05am | Edward says yes to the library run and adds a note | Edward's request card, through View as | Optional |
+| C-04b | Tuesday, Oct. 13, 7:20am | Edward says yes to the library run and adds a note | Edward's request card, through View as | Optional |
 | C-05 | Tuesday, Oct. 13, 12:20pm | Asking her people about a new therapist | Today, the coach card | Core |
 | C-05b | Tuesday, Oct. 13, 3:40pm | A Westview Kindergarten email updates the Westview Kindergarten card | Coach, the read-back | Optional |
 | C-05c | Tuesday, Oct. 13, 8:15pm | Charlotte asks Edward and Claire together how to tell Alexis about her therapist | Team | Core |
@@ -1463,6 +1465,8 @@ The other three households get moments when their fixtures are rewritten.
 * **The demo calendar drives everything time-based,** including the dateline, the phase of the day, countdowns and what has passed. The device clock is never read.
 * **Every tab shows its state at the moment.** After a jump, the tester can open any tab. The Coach tab shows the conversation up to the moment, the game plan shows the week as the fixtures' table stands at that moment, Team shows the chats, posts and replies that exist by then, and Kids shows each card as it stands then. Nothing is blank, and nothing from later in the week shows early.
 * **Switching households or moments leaves nothing behind.** No data, open panel, conversation or scroll position survives the switch.
+* **The switcher reads the way a reviewer thinks about the week.** Heather and other reviewers open moments from the switcher, and an ID such as C-03b means something only beside the fixtures and the frames. Each row therefore shows the moment's time and its title from its heading in the fixtures, under its day, and the ID stays in the debug menu, the screen map and the fixtures (issue X6).
+* **A moment opens only once the seed holds it.** The switcher marks a moment as Coming soon when the seed has no state for it, rather than from a list kept by hand, so C-10 to C-15 open by themselves when Alpha 2 writes them. A Coming soon row stays in its place in the week, in muted ink, and a tap on it does nothing.
 * **The debug menu is never used during a presented demo.** The live model needs a network connection and adds wait time, which are the two things the scripted design exists to avoid.
 * **The live model covers the coach only.** Group replies and other people's answers are always scripted, because a model writing as a real person would break her people's promise even in a demo.
 
@@ -1725,6 +1729,7 @@ These live here rather than in Figma because a single frame cannot show them.
 * **Illustration appears only inside MVP Editorial articles,** as spot illustrations drawn by people. The MVP mark is not an illustration.
 * **No pure white and no pure black.**
 * **The wordmark always reads "Most Valuable Parent."** "MVP" never appears alone in the wordmark, including at the top of the sidebar.
+* **The Home Screen label reads "MVP."** iOS cuts a Home Screen label at about twelve characters, so "Most Valuable Parent" showed as "MostValuablePar…". The label belongs to the phone rather than to the wordmark, so the web app manifest's `short_name` and the `apple-mobile-web-app-title` tag read "MVP", and the manifest's `name`, the page title and every wordmark keep "Most Valuable Parent" (issue C87).
 * **The coach is marked three ways and no others:** its dot, its tint, and on the review card an amber outline around each day.
 * **Status marks never rely on color alone.** Each has its own shape and label, so the plan reads in grayscale. The same holds for chips, avatars and the coach's dot.
 
@@ -1859,6 +1864,16 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.56, November 24, 2026**
+
+Follows story fixtures 3.55 and Greg's change request before Heather's review.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §15 | The switcher groups moments by week and day and shows each as its time and title, the ID moves to the debug menu, and a moment the seed doesn't hold reads Coming soon and can't be opened (X6). |
+| 2 | §19 | The Home Screen label reads "MVP", and the wordmark keeps "Most Valuable Parent" (C87). |
+| 3 | §15 | C-04b is at 7:20am, as its fixtures heading and the seed give it (X7). |
 
 ## **v0.55, November 24, 2026**
 

@@ -32,6 +32,10 @@
 .foot[data-surface='canvas'] { background: var(--bg-canvas); }
 .primaryFoot { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); padding: var(--space-16) var(--space-24) max(var(--space-24), var(--safe-bottom)); }
 .primaryFoot:empty { display: none; }
+/* Onboarding and setup keep the frames' 24 at the foot and never take the home indicator's inset. The
+   frames are drawn at the phone's own 440 x 956, so their 24 already sits over the indicator (issue
+   C86, Greg's decision of November 24, 2026). */
+.onboardingFoot { padding-bottom: var(--space-24); }
 
 /* The title bar shared by tab lists and pages, as the frames place it: its row of controls 56 from
    the top, where the frames leave room for the phone's status bar, one tap target tall, and the
