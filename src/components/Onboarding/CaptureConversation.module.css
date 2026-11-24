@@ -1,0 +1,38 @@
+/* The capture conversation (0a to 0a-e), laid out the way the Coach tab draws a conversation: the
+   coach's lines at full width under their label, in Voice (spec §3, standing decision 8), and her photo
+   and her words in bubbles at the right. Every value is a token. */
+.conversation { display: flex; flex-direction: column; gap: var(--space-24); padding: var(--space-32) 0 var(--space-24); }
+.coach { display: flex; flex-direction: column; gap: var(--space-4); }
+.label { font: var(--text-meta-strong); letter-spacing: var(--text-meta-strong-tracking); color: var(--ink-primary); }
+.voice { font: var(--text-voice); letter-spacing: var(--text-voice-tracking); color: var(--ink-primary); }
+
+/* 0a-b: the photo as a large preview at the full width of the column. */
+.preview { display: block; width: 100%; height: auto; }
+
+/* Her message: the photo as a thumbnail (0a-c) and her answer (0a-e), on the control surface. */
+.mine { display: flex; justify-content: flex-end; padding-left: var(--space-56); }
+.photoBubble, .bubble {
+  padding: var(--space-16);
+  border-radius: var(--radius-lg) 0 var(--radius-lg) var(--radius-lg);
+  background: var(--bg-control);
+}
+.thumbnail { display: block; width: calc(var(--space-56) * 2 + var(--space-40)); height: auto; }
+.bubble { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+
+.confirm { display: flex; flex-direction: column; gap: var(--space-12); padding-top: var(--space-12); }
+.choices { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.slow { display: flex; flex-direction: column; gap: var(--space-16); padding-top: var(--space-8); }
+
+/* The foot, anchored: the capture buttons and Skip for now, the photo's two buttons, or Make Mallory's
+   plan and its link (spec §2, "Conversation"). */
+.foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--space-24) var(--space-24);
+}
+.buttons { display: flex; flex-direction: column; gap: var(--space-10); width: 100%; }
+/* Skip for now is underlined, as the frame draws it. */
+.underlined { text-decoration: underline; text-underline-offset: var(--space-4); }
+.bar { padding: var(--space-8) var(--space-24) var(--space-24); }

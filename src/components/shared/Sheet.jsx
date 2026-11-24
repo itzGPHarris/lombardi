@@ -11,12 +11,16 @@ import styles from './Sheet.module.css';
 // same as Close and Escape. A sheet never opens another sheet: rendering one inside another throws.
 // It slides up from the bottom of the screen while the scrim fades in, and slides back down while
 // the scrim fades out, as on iOS (spec §19, "Sheets"). Under reduced motion both fade without sliding.
+// A bare sheet, as onboarding draws the account sheet (0c-b) and the staged calendar permission (0q-b),
+// has no grabber, no Close and no drag, and a tap on the scrim does nothing: it closes only through its
+// own buttons or the screen's Back, which `above` can lay over the scrim (fixtures C-00).
 const InsideSheet = createContext(false);
 const DRAG_TO_CLOSE = 96;
 
-export function SheetHeader({ heading, line, headingId, onClose, dragHandlers }) {
+export function SheetHeader({ heading, line, headingId, onClose, dragHandlers, bare = false }) {
   return (
-    <div className={styles.header}>
+    <div className={styles.header} data-bare={bare || undefined}>
+      {!bare && (
       <div className={styles.top} {...dragHandlers}>
         <span className={styles.spacer} />
         <span className={styles.grabberRow}><span className={styles.grabber} /></span>
@@ -24,6 +28,7 @@ export function SheetHeader({ heading, line, headingId, onClose, dragHandlers })
           <Icon name="close" />
         </button>
       </div>
+      )}
       {heading && <h2 id={headingId} className={styles.heading}>{heading}</h2>}
       {line && <p className={styles.line}>{line}</p>}
     </div>
@@ -34,7 +39,7 @@ export function SheetFooter({ children }) {
   return <div className={styles.footer}>{children}</div>;
 }
 
-export default function Sheet({ open, onClose, heading, line, tall = false, footer, children, bodyRef }) {
+export default function Sheet({ open, onClose, heading, line, tall = false, footer, children, bodyRef, bare = false, above = null }) {
   const nested = useContext(InsideSheet);
   const headingId = useId();
   const sheetRef = useRef(null);
@@ -83,19 +88,21 @@ export default function Sheet({ open, onClose, heading, line, tall = false, foot
 
   return createPortal(
     <InsideSheet.Provider value>
-      <div className={styles.layer} data-closing={closing || undefined}>
-        <div className={styles.scrim} onClick={closing ? undefined : onClose} aria-hidden="true" />
+      <div className={styles.layer} data-closing={closing || undefined} data-bare={bare || undefined}>
+        <div className={styles.scrim} onClick={closing || bare ? undefined : onClose} aria-hidden="true" />
+        {above && <div className={styles.above}>{above}</div>}
         <div
           ref={sheetRef}
           className={styles.sheet}
           data-height={tall ? 'tall' : 'compact'}
+          data-bare={bare || undefined}
           onAnimationEnd={(event) => { if (closing && event.target === event.currentTarget) setShown(false); }}
           role="dialog"
           aria-modal="true"
           aria-labelledby={heading ? headingId : undefined}
           tabIndex={-1}
         >
-          <SheetHeader heading={heading} line={line} headingId={headingId} onClose={onClose} dragHandlers={dragHandlers} />
+          <SheetHeader heading={heading} line={line} headingId={headingId} onClose={onClose} dragHandlers={dragHandlers} bare={bare} />
           <div className={styles.body} ref={bodyRef}>{children}</div>
           {footer && <SheetFooter>{footer}</SheetFooter>}
         </div>

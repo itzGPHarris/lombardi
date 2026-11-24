@@ -1,53 +1,73 @@
+import { useState } from 'react';
 import Button from '../shared/Button.jsx';
 import Choice from '../shared/Choice.jsx';
-import Icon from '../shared/Icon.jsx';
+import ReviewRow from './ReviewRow.jsx';
 import { Field } from './parts.jsx';
 import { household as words } from '../../copy/onboarding.js';
-import styles from './Onboarding.module.css';
-import own from './Household.module.css';
+import styles from './Schools.module.css';
 
-// The household on the school screen (0f), the parts 0g drew (3088:12922) until it joined the school
-// screen in fixtures 3.54 (issue O35): under the subheading "Your household", the household type and
-// the language at home, then, under "Who else helps?", the adults she counts on, who become the first
-// members of her circle.
-export default function HouseholdFields({ entries, set, setHelper, addHelper }) {
+// The household and the adults who help, as rows on the school screen (0f, 2853:13052; issue O36):
+// under "Your household", "How is your household set up?" showing her choice, which opens the four
+// choices in place, and "Language at home" showing English, the only working option in the prototype;
+// under "Who else helps?", a row for each adult with the name over the relationship, which opens the
+// Name and Relationship fields, and "+ Add someone", which opens the line and the two fields for a new
+// adult. The adults become the first members of her circle.
+export default function HouseholdRows({ entries, set, setHelper, addHelper }) {
+  const [open, setOpen] = useState(null);
+  const toggle = (row) => setOpen(open === row ? null : row);
+  const adding = open === 'new';
   return (
     <>
-      <section className={own.section} aria-labelledby="your-household">
-        <h2 id="your-household" className={own.subheading}>{words.heading}</h2>
-        <div className={own.section} role="group" aria-labelledby="household-setup">
-          <p id="household-setup" className={styles.line}>{words.question}</p>
-          <div className={own.choices}>
-            {words.choices.map((choice) => (
-              <Choice key={choice} selected={entries.setup === choice} onClick={() => set('setup', choice)}>{choice}</Choice>
-            ))}
-          </div>
-        </div>
-        <label className={styles.field} htmlFor="household-language">
-          <span className={styles.fieldLabel}>{words.language}</span>
-          <span className={styles.box}>
-            <span className={styles.boxValue}>{entries.language}</span>
-            <span className={styles.chevron}><Icon name="chevron-right" /></span>
+      <section className={styles.section} aria-labelledby="your-household">
+        <h2 id="your-household" className={styles.subheading}>{words.heading}</h2>
+        <div className={styles.card}>
+          <ReviewRow title={words.question} detail={entries.setup || null} open={open === 'setup'} onOpen={() => toggle('setup')}>
+            {open === 'setup' && (
+              <div className={styles.choices}>
+                {words.choices.map((choice) => (
+                  <Choice key={choice} selected={entries.setup === choice} onClick={() => { set('setup', choice); setOpen(null); }}>{choice}</Choice>
+                ))}
+              </div>
+            )}
+          </ReviewRow>
+          <div className={styles.selectRow}>
+            <ReviewRow title={words.language} detail={entries.language} />
             {/* English is the only working option in the prototype (spec §3). */}
-            <select id="household-language" className={styles.overlay} value={entries.language} onChange={(event) => set('language', event.target.value)}>
+            <select aria-label={words.language} className={styles.overlay} value={entries.language} onChange={(event) => set('language', event.target.value)}>
               <option value={entries.language}>{entries.language}</option>
             </select>
-          </span>
-        </label>
-      </section>
-      <section className={own.section} aria-labelledby="who-else-helps">
-        <h2 id="who-else-helps" className={own.subheading}>{words.subheading}</h2>
-        <p className={styles.line}>{words.line}</p>
-        <div className={own.helpers}>
-          {entries.helpers.map((helper, index) => (
-            <div key={index} className={styles.pair}>
-              <Field id={`helper-name-${index}`} label={words.name} value={helper.name} onChange={(name) => setHelper(index, { name })} />
-              <Field id={`helper-relationship-${index}`} label={words.relationship} value={helper.relationship} onChange={(relationship) => setHelper(index, { relationship })} />
-            </div>
-          ))}
+          </div>
         </div>
-        <Button kind="text" className={own.addSomeone} onClick={addHelper}>{words.addSomeone}</Button>
+      </section>
+      <section className={styles.section} aria-labelledby="who-else-helps">
+        <h2 id="who-else-helps" className={styles.subheading}>{words.subheading}</h2>
+        {entries.helpers.some((helper) => helper.name.trim()) && (
+          <div className={styles.card}>
+            {entries.helpers.map((helper, index) => (helper.name.trim() || open === index) && (
+              <ReviewRow key={index} title={helper.name} detail={helper.relationship} open={open === index} onOpen={() => toggle(index)}>
+                {open === index && <HelperFields helper={helper} index={index} setHelper={setHelper} />}
+              </ReviewRow>
+            ))}
+          </div>
+        )}
+        {adding ? (
+          <div className={styles.adding}>
+            <p className={styles.line}>{words.line}</p>
+            <HelperFields helper={entries.helpers.at(-1)} index={entries.helpers.length - 1} setHelper={setHelper} />
+          </div>
+        ) : (
+          <Button kind="text" className={styles.addSomeone} onClick={() => { addHelper(); setOpen('new'); }}>{words.addSomeone}</Button>
+        )}
       </section>
     </>
+  );
+}
+
+function HelperFields({ helper, index, setHelper }) {
+  return (
+    <div className={styles.pair}>
+      <Field id={`helper-name-${index}`} label={words.name} value={helper.name} onChange={(name) => setHelper(index, { name })} />
+      <Field id={`helper-relationship-${index}`} label={words.relationship} value={helper.relationship} onChange={(relationship) => setHelper(index, { relationship })} />
+    </div>
   );
 }

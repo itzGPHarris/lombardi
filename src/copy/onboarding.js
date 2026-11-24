@@ -28,7 +28,17 @@ export const checkPhoto = { use: 'Use this photo', retake: 'Retake' };
 export const handOff = { make: "Make {child}'s plan", somethingWrong: "Something's not right" };
 export const thinking = { photo: 'Reading your photo…', file: 'Reading your file…', listening: 'Listening…', making: "Making {child}'s plan…" };
 export const confirm = { calendar: 'Whose calendar is this?', newsletter: 'Whose newsletter is this?', choice: '{child} · {grade}' };
-export const draft = { heading: "{child}'s plan for this week", suggested: 'Suggested' };
+// The draft can be changed before the account (0c, fixtures 3.56, issue O36): each reminder has
+// Remove, each day with reminders ends with "Add something else for" the child (copy/today.js), the
+// suggested event has two choices, and removing a reminder raises the notice with Undo.
+export const draft = {
+  heading: "{child}'s plan for this week",
+  suggested: 'Suggested',
+  addToPlan: 'Add to the plan',
+  notThisTime: 'Not this time',
+  tellCoach: "Tell the MVP Coach what's wrong",
+  removed: "{item} is off {child}'s list for {day}.",
+};
 // Each of the coach's lines in the onboarding conversation is labeled this way (fixtures C-00).
 export const coachLabel = 'MVP Coach:';
 // The failure and waiting states, from fixtures section 4, "Coach" and "Onboarding" (spec §3).
@@ -39,13 +49,15 @@ export const failures = {
   slow: 'This is taking longer than it should. Your photo is safe, and you can try again.',
   tryAgain: 'Try again',
 };
-// The account prompt holds the sign-in (0c). With nothing captured it opens over 0a headed "Create your
-// account", with no line and no Not now (0c-b).
+// Keeping the plan sits at the end of the draft (0c-c). With nothing captured, a sheet headed "Create
+// your account" opens over 0a with the same field and Continue, and no line and no Not now (0c-b).
+// There is no Continue with Apple (fixtures 3.56, issue O36).
 export const accountPrompt = {
   heading: "Keep {child}'s plan",
   line: 'Create an account to save this plan and add the rest of your family.',
-  apple: 'Continue with Apple',
+  emailLabel: 'The email your school writes to',
   email: 'Email',
+  helper: 'MVP uses it to recognize school emails you forward.',
   continue: 'Continue',
   notNow: 'Not now',
   headingNoCapture: 'Create your account',
@@ -66,18 +78,24 @@ export const calendar = {
   permission: 'Most Valuable Parent wants to see your calendar',
   allow: 'Allow',
   cancel: 'Cancel',
-};
-export const school = {
-  heading: 'Where do they go to school?',
-  line: 'Add each child\'s school and start time, so the MVP Coach knows whose emails and handouts are whose and when to leave.',
+  // The connected state (0q-d): she can connect another calendar or continue (F40).
   connected: 'Your {calendar} is connected.',
-  school: 'School',
-  startTime: 'Start time',
-  fromCalendarPhoto: 'From your calendar photo',
-  age: 'Age',
-  addAnother: '+ Add another child',
+  connectedButton: '{calendar} · Connected',
+  continue: 'Continue',
 };
-// The household sits on the school screen under its own subheadings, with Done at the foot (0f).
+// The school screen is the coach's review of what it found (0f, fixtures 3.56, issue O36). It has no
+// heading and opens with the coach's line (spec §3, open condition 3).
+export const school = {
+  coachLine: "Here's what I found. Change anything that's wrong.",
+  childRow: '{child} · {grade}',
+  fromCalendar: 'From your {calendar}',
+  fromCalendarPhoto: 'From your calendar photo',
+  missing: "I couldn't find {child}'s start time. What time does school start at {school}?",
+  startTimeFor: "{child}'s start time",
+  age: 'Age',
+};
+// The household and the adults who help sit on the school screen as rows under their subheadings, with
+// Done at the foot (0f).
 export const household = {
   heading: 'Your household',
   question: 'How is your household set up?',

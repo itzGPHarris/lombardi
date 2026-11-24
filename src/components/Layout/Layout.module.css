@@ -112,7 +112,6 @@
   color: var(--ink-primary);
 }
 .topBarBack > span { width: var(--size-icon); height: var(--size-icon); }
-.topBarCounter { flex: 1; min-width: 0; }
 
 /* Today: the header and Now hold in place on paper, and the canvas sheet rises over them */
 .todayHeader {

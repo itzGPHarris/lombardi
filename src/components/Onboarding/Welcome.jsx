@@ -9,10 +9,11 @@ import styles from './Onboarding.module.css';
 import own from './Welcome.module.css';
 
 // The welcome (0w, 2853:12929): her first name and zip code, then, under "Who are you planning for?",
-// each child's first name, birth month and year and suggested grade, which 0k and 0k-b asked on
-// screens of their own until fixtures 3.54 (issue O35). Her name and zip code can be left blank, so
-// there is no skip link, and Continue works once every child has a name and a birth month (issue O18).
-// The screen scrolls while Continue stays pinned at the foot.
+// the fields for one child, first name, birth month and year, and the suggested grade once the birth
+// month is filled in (0w-b, 2863:11708), with "+ Add another child" directly under them, which adds the
+// next child's fields (0w-c, 3282:17717; fixtures 3.56, issues O35 and O36). Her name and zip code can
+// be left blank, so there is no skip link, and Continue works once every child has a name and a birth
+// month. The screen scrolls while Continue stays pinned at the foot.
 export default function Welcome({ entries, openGrade, set, setChild, setBirth, addChild, openGradeList, chooseGrade, onContinue }) {
   return (
     <OnboardingShell

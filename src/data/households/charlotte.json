@@ -2130,13 +2130,20 @@
   ],
   "conversation": [
     {
-      "id": "c00-readback",
+      "id": "c00-naming",
       "from": "coach",
       "kind": "read-back",
       "at": {"week":-1,"day":"mon","time":"20:32"},
       "capture": "cap-rotation",
-      "text": "This is Westview Kindergarten's calendar for {month:-1.mon}, with a six-day letter rotation. A days are library, so books go back that day. B and D are motor skills and F is science and motor skills, so those three days need sneakers. C is science and E is art and music. The calendar also lists back-to-school night, the field trip to Fir Hollow Farm and the harvest fair.",
+      "text": "This is Westview Kindergarten's calendar for {month:-1.mon}.",
       "confirm": {"kind":"calendar","choices":["mallory","alexis"],"chosen":"mallory"}
+    },
+    {
+      "id": "c00-readback",
+      "from": "coach",
+      "kind": "read-back",
+      "at": {"week":-1,"day":"mon","time":"20:32"},
+      "text": "Westview Kindergarten uses a six-day letter rotation. A days are library, so books go back that day. B and D are motor skills and F is science and motor skills, so those three days need sneakers. C is science and E is art and music. The calendar also lists back-to-school night, the field trip to Fir Hollow Farm and the harvest fair."
     },
     {
       "id": "c00-question",
@@ -2634,7 +2641,7 @@
           {"id":"fri-harvest-fair-w1","inPlan":false,"owner":"charlotte","status":null,"marks":[],"note":null}
         ],
         "reviewCard": ["w-1-thu-back-to-school"],
-        "conversation": ["c00-readback","c00-question","c00-answer","c00-handoff","c00-welcome"],
+        "conversation": ["c00-naming","c00-readback","c00-question","c00-answer","c00-handoff","c00-welcome"],
         "captures": ["cap-rotation"],
         "requests": [],
         "groups": [],
@@ -2690,8 +2697,8 @@
           },
           "calendar": "google",
           "schools": [
-            {"child":"alexis","school":"cedar-grove","startTime":"08:00","fromCapture":null},
-            {"child":"mallory","school":"westview","startTime":"08:30","fromCapture":"cap-rotation"}
+            {"child":"alexis","school":"cedar-grove","startTime":"08:00","fromCapture":null,"source":"calendar"},
+            {"child":"mallory","school":"westview","startTime":"08:30","fromCapture":"cap-rotation","source":"capture"}
           ],
           "household": {
             "setup": "Two parents",
@@ -2873,7 +2880,7 @@
         ],
         "reviewCard": ["tue-tutoring-second"],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -3064,7 +3071,7 @@
         ],
         "reviewCard": ["tue-tutoring-second"],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -3276,7 +3283,7 @@
         ],
         "reviewCard": ["tue-tutoring-second"],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -3493,7 +3500,7 @@
         ],
         "reviewCard": ["tue-tutoring-second"],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -3731,7 +3738,7 @@
         ],
         "reviewCard": ["tue-tutoring-second"],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -3969,7 +3976,7 @@
         ],
         "reviewCard": ["tue-tutoring-second"],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -4250,7 +4257,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -4511,7 +4518,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -4772,7 +4779,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -5025,7 +5032,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -5314,7 +5321,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -5653,7 +5660,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -5964,7 +5971,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -6247,7 +6254,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -6546,7 +6553,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -6841,7 +6848,7 @@
         ],
         "reviewCard": [],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",
@@ -7159,7 +7166,7 @@
         ],
         "reviewCard": ["fri-harvest-fair-w1"],
         "conversation": [
-          "c00-readback",
+          "c00-naming","c00-readback",
           "c00-question",
           "c00-answer",
           "c00-handoff",

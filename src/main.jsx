@@ -22,8 +22,9 @@ if (import.meta.env.DEV && params.has('shell')) {
   // Development only, never in a build: open a moment on a tab with some of its scripted steps
   // played and the demo clock at a time inside it, such as /?moment=C-03b&steps=2&at=14:05, so every
   // Today state can be compared with its frame. Presenters play steps from Stage 6. &notifications=
-  // stages the reminder sheet's notifications-off states. For C-00, &screen=0f opens onboarding at a
-  // screen, &failure=unreadable, slow-read, slow-draft or account opens a failure state, and
+  // stages the reminder sheet's notifications-off states. For C-00, &screen=0f opens onboarding at one
+  // of its ten screens or one of their states, such as 0a-d or 0q-b (src/demo/onboarding.js, README),
+  // &failure=unreadable, slow-read, slow-draft or account opens a failure state, and
   // &branch=skipped-capture or plan-b opens her first board on that branch.
   if (import.meta.env.DEV && params.has('moment') && !embedded) {
     Object.assign(start, {

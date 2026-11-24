@@ -47,3 +47,15 @@
 .body { min-height: 0; }
 .sheet[data-height='tall'] .body { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
 .footer { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }
+
+/* A bare sheet (0c-b, 0q-b) has no grabber row, so its content starts at the sheet's own top padding,
+   as the frames draw it. `above` holds a control laid over the scrim, such as the screen's Back. */
+.sheet[data-bare] { padding-top: var(--space-24); padding-inline: var(--space-24); }
+.header[data-bare] .heading { font: var(--text-title); letter-spacing: var(--text-title-tracking); }
+/* Onboarding has no sidebar, so a bare sheet and its scrim span the whole screen at every size. */
+@media (min-width: 768px) {
+  .layer[data-bare] { left: 0; }
+  .layer[data-bare] .scrim { left: 0; }
+}
+.above { position: absolute; inset: 0 0 auto; max-width: var(--layout-phone-column); margin-inline: auto; pointer-events: none; }
+.above > * { pointer-events: auto; }
