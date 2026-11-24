@@ -12,10 +12,10 @@ import GettingReady from './GettingReady.jsx';
 import Intro from './Intro.jsx';
 import { useSession } from '../../demo/SessionContext.js';
 import {
-  childrenInWords, draftDates, draftReminder, draftView, introRecap, reminderDay,
+  childrenInWords, draftDates, draftOutcome, draftReminder, draftView, introRecap, isEmail, reminderDay,
 } from '../../demo/onboarding.js';
 import { dateOf } from '../../demo/calendar.js';
-import { fillDates } from '../../demo/dateTokens.js';
+import { fillDates, monthDay } from '../../demo/dateTokens.js';
 import { fill } from '../../demo/today.js';
 import { accountPrompt, draft as draftWords, gettingReady, grades as gradeList, thinking } from '../../copy/onboarding.js';
 
@@ -44,7 +44,7 @@ export default function Onboarding() {
 
   const capture = seed.captures.find((entry) => entry.id === answers.capture);
   const conversation = useMemo(() => Object.fromEntries(
-    ['c00-naming', 'c00-readback', 'c00-question', 'c00-answer', 'c00-handoff', 'c00-draft', 'c00-welcome']
+    ['c00-naming', 'c00-readback', 'c00-question', 'c00-answer', 'c00-handoff', 'c00-welcome']
       .map((id) => seed.conversation.find((entry) => entry.id === id))
       .map((entry) => [entry.id.slice(4), { ...entry, text: fillDates(entry.text, { demoWeekStart: anchor, now: moment.time }) }]),
   ), [seed, anchor, moment.time]);
@@ -89,17 +89,21 @@ export default function Onboarding() {
           onBack={back}
           onMake={() => go('0t')}
           sheet={(
-            <AccountSheet open={flags.accountSheet} email={entries.email} setEmail={(value) => set('email', value)} onContinue={() => go('0e-p')} onBack={back} />
+            <AccountSheet open={flags.accountSheet} email={entries.email} setEmail={(value) => set('email', value)} canContinue={isEmail(entries.email)} onContinue={() => go('0e-p')} onBack={back} />
           )}
         />
       );
     }
     case '0t': return <Thinking key="0t" line={fill(thinking.making, { child: draftChild.name })} slow={failure === 'slow-draft'} onDone={toDraft} onTryAgain={() => go('0t')} />;
     case '0c': {
+      // Each card is titled with its date and letter over what the letter means, such as "Tuesday,
+      // Oct. 6 · D" over "Motor skills", and the event with its date over its name. A skipped card
+      // folds to one line, such as "Thursday, Oct. 8 · Back-to-school night" (fixtures C-00).
       const days = draftView(answers.draft, flags.draft).map((day) => {
-        const weekday = dateOf(day.row.day, anchor).weekday;
-        if (day.kind === 'event') return { ...day, title: `${weekday} · ${day.row.event}` };
-        return { ...day, title: `${weekday} · ${day.row.letter}`, meaning: day.row.meaning };
+        const date = `${dateOf(day.row.day, anchor).weekday}, ${monthDay(day.row.day, anchor)}`;
+        if (day.kind === 'event') return { ...day, title: date, meaning: day.row.event, folded: `${date} · ${day.row.event}` };
+        const title = `${date} · ${day.row.letter}`;
+        return { ...day, title, meaning: day.row.meaning, folded: title };
       });
       const removed = flags.draft.notice && draftReminder(answers.draft, flags.draft, flags.draft.notice);
       const notice = removed && fill(draftWords.removed, { item: removed.text, child: draftChild.name, day: reminderDay(removed.row, moment.time, anchor) });
@@ -107,7 +111,6 @@ export default function Onboarding() {
         <Draft
           child={draftChild.name}
           dates={draftDates(answers.draft, anchor)}
-          line={conversation.draft.text}
           days={days}
           notice={notice}
           scrollToKeep={flags.scrollToKeep}
@@ -118,7 +121,8 @@ export default function Onboarding() {
               heading={fill(accountPrompt.heading, { child: draftChild.name })}
               email={entries.email}
               setEmail={(value) => set('email', value)}
-              onContinue={() => go('0e-p')}
+              canContinue={isEmail(entries.email)}
+              onContinue={() => act({ type: 'KEEP_PLAN', outcome: draftOutcome(answers.draft, flags.draft) })}
               onNotNow={() => dispatch({ type: 'START_OVER' })}
             />
           )}

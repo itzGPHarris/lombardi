@@ -9,7 +9,8 @@ import styles from './ReminderItem.module.css';
 // The row sits in its own container in the children's tint, the check in a fixed column at the left,
 // and the whole row outside its button ticks it. Item has a remove button; Task has its own button,
 // such as Call, in place of it; Choosing asks how long to take a repeating item off; New is the row
-// she types into after "Add something else for" a child.
+// she types into after "Add something else for" a child. An item with no onRemove is read-only, as
+// the draft shows its reminders before she taps Change (0c; the library has no such variant, O39).
 export default function ReminderItem({ row, onTick, onRemove, choosing, choices, onChoose, onCancelChoosing, onTask }) {
   const rowRef = useRef(null);
 
@@ -35,7 +36,7 @@ export default function ReminderItem({ row, onTick, onRemove, choosing, choices,
       {row.kind === 'task' && (
         <Button kind="outlined" className={styles.taskButton} onClick={(event) => { event.stopPropagation(); onTask?.(row); }}>{row.button}</Button>
       )}
-      {row.kind === 'item' && !choosing && (
+      {row.kind === 'item' && !choosing && onRemove && (
         <button
           type="button"
           className={styles.remove}

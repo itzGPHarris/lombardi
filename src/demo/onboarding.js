@@ -60,7 +60,17 @@ export function gradeInSentence(grade) {
   return grade === 'Pre-K' ? grade : grade.charAt(0).toLowerCase() + grade.slice(1);
 }
 
-const emptyDraft = () => ({ removed: [], added: {}, event: 'suggested', notice: null });
+// The draft's edits (0c, issue O46). Each coach suggestion on the draft, a day with reminders or the
+// week's school event, is a card in one of three states: suggested (as it arrives), kept or skipped.
+// A card with no entry in cards is suggested. changing names the day open in Change, and before holds
+// the state a card had before Skip, so Undo returns it there.
+const emptyDraft = () => ({ cards: {}, before: {}, changing: null, removed: [], added: {}, notice: null });
+
+// A row of the draft is a coach suggestion when it carries a reminder or is the week's school event.
+// A day with neither, such as Wednesday, is shown for reference and asks for nothing.
+export function isSuggestion(row) {
+  return !!(row.event || row.checklistItem);
+}
 
 // The development links open a state of a screen by its fixtures ID (README). Each names a state that
 // exists; a retired ID opens the splash.
@@ -72,7 +82,7 @@ const states = {
   '0a-d': { screen: '0a', flags: { capture: 'confirm', captureKind: 'photo' } },
   '0a-e': { screen: '0a', flags: { capture: 'handoff', captureKind: 'photo', chosen: true } },
   '0c-b': { screen: '0a', flags: { accountSheet: true, skippedCapture: true } },
-  '0c-c': { screen: '0c', flags: { scrollToKeep: true } },
+  '0c-c': { screen: '0c', flags: { scrollToKeep: true }, emailTyped: true },
   '0c-d': { screen: '0c', draftEdited: true },
   '0q-b': { screen: '0q', flags: { permissionFor: 'calendar' } },
   '0q-d': { screen: '0q', flags: { calendar: 'calendar' } },
@@ -112,11 +122,15 @@ export function startOnboarding(seed, moment, { screen = '0s', failure = null } 
   }
   const draft = emptyDraft();
   if (state.draftEdited) {
-    // 0c-d: the library book removed, with its notice, and back-to-school night added.
-    const library = answers.draft.rows.findIndex((row) => row.checklistItem && row.letter === 'A');
-    draft.removed = [`${library}`];
-    draft.event = 'added';
-    draft.notice = `${library}`;
+    // 0c-d (3282:17866): Tuesday kept, Thursday's reminders opened with Change, back-to-school night
+    // skipped and Friday left alone.
+    const rows = answers.draft.rows;
+    const tuesday = rows.findIndex((row) => row.checklistItem && row.letter === 'D');
+    const thursday = rows.findIndex((row) => row.checklistItem && row.letter === 'F');
+    const event = rows.findIndex((row) => row.event);
+    draft.cards = { [tuesday]: 'kept', [event]: 'skipped' };
+    draft.before = { [event]: 'suggested' };
+    draft.changing = thursday;
   }
   if (state.missingStart !== undefined) {
     schools[state.missingStart] = { ...schools[state.missingStart], startTime: '', missing: true };
@@ -131,7 +145,8 @@ export function startOnboarding(seed, moment, { screen = '0s', failure = null } 
       // The children she has yet to add, in order, so the demo path fills them in as the fixtures do.
       toAdd: allChildren ? [] : children.slice(1),
       schools,
-      email: '',
+      // 0c-c draws the page with her email typed, the address Settings shows (fixtures Appendix A).
+      email: state.emailTyped ? seed.people.find((person) => person.group === 'parent')?.account?.email ?? '' : '',
       setup: answers.household.setup,
       language: answers.household.language,
       helpers: answers.household.helpers.map(({ name, relationship }) => ({ name, relationship })),
@@ -147,6 +162,8 @@ export function startOnboarding(seed, moment, { screen = '0s', failure = null } 
       correcting: false,
       draft,
       scrollToKeep: false,
+      // The plan she kept with Continue on the draft (draftOutcome), carried to her first board.
+      keptPlan: null,
       permissionFor: null,
       calendar: null,
       gradeListOpen: null,
@@ -214,17 +231,54 @@ export function onboardingReducer(state, action) {
     case 'CHOOSE_CHILD': return state.flags.capture === 'confirm' ? flags({ chosenChild: action.child, capture: 'question' }) : state;
     case 'ANSWER': return flags({ capture: 'handoff', correcting: false });
     case 'CORRECT': return flags({ correcting: true });
-    // "Tell the MVP Coach what's wrong" reopens the capture conversation at the hand-off, in the
-    // capture bar. The corrected-draft round trip is not built (docs/issues.csv).
+    // "Tell the MVP Coach what's wrong", and Change on a suggestion MVP can't edit in place such as
+    // back-to-school night, reopen the capture conversation at the hand-off, in the capture bar. The
+    // draft or the suggestion is not in view yet, and the corrected-draft round trip is not built
+    // (issue O41).
     case 'TELL_COACH': return leave('0a', { capture: 'handoff', correcting: true });
+    // Continue at the end of the draft keeps the plan as she left it and goes on to the plan screen.
+    case 'KEEP_PLAN': return leave('0e-p', { keptPlan: action.outcome });
     case 'SKIP_CAPTURE': return flags({ accountSheet: true, skippedCapture: true, captureKind: null, capture: 'ask' });
-    // The draft (0c): removing a reminder takes it off straight away and raises the notice with Undo,
-    // for every reminder, because the draft has no "Just tonight" or "Every night" (docs/issues.csv).
-    case 'REMOVE_REMINDER': return draft({ removed: [...state.flags.draft.removed, action.key], notice: action.key });
+    // The draft (0c, issue O46). Keep takes away the Suggested tag and leaves Kept with Undo. Skip
+    // folds the card with Undo, which returns it to the state it had. Change on a day with reminders
+    // opens it in place, and Done closes it as kept (docs/issues.csv, O44). Only one day is open at a
+    // time, so opening another closes the first as kept.
+    case 'KEEP': return draft({ cards: { ...state.flags.draft.cards, [action.row]: 'kept' }, changing: state.flags.draft.changing === action.row ? null : state.flags.draft.changing });
+    case 'SKIP': {
+      const { cards, before, changing } = state.flags.draft;
+      return draft({
+        cards: { ...cards, [action.row]: 'skipped' },
+        before: { ...before, [action.row]: cards[action.row] ?? 'suggested' },
+        changing: changing === action.row ? null : changing,
+      });
+    }
+    case 'UNDO_CARD': {
+      const { cards, before } = state.flags.draft;
+      const back = cards[action.row] === 'skipped' ? (before[action.row] ?? 'suggested') : 'suggested';
+      return draft({ cards: { ...cards, [action.row]: back } });
+    }
+    case 'CHANGE': {
+      const { cards, changing } = state.flags.draft;
+      const closed = changing !== null && changing !== action.row ? { ...cards, [changing]: 'kept' } : cards;
+      return draft({ cards: closed, changing: action.row, notice: null });
+    }
+    case 'DONE': {
+      const { cards, changing } = state.flags.draft;
+      if (changing === null) return state;
+      return draft({ cards: { ...cards, [changing]: 'kept' }, changing: null, notice: null });
+    }
+    // Inside Change, removing a reminder takes it off straight away and raises the notice with Undo,
+    // for every reminder: the draft has no "Just tonight" or "Every night" (issue O40).
+    case 'REMOVE_REMINDER': {
+      if (rowOfKey(action.key) !== state.flags.draft.changing) return state;
+      return draft({ removed: [...state.flags.draft.removed, action.key], notice: action.key });
+    }
     case 'UNDO_REMOVE': return draft({ removed: state.flags.draft.removed.filter((row) => row !== state.flags.draft.notice), notice: null });
     case 'DISMISS_NOTICE': return draft({ notice: null });
-    case 'ADD_REMINDER': return draft({ added: { ...state.flags.draft.added, [action.row]: [...(state.flags.draft.added[action.row] ?? []), action.text] } });
-    case 'EVENT': return draft({ event: action.choice });
+    case 'ADD_REMINDER': {
+      if (action.row !== state.flags.draft.changing) return state;
+      return draft({ added: { ...state.flags.draft.added, [action.row]: [...(state.flags.draft.added[action.row] ?? []), action.text] } });
+    }
     // The calendar (0q): the permission is a sheet over the screen (0q-b), and allowing it shows the
     // connected state on the same screen (0q-d, F40).
     case 'ASK_CALENDAR': return flags({ permissionFor: action.calendar });
@@ -255,18 +309,131 @@ export function startTimeSource(entry, flags) {
   return null;
 }
 
+// The draft row a reminder's key belongs to: "4" is row 4's own reminder, "4-0" the first she added.
+function rowOfKey(key) {
+  return Number(`${key}`.split('-')[0]);
+}
+
+// The state a card is in: reference for a day that asks for nothing, changing for the day open in
+// Change, and otherwise suggested, kept or skipped (0c, 0c-d; issue O46).
+export function cardState(row, index, edits) {
+  if (!isSuggestion(row)) return 'reference';
+  if (edits.changing === index) return 'changing';
+  return edits.cards[index] ?? 'suggested';
+}
+
 // The draft's rows as the draft shows them, with her edits: each school day with its reminders, less
-// any she removed and with any she added, and the suggested event as she left it (0c, 0c-d).
+// any she removed and with any she added, the week's school event, and the state of each card
+// (0c, 0c-d).
 export function draftView(draftAnswers, edits) {
   return draftAnswers.rows.map((row, index) => {
-    if (row.event) return { index, kind: 'event', row, event: edits.event };
+    const state = cardState(row, index, edits);
+    if (row.event) return { index, kind: 'event', row, state };
     const all = [
       ...(row.checklistItem ? [{ key: `${index}`, text: row.checklistItem }] : []),
       ...(edits.added[index] ?? []).map((text, added) => ({ key: `${index}-${added}`, text, added: true })),
     ];
     const reminders = all.filter((reminder) => !edits.removed.includes(reminder.key));
-    return { index, kind: 'day', row, reminders, hasReminders: all.length > 0 };
+    return { index, kind: 'day', row, state, reminders, hasReminders: all.length > 0 };
   });
+}
+
+// Continue on the draft keeps every card she didn't skip (spec §3, standing decision 14). A day still
+// open in Change counts as Done, so it is kept, and a card she left alone stays suggested, as any
+// suggestion does (docs/issues.csv, O44). This is what the plan holds when she reaches her first board.
+export function draftOutcome(draftAnswers, edits) {
+  const cards = {};
+  draftAnswers.rows.forEach((row, index) => {
+    const state = cardState(row, index, edits);
+    if (state !== 'reference') cards[index] = state === 'changing' ? 'kept' : state;
+  });
+  return { cards, removed: [...edits.removed], added: { ...edits.added } };
+}
+
+// Continue on keeping the plan works once the field holds an email (spec §3, "Inputs", Email).
+export function isEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((value ?? '').trim());
+}
+
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+// Her first board shows the plan she kept at the end of the draft (spec §3, standing decisions 13 and
+// 14; issue O46). C-00's seed holds the plan as it stands when she leaves every card alone, so this
+// returns the seed with the outcome laid over C-00:
+// - the week's school event, kept, joins its day as hers and leaves the review card, as Add to the
+//   game plan would (spec §8); skipped, it leaves the plan and the review card; left alone, it stays
+//   Suggested on the review card;
+// - the reminders for tomorrow, the evening checklist on her first board, lose any she removed or
+//   whose day she skipped, and gain any she added. A draft reminder names what goes with the child
+//   on that day, and the Rule that creates it names the checklist item it creates, such as "Sneakers
+//   and socks by the door" for the draft's "Sneakers" (spec §16, "Rule"; issue O47);
+// - once nothing is left on the review card, because she kept or skipped the event, the coach card's
+//   follow-up after she agrees takes its shorter form, which the seed holds beside the longer one
+//   (fixtures section 4, "Coach card after she agrees"; issue O47).
+// A kept card and one left alone look the same on Today, because a checklist carries no status. The
+// later days' outcomes are held and show on no board in C-00.
+export function seedWithDraft(seed, outcome) {
+  if (!outcome) return seed;
+  const momentIndex = seed.moments.findIndex((moment) => moment.state?.onboarding);
+  if (momentIndex < 0) return seed;
+  const moment = seed.moments[momentIndex];
+  const answers = moment.state.onboarding;
+  const parentId = seed.people.find((person) => person.group === 'parent')?.id ?? null;
+  const tomorrow = { week: moment.time.week, day: weekdays[weekdays.indexOf(moment.time.day) + 1] };
+
+  const itemChanges = {};
+  const offCard = new Set();
+  const off = [];
+  const on = [];
+  answers.draft.rows.forEach((row, index) => {
+    const state = outcome.cards[index] ?? 'suggested';
+    if (row.event && row.planItem) {
+      if (state === 'kept') itemChanges[row.planItem] = { inPlan: true, owner: parentId, status: null };
+      if (state === 'skipped') itemChanges[row.planItem] = { inPlan: false, owner: null, status: null };
+      if (state !== 'suggested') offCard.add(row.planItem);
+      return;
+    }
+    if (row.day.week !== tomorrow.week || row.day.day !== tomorrow.day) return;
+    const added = outcome.added[index] ?? [];
+    const created = seed.rules.find((rule) => row.goingWith && rule.goingWith === row.goingWith)?.checklistItem;
+    if (created && (state === 'skipped' || outcome.removed.includes(`${index}`))) off.push(created);
+    if (state !== 'skipped') on.push(...added.filter((_, at) => !outcome.removed.includes(`${index}-${at}`)));
+  });
+
+  const child = answers.draft.child;
+  const matches = (entry) => typeof entry === 'string' && off.includes(entry);
+  const patchGroups = (groups) => groups?.map((group) => (group.child === child
+    ? { ...group, items: [...group.items.filter((entry) => !matches(entry)), ...on] }
+    : group));
+  const patchToday = (today) => {
+    if (!today) return today;
+    const next = { ...today };
+    if (today.now?.checklist?.groups) next.now = { ...today.now, checklist: { ...today.now.checklist, groups: patchGroups(today.now.checklist.groups) } };
+    if (Array.isArray(today.forTomorrow)) next.forTomorrow = today.forTomorrow.map((row) => (row.groups ? { ...row, groups: patchGroups(row.groups) } : row));
+    return next;
+  };
+  const patchItems = (items) => items?.map((item) => (itemChanges[item.id] ? { ...item, ...itemChanges[item.id] } : item));
+  const patchCard = (card) => card?.filter((id) => !offCard.has(id));
+
+  const state = {
+    ...moment.state,
+    planItems: patchItems(moment.state.planItems),
+    reviewCard: patchCard(moment.state.reviewCard),
+    today: patchToday(moment.state.today),
+  };
+  const steps = (moment.steps ?? []).map((step) => ({
+    ...step,
+    ...(step.set?.reviewCard ? { set: { ...step.set, reviewCard: patchCard(step.set.reviewCard) } } : {}),
+    ...(step.show?.today ? { show: { ...step.show, today: patchToday(step.show.today) } } : {}),
+  }));
+  const moments = seed.moments.map((entry, index) => (index === momentIndex ? { ...moment, state, steps } : entry));
+  const nothingWaiting = offCard.size > 0 && !state.reviewCard?.length;
+  const cardId = moment.state.today?.coachCard?.id;
+  const coachCards = !nothingWaiting ? seed.coachCards : seed.coachCards.map((card) => (card.id !== cardId || !card.after ? card : {
+    ...card,
+    after: Object.fromEntries(Object.entries(card.after).map(([answer, after]) => [answer, after.textNothingWaiting ? { ...after, text: after.textNothingWaiting } : after])),
+  }));
+  return { ...seed, moments, coachCards };
 }
 
 // Continue on the welcome works once every child has a name and a birth month (spec §3, issue O18).
