@@ -350,7 +350,7 @@ The prototype does not read photos, so the capture conversation shows its readin
 
 1. **Heather signs off the new onboarding order.** "Value before account" still holds, but the line that onboarding asks for one thing before it asks who she is no longer does. The brief carries the same change (issue O3).
 2. **The plan screen's words are proposed.** The plan names, prices and features on 0e-p come from Greg's board and need Greg's and Heather's confirmation before they go into fixtures section 4 (issue O17).
-3. **None.** The school screen asks "Where do they go to school?" (issue O11, decided November 20, 2026).
+3. **None.** The school screen asked "Where do they go to school?" from November 20, 2026 (issue O11). Since option C was accepted on November 24, 2026 (O36), it has no heading and opens with the coach's line, "Here's what I found. Change anything that's wrong.", and the question survives only as the frame's name.
 4. **None.** 0g and 0h are one screen, which Greg approved on November 20, 2026 (issues O22 and O24, fixtures Appendix B item 113).
 5. **None.** The read-back reads "Whose calendar is this?" (fixtures Appendix B item 92, issue O31).
 6. **Three lines from O35 need Heather's review** (fixtures Appendix B item 155): the welcome's subheading "Who are you planning for?", the grade line "The MVP Coach works out each grade from the birth month. Change any grade that's wrong.", and "Your Google Calendar is connected.", which now sits on the calendar screen. The build uses them as written until she changes them.

@@ -24,9 +24,13 @@ describe('Coach', () => {
     const view = coachView({ seed, articles, momentId: 'C-00' });
     expect(view.days.map((day) => day.heading)).toEqual(['Today']);
     const kinds = messages(view).map((message) => message.kind);
-    expect(kinds).toEqual(['photo', 'read-back', 'read-back', 'text', 'plan', 'taught']);
-    const [, readBack, , , handoff, welcome] = messages(view);
-    expect(readBack.confirm).toEqual({ question: 'Whose calendar is this?', chosen: 'Mallory · K' });
+    // The naming line and "Whose calendar is this?" come before the read-back, in the 0a order
+    // (fixtures 3.56 C-00, "Coach, as shown"; issue O36).
+    expect(kinds).toEqual(['photo', 'read-back', 'read-back', 'read-back', 'text', 'plan', 'taught']);
+    const [, naming, readBack, , , handoff, welcome] = messages(view);
+    expect(naming.text).toBe("This is Westview Kindergarten's calendar for October.");
+    expect(naming.confirm).toEqual({ question: 'Whose calendar is this?', chosen: 'Mallory · K' });
+    expect(readBack.text).toMatch(/^Westview Kindergarten uses a six-day letter rotation\./);
     expect(handoff.actions).toBeUndefined();
     expect(welcome.greeting).toBe('Welcome to the team, Charlotte.');
   });

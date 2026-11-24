@@ -1,19 +1,20 @@
-/* The draft on 0c: the heading in Header (Fraunces), the dates in Meta, the coach's line in Voice,
-   then the rows on a card. The frame splits the rows into two cards headed "School days" and
-   "Events", words the fixtures do not write, so the build keeps one card (docs/issues.csv). */
+/* The draft on 0c: the heading in Header (Fraunces), the dates in Meta, the coach's line in Voice, then
+   the days on one card. Each day is a row of its name and letter beside what the letter means, over a
+   hairline, then its reminders as ReminderItem rows and the add link. Keeping the plan ends the page. */
 .draft { display: flex; flex-direction: column; gap: var(--space-24); padding: var(--space-16) 0 var(--space-24); }
 .header { display: flex; flex-direction: column; gap: var(--space-4); }
 .heading { font: var(--text-header); letter-spacing: var(--text-header-tracking); color: var(--ink-primary); }
-.dates { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
-.line { padding-top: var(--space-12); font: var(--text-voice); letter-spacing: var(--text-voice-tracking); color: var(--ink-primary); }
-.rows { display: flex; flex-direction: column; padding: var(--space-8) var(--space-16); border-radius: var(--radius-lg); background: var(--bg-control); }
-.row { display: flex; align-items: baseline; gap: var(--space-12); padding: var(--space-10) 0; border-bottom: thin solid var(--border-hairline); }
-.row:last-child { border-bottom: 0; }
-.row[data-event] .day { flex: 1 1 auto; }
-.day { flex: 1; min-width: 0; font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
-.what { flex: 1; min-width: 0; font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.dates { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
+.line { padding-top: var(--space-24); font: var(--text-voice); letter-spacing: var(--text-voice-tracking); color: var(--ink-primary); }
+
+.rows { display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-12) var(--space-16) var(--space-16); border-radius: var(--radius-lg); background: var(--bg-control); }
+.day { display: flex; flex-direction: column; gap: var(--space-12); }
+.dayRow { display: flex; align-items: baseline; gap: var(--space-12); padding: var(--space-8) 0; border-bottom: thin solid var(--border-hairline); }
+.dayName, .meaning, .event { flex: 1; min-width: 0; font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.event { flex: 1 1 auto; }
 .suggested {
   flex-shrink: 0;
+  align-self: center;
   padding: var(--space-4) var(--space-8);
   border-radius: var(--radius-pill);
   background: var(--coach-bg);
@@ -21,3 +22,7 @@
   letter-spacing: var(--text-meta-tracking);
   color: var(--coach-ink);
 }
+.reminders { display: flex; flex-direction: column; gap: var(--space-8); }
+.choices { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.add { justify-content: flex-start; }
+.tellCoach { align-self: center; }

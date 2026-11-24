@@ -1,17 +1,28 @@
 .choices { padding-top: var(--space-24); gap: var(--space-12); }
+.choices[data-connected] { padding-top: var(--space-8); }
 
-/* 0q-b: the screen she came from stays behind, and the permission sits at the foot. */
-.permissionScreen { position: relative; display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
-.behind { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--layout-status) var(--space-24) 0; }
-.behindBar { display: flex; align-items: center; gap: var(--space-16); min-height: var(--size-tap-target); }
-.behindBack { display: inline-flex; color: var(--ink-primary); }
-.behindBack > span { width: var(--size-icon); height: var(--size-icon); }
-.permission {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-  padding: var(--space-32) var(--space-24) var(--space-24);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  background: var(--bg-card);
+/* 0q-d: the line with a check under the screen's line, in Body strong. */
+.connected { display: flex; align-items: center; gap: var(--space-8); padding-top: var(--space-8); font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.connectedIcon { display: inline-flex; flex-shrink: 0; }
+.connectedIcon > span { width: var(--size-icon); height: var(--size-icon); }
+
+/* 0q-b: the staged permission, generic and grayscale (fixtures section 4). The library has no
+   neutral button for staged system sheets yet, so Allow takes the nearest ink token and Cancel the
+   outlined look in ink, where the frame draws cerulean (issue O39). */
+.permission { display: flex; flex-direction: column; gap: var(--space-8); padding-bottom: var(--space-56); }
+.calendarName { font: var(--text-body-large); letter-spacing: var(--text-body-large-tracking); color: var(--ink-primary); }
+.ask { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.permissionButtons { display: flex; flex-direction: column; gap: var(--space-10); width: 100%; }
+.allow, .cancel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--size-tap-target);
+  padding: 0 var(--space-20);
+  border-radius: var(--radius-pill);
+  font: var(--text-body-strong);
+  letter-spacing: var(--text-body-strong-tracking);
 }
-.ask { padding-bottom: var(--space-32); font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.allow { background: var(--ink-secondary); color: var(--ink-on-accent); }
+.cancel { background: var(--bg-control); color: var(--ink-primary); border: thin solid var(--border-hairline); }

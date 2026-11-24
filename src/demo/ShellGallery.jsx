@@ -46,7 +46,7 @@ export default function ShellGallery({ type, scrolled, parentInitial }) {
     page: <PageShell title={settings}><Blocks count={14} /></PageShell>,
     conversation: <ConversationShell title={label('coach')} isTab field={<div className={styles.capture} />}><Blocks count={10} kind="message" /></ConversationShell>,
     composer: <ComposerShell heading={<span className={styles.heading} />} primary={<div className={styles.button} />}><Blocks count={3} /><div className={styles.field} /></ComposerShell>,
-    onboarding: <OnboardingShell counter={<div className={styles.counter} />} primary={<div className={styles.button} />} skip={<div className={styles.link} />}><div className={styles.headline} /><Blocks count={4} /></OnboardingShell>,
+    onboarding: <OnboardingShell onBack={() => {}} primary={<div className={styles.button} />} skip={<div className={styles.link} />}><div className={styles.headline} /><Blocks count={4} /></OnboardingShell>,
     sheet: <>{today}<Sheet open={sheetOpen} onClose={() => setSheetOpen(false)} footer={<div className={styles.button} />}><Blocks count={2} /></Sheet></>,
     still: <StillShell><div className={styles.stillMark} /></StillShell>,
   };

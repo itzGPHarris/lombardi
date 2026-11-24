@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
 import {
-  backFrom, childrenInWords, draftDates, introRecap, onboardingReducer, screens, startOnboarding, suggestGrade, welcomeComplete,
+  backFrom, childrenInWords, draftDates, draftReminder, draftView, introRecap, onboardingReducer, reminderDay, screens,
+  startOnboarding, startTimeSource, suggestGrade, welcomeComplete,
 } from '../src/demo/onboarding.js';
 import { monthYear } from '../src/demo/dateTokens.js';
 import { initialSession, sessionReducer } from '../src/demo/session.js';
@@ -11,17 +12,27 @@ const start = () => startOnboarding(seed, c00);
 const play = (state, ...actions) => actions.reduce(onboardingReducer, state);
 
 describe('onboarding opens with what the fixtures write for C-00 (spec §3)', () => {
-  it('fills every field with Charlotte\'s answers', () => {
+  it('fills every field with Charlotte\'s answers, and the welcome opens with one child (O36)', () => {
     const { screen, entries } = start();
     expect(screen).toBe('0s');
     expect(entries).toMatchObject({ name: 'Charlotte', zip: '00123', setup: 'Two parents', language: 'English' });
-    expect(entries.children.map((child) => [child.name, monthYear(child.birth)])).toEqual([['Alexis', 'October 2016'], ['Mallory', 'September 2020']]);
-    expect(entries.schools.map((school) => [school.school, school.startTime])).toEqual([['Cedar Grove Elementary', '8:00am'], ['Westview Kindergarten', '8:30am']]);
+    expect(entries.children.map((child) => [child.name, monthYear(child.birth)])).toEqual([['Alexis', 'October 2016']]);
+    expect(entries.schools.map((school) => [school.school, school.startTime, school.source])).toEqual([
+      ['Cedar Grove Elementary', '8:00am', 'calendar'], ['Westview Kindergarten', '8:30am', 'capture'],
+    ]);
     expect(entries.helpers).toEqual([{ name: 'Edward', relationship: 'Husband' }, { name: 'Claire', relationship: 'Sister' }]);
   });
 
+  it('"+ Add another child" brings Mallory\'s fields, then a blank child\'s (0w-c)', () => {
+    const once = play(start(), { type: 'ADD_CHILD' });
+    expect(once.entries.children.map((child) => [child.name, monthYear(child.birth)])).toEqual([['Alexis', 'October 2016'], ['Mallory', 'September 2020']]);
+    const twice = play(once, { type: 'ADD_CHILD' });
+    expect(twice.entries.children[2]).toMatchObject({ name: '', birth: null });
+    expect(startOnboarding(seed, c00, { screen: '0w-c' }).entries.children).toHaveLength(2);
+  });
+
   it('suggests each grade from the birth month against a September 1 cutoff', () => {
-    for (const child of start().entries.children) {
+    for (const child of play(start(), { type: 'ADD_CHILD' }).entries.children) {
       expect(child.grade).toBe(seed.children.find((entry) => entry.id === child.id).gradeLabel);
     }
     expect(suggestGrade({ month: 8, year: 2021 }, seed.meta.demoWeekStart)).toBe('Kindergarten');
@@ -30,47 +41,124 @@ describe('onboarding opens with what the fixtures write for C-00 (spec §3)', ()
   });
 
   it('suggests the grade again when she changes a birth month, and Continue waits for every name and birth month', () => {
-    const changed = play(start(), { type: 'SET_BIRTH', index: 1, birth: { month: 8, year: 2021 }, demoWeekStart: seed.meta.demoWeekStart });
-    expect(changed.entries.children[1]).toMatchObject({ birth: { month: 8, year: 2021 }, grade: 'Kindergarten' });
+    const changed = play(start(), { type: 'SET_BIRTH', index: 0, birth: { month: 8, year: 2021 }, demoWeekStart: seed.meta.demoWeekStart });
+    expect(changed.entries.children[0]).toMatchObject({ birth: { month: 8, year: 2021 }, grade: 'Kindergarten' });
     expect(welcomeComplete(start().entries.children)).toBe(true);
-    const added = play(start(), { type: 'ADD_ROW', field: 'children', value: { id: null, name: '', birth: null, grade: 'Not in school yet' } });
+    const added = play(start(), { type: 'ADD_CHILD' }, { type: 'ADD_CHILD' });
     expect(welcomeComplete(added.entries.children)).toBe(false);
     expect(welcomeComplete(play(added, { type: 'SET_ROW', field: 'children', index: 2, value: { name: 'Sam' } }).entries.children)).toBe(false);
   });
 
   it('dates the draft and names the children as the screens say them', () => {
     expect(draftDates(c00.state.onboarding.draft, seed.meta.demoWeekStart)).toBe('Oct. 6 to 9');
-    expect(childrenInWords(start().entries.children)).toBe('Alexis and Mallory');
+    expect(childrenInWords(play(start(), { type: 'ADD_CHILD' }).entries.children)).toBe('Alexis and Mallory');
   });
 });
 
-describe('she moves through onboarding in the fixtures\' order', () => {
-  it('walks Charlotte\'s path from the splash to the coach\'s introduction in fourteen screens (O35)', () => {
-    const go = (screen) => ({ type: 'GO', screen });
-    const state = play(start(), go('0w'), go('0a'), { type: 'CAPTURE', kind: 'photo' });
-    expect(state.screen).toBe('0v');
-    const connected = play(state, go('0r'), go('0b'), go('0t'), go('0c'), go('0e-p'), go('0q'),
-      { type: 'ASK_CALENDAR', calendar: 'Google Calendar' }, { type: 'ALLOW_CALENDAR' });
-    expect(connected).toMatchObject({ screen: '0f', flags: { calendar: 'Google Calendar', skippedCapture: false } });
-    expect(play(connected, go('0p'), go('0j')).screen).toBe('0j');
-    expect(Object.keys(screens)).toEqual(['0s', '0w', '0a', '0v', '0r', '0b', '0t', '0c', '0c-b', '0e-p', '0q', '0q-b', '0f', '0p', '0j']);
+describe('she moves through onboarding in the fixtures\' order (O35, O36)', () => {
+  const go = (screen) => ({ type: 'GO', screen });
+
+  it('has ten screens before her first board, and none of the retired ones', () => {
+    expect(Object.keys(screens)).toEqual(['0s', '0w', '0a', '0t', '0c', '0e-p', '0q', '0f', '0p', '0j']);
+    for (const retired of ['0k', '0k-b', '0v', '0r', '0b', '0e', '0q-c', '0g', '0h']) {
+      expect(screens[retired], retired).toBeUndefined();
+      expect(startOnboarding(seed, c00, { screen: retired }).screen, retired).toBe('0s');
+    }
   });
 
-  it('skips the capture to the account prompt over the first capture screen', () => {
-    expect(play(start(), { type: 'SKIP_CAPTURE' })).toMatchObject({ screen: '0c-b', flags: { skippedCapture: true } });
-    expect(startOnboarding(seed, c00, { screen: '0c-b' }).flags.skippedCapture).toBe(true);
+  it('walks Charlotte\'s captured path on one capture conversation, confirming the child before the read-back', () => {
+    let state = play(start(), go('0w'), { type: 'ADD_CHILD' }, go('0a'), { type: 'CAPTURE', kind: 'photo' });
+    expect(state).toMatchObject({ screen: '0a', flags: { capture: 'preview' } });
+    state = play(state, { type: 'USE_PHOTO' }, { type: 'READ_DONE' });
+    expect(state.flags).toMatchObject({ capture: 'confirm', chosenChild: null });
+    // Nothing moves on until she taps a child.
+    expect(play(state, { type: 'ANSWER' }).flags.capture).not.toBe('question');
+    state = play(state, { type: 'CHOOSE_CHILD', child: 'mallory' });
+    expect(state.flags).toMatchObject({ capture: 'question', chosenChild: 'mallory' });
+    state = play(state, { type: 'ANSWER' });
+    expect(state.flags.capture).toBe('handoff');
+    state = play(state, go('0t'), go('0c'), go('0e-p'), go('0q'), { type: 'ASK_CALENDAR', calendar: 'Google Calendar' });
+    expect(state).toMatchObject({ screen: '0q', flags: { permissionFor: 'Google Calendar', calendar: null } });
+    state = play(state, { type: 'ALLOW_CALENDAR' });
+    expect(state).toMatchObject({ screen: '0q', flags: { permissionFor: null, calendar: 'Google Calendar' } });
+    expect(play(state, go('0f'), go('0p'), go('0j')).screen).toBe('0j');
   });
 
-  it('reads a file or a voice note without checking a photo first', () => {
-    expect(play(start(), { type: 'CAPTURE', kind: 'file' }).screen).toBe('0r');
-    expect(play(start(), { type: 'CAPTURE', kind: 'voice' }).screen).toBe('0r');
+  it('a file or a voice note goes straight to reading', () => {
+    expect(play(start(), { type: 'CAPTURE', kind: 'file' }).flags.capture).toBe('reading');
+    expect(play(start(), { type: 'CAPTURE', kind: 'voice' }).flags.capture).toBe('reading');
   });
 
-  it('cancels the calendar permission back to the calendar screen, and Not now goes on without one', () => {
-    const asked = play(start(), { type: 'ASK_CALENDAR', calendar: 'Outlook' });
-    expect(asked).toMatchObject({ screen: '0q-b', flags: { pendingCalendar: 'Outlook' } });
-    expect(play(asked, { type: 'CANCEL_CALENDAR' })).toMatchObject({ screen: '0q', flags: { calendar: null } });
+  it('skipping the capture opens the account sheet over 0a, and Back closes it (0c-b)', () => {
+    const skipped = play(start(), go('0a'), { type: 'SKIP_CAPTURE' });
+    expect(skipped).toMatchObject({ screen: '0a', flags: { accountSheet: true, skippedCapture: true } });
+    expect(play(skipped, { type: 'BACK' })).toMatchObject({ screen: '0a', flags: { accountSheet: false } });
+    expect(startOnboarding(seed, c00, { screen: '0c-b' })).toMatchObject({ screen: '0a', flags: { accountSheet: true, skippedCapture: true } });
+    // Back from the plan screen returns to the sheet over 0a.
+    expect(play(skipped, go('0e-p'), { type: 'BACK' })).toMatchObject({ screen: '0a', flags: { accountSheet: true } });
+  });
+
+  it('cancels the permission sheet with nothing connected, and Not now goes on without a calendar', () => {
+    const asked = play(start(), go('0q'), { type: 'ASK_CALENDAR', calendar: 'Outlook' });
+    expect(play(asked, { type: 'CANCEL_CALENDAR' })).toMatchObject({ screen: '0q', flags: { permissionFor: null, calendar: null } });
+    expect(play(asked, { type: 'BACK' })).toMatchObject({ screen: '0q', flags: { permissionFor: null } });
     expect(play(start(), { type: 'SKIP_CALENDAR' })).toMatchObject({ screen: '0f', flags: { calendar: null } });
+  });
+});
+
+describe('the draft can be changed before the account (0c, O36)', () => {
+  const draft = c00.state.onboarding.draft;
+  const view = (state) => draftView(draft, state.flags.draft);
+  const reminders = (state) => view(state).filter((day) => day.kind === 'day').flatMap((day) => day.reminders.map((reminder) => reminder.text));
+
+  it('shows each reminder, and an add link after each day with reminders', () => {
+    const days = view(start());
+    expect(reminders(start())).toEqual(['Sneakers', 'Sneakers', 'Library book']);
+    expect(days.filter((day) => day.kind === 'day' && day.hasReminders).map((day) => day.row.letter)).toEqual(['D', 'F', 'A']);
+    expect(days.find((day) => day.kind === 'event').event).toBe('suggested');
+  });
+
+  it('removes a reminder at once with a notice and Undo, and keeps the add link on its day', () => {
+    const library = view(start()).find((day) => day.row.letter === 'A').reminders[0].key;
+    const removed = play(start(), { type: 'REMOVE_REMINDER', key: library });
+    expect(reminders(removed)).toEqual(['Sneakers', 'Sneakers']);
+    expect(view(removed).find((day) => day.row.letter === 'A').hasReminders).toBe(true);
+    const notice = draftReminder(draft, removed.flags.draft, removed.flags.draft.notice);
+    expect([notice.text, reminderDay(notice.row, c00.time, seed.meta.demoWeekStart)]).toEqual(['Library book', 'this Friday']);
+    expect(reminders(play(removed, { type: 'UNDO_REMOVE' }))).toEqual(['Sneakers', 'Sneakers', 'Library book']);
+  });
+
+  it('adds a reminder after a day, and the event takes her choice', () => {
+    const tuesday = view(start()).find((day) => day.row.letter === 'D').index;
+    const added = play(start(), { type: 'ADD_REMINDER', row: tuesday, text: 'Rain boots' });
+    expect(view(added).find((day) => day.row.letter === 'D').reminders.map((reminder) => reminder.text)).toEqual(['Sneakers', 'Rain boots']);
+    expect(view(play(start(), { type: 'EVENT', choice: 'added' })).find((day) => day.kind === 'event').event).toBe('added');
+  });
+
+  it('opens 0c-d with the library book removed and back-to-school night added', () => {
+    const edited = startOnboarding(seed, c00, { screen: '0c-d' });
+    expect(reminders(edited)).toEqual(['Sneakers', 'Sneakers']);
+    expect(view(edited).find((day) => day.kind === 'event').event).toBe('added');
+  });
+
+  it('"Tell the MVP Coach what\'s wrong" reopens the capture conversation at the hand-off, in the capture bar', () => {
+    expect(play(start(), { type: 'GO', screen: '0c' }, { type: 'TELL_COACH' })).toMatchObject({ screen: '0a', flags: { capture: 'handoff', correcting: true } });
+  });
+});
+
+describe('the school screen shows where each start time came from (0f, O36)', () => {
+  const entries = () => start().entries.schools;
+  it('names the photo after a capture and the calendar once connected, and asks when it has neither', () => {
+    const [alexis, mallory] = entries();
+    expect(startTimeSource(alexis, { calendar: 'Google Calendar', skippedCapture: false })).toBe('calendar');
+    expect(startTimeSource(mallory, { calendar: 'Google Calendar', skippedCapture: false })).toBe('capture');
+    expect(startTimeSource(alexis, { calendar: null, skippedCapture: false })).toBeNull();
+    expect(startTimeSource(mallory, { calendar: null, skippedCapture: true })).toBeNull();
+  });
+  it('opens 0f-b with Alexis\'s start time missing', () => {
+    const missing = startOnboarding(seed, c00, { screen: '0f-b' });
+    expect(missing.screen).toBe('0f');
+    expect(missing.entries.schools[0]).toMatchObject({ startTime: '', missing: true });
   });
 });
 
@@ -135,12 +223,15 @@ describe('the coach\'s introduction says only what MVP learned on her path (fixt
 });
 
 describe('Back on every onboarding and setup screen after 0w (spec §2, O30)', () => {
-  it('returns each screen to the one before it, past the still screens', () => {
+  it('returns each screen to the one before it, past the still screens, and never reaches a retired one', () => {
     const state = start();
     const from = (screen, flags = {}) => backFrom({ ...state, screen, flags: { ...state.flags, ...flags } });
-    expect(['0a', '0v', '0b', '0c', '0c-b', '0e-p', '0q', '0f', '0j'].map((screen) => from(screen))).toEqual(['0w', '0a', '0v', '0b', '0a', '0c', '0e-p', '0q', '0f']);
-    expect(from('0b', { captureKind: 'file' })).toBe('0a');
-    expect(from('0e-p', { skippedCapture: true })).toBe('0c-b');
+    expect(['0a', '0c', '0e-p', '0q', '0f', '0j'].map((screen) => from(screen))).toEqual(['0w', '0a', '0c', '0e-p', '0q', '0f']);
+    expect(from('0e-p', { skippedCapture: true })).toBe('0a');
     expect(from('0w')).toBeNull();
+    for (const screen of Object.keys(screens)) {
+      const back = from(screen);
+      if (back) expect(screens[back], `${screen} -> ${back}`).toBeDefined();
+    }
   });
 });

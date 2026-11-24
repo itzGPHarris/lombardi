@@ -11,5 +11,4 @@
 .field { height: calc(var(--space-56) * 2); border: thin solid var(--border-hairline); border-radius: var(--radius-md); background: var(--bg-control); }
 .heading { display: block; height: var(--space-32); width: calc(var(--space-56) * 3); border-radius: var(--radius-sm); background: var(--bg-subtle); }
 .headline { height: calc(var(--space-40) * 4); margin-bottom: var(--space-24); border-radius: var(--radius-md); background: var(--bg-subtle); }
-.counter { height: var(--space-20); width: var(--space-56); border-radius: var(--radius-sm); background: var(--bg-subtle); }
 .stillMark { height: calc(var(--space-56) * 5); width: 50%; margin: calc(var(--space-56) * 3) auto 0; border-radius: var(--radius-lg); background: var(--bg-subtle); }

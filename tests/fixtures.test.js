@@ -149,6 +149,16 @@ describe('copy comes only from the fixtures (D3)', () => {
     expect(missing.map(({ file, path, text, reason }) => `${file} ${path}: ${reason ?? 'not in the fixtures'}: ${text}`)).toEqual([]);
   });
 
+  // The naming line before "Whose calendar is this?" writes the month out in full (fixtures 3.56 C-00,
+  // issue O36; Greg's correction 5 on the onboarding plan).
+  it('names the rotation calendar with the month in full', () => {
+    const seed = JSON.parse(read('src/data/households/charlotte.json'));
+    const naming = seed.conversation.find((entry) => entry.id === 'c00-naming');
+    const sentence = "This is Westview Kindergarten's calendar for October.";
+    expect(fillDates(naming.text, { demoWeekStart })).toBe(sentence);
+    expect(found(sentence)).toBe(true);
+  });
+
   it('keeps identifiers and references free of prose', () => {
     const prose = results.filter((result) => result.kind === 'token' && !result.ok);
     expect(prose.map(({ file, path, text }) => `${file} ${path}: ${text}`)).toEqual([]);

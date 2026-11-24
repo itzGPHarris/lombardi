@@ -2,19 +2,19 @@ import markArt from '../../assets/brand/mark-small.svg';
 import Icon from '../shared/Icon.jsx';
 import styles from './Onboarding.module.css';
 
-// The small MVP mark above an onboarding headline (0w, 0a, 0r, 0t, 0p).
+// The small MVP mark above an onboarding headline (0w, 0t, 0p).
 export function Mark() {
   return <img className={styles.mark} src={markArt} alt="" />;
 }
 
-// A labeled text field, filled with what she entered, with a helper line beneath it where the
-// fixtures write one, such as "Shown under their name on your Team." on Add someone.
-export function Field({ label, value, onChange, type = 'text', inputMode, autoComplete, id, helper }) {
+// A labeled text field (library TextInput), filled with what she entered, with a placeholder and a
+// helper line beneath it where the fixtures write them, such as the email on 0c-c.
+export function Field({ label, value, onChange, type = 'text', inputMode, autoComplete, id, helper, placeholder }) {
   return (
     <label className={styles.field} htmlFor={id}>
       <span className={styles.fieldLabel}>{label}</span>
       <span className={styles.box}>
-        <input id={id} className={styles.input} type={type} inputMode={inputMode} autoComplete={autoComplete} value={value} onChange={(event) => onChange(event.target.value)} />
+        <input id={id} className={styles.input} type={type} inputMode={inputMode} autoComplete={autoComplete} value={value} placeholder={placeholder} onChange={(event) => onChange(event.target.value)} />
       </span>
       {helper && <span className={styles.helper}>{helper}</span>}
     </label>
