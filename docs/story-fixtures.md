@@ -1,6 +1,6 @@
 # Demo fixtures: the MVP families
 
-*MVP (Lombardi) · Version 3.55 · November 24, 2026 · Charlotte and Edward only*
+*MVP (Lombardi) · Version 3.56 · November 24, 2026 · Charlotte and Edward only*
 
 # 1. What this document is for
 
@@ -38,7 +38,7 @@ Several of these names exist only inside this project so far, and the wireframes
 | Capture | Anything the parent gives MVP so the coach can turn it into the plan, such as a photo of a handout, a forwarded email, a message shared from WhatsApp or a voice note. |
 | Share menu | The phone's own share sheet. MVP appears in it, so the parent can send a message, email or photo to MVP from any app without copying and pasting. |
 | Forwarding address | A private email address each parent gets. Whatever she forwards to it, or sets her email to forward automatically, goes to the coach. |
-| Her calendar | The main calendar the parent already keeps, such as Google Calendar, Apple Calendar or Outlook. She connects it once during setup. MVP reads it, adds to her plan the events she has already committed to, offers anything that is hers to choose on the game plan's review card, and never changes anything in it. |
+| Her calendar | The main calendar the parent already keeps, such as Google Calendar, Apple Calendar or Outlook. She connects it, or more than one, during setup (F40). MVP reads it, adds to her plan the events she has already committed to, offers anything that is hers to choose on the game plan's review card, and never changes anything in it. |
 | Calendar mark | A small calendar icon in a muted ink, drawn before the item's text on any item that came from her calendar, on Today and in the game plan, so she can tell what MVP read from what MVP made. It is not a control, so tapping it does nothing. |
 | Source link | The line on every captured item that says where it came from, such as "From the Cedar Grove Elementary newsletter · yesterday" on a Monday, so the parent can check the original. |
 | Capture bar | The field docked above the tab bar on Today and the game plan, and at the foot of the Coach tab. It reads "Type, talk or add an image", with attach, camera and microphone beside it. Whatever she gives it goes to the coach. She types in place, and the coach's read-back lands where she is. |
@@ -157,30 +157,29 @@ The coach still never sends anything to another person. Everything it adds stays
 
 ## Onboarding
 
-Onboarding has three parts. In the first part, before any account, the parent tells MVP her first name and who she is planning for, then gives it one thing from this week and sees it come back as a plan. In the second part she creates the account from the prompt over her draft, chooses a plan, connects her calendar and answers one setup screen. In the third part MVP finishes setting up, the coach introduces itself, and she lands on Today.
+Onboarding has three parts. In the first part, before any account, the parent tells MVP her first name and who she is planning for, then gives it one thing from this week and sees it come back as a plan. In the second part she creates the account at the end of her draft, chooses a plan, connects her calendar and checks one setup screen. In the third part MVP finishes setting up, the coach introduces itself, and she lands on Today.
 
 | # | Screen | Part | Step counter | Can she skip it? |
 | ----- | ----- | ----- | ----- | ----- |
 | 0s | Splash | Before the account | None | No |
 | 0w | Welcome: her first name and zip code, then each child's first name and birth month and year, with the grade the MVP Coach suggests in a list box she can change, and 0w-b showing a list open | Before the account | None | No, though her name and zip code can be left blank |
-| 0a | Show me one thing | Before the account | None | Yes, to the account prompt with nothing captured (0c-b) |
-| 0v | Check the photo: Use this photo or Retake, for a photo only | Before the account | None | No |
-| 0r | Thinking, while the coach reads the capture | Before the account | None | No |
-| 0b | Read-back, with a tap to confirm which child it is for, at most one question, and the hand-off | Before the account | None | No |
+| 0a | The capture conversation: the coach asks for one thing, and the photo's preview (0a-b), the reading (0a-c), the question of whose it is (0a-d), the read-back, the coach's one question and the hand-off (0a-e) all happen on this one screen | Before the account | None | Yes, to the account prompt with nothing captured (0c-b) |
 | 0t | Thinking, while the coach builds the draft | Before the account | None | No |
-| 0c | The draft, with the account prompt over it, which holds sign-in with Apple and an email address. 0c-b is the same prompt over 0a when she skipped the capture. | Before the account | None | Not now ends the session |
+| 0c | The draft, with the dates it covers, a row with Remove for each reminder, "Add something else for" the child after each day with reminders, two choices on the suggested event and "Tell the MVP Coach what's wrong", then keeping the plan at the end of the page (0c-c), and the draft after an edit (0c-d). 0c-b is a prompt over 0a when she skipped the capture. | Before the account | None | Not now ends the session |
 | 0e-p | Choose a plan: Basic or Family, each with a free trial | Setup | None | No |
-| 0q | Connect your calendar: Google Calendar, Apple Calendar or Outlook, with the staged permission screen (0q-b). Allowing it goes straight to 0f. | Setup | None | Not now, to 0f |
-| 0f | Where do they go to school: each child's school and start time, then her household type, home language and the adults she counts on | Setup | None | No |
+| 0q | Connect your calendar: Google Calendar, Apple Calendar or Outlook, with the staged permission as a sheet over the screen (0q-b) and the connected state (0q-d), from which she can connect another calendar or continue | Setup | None | Not now, to 0f |
+| 0f | Where do they go to school: the coach's review of what it found, each child's school and start time with where each came from, then her household type, home language and the adults she counts on, and 0f-b when the coach could not find a start time | Setup | None | No |
 | 0p | Getting everything ready, while the account is created | Finishing | None | No |
 | 0j | Welcome to the team: the coach's introduction and a recap | Finishing | None | No |
 | 0i | Her first board on Today: on arrival (0i-a), the other options (0i-b), after she agrees (0i-c), with every reminder ticked (0i-f), after she picks Plan B (0i-g), after she removes a reminder (0i-i), adding a reminder (0i-j), and with nothing captured (0i-d). 0i-h shows the next morning between drop-offs. 0i-e, editing the reminders, was retired on Oct. 28, 2026. | Finishing | None | No |
 
-**Onboarding was shortened on Nov. 24, 2026 (issue O35).** Played on a phone, the flow took eighteen taps across nineteen screens before Today, and half of those screens asked for nothing new. The children and the grades joined the welcome, which retires 0k, 0k-b and 0k-c, and the open list is now 0w-b. Sign-in moved onto the account prompt, which retires 0e. The calendar's connected state (0q-c) gave way to a line at the top of the school screen, and the household joined the school screen, which retires 0g. Charlotte's path is now fourteen screens and thirteen taps. The thinking screens and the getting ready screen stay, because they move on by themselves and cost her no tap. Retired IDs are not reused.
+**Onboarding was shortened on Nov. 24, 2026 (issue O35).** Played on a phone, the flow took eighteen taps across nineteen screens before Today, and half of those screens asked for nothing new. The children and the grades joined the welcome, which retires 0k, 0k-b and 0k-c, and the open list is now 0w-b. Sign-in moved onto the account prompt, which retires 0e. The calendar's connected state (0q-c) gave way to a line at the top of the school screen, and the household joined the school screen, which retires 0g. Charlotte's path was then fourteen screens and thirteen taps. The thinking screens and the getting ready screen stay, because they move on by themselves and cost her no tap. Retired IDs are not reused.
+
+**Onboarding was shortened again on Nov. 24, 2026, after Greg reviewed drafts of the flow (issue O36).** Four screens still only showed her the result of what she had just done instead of letting her carry on where she was. Checking the photo (0v), the reading screen (0r) and the read-back (0b) joined the capture conversation (0a), so the coach's first job feels like the Coach tab she will use later. The account moved from a prompt over the draft to the end of the draft page, and the draft became editable, because nothing the coach proposes is final until she has had the chance to change it. The calendar's permission became a sheet over the calendar screen, which then confirms the connection, because a parent needs to see that her calendar linked before she moves on. The school screen became the coach's review of what it found. Charlotte's path is now ten screens before her first board and about fifteen taps, two more than before, because confirming the child and continuing after the calendar connects are taps she makes on purpose. 0v, 0r and 0b retire.
 
 **Value still comes before the account.** The welcome comes before the first capture so that the coach knows whose week a capture belongs to. Without them, the coach could only guess which child a calendar was for. The welcome asks for no account. Her name and zip code can be left blank, but the children can't, because every later screen depends on knowing them. Nothing in the first part is kept unless she creates an account: her name, zip code, children, photo and draft are held only for that session and discarded if she leaves.
 
-**The coach always confirms which child a capture is for.** It asks "Whose calendar is this?", or names the kind of document, and preselects a child by matching the grade on the document to a child's grade, and she changes it with one tap. If two children share a grade or the document shows none, nothing is preselected. The confirmation is a control, not a question, so the coach can still ask its one question.
+**The coach always confirms which child a capture is for, before it reads anything back.** Once it has read the capture, it says in one line what the capture is, such as "This is Westview Kindergarten's calendar for October.", and asks "Whose calendar is this?", or names the kind of document, with each child's name and grade as a choice and none chosen. Her tap is the confirmation, and the read-back that follows is about the child she chose. The confirmation is a control, not a question, so the coach can still ask its one question. Until Nov. 24, 2026 the question came after the read-back with a child preselected by grade, which Greg found too easy to miss (issue O36).
 
 **She hands the draft to the coach.** The read-back never runs straight into the draft. Once the child is confirmed and the coach's question is answered, the coach says what it will make, names anything it is keeping for later, and waits for her to tap the button that starts the draft. A link beside the button lets her correct something first. The hand-off is the moment she decides to give the coach the job, so the draft never appears as something the coach did on its own.
 
@@ -190,15 +189,15 @@ Onboarding has three parts. In the first part, before any account, the parent te
 
 **The zip code is her starting point.** MVP never asks for a home address. It works out each drive from the zip code she gives on the welcome screen and adds five minutes, so an estimate errs early rather than late. A zip code covers a few miles, and the five minutes absorb most of the difference. Directions opens her maps app, which routes from wherever she actually is.
 
-**Waits are shown, never hidden.** A thinking screen appears while the coach reads a capture (0r) and while it builds the draft (0t). Each shows the MVP mark and a line saying what the coach is doing, and each moves on by itself. In the prototype, which does not really read photos, each lasts two seconds. In the product, a capture that cannot be read and a wait longer than twenty seconds each have their own screen with a way to try again, and the wording for both is in section 4. Creating the account takes thirty to ninety seconds, so 0p shows its steps finishing in turn, five of them when she has connected a calendar, with no percentage, because a number that stalls or jumps looks broken. If account creation fails, 0p says so and keeps everything she entered. If she leaves the app during 0p, MVP opens at 0p or 0j when she returns. In the prototype 0p lasts four seconds.
+**Waits are shown, never hidden.** While the coach reads a capture, the capture conversation shows a line saying so with the thinking dots beneath it (0a-c), and while it builds the draft, a thinking screen shows the MVP mark and a line saying what the coach is doing (0t). Each moves on by itself. In the prototype, which does not really read photos, each lasts two seconds. In the product, a capture that cannot be read and a wait longer than twenty seconds each have their own state with a way to try again, and the wording for both is in section 4. Creating the account takes thirty to ninety seconds, so 0p shows its steps finishing in turn, five of them when she has connected a calendar, with no percentage, because a number that stalls or jumps looks broken. If account creation fails, 0p says so and keeps everything she entered. If she leaves the app during 0p, MVP opens at 0p or 0j when she returns. In the prototype 0p lasts four seconds.
 
-**Her calendar is connected right after the account.** It comes after the first draft, so she has already seen what MVP does before it asks for her calendar, and before the school screen, so the coach can fill in what the calendar already shows. The coach's introduction on 0j says which events from her calendar are in her plan, and a second ticked line beside the reminder, "Add events from my calendar to my plan", is her agreement. If she unticks it, calendar events wait on the game plan's review card instead. If she taps Not now, connecting stays in Settings, and the coach offers it once, the first time she gives it an appointment.
+**Her calendar is connected right after the account.** It comes after the first draft, so she has already seen what MVP does before it asks for her calendar, and before the school screen, so the coach can fill in what the calendar already shows. The coach's introduction on 0j says which events from her calendar are in her plan, and a second ticked line beside the reminder, "Add events from my calendar to my plan", is her agreement. If she unticks it, calendar events wait on the game plan's review card instead. If she taps Not now, connecting stays in Settings, and the coach offers it once, the first time she gives it an appointment. Once a calendar is connected, the screen says so, "Your Google Calendar is connected.", and keeps the other calendars as outlined buttons, so she can connect a second one, such as a work calendar, before she taps Continue (F40).
 
 **A plan screen follows the account.** Right after she creates her account, "Choose a plan" shows MVP's two plans, each with a free trial, so the demo shows how MVP is sold. A free trial means she can cancel before she pays, so the screen asks for nothing she can't take back, and it comes after she has already seen her first draft. In the prototype it is staged: no payment is taken and either plan moves her on to Connect your calendar.
 
-**Onboarding has no step counter.** Once sign-in moved onto the account prompt and the household joined the school screen, setup is three screens, the plan, the calendar and the school screen, and a counter that runs to three tells her less than the screens themselves do. Versions 3.46 to 3.53 counted from 01 of 04 to 04 of 04.
+**Onboarding has no step counter.** Once the account moved into the draft and the household joined the school screen, setup is three screens, the plan, the calendar and the school screen, and a counter that runs to three tells her less than the screens themselves do. Versions 3.46 to 3.53 counted from 01 of 04 to 04 of 04.
 
-**She signs in on the account prompt.** The prompt over her draft holds Continue with Apple and an email field, so keeping her plan and creating her account are one step. If she skipped the capture, the same prompt opens over the first capture screen with the heading "Create your account" (0c-b), because there is no draft to keep.
+**She keeps the plan at the end of the draft.** The draft page ends with "Keep Mallory's plan", one field for the email her school writes to, Continue and Not now, so keeping her plan and creating her account are one step, and she reaches it only after she has read the whole plan. There is no Continue with Apple, because the account has to match how the school reaches her, and MVP uses the address only to recognize the school emails she forwards. If she skipped the capture, a prompt opens over the capture conversation with the heading "Create your account" (0c-b), because there is no draft to keep.
 
 **Headlines are display type.** The large headline on every onboarding and setup screen is set in Fraunces, the display face. Fields, labels, helper lines and buttons are set in Inter, and so are the coach's lines, which use the Voice style described in "Type". This corrects version 3.4, which said the setup screens were set entirely in sans.
 
@@ -602,9 +601,9 @@ Every screen in MVP behaves the same way as other screens of its kind, so a pare
 | Today | Every Today board | The header and Now, with the capture bar and tab bar at the foot | The canvas sheet, which rises over the header and Now ("Now stays in place") |
 | Tab list | Game plan, Team and Kids | The title bar, with the tab's actions and the monogram, and the tab bar. On the game plan, also the week strip under the title bar and the capture bar above the tab bar | The large title and everything beneath it |
 | Page | A person page, a child page, a school card, an article and a group's members | The title bar, with Back and the page's actions, and the tab bar | The large title and everything beneath it |
-| Conversation | The Coach tab, a chat and a group's page | The title bar, and the capture bar or message field at the foot | The messages or posts |
+| Conversation | The Coach tab, a chat, a group's page and the capture conversation in onboarding (0a) | The title bar, and the capture bar or message field at the foot, or in the capture conversation the buttons its step needs | The messages or posts |
 | Composer | New message, a post, a request draft, Add someone and New group | The title bar with Back and the heading, and Send or the screen's button at the foot | The fields and the message |
-| Onboarding and setup | 0w to 0j | Back at the top, and the main button and skip link at the foot | The content |
+| Onboarding and setup | 0w to 0j, except the capture conversation | Back at the top, and the main button and skip link at the foot | The content |
 | Sheet | Every sheet | The grabber, Close and the heading, and the button at the foot | Only the Leave sheet, which is tall |
 | Still | The splash, the thinking screens, getting ready and notifications | Everything | Nothing |
 
@@ -692,7 +691,7 @@ At the start of the demo week Charlotte has no chats. Her first, with Edward and
 
 ## Where Charlotte starts
 
-Charlotte started using MVP the week before the demo week, on Monday, Oct. 5, and C-00 shows how. Her first capture was a photo of Westview Kindergarten's rotation calendar, taken before she had an account. She named both girls and both schools during onboarding, and she gave both schools' start times on the setup screen that night. During her first week she gave the coach the girls' weekly schedules, Westview Kindergarten's end time, the carpool and the rest of the people above. She also photographed Westview Kindergarten's family contact list, which now sits on the Westview Kindergarten school card, and on the Wednesday of that week she forwarded the Cedar Grove Elementary newsletter that had come the Sunday before she started, which led her to set her email to forward the newsletter to MVP automatically. By the demo week she shares messages from WhatsApp using the share menu rather than pasting them.
+Charlotte started using MVP the week before the demo week, on Monday, Oct. 5, and C-00 shows how. Her first capture was a photo of Westview Kindergarten's rotation calendar, taken before she had an account. She named both girls during onboarding, and that night she checked both schools and their start times on the setup screen, where the coach had filled them in from the calendar photo and her Google Calendar. During her first week she gave the coach the girls' weekly schedules, Westview Kindergarten's end time, the carpool and the rest of the people above. She also photographed Westview Kindergarten's family contact list, which now sits on the Westview Kindergarten school card, and on the Wednesday of that week she forwarded the Cedar Grove Elementary newsletter that had come the Sunday before she started, which led her to set her email to forward the newsletter to MVP automatically. By the demo week she shares messages from WhatsApp using the share menu rather than pasting them.
 
 ## What makes her week hard
 
@@ -1291,7 +1290,7 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 
 | ID | When | What happens | What it shows | For the script |
 | ----- | ----- | ----- | ----- | ----- |
-| C-00 | Monday, Oct. 5, the week before, 8:30pm to 8:41pm | Charlotte names herself and the girls, photographs Westview Kindergarten's rotation calendar, hands it to the coach and sees Mallory's plan for the week, then creates her account, connects her Google Calendar, gives each school's start time, meets the coach and agrees to its first recommendation on her first board. | Onboarding, from the splash to her first board | Core |
+| C-00 | Monday, Oct. 5, the week before, 8:30pm to 8:41pm | Charlotte names herself and the girls, photographs Westview Kindergarten's rotation calendar, confirms it is Mallory's, hands it to the coach and sees Mallory's plan for the week, then creates her account, connects her Google Calendar, checks the schools and start times the coach found, meets the coach and agrees to its first recommendation on her first board. | Onboarding, from the splash to her first board | Core |
 | C-01 | Monday, Oct. 12, 6:15am | Charlotte reads the newsletter read-back, shares Jenna's message from WhatsApp and talks for twenty seconds, and the coach offers three ways Thursday could go. | Capture, a conflict and options | Core |
 | C-02 | Monday, Oct. 12, 6:40am | Charlotte asks Edward to take Thursday's pickups, and Edward sees the request in his own MVP. | A request and its status | Core |
 | C-03 | Monday, Oct. 12, 7:25am | Charlotte gets both girls out of the house using Today. | The Today board | Core |
@@ -1317,7 +1316,7 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 
 ## C-00 · Monday, Oct. 5, 8:30pm · Charlotte's first night
 
-*The girls are in bed and Charlotte has just downloaded MVP. Before any account, MVP asks her first name and who she is planning for, then for one thing from this week. She photographs the Westview Kindergarten rotation calendar on the fridge, checks the photo, answers the coach's question, and hands it over, and the coach turns it into a plan for Mallory's week before she has created an account. She then creates the account, connects her Google Calendar and gives each school's start time, and the coach brings in what is already on her calendar. On Today, the coach makes its first recommendation for tomorrow morning, and she agrees. The times below follow the screens in order and add up to about ten minutes.*
+*The girls are in bed and Charlotte has just downloaded MVP. Before any account, MVP asks her first name and who she is planning for, then for one thing from this week. She photographs the Westview Kindergarten rotation calendar on the fridge, confirms it is Mallory's, answers the coach's question, and hands it over, and the coach turns it into a plan for Mallory's week, which she can change, before she has created an account. She then keeps the plan by creating the account at the end of the draft, connects her Google Calendar and checks the schools and start times the coach found, and the coach brings in what is already on her calendar. On Today, the coach makes its first recommendation for tomorrow morning, and she agrees. The times below follow the screens in order and add up to about ten minutes.*
 
 **Onboarding, as shown: the splash · 8:30pm**
 
@@ -1343,17 +1342,23 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 > Birth month and year: October 2016
 > Alexis's grade: [Fourth grade ▾]
 >
+> + Add another child
+>
+> [Continue]
+
+*The welcome opens with the fields for one child, because Charlotte has typed nothing yet but her name and zip code, and "+ Add another child" sits directly under that child's fields (issue O36). Each child's grade appears under the birth month once she picks it, as a list box with a chevron. Tapping one opens the list over the field below it, as 0w-b shows with Alexis's list open and Fourth grade selected. The full list runs Not in school yet, Pre-K, Kindergarten, then First grade through Twelfth grade, with no College. Charlotte fills in Alexis, then taps "+ Add another child", and Mallory's fields appear under Alexis's, with the link below them (0w-c).*
+
 > Your kiddo's first name: Mallory
 > Birth month and year: September 2020
 > Mallory's grade: [Kindergarten ▾]
 >
 > + Add another child
->
-> [Continue]
 
-*The welcome holds what 0w, 0k and 0k-b asked on three screens until version 3.53. Each child's grade appears under the birth month once she picks it, as a list box with a chevron. Tapping one opens the list over the field below it, as 0w-b shows with Alexis's list open and Fourth grade selected. The full list runs Not in school yet, Pre-K, Kindergarten, then First grade through Twelfth grade, with no College. Continue works once every child has a name and a birth month, and her name and zip code can be left blank, so the screen has no skip link. "Your kiddo's first name" is Heather's wording, which Greg accepted. The helper lines under her name and zip code came off in the wording review of Oct. 27, 2026. Charlotte leaves both grades as they are. The screen is taller than a phone, so it scrolls while Continue stays pinned at the foot.*
+*Continue works once every child has a name and a birth month, and her name and zip code can be left blank, so the screen has no skip link. "Your kiddo's first name" is Heather's wording, which Greg accepted. The helper lines under her name and zip code came off in the wording review of Oct. 27, 2026. Charlotte leaves both grades as they are. With two children the screen is taller than a phone, so it scrolls while Continue stays pinned at the foot.*
 
-**Onboarding, as shown: show me one thing · 8:31pm**
+**Onboarding, as shown: the capture conversation · 8:31pm**
+
+*From the moment she is asked for one thing until she hands the job to the coach, Charlotte stays on one screen, the capture conversation (0a), which works like the Coach tab: the coach's line at the top, the ways to capture beneath it, and the conversation growing below as she goes (issue O36). Each of the coach's lines in it is labeled "MVP Coach:" and set in Voice. It opens like this.*
 
 > Show me one thing from this week, such as a school handout, an email or a voice note, and I'll turn it into a plan.
 >
@@ -1361,32 +1366,30 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 >
 > Skip for now
 
-*She taps Take a photo and photographs the calendar, which is headed "Westview Kindergarten" with "October 2026" beneath it.*
+*She taps Take a photo and photographs the calendar, which is headed "Westview Kindergarten", with "October 2026" and "School day begins at 8:30am" beneath it. The photo takes the place of the three buttons as a large preview (0a-b).*
 
-**Onboarding, as shown: check the photo · 8:31pm**
-
-> [the photo, full width]
+> [the photo, as a large preview]
 >
 > [Use this photo] [Retake]
 
-*She taps Use this photo, and the thinking screen shows while the coach reads it. Retake reopens the camera. A file or a voice note skips this screen, because there is nothing to frame.*
+*Retake reopens the camera. A file shows its name and kind in the same place, and a voice note shows as its transcript, so neither has a step of its own. She taps Use this photo, the preview moves into the conversation as a thumbnail, her message, and the coach reads it (0a-c).*
 
-**Onboarding, as shown: reading · 8:32pm**
+> Reading your photo… [the thinking dots]
 
-> [MVP mark]
->
-> Reading your photo…
+**Onboarding, as shown: whose calendar it is · 8:32pm**
 
-**Onboarding, as shown: the read-back · 8:32pm**
+*The coach says what the photo is and asks whose it is before it reads anything back, so the read-back is about the child she confirms (0a-d, issue O36). Neither child is chosen until she taps one.*
 
-*Each of the coach's lines in this conversation is labeled "MVP Coach:".*
-
-> This is Westview Kindergarten's calendar for October, with a six-day letter rotation. A days are library, so books go back that day. B and D are motor skills and F is science and motor skills, so those three days need sneakers. C is science and E is art and music. The calendar also lists back-to-school night, the field trip to Fir Hollow Farm and the harvest fair.
+> This is Westview Kindergarten's calendar for October.
 
 > Whose calendar is this?
 > [Mallory · K] [Alexis · 4]
 
-*Mallory is preselected, because the calendar is for kindergarten and Mallory is the child in kindergarten. Charlotte leaves the choice as it is. The coach then asks its one question, about the only thing it cannot tell from the page.*
+*Charlotte taps Mallory · K, and the coach gives its read-back.*
+
+> Westview Kindergarten uses a six-day letter rotation. A days are library, so books go back that day. B and D are motor skills and F is science and motor skills, so those three days need sneakers. C is science and E is art and music. The calendar also lists back-to-school night, the field trip to Fir Hollow Farm and the harvest fair.
+
+*The coach then asks its one question, about the only thing it cannot tell from the page, and Charlotte answers in the capture bar at the foot of the conversation.*
 
 > Several days are highlighted in yellow. Do the highlights mean anything to plan around?
 
@@ -1400,7 +1403,7 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 >
 > Something's not right
 
-*Charlotte taps Make Mallory's plan. "Something's not right" returns her to the input with the read-back still in view, so she can say what to fix and the coach reads it back again.*
+*Once the hand-off appears, Make Mallory's plan and "Something's not right" are anchored at the foot of the capture conversation, and the conversation scrolls above them (0a-e). Charlotte taps Make Mallory's plan. "Something's not right" returns her to the input with the read-back still in view, so she can say what to fix and the coach reads it back again.*
 
 **Onboarding, as shown: making the draft · 8:33pm**
 
@@ -1418,29 +1421,34 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 
 | Shows | Example rows |
 | ----- | ----- |
-| Sneaker days, with "Sneakers" on that morning's checklist | Tuesday · D · Motor skills · Sneakers |
-| Each remaining school day with its letter and what it means | Wednesday · E · Art and music |
-| Sneaker days, continued | Thursday · F · Science and motor skills · Sneakers |
-| The week's school event, marked Suggested | Thursday · Back-to-school night · Suggested |
-| Library days, with "Library book" on that morning's checklist | Friday · A · Library · Library book |
+| Each remaining school day with its letter and what it means | Tuesday · D · Motor skills |
+| Each reminder on that morning, as a checklist row with Remove | Sneakers · [✕] |
+| At the end of each day that carries reminders | Add something else for Mallory |
+| A school day with no reminders | Wednesday · E · Art and music |
+| Sneaker days, continued | Thursday · F · Science and motor skills, then Sneakers · [✕] and Add something else for Mallory |
+| The week's school event, marked Suggested, with its two choices | Thursday · Back-to-school night · Suggested · [Add to the plan] [Not this time] |
+| Library days | Friday · A · Library, then Library book · [✕] and Add something else for Mallory |
 
-*"As a suggestion" and "None of it is saved yet." came off the line in the wording review, because the Suggested label and the account prompt already say both.*
+> Tell the MVP Coach what's wrong
 
-**Onboarding, as shown: the account prompt**
+*Nothing the coach proposed is final until she has had the chance to change it (issue O36). Each reminder can be removed, each day with reminders can take one more, and the suggested event waits for "Add to the plan" or "Not this time". Removing a reminder raises the notice Today uses, such as "Library book is off Mallory's list for this Friday." with Undo, and adding back-to-school night takes away its Suggested label and its buttons (0c-d). "Tell the MVP Coach what's wrong" reopens the capture conversation with the draft still in view, she says what to fix, the coach reads it back, and the corrected draft returns. "As a suggestion" and "None of it is saved yet." came off the line in the wording review, because the Suggested label and the account section already say both.*
+
+**Onboarding, as shown: keeping the plan, at the end of the draft**
+
+*Keeping the plan is part of the draft page, under a hairline after the coach link, rather than a prompt over the draft, so Charlotte reads the whole plan before she is asked to keep it (0c-c, issue O36). On arrival the plan fills the screen.*
 
 > Keep Mallory's plan
 >
 > Create an account to save this plan and add the rest of your family.
 >
-> [Continue with Apple]
->
-> Email
+> The email your school writes to: Email
+> MVP uses it to recognize school emails you forward.
 >
 > [Continue]
 >
 > Not now
 
-*If she taps Not now, everything she has entered is discarded when she closes the app. Charlotte taps Continue with Apple, which creates the account with her Apple email address, and the plan screen follows, then the calendar and the school screen. Her name is already known from the welcome, so the prompt asks only how she signs in. Back from the plan screen returns to the draft with the prompt open. If she skipped the capture, the same prompt opens over the first capture screen headed "Create your account", with no line and no Not now, and Back closes it (0c-b).*
+*The account takes the address the school writes to, because it has to match how the school reaches her, and that may not be her Apple or Google address. MVP uses it only to recognize the school emails she forwards to her private forwarding address, and it never reads her inbox. There is no Continue with Apple. If she taps Not now, everything she has entered is discarded when she closes the app. Charlotte types her email and taps Continue, and the plan screen follows, then the calendar and the school screen. Her name is already known from the welcome. Back from the plan screen returns to the draft. If she skipped the capture, a prompt opens over the capture conversation headed "Create your account", with the same field and Continue, no line and no Not now, and Back closes it (0c-b).*
 
 **Onboarding, as shown: connect your calendar · 8:35pm**
 
@@ -1454,50 +1462,51 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 >
 > Not now
 
-*Charlotte taps Google Calendar. A permission screen opens, drawn generic and grayscale, not to Google's brand, and it reads "Most Valuable Parent wants to see your calendar" with Allow and Cancel. She taps Allow and goes straight to the school screen, which opens with a line saying her calendar is connected.*
+*Charlotte taps Google Calendar. The staged permission rises as a sheet over the same screen, drawn generic and grayscale, not to Google's brand, and it reads "Most Valuable Parent wants to see your calendar" with Allow and Cancel (0q-b). She taps Allow, the sheet closes, and the screen confirms the connection before she moves on (0q-d, issue O36).*
 
-*If she taps Not now, the next screen follows and connecting stays in Settings. In the prototype the permission screen is staged and connects nothing.*
+> ✓ Your Google Calendar is connected.
+>
+> [✓ Google Calendar · Connected]
+> [Apple Calendar]
+> [Outlook]
+>
+> [Continue]
+
+*Apple Calendar and Outlook stay, as outlined buttons, so she can connect a second calendar, such as one from work, and Continue is the main button at the foot (F40). Charlotte connects only Google Calendar and taps Continue. If she taps Cancel on the sheet, it closes and nothing is connected. If she taps Not now, the next screen follows and connecting stays in Settings. In the prototype the permission is staged and connects nothing, and Apple Calendar and Outlook are not wired once Google Calendar is connected.*
 
 **Onboarding, as shown: where do they go to school · 8:36pm**
 
-*Both girls arrive from the welcome. Mallory's school is filled in from the calendar photo, and Charlotte types Alexis's school and both start times.*
+*The coach shows what it found and Charlotte checks it, the way the rest of MVP works, rather than filling in a form (issue O36). Mallory's school and start time come from the calendar photo, and Alexis's from the Cedar Grove Elementary family calendar on her Google Calendar (Appendix A).*
 
-> Where do they go to school?
->
-> Add each child's school and start time, so the MVP Coach knows whose emails and handouts are whose and when to leave.
->
-> Your Google Calendar is connected.
+> MVP Coach: Here's what I found. Change anything that's wrong.
 >
 > Alexis · Fourth grade
-> School: Cedar Grove Elementary
-> Start time: 8:00am
+> Cedar Grove Elementary · 8:00am · From your Google Calendar
 >
 > Mallory · Kindergarten
-> School: Westview Kindergarten · From your calendar photo
-> Start time: 8:30am
->
-> + Add another child
+> Westview Kindergarten · 8:30am · From your calendar photo
 >
 > Your household
 >
 > How is your household set up?
-> [Two parents] [One parent] [Two homes] [Something else]
+> Two parents
 >
 > Language at home
-> [English]
+> English
 >
 > Who else helps?
 >
-> Add the adults you count on, such as a partner, grandparents or a nanny. You control what everyone sees in MVP.
+> Edward
+> Husband
 >
-> Name: Edward · Relationship: Husband
-> Name: Claire · Relationship: Sister
+> Claire
+> Sister
 >
 > + Add someone
 >
 > [Done]
 
-*Charlotte chooses Two parents, leaves English and adds Edward and Claire. "Your household" and "Who else helps?" are subheadings on the school screen, which held them on a screen of their own (0g) until version 3.53. The line about her calendar appears only when she connected one, and names it. A child marked "Not in school yet" has an Age field in place of School and Start time. Asking for the start time here is what lets her first board open with a recommendation instead of a question. The screen is taller than a phone, so it scrolls while Done stays pinned at the foot. Edward and Claire become the first members of her circle. Min-jung, Jenna and the Cedar Grove parents group come later in her first week.*
+*Each row opens to change it. The household row opens the four choices, Two parents, One parent, Two homes and Something else, and shows only its question until she chooses one. "+ Add someone" opens the Name and Relationship fields with the line "Add the adults you count on, such as a partner, grandparents or a nanny. You control what everyone sees in MVP." Charlotte chooses Two parents, leaves English and adds Edward and Claire, and the screen above is how she leaves it. Anything the coach could not find shows as an empty field it asks for. If her calendar held no start time for Cedar Grove Elementary, Alexis's row would show the school alone, and the coach would ask "I couldn't find Alexis's start time. What time does school start at Cedar Grove Elementary?" over an empty "Alexis's start time" field (0f-b). A child marked "Not in school yet" has an Age field in place of the school. Asking for the start time here is what lets her first board open with a recommendation instead of a question. Done stays pinned at the foot. "Your household" and "Who else helps?" have been subheadings on the school screen since version 3.54. Edward and Claire become the first members of her circle. Min-jung, Jenna and the Cedar Grove parents group come later in her first week.*
 
 **Onboarding, as shown: getting everything ready · 8:38pm**
 
@@ -2153,7 +2162,7 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 
 **What Charlotte gives the coach**
 
-*She taps the capture bar, types, then taps the camera and photographs the flyer. The prototype stages the camera with the prepared photo and "Use this photo", as on 0v. The bar holds the photo as a small thumbnail above the text, and she taps the arrow labeled "Give this to the coach".*
+*She taps the capture bar, types, then taps the camera and photographs the flyer. The prototype stages the camera with the prepared photo and "Use this photo", as on 0a-b. The bar holds the photo as a small thumbnail above the text, and she taps the arrow labeled "Give this to the coach".*
 
 > Taking Hana to Westview Kindergarten with Mallory, Min-jung asked.
 >
@@ -2173,7 +2182,7 @@ These lines appear during Charlotte's first week. They are not demo moments, but
 >
 > Reading your photo…
 
-*The prototype holds this for two seconds, as on 0r.*
+*The prototype holds this for two seconds, as the capture conversation does while it reads a photo (0a-c).*
 
 **Today, as shown: the coach card with the read-back · 7:46am**
 
@@ -4468,21 +4477,22 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Where | Text |
 | ----- | ----- |
 | Splash | The MVP mark with "Most Valuable Parent" beneath it, and beneath that the tagline "Master the parental logistics of life for every season. Build community. Solve for the win. Be the MVP." (issue O26) |
-| Welcome screen | Headline: Your week has a lot of moving parts, and the MVP Coach helps you keep track of everything. · Line: Just the basics to start us off in the right direction. · Fields: Your name · Zip code, with no helper lines · Subheading: Who are you planning for? · Line: The MVP Coach works out each grade from the birth month. Change any grade that's wrong. · For each child: Your kiddo's first name · Birth month and year, such as "October 2016" · the name and "grade", such as "Alexis's grade", over a list box with a chevron, shown once the birth month is filled in · The list: Not in school yet · Pre-K · Kindergarten · First grade · Second grade · Third grade · Fourth grade · Fifth grade · Sixth grade · Seventh grade · Eighth grade · Ninth grade · Tenth grade · Eleventh grade · Twelfth grade · Link: + Add another child · Button: Continue · No skip link |
-| First capture screen | Headline: the coach's line in C-00 · Buttons: Take a photo · Attach a file · Talk or type · Link: Skip for now |
-| Check the photo | The photo, full width · Buttons: Use this photo · Retake |
-| Hand-off | The coach's line, saying what the draft will hold and what it keeps for later · Button: "Make" followed by the draft's name, such as "Make Mallory's plan" · Link: Something's not right |
-| Thinking screens | "Reading your photo…", or "Reading your file…" or "Listening…" as the capture applies, while the coach reads it, and "Making" followed by the draft's name, such as "Making Mallory's plan…", while it builds the draft |
-| Confirmation under a read-back | Question: Whose calendar is this?, with the kind of document named, such as "Whose newsletter is this?" · Choices: each child's name and grade, such as "Mallory · K" |
+| Welcome screen | Headline: Your week has a lot of moving parts, and the MVP Coach helps you keep track of everything. · Line: Just the basics to start us off in the right direction. · Fields: Your name · Zip code, with no helper lines · Subheading: Who are you planning for? · Line: The MVP Coach works out each grade from the birth month. Change any grade that's wrong. · For each child: Your kiddo's first name · Birth month and year, such as "October 2016" · the name and "grade", such as "Alexis's grade", over a list box with a chevron, shown once the birth month is filled in · The list: Not in school yet · Pre-K · Kindergarten · First grade · Second grade · Third grade · Fourth grade · Fifth grade · Sixth grade · Seventh grade · Eighth grade · Ninth grade · Tenth grade · Eleventh grade · Twelfth grade · Link: + Add another child, directly under the last child's fields · Button: Continue · No skip link · The screen opens with the fields for one child, and each tap on the link adds another child's fields above it |
+| Capture conversation | Each coach line labeled MVP Coach: and set in Voice · The coach's line in C-00 · Buttons: Take a photo · Attach a file · Talk or type · Link: Skip for now |
+| The photo in the capture conversation | The photo as a large preview in place of the three buttons · Buttons: Use this photo · Retake · Once she uses it, the photo moves into the conversation as a thumbnail, her message |
+| Reading, in the capture conversation | "Reading your photo…", or "Reading your file…" or "Listening…" as the capture applies, with the thinking dots beneath it |
+| Confirmation before a read-back | The coach's line naming the capture, such as "This is Westview Kindergarten's calendar for October." · Question: Whose calendar is this?, with the kind of document named, such as "Whose newsletter is this?" · Choices: each child's name and grade, such as "Mallory · K", none chosen |
+| Hand-off | The coach's line, saying what the draft will hold and what it keeps for later · Button: "Make" followed by the draft's name, such as "Make Mallory's plan" · Link: Something's not right · Both anchored at the foot of the capture conversation once the hand-off appears |
+| Thinking screen for the draft | "Making" followed by the draft's name, such as "Making Mallory's plan…" |
 | Heading of the draft | The child's name, "plan" and what the draft covers, such as "Mallory's plan for this week", with the dates beneath it in Meta, such as "Oct. 6 to 9" |
-| Heading of the account prompt | "Keep" followed by the draft's subject, such as "Keep Mallory's plan" |
-| Line on the account prompt | Create an account to save this plan and add the rest of your family. |
-| Sign-in on the account prompt | Button: Continue with Apple · Field: Email · Button: Continue · Link: Not now |
-| Account prompt with nothing captured | Heading: Create your account · Button: Continue with Apple · Field: Email · Button: Continue, with no line and no Not now |
+| Editing the draft | Each reminder as a checklist row with Remove · Link after each day with reminders: "Add something else for" and the child, such as "Add something else for Mallory" · On the suggested event: Add to the plan · Not this time · Link under the rows: Tell the MVP Coach what's wrong · Notice after removing a reminder: the item and "is off" the child's "list for" the day, such as "Library book is off Mallory's list for this Friday.", with Undo |
+| Keeping the plan, at the end of the draft | Heading: "Keep" followed by the draft's subject, such as "Keep Mallory's plan" · Line: Create an account to save this plan and add the rest of your family. · Field: The email your school writes to, with the placeholder Email and the helper line "MVP uses it to recognize school emails you forward." · Button: Continue · Link: Not now |
+| Account prompt with nothing captured | Heading: Create your account · Field: The email your school writes to, with the placeholder Email and the helper line "MVP uses it to recognize school emails you forward." · Button: Continue, with no line and no Not now |
 | Plan screen, proposed | Headline: Pick a plan and start your free trial today! · Toggle: monthly · annual · Plan: Basic · $8.99 / month · 7-day free trial · Monthly membership · AI coach · Team feedback · Button: Buy · Plan: Family · $13.99 / month · 7-day free trial · Monthly membership · AI Coach · Up to six users · Team feedback · Button: Buy · Line: Purchases will open Stripe in a new tab. |
 | Calendar screen | Heading: Connect your calendar · Line: Connect the calendar you already use, and the MVP Coach brings in what's on it and tells you when something new runs into the plan. MVP reads your calendar and never changes it. · Buttons: Google Calendar · Apple Calendar · Outlook · Link: Not now |
-| Calendar permission, staged | At the top, the calendar's name in plain text, such as "Google Calendar", with no logo · Most Valuable Parent wants to see your calendar · Buttons: Allow · Cancel. Drawn generic, not to any calendar's brand. |
-| School screen | Heading: Where do they go to school? · Line: Add each child's school and start time, so the MVP Coach knows whose emails and handouts are whose and when to leave. · For each child: the name, the grade written out, such as "Fourth grade", a School field and a Start time field, such as "8:00am" · Line, shown only when she connected a calendar: "Your", the calendar's name and "is connected.", such as "Your Google Calendar is connected." · Note under a school filled in from a capture: From your calendar photo, or the capture that applies · For a child not in school yet: an Age field in place of School and Start time · Link: + Add another child · Subheading: Your household · Question: How is your household set up? · Choices: Two parents, One parent, Two homes, Something else · Field: Language at home · Subheading: Who else helps? · Line: Add the adults you count on, such as a partner, grandparents or a nanny. You control what everyone sees in MVP. · Fields: Name, Relationship · Link: + Add someone · Button: Done |
+| Calendar permission, staged | A sheet over the calendar screen · At the top, the calendar's name in plain text, such as "Google Calendar", with no logo · Most Valuable Parent wants to see your calendar · Buttons: Allow · Cancel. Drawn generic and grayscale, not to any calendar's brand. |
+| Calendar screen, connected | Line with a check under the screen's line: "Your", the calendar's name and "is connected.", such as "Your Google Calendar is connected." · The calendar's button becomes its name, a middle dot and Connected, with a check, such as "Google Calendar · Connected" · The other calendars stay as outlined buttons · Button: Continue |
+| School screen | The coach's line, labeled MVP Coach: · Here's what I found. Change anything that's wrong. · For each child, a row: the name, a middle dot and the grade written out, such as "Alexis · Fourth grade", over the school and start time and where they came from, such as "Cedar Grove Elementary · 8:00am · From your Google Calendar" or "Westview Kindergarten · 8:30am · From your calendar photo" · When the coach found no start time: the school alone on the row, then the coach asking "I couldn't find" the child's "start time. What time does school start at" the school, such as "I couldn't find Alexis's start time. What time does school start at Cedar Grove Elementary?", over an empty field labeled with the child's name and "start time", such as "Alexis's start time" · For a child not in school yet: an Age field in place of the school · Subheading: Your household · Row: How is your household set up?, showing her choice, which opens the choices Two parents, One parent, Two homes, Something else · Row: Language at home, showing English · Subheading: Who else helps? · A row for each adult, with the name over the relationship, such as "Edward" over "Husband" · Link: + Add someone, which opens the line "Add the adults you count on, such as a partner, grandparents or a nanny. You control what everyone sees in MVP." and the fields Name, Relationship · Button: Done |
 | Getting ready screen | Headline: Getting everything ready · Steps: Saving your account · Adding the children by name, such as "Adding Alexis and Mallory" · Reading the connected calendar by name, such as "Reading your Google Calendar", shown only when she connected one · Setting up the draft by name, shown only when she made one, such as "Setting up Mallory's plan" · Getting Today ready · Each step shows done, working or waiting · Line: This takes about a minute. You can put your phone down, and everything you've entered is safe. |
 | Getting ready, when account creation fails | Your account wasn't saved. Everything you entered is still here. · Button: Try again |
 | Coach introduction | Byline: MVP Coach · just now · Greeting: "Welcome to the team," followed by her name, or "Welcome to the team." when she left her name blank · The recap, as in C-00, built from the sentences that apply to her path (C-00, "If she skipped a step") · Reminder, ticked, shown only when she made a capture: Remind me the night before a library day, or the reminder that fits her capture · Calendar line, ticked, shown when she connected a calendar: "Add events from my" and the calendar, "to my plan", such as "Add events from my calendar to my plan" · Button: Next |
@@ -4637,6 +4647,8 @@ The user stories left gaps, and everything in this table is a fact we invented t
 | Westview Kindergarten's email subject | "Changes to pickup requests start this week" | Gives the forwarded email in C-05b a subject line. |
 | The rotation calendar's month | The October sheet starts with A on Thursday, Oct. 1, so C-00's week runs C, D, E, F, A and the demo week runs B to F. | Lets one photo serve both C-00 and the demo week, and puts a sneaker day on the morning after C-00. |
 | Her calendar | Charlotte uses Google Calendar and connects it during setup in C-00. It holds Alexis's therapy at Brightwater Family Therapy on Mondays at 3:30pm, Alexis's dance at Studio Ten Dance on Wednesdays at 3:45pm and Mallory's ballet at Studio Ten Dance on Thursdays at 4:15pm, each as a repeating event. The coach adds all three to her plan at setup, because she left the calendar line ticked on 0j. | Gives the coach something real to find at setup, and explains why those three items carry the calendar mark through the week. Google Calendar is the most common calendar to connect and the simplest to stage. |
+| The calendar photo's start time | The October rotation sheet prints "School day begins at 8:30am" under its title, so the coach fills in Westview Kindergarten's start time from the photo on the school screen. | Option C of the school screen fills each school and start time from what the coach already has, so Mallory's needs a source on the sheet she photographed (issue O36). The photo in Figma still shows the September sheet and needs replacing (issue O18). |
+| Cedar Grove Elementary on her calendar | Charlotte's Google Calendar also holds the Cedar Grove Elementary family calendar, which she subscribed to in August. Its entry for the first day of school gives the start of the school day as 8:00am, and that is where the coach finds Alexis's school and start time. Nothing else from the school's calendar joins her plan in the demo, because the school's dates reach MVP through the Sunday newsletter. | Gives Alexis's row on the school screen a real source, "From your Google Calendar", without adding an event the coach would turn into a trip (issue O36). |
 | The checkup booking | Charlotte books Mallory's checkup in the Northside Pediatrics portal for Friday at 3:30pm, the first opening, and the portal adds it to her Google Calendar. | Shows something booked outside MVP reaching the plan without her sending it, and gives the calendar a conflict to find. |
 | Northside Pediatrics travel | Northside Pediatrics is 15 minutes from home. | Lets the coach give a leaving time for the checkup. |
 | Ms. Reyes's answer | Ms. Reyes answers "Yes, I can" on the web page at 3:10pm on Wednesday. | Uses the text-message route for someone without MVP, which no other moment shows. |
@@ -4679,7 +4691,7 @@ The user stories left gaps, and everything in this table is a fact we invented t
 | Hana's ride on Monday | Min-jung goes straight to work from Cedar Grove Elementary this Monday, so when she collects Alexis at 7:40am she leaves Hana with Charlotte for the run to Westview Kindergarten. Hana is in Mallory's class, and the Parks live two streets away. | Gives C-03a a change Charlotte hears in person and tells the coach in her own words, which no message in her week could carry. The run's stops and times stay the same, so no leaving time changes. |
 | Westview Kindergarten's fall food drive | A flyer headed "Westview Kindergarten" and "Fall food drive", asking each child to bring one canned or boxed food item this Monday, with bins by the front office. Min-jung hands it to Charlotte at the door. | Gives the capture a document someone else wrote, so its item waits for her to add it, beside Hana's ride, which joins as hers because she said it. The drive also goes on the Westview Kindergarten card's calendar. |
 | Charlotte's typed words in C-03a | Taking Hana to Westview Kindergarten with Mallory, Min-jung asked. | Written the way a parent types with a child at the door, as one plain sentence. |
-| The flyer photo | A prepared photo of the flyer, staged like the rotation calendar on 0v. | The prototype reads no live photos. |
+| The flyer photo | A prepared photo of the flyer, staged like the rotation calendar on 0a-b. | The prototype reads no live photos. |
 | Her agreement to what the coach adds | Charlotte leaves "Add events from my calendar to my plan" ticked on 0j, and the three switches in Settings read On. | Shows the rule Greg approved on October 18, 2026 working from setup onward, and gives Settings its values (issue G42). |
 | The notice in her first week | On Thursday, Oct. 8, while she is on the game plan, Charlotte gives the coach Alexis's weekly schedule, and the coach finds that violin and therapy overlap every Monday. | Gives the notice a moment in Charlotte's story without adding one to the demo, because the clash is found before the demo week (issue G43). |
 | The conflict on the pass | On a Monday that goes differently from C-03, Min-jung texts at 7:20am that the Parks' car won't start, Charlotte shares it to MVP, and Westview Kindergarten starts at 8:00am for the kindergarten's fall assembly. Edward works from home on Mondays. | Greg chose this scenario on October 18, 2026. A carpool falling through makes no conflict on its own, because the schools are 12 minutes apart and start 30 minutes apart, so the board needs both girls due at 8:00am (issue T50). |
@@ -4877,8 +4889,24 @@ The user stories left gaps, and everything in this table is a fact we invented t
 153. **Decided November 21, 2026: the Friday carpool's titles.** Wednesday's single-leg pass reads "Drive Alexis's carpool to Cedar Grove Elementary", and Friday's trip pass reads "Drive Alexis's carpool, then take Mallory to Westview Kindergarten". Carpool children who are not Charlotte's are not named.
 154. **Decided November 21, 2026: the other tabs on her first night are written (issue P4).** They need frames before the build draws them from Figma, and until then the build works from these words.
 155. **Decided November 24, 2026: onboarding is shorter (issue O35).** Greg played the alpha on his phone and found too many steps. The children and grades join the welcome, sign-in moves onto the account prompt, the calendar's connected state becomes a line on the school screen, and the household joins the school screen. The plan screen stays in the flow, and the household questions stay as Heather wrote them. Three pieces of wording are new and need Heather's review: the subheading "Who are you planning for?" on the welcome, which replaces the children screen's heading with her name, the grade line "The MVP Coach works out each grade from the birth month. Change any grade that's wrong.", which replaces the grades screen's heading and line, and "Your Google Calendar is connected." on the school screen. The welcome loses its skip link, because her name and zip code can be left blank. The frames for 0w, 0w-b, 0c and 0f are redrawn in place, and 0c-b is a new frame.
+156. **Decided November 24, 2026: onboarding is ten screens (issue O36).** Greg reviewed drafts of the flow on the Figma page "Drafts - onboarding, November 24" and accepted them. The welcome opens with one child and "+ Add another child" under that child's fields. The capture conversation (0a) takes in 0v, 0r and 0b, and the coach confirms whose calendar it is before the read-back, with no child preselected. The draft is editable, and keeping the plan sits at the end of the draft page, with one field for the email the school writes to and no Continue with Apple. The calendar's permission is a sheet over the calendar screen, which then confirms the connection with "Your Google Calendar is connected.", moved from the school screen, and lets her connect a second calendar (F40). The school screen is the coach's review of what it found, as option C of the drafts, and 0f-b shows it when the coach could not find a start time. New wording for Heather's review: "Add to the plan" and "Not this time" on the draft's suggested event, "Tell the MVP Coach what's wrong", "The email your school writes to", "MVP uses it to recognize school emails you forward.", "Library book is off Mallory's list for this Friday.", "Google Calendar · Connected", "Here's what I found. Change anything that's wrong.", "From your Google Calendar", "I couldn't find Alexis's start time. What time does school start at Cedar Grove Elementary?", "Alexis's start time", and the read-back's first sentence, split into "This is Westview Kindergarten's calendar for October." and "Westview Kindergarten uses a six-day letter rotation." The calendar's error states are still to be written (issue O37).
 
 # Appendix C: change log
+
+## Version 3.56, November 24, 2026
+
+Greg's review of the onboarding drafts (issue O36). Version 3.55 is kept in the archive.
+
+| # | Change |
+| ----- | ----- |
+| 1 | The welcome opens with the fields for one child, with "+ Add another child" directly under them, and 0w-c shows Mallory added. |
+| 2 | The capture conversation (0a) takes in checking the photo, the reading screen and the read-back, so 0v, 0r and 0b retire, and its states are 0a-b to 0a-e. |
+| 3 | The coach names the capture and asks whose it is before the read-back, with no child preselected, and the read-back's first sentence is split to allow it. |
+| 4 | The draft can be changed: each reminder has Remove, each day with reminders ends with "Add something else for Mallory", the suggested event has Add to the plan and Not this time, and "Tell the MVP Coach what's wrong" sits under the rows. 0c-d shows the draft after an edit. |
+| 5 | Keeping the plan moves from a prompt over the draft to the end of the draft page (0c-c), with one field for the email the school writes to and no Continue with Apple. 0c-b loses Continue with Apple too. |
+| 6 | The calendar's permission is a sheet over the calendar screen, and the connected state (0q-d) confirms the connection with "Your Google Calendar is connected.", which leaves the school screen. She can connect a second calendar (F40). |
+| 7 | The school screen is the coach's review of what it found, with the source of each school and start time, and 0f-b shows a start time the coach could not find. Appendix A gains the calendar photo's start time and the Cedar Grove Elementary family calendar. |
+| 8 | Charlotte's path is ten screens before her first board. Appendix B item 156 records the decision and the wording for Heather's review. |
 
 ## Version 3.55, November 24, 2026
 
