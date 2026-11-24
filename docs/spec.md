@@ -1,8 +1,10 @@
 # **Most Valuable Parent (Lombardi): Product specification**
 
-*Investor prototype · Version 0.54 · November 23, 2026*
+*Investor prototype · Version 0.55 · November 24, 2026*
 
 ## **Summary of this version**
+
+Version 0.55 follows story fixtures 3.54 and Greg's decision to shorten onboarding after playing the alpha on his phone (§3, issue O35). The children and their suggested grades join the welcome, sign-in moves onto the account prompt over the draft, allowing the calendar goes straight to the school screen, and the household joins the school screen, so Charlotte's path drops from nineteen screens to fourteen and onboarding loses its step counter. The plan screen stays in the flow. F39 records Greg's request to edit a child, a school and Settings in the demo (QA-005 to QA-007), which moves into the prototype as a stage before Alpha 2.
 
 Version 0.54 follows story fixtures 3.53. The thinking screens' dots pulse in turn, so a wait never looks frozen (§19, issue O27). A request draft shows the address line, the message and its send button, as the draft to Ruth does, and no longer previews the recipient's buttons, because Charlotte is asking for help and the preview read as buttons for her to tap (§9, issue S14). The Leave sheet's stations carry the same StopMarker as the trip timetable, and an open leaving time stacks its two buttons under the time, following Greg's redesign of RouteStation (§5, standing decision 26, issue T91).
 
@@ -188,7 +190,7 @@ Every screen in the app is one of eight types, and each type has one rule for wh
 | Page | A person page, a child page, a school card, an article, the members of a group, and Settings | The title bar, holding Back and the page's actions | The large title and everything beneath it | The tab bar |
 | Conversation | The Coach tab, a chat, and a group's page | The title bar, holding the title or Back, and the monogram on the Coach tab | The messages or posts | The capture bar or the message field. The Coach tab also keeps the tab bar beneath it. |
 | Composer | New message, a post to a group, a request draft, a draft handed to another app, Add someone and New group | The title bar, holding Back and the heading | The fields and the message | The primary button, such as Send, Post, Add or Create group |
-| Onboarding and setup | 0w to 0j, except the thinking screens | The top bar, holding Back on every screen after 0w, even where a frame draws none (issue O30), and, on setup screens, the step counter | The content | The primary button and the skip link |
+| Onboarding and setup | 0w to 0j, except the thinking screens | The top bar, holding Back on every screen after 0w, even where a frame draws none (issue O30) | The content | The primary button and the skip link |
 | Sheet | The reminder sheet, the answer sheet, the Leave sheet, Ask someone and the other sheets on Today | The grabber, Close and the heading | Only a tall sheet scrolls, and a compact sheet fits its content | The primary button and its link |
 | Still | The splash, the thinking screens, getting ready, a notification, the staged calendar permission and Ms. Reyes's web page | Nothing | Nothing, except Ms. Reyes's web page, which scrolls as any web page does | Nothing |
 
@@ -261,27 +263,23 @@ From tablet width up, the bottom tabs become a sidebar with the same five tabs i
 
 Onboarding appears in the demo only in Charlotte's household, as moment C-00, on Monday, Oct. 5, the week before the demo week. The other households open already set up.
 
-Onboarding has three parts. Before any account, the parent tells MVP her first name and who she is planning for, then gives it one thing from this week and sees it come back as a plan. In the second part she creates the account, connects her calendar and answers two short setup screens. In the third part MVP finishes setting up, the coach introduces itself, and she lands on Today, where the coach makes its first recommendation.
+Onboarding has three parts. Before any account, the parent tells MVP her first name and who she is planning for, then gives it one thing from this week and sees it come back as a plan. In the second part she creates the account from the prompt over her draft, chooses a plan, connects her calendar and answers one setup screen. In the third part MVP finishes setting up, the coach introduces itself, and she lands on Today, where the coach makes its first recommendation.
 
-The wireframes are the onboarding flow map and screens onboarding-01 to onboarding-19, with the failure and waiting states on onboarding-19 and the lines taught in her first week on onboarding-18. Since the wording review of Oct. 27, 2026, the frames on the Figma page "Design - lombardi · post-review" are the source for 0w, 0k, 0k-b, 0k-c, 0c, 0f, 0h, 0j and every 0i state, and the screen map names them.
+Until Nov. 24, 2026, the flow ran through nineteen screens and eighteen taps before Today. Greg played it on his phone and found it far too long, so 0k, 0k-b and 0k-c joined the welcome, 0e joined the account prompt, the connected state 0q-c became a line on 0f, and 0g joined 0f (issue O35). Retired IDs are not reused. The wireframes are the onboarding flow map and screens onboarding-01 to onboarding-19, which predate this change, with the failure and waiting states on onboarding-19 and the lines taught in her first week on onboarding-18. Since the wording review of Oct. 27, 2026, the frames on the Figma page "Design - lombardi · post-review" are the source for 0w, 0c, 0f, 0j and every 0i state, and the screen map names them. Until 0w, 0w-b, 0c and 0f are redrawn in place and 0c-b is drawn, the build takes their words from the fixtures and their parts from the frames the screen map names for each.
 
 | # | Screen | Part | Step counter | Skip |
 | ----- | ----- | ----- | ----- | ----- |
 | 0s | Splash | Before the account | None | No |
-| 0w | Welcome: her first name and zip code | Before the account | None | Yes, to 0k |
-| 0k | Who are you planning for: each child's first name and birth month and year | Before the account | None | No |
-| 0k-b | The grades the MVP Coach suggests, in list boxes she can change, with 0k-c showing a list open | Before the account | None | No |
-| 0a | Show me one thing | Before the account | None | Yes, to 0e |
+| 0w | Welcome: her first name and zip code, then each child's first name and birth month and year, with the suggested grade in a list box she can change, and 0w-b showing a list open | Before the account | None | No, though her name and zip code can be left blank |
+| 0a | Show me one thing | Before the account | None | Yes, to the account prompt with nothing captured (0c-b) |
 | 0v | Check the photo: Use this photo or Retake, for a photo only | Before the account | None | No |
 | 0r | Thinking, while the coach reads the capture | Before the account | None | No |
 | 0b | Read-back, with a control to confirm which child it is for, at most one question, and the hand-off | Before the account | None | No |
 | 0t | Thinking, while the coach builds the draft | Before the account | None | No |
-| 0c | The draft, with the dates it covers and the account prompt over it | Before the account | None | Not now ends the session |
-| 0e | Create your account: an email address or sign-in with Apple | Setup | 01 of 04 | No |
+| 0c | The draft, with the dates it covers and the account prompt over it, which holds Continue with Apple and an email field. 0c-b is the same prompt over 0a when she skipped the capture. | Before the account | None | Not now ends the session |
 | 0e-p | Choose a plan: Basic or Family, each with a free trial, staged | Setup | None | No |
-| 0q | Connect your calendar: Google Calendar, Apple Calendar or Outlook, with a staged permission screen and a connected state | Setup | 02 of 04 | Not now, to 0f |
-| 0f | Where do they go to school: each child's school and start time | Setup | 03 of 04 | No |
-| 0g | Your household: household type, home language and, under the subheading "Who else helps?", the adults she counts on | Setup | 04 of 04 | No |
+| 0q | Connect your calendar: Google Calendar, Apple Calendar or Outlook, with a staged permission screen (0q-b). Allowing it goes straight to 0f. | Setup | None | Not now, to 0f |
+| 0f | Where do they go to school: each child's school and start time, then, under the subheadings "Your household" and "Who else helps?", her household type, home language and the adults she counts on | Setup | None | No |
 | 0p | Getting everything ready, while the account is created | Finishing | None | No |
 | 0j | Welcome to the team: the coach's introduction and a recap built from the sentences that apply to her path, as fixtures C-00 "If she skipped a step" sets out (issue O32) | Finishing | None | No |
 | 0i | Her first board on Today: on arrival (0i-a), the other options (0i-b), after she agrees (0i-c), with nothing captured (0i-d), ready for the morning (0i-f), after she removes a reminder (0i-i), adding a reminder (0i-j) and after she picks Plan B (0i-g), with 0i-h showing the next morning | Finishing | None | No |
@@ -292,26 +290,26 @@ The words on every screen are in fixtures C-00 and fixtures section 4, "Onboardi
 
 | Field | Screen | Type | Description |
 | ----- | ----- | ----- | ----- |
-| First name | 0w | string | Used in the coach's greeting and the children screen's heading. Optional, because 0w can be skipped. |
+| First name | 0w | string | Used in the coach's greeting. Optional, because she can leave it blank. |
 | Zip code | 0w | string | Used to work out travel times and the local school calendar. Optional. Charlotte enters 00123. |
-| Child's first name | 0k | string | One per child, labeled "Your kiddo's first name". |
-| Birth month and year | 0k | month and year | One per child, such as "October 2016". |
-| Grade | 0k-b | enum | Suggested from the birth month against a September 1 cutoff and changed in a list box: Not in school yet, Pre-K, Kindergarten, then First grade through Twelfth grade. No College. |
+| Child's first name | 0w | string | One per child, labeled "Your kiddo's first name". |
+| Birth month and year | 0w | month and year | One per child, such as "October 2016". |
+| Grade | 0w | enum | Shown once the birth month is filled in. Suggested from the birth month against a September 1 cutoff and changed in a list box: Not in school yet, Pre-K, Kindergarten, then First grade through Twelfth grade. No College. |
 | Capture | 0a | photo, file, or voice or text | The one thing from this week. Optional, because 0a can be skipped. |
 | Child for this capture | 0b | child reference | Preselected by matching the document's grade to a child's grade. |
-| Email or Apple sign-in | 0e | string or action | Creates the account. Her name is already known from 0w. |
+| Email or Apple sign-in | 0c | string or action | On the account prompt, or on 0c-b when she skipped the capture. Creates the account. Her name is already known from 0w. |
 | Calendar | 0q | choice | Google Calendar, Apple Calendar or Outlook, or Not now. Charlotte connects Google Calendar. |
 | School | 0f | string | One per child in school. Filled in from the capture where it can be, with the note "From your calendar photo". |
 | Start time | 0f | time | One per child in school, such as 8:00am for Alexis and 8:30am for Mallory. It lets her first board open with a recommendation. |
 | Age | 0f | number | Only for a child marked Not in school yet, in place of School and Start time. |
-| Household type | 0g | single choice | Asked as "How is your household set up?": Two parents, One parent, Two homes, Something else. |
-| Language at home | 0g | select | English is the only working option in the prototype. |
-| Other adult | 0h | name and relationship | One row per adult, with the fields Name and Relationship. They become the first members of her circle. |
+| Household type | 0f | single choice | Asked as "How is your household set up?": Two parents, One parent, Two homes, Something else. |
+| Language at home | 0f | select | English is the only working option in the prototype. |
+| Other adult | 0f | name and relationship | One row per adult, with the fields Name and Relationship. They become the first members of her circle. |
 | Reminder | 0j | checkbox | Ticked by default, such as "Remind me the night before a library day". Tapping Next with it ticked brings up the notification permission. |
 
 ## **Behavior notes**
 
-* **Value still comes before the account.** The welcome and the children screens come before the first capture so the coach knows whose week the capture belongs to. Without them the coach could only guess which child a calendar was for. They are short, and none of them asks for an account. The welcome can be skipped and the children screen can't, because every later screen depends on knowing the children.
+* **Value still comes before the account.** The welcome comes before the first capture so the coach knows whose week the capture belongs to. Without it the coach could only guess which child a calendar was for. It asks for no account. Her name and zip code can be left blank, but every child needs a name and a birth month before Continue works, because every later screen depends on knowing the children. The grade appears under each birth month once she picks it.
 * **The coach always confirms which child a capture is for.** It asks "Whose calendar is this?", or names the kind of document, and preselects a child by matching the grade on the document to a child's grade, and she changes it with one tap. If two children share a grade or the document shows none, nothing is preselected. The confirmation is a control, not a question, so the coach can still ask its one question.
 * **She hands the draft to the coach.** The read-back never runs straight into the draft. Once the child is confirmed and the coach's question is answered, the coach says what it will make and what it keeps for later, and she starts the draft herself with a button such as "Make Mallory's plan". A "Something's not right" link lets her correct the read-back first.
 * **The first draft covers the rest of this week, and shows its dates.** The draft is headed "Mallory's plan for this week" with "Oct. 6 to 9" beneath it. Anything on a capture that falls in a later week goes onto the school card and enters the plan when its week arrives.
@@ -319,26 +317,28 @@ The words on every screen are in fixtures C-00 and fixtures section 4, "Onboardi
 * **Failure states have their own screens.** A capture that cannot be read replaces 0b, with Retake photo and Choose another. A wait longer than twenty seconds replaces 0r or 0t, with Try again. Account creation that fails replaces 0p's steps, keeps everything she entered, and offers Try again. If she leaves during 0p, MVP opens at 0p or 0j when she returns. The words are in fixtures section 4.
 * **Her first board opens with the coach's first recommendation.** Setup has given the coach each school's start time on 0f, so if she captured something, the pass at the top of Today shows the trip the coach recommends, marked "Needs an owner", with the evening reminders as its checklist, and the coach card beneath it recommends how tomorrow morning goes, such as "Take both girls at 7:40am". When she agrees, the card keeps the thread and the same pass turns to "Tomorrow" (§5). If she skipped the capture, the pass shows tomorrow's first school start, marked "Needs an owner", and the coach card asks for one thing to start with and holds Take a photo, Attach a file and Talk or type, and the capture bar is hidden.
 * **Leaving before the account starts over.** A parent who taps Not now on the account prompt, or leaves before creating the account, starts again at the splash the next time she opens the app.
-* **Back from the account screen** returns to the draft with the account prompt open.
+* **She signs in on the account prompt.** The prompt over the draft holds Continue with Apple, the email field and Continue, so keeping the plan and creating the account are one step. Back from the plan screen returns to the draft with the prompt open. With nothing captured, the prompt opens over 0a headed "Create your account", with no line and no Not now, and Back closes it (0c-b).
+* **Allowing the calendar goes straight to the school screen,** which opens with a line naming the calendar, such as "Your Google Calendar is connected." There is no connected screen to tap through.
 * **Her calendar comes right after the account.** It follows the first draft, so she has seen what MVP does before it asks for her calendar, and it comes before the school screen, so the coach can fill in what the calendar already shows. While the account is created, 0p reads the calendar, and the coach's introduction on 0j says what came in. If she taps Not now, connecting stays in Settings, and the coach offers it once, the first time she gives it an appointment.
 * **Entry points are taught when they become useful,** not during onboarding (§7).
 
 ## **Prototype timing**
 
-The prototype does not read photos, so each thinking screen lasts two seconds and the getting ready screen lasts four. The capture is the prepared photo of Westview Kindergarten's rotation calendar, headed "Westview Kindergarten" with "October 2026" beneath it, and the read-back, the coach's question, Charlotte's reply, the draft and the first board's recommendation are scripted. The account screens and the calendar permission screen look real and create or connect nothing. The failure states are built so they can be shown on request, but they do not appear in Charlotte's path.
+The prototype does not read photos, so each thinking screen lasts two seconds and the getting ready screen lasts four. The capture is the prepared photo of Westview Kindergarten's rotation calendar, headed "Westview Kindergarten" with "October 2026" beneath it, and the read-back, the coach's question, Charlotte's reply, the draft and the first board's recommendation are scripted. Sign-in on the account prompt and the calendar permission screen look real and create or connect nothing. The failure states are built so they can be shown on request, but they do not appear in Charlotte's path.
 
 ### **Standing decisions**
 
 1. **Value before account.** She sees her first draft before she is asked to create an account. This is a locked decision. Its wording changes, because her first name and her children's names and birth months now come before the first capture (open condition 1).
 2. **Nothing before the account is kept.** Her name, zip code, children, photo and draft are held only for the session and discarded if no account is created.
-3. **Collect progressively.** After the account, she connects her calendar, and three setup screens ask for each child's school and start time, the household type and home language, and the adults who help. Everything else about each child comes later, through the coach on Today, which opens with its first recommendation. There is no per-child intake form.
-4. **The step counter appears on setup only,** running from 01 of 04 to 04 of 04. The screens before the account are not a form, and the screens after setup leave her nothing to do.
+3. **Collect progressively.** After the account and the plan, she connects her calendar, and one setup screen asks for each child's school and start time, the household type and home language, and the adults who help. Everything else about each child comes later, through the coach on Today, which opens with its first recommendation. There is no per-child intake form.
+4. **Onboarding has no step counter.** Setup is three screens, the plan, the calendar and the school screen, and a counter that runs to three tells her less than the screens themselves do. Spec 0.45 to 0.54 counted 01 of 04 to 04 of 04.
 5. **Onboarding has no step for adding schools beyond naming them.** The first school card is built from the first capture (§11).
-6. **Her people is not part of onboarding.** The adults on 0h join her circle. The coach introduces her people when a question needs other parents.
+6. **Her people is not part of onboarding.** The adults on 0f join her circle. The coach introduces her people when a question needs other parents.
 7. **A plan screen follows the account, and nothing else asks for money.** "Choose a plan" (0e-p) comes right after she creates her account and shows the two plans, Basic and Family, each with a free trial, so the demo shows how MVP is sold. Choosing a plan starts the trial and moves on to 0q. A free trial means she can cancel before she pays, so the screen comes after she has seen her first draft and before setup asks anything more of her. In the prototype the screen is staged: no payment is taken, nothing opens Stripe, and either button moves on. Onboarding still ends with the coach's introduction and her first board, and the getting ready screen carries no percentage or figure.
 8. **Headlines are display type, and the coach is set in Inter from the first screen.** Every onboarding and setup headline is set in Fraunces. The coach's lines in onboarding are set in the Voice style, which is Inter, and once she reaches Today the coach is set in Body large and Body. Fields, labels, helper lines and buttons are set in Inter (§19).
 9. **"Time saved" is left out of the coach's introduction,** because nothing in the product measures it.
 10. **The zip code is the starting point for travel times.** MVP never asks for a home address. It works out each drive from the zip code and adds five minutes, so an estimate errs early. Directions opens her maps app, which routes from wherever she is.
+11. **A screen in onboarding earns its place by asking for something new or by showing a wait.** A screen that only confirms what she just did, such as the calendar's connected state, becomes a line on the next screen, and questions that fit on one screen stay on one screen. This is why Charlotte's path is fourteen screens and thirteen taps (issue O35). The thinking screens and the getting ready screen stay, because they move on by themselves.
 
 ### **Open conditions**
 
@@ -348,6 +348,7 @@ The prototype does not read photos, so each thinking screen lasts two seconds an
 
 4. **None.** 0g and 0h are one screen, which Greg approved on November 20, 2026 (issues O22 and O24, fixtures Appendix B item 113).
 5. **The Figma read-back reads "Who's calendar is this?"** and needs to read "Whose calendar is this?" (fixtures Appendix B item 92).
+6. **Three new lines need Heather's review** (issue O35, fixtures Appendix B item 155): the welcome's subheading "Who are you planning for?", the grade line "The MVP Coach works out each grade from the birth month. Change any grade that's wrong.", and "Your Google Calendar is connected." on the school screen. The build uses them as written until she changes them.
 
 # 4. The plan: items, owners, statuses and marks
 
@@ -1350,7 +1351,7 @@ Settings opens from the parent's monogram at the top right of every tab on a pho
 | Your calendar and forwarding address | The connected calendar with a link to disconnect it, or "Not connected" with Connect your calendar. Her forwarding address with Copy the address, and each sender she forwards automatically. |
 | What the coach adds for you | The line "The coach adds these to your plan, and you can take anything out." and three switches: events from her calendar, school-day changes for her children, and trips she can take herself. Turning one off sends that kind to the review card instead (§4, §8, F35). |
 | Notifications | A switch for notifications, and a switch for each reminder she chose, such as the reminder the night before a library day from 0j. |
-| Language at home | The language from 0g, such as English. |
+| Language at home | The language from 0f, such as English. |
 | Privacy | Two statements of who sees what: nobody sees her plan, her calendar or her coach conversations, and the coach doesn't read her chats or groups. |
 
 Each card sits on `bg/card` at `radius/lg`, the heading is set in Subtitle, the line in Meta and the rows in Body, with values right-aligned in muted ink. Links in the rows are Body strong in cerulean.
@@ -1748,7 +1749,7 @@ When the phone asks for reduced motion, anything that slides, rises, tilts or ch
 | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
 | Steam stars | The splash (0s), "Investor demo · start", and the brand header on Ruth's web page | While the screen is open | Three small stars rise from the mark like steam. Each grows from 20% to 120% of its size as it climbs about 80 px, turns from 15° to −15°, fades out over the last sixth of its climb and starts again. They run a third of a loop apart, so one is always rising. They keep moving wherever they appear. | A 3 s loop, linear | The stars stand still | 0s `2853:12205`, Ruth's page `3167:18251` | 4, and Alpha 2 for Ruth's page |
 | Thinking dots | The thinking screens, 0r and 0t | While the screen is open | The three cerulean dots under the headline brighten one after another, each rising from 40% to full opacity and falling back, a third of a loop apart, so one is always lit and the screen never looks frozen. They are the only dots on the screen (issue O27). | A 1.2 s loop, `ease-in-out` | Unchanged, because it only fades | 0r `2853:11922`, 0t `2853:11947` | Alpha 1 follow-ups |
-| Onboarding entrance | The splash, 0a, 0k, 0k-b, 0k-c, 0r, 0t, 0w, 0e, 0q and 0j | The screen opens | Each block fades in and rises 30 px into place, in order: the illustration, the headline, the line beneath it, then the fields or choices. On 0j, the coach's two lines rise in turn and the button and tick boxes fade in last. | `standard` each, starting at 0, 120, 250 and 410 ms (0j's controls at about 1.1 s); fade `ease-in-out`, rise `ease-out` | Fade only | 0w `2853:12929`, 0j `2853:12168` | 4 |
+| Onboarding entrance | The splash, 0w, 0a, 0r, 0t, 0q, 0f and 0j | The screen opens | Each block fades in and rises 30 px into place, in order: the illustration, the headline, the line beneath it, then the fields or choices. On 0j, the coach's two lines rise in turn and the button and tick boxes fade in last. | `standard` each, starting at 0, 120, 250 and 410 ms (0j's controls at about 1.1 s); fade `ease-in-out`, rise `ease-out` | Fade only | 0w `2853:12929`, 0j `2853:12168` | 4 |
 | Getting ready steps | 0p | The screen opens | Each step's bar fills from left to right, its check pops in, and the next step's label brightens. | `slow` a step; the check `standard` with `ease-overshoot` | Each check appears as its step finishes | `2853:12907` | 4 |
 | Account prompt | 0c | The draft has shown | For You slides up from below the draft. | `quick`, `ease-out` | Appears in place | `2853:12042` | 4 |
 | Today's pass swings in | Now on Today, including her first board (0i-a) | Today first appears after the app opens or the demo jumps to a moment, and whenever Now shows a different departure, such as the next pass after a leg ends or the evening's pass for tomorrow. Not when she returns to Today from another tab, because nothing on the pass has changed. | The pass swings in from a 3.8° tilt and settles level, then the trip's stops, or the fields of a single leg, rise 56 px, the nearest space token, into place and settle (issue T82). | Pass `standard`; stops start after the pass and take `standard`; both `ease-overshoot` | Both appear in place | 0i-a `2853:13795` | 3 |
@@ -1858,6 +1859,16 @@ A playbook for anyone but Edward, a second recipient with a playbook view of the
 # **Appendix A: Change log**
 
 This appendix tracks changes to the specification. The body above always reflects the latest version.
+
+## **v0.55, November 24, 2026**
+
+Follows story fixtures 3.54 and Greg's decision to shorten onboarding.
+
+| # | Section | Change |
+| ----- | ----- | ----- |
+| 1 | §3 | The welcome holds the children and their suggested grades (0k, 0k-b and 0k-c retire, and the open list is 0w-b), sign-in moves onto the account prompt (0e retires, and 0c-b covers a skipped capture), allowing the calendar goes straight to 0f (0q-c retires), and the household joins 0f (0g retires). Standing decisions 3, 4 and 6 change, standing decision 11 is added, and open condition 6 asks Heather to review three new lines (O35). |
+| 2 | §2, §19 | The onboarding layout type loses the step counter, and the onboarding entrance motion lists the screens that remain. |
+| 3 | Appendix B | F39, editing a child, a school and Settings in the demo, from QA-005 to QA-007. |
 
 ## **v0.54, November 23, 2026**
 
@@ -2574,4 +2585,6 @@ Ideas worth keeping that are not built in the prototype. Each has a number so it
 | F37 | A playbook for days she is away | **Moved into the prototype in v0.32** as §20. Greg asked for the weekend Charlotte is away, nicknamed auto pilot, on Nov. 19, 2026. Handing a weekend over one request at a time leaves the other adult with a pile of cards, so she builds one playbook with the coach and sends it once. | §20, fixtures Appendix B items 117 to 124 |
 | F38 | Flight status | **Parked again in v0.46,** when the airport rides left the playbook and C-14 was retired. It was moved into the prototype in v0.34, for the playbook only. Greg asked on Nov. 19, 2026 that Edward's Today show Charlotte's flight and alert him when it is delayed. MVP follows a flight in the plan by airline, flight number and date, shows its status where the trip around it is shown, and alerts the person driving when a change moves their leaving time. The prototype scripts the status. The real product needs a flight data provider, which is the engineer's choice. Whether her own plan follows a flight she meets, outside a playbook, is parked. | §20, fixtures Appendix B items 129 and 130 |
 
-**F39 is next free.**
+| F39 | Editing a child, a school and Settings in the demo | **Moves into the prototype before Alpha 2.** Greg asked on Nov. 24, 2026, from QA-005, QA-006 and QA-007, to change a child's lessons, times and school, add a child, change a school's details and change what Settings holds, because a demo where nothing can be corrected reads as a picture of an app. Edits are held for the session and reset with the household switcher, and an edit does not recalculate the plan, because the plan is scripted. The section is written in the next documents pass (issues L7, L8 and U5). | QA log QA-005 to QA-007 |
+
+**F40 is next free.**

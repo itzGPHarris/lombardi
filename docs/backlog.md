@@ -45,7 +45,7 @@ This file holds IDs and sequence. Nothing else.
 2. T63, O21: C-09, the wireframe-only Today boards and the 0b confirmation
 3. R13: the conference article frame
 4. G46, C62: the frames that still show words fixtures 3.46 changed, and every phone number with its area code
-5. O22, O24: the combined 0g screen from draft 3088:12922 with a four-step StepCounter, and 0h retired
+5. O35: 0w, 0w-b, 0c and 0f redrawn in place, 0c-b drawn, and 0k, 0k-b, 0e, 0q-c and 0g archived, with no StepCounter on any onboarding frame
 6. T61: the anytime task's item page
 7. P3, P11: For You as an overlay on 0c set to Bottom center, and the Cedar Grove card as a 956 px page
 8. P8, P12, P13: the jump screen opened by the M key and from Settings, Skip for now off 0w, and the three stranded frames archived
@@ -71,6 +71,14 @@ X3, D3, T27, O9, T8, T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48,
 ## Alpha 1: Charlotte's demo week
 
 *Built in seven stages and its follow-ups, and live on Netlify since November 23, 2026. The stage prompts in `docs/stage-prompts.md` keep the order it was built in. IDs its stages carried that are still open in `docs/issues.csv` are under "Confirm and close" for C60.*
+
+## Before Alpha 2: shorter onboarding and editing in the demo
+
+*Greg set this stage on November 24, 2026, after playing the Stage 7 build on his phone. Line 3 waits for F39's spec section.*
+
+1. O35: onboarding at fourteen screens, as spec 0.55 §3 sets out
+2. C86: the tab bar's bottom padding (QA-002)
+3. F39, L7, L8, U5: editing a child, a school and Settings, and adding a child
 
 ## Alpha 2: The weekend Charlotte is away
 

@@ -272,6 +272,36 @@ End the session with the commands you ran and their output, screenshots beside t
 
 ---
 
+## Before Alpha 2: shorter onboarding and editing in the demo
+
+Greg played the live build on his phone on November 24, 2026 and found onboarding far too long, and his QA log asked for edits the demo could not make. Lines 1 and 2 are ready to run. Line 3 waits for F39's section in the spec, so if this prompt runs before that section exists, the agent stops after line 2.
+
+```text
+This session builds the stage before Alpha 2. Its lines are under "Before Alpha 2: shorter onboarding and editing in the demo" in docs/backlog.md.
+
+Read these before anything else:
+- docs/spec.md section 3 (Onboarding) in full, including standing decisions 3, 4 and 11, and section 2, the onboarding and setup layout type.
+- docs/story-fixtures.md section 2, "Onboarding", the moment C-00 in section 3, section 4, the part headed "Onboarding", and Appendix C, version 3.54.
+- docs/screen-map.md, the section "Onboarding, C-00", including the note at its top about frames being redrawn.
+- The rows O35, C86, L7, L8 and U5 in docs/issues.csv, and spec Appendix B for F39.
+
+For line 1 (O35), Charlotte's path becomes fourteen screens. The welcome (0w) holds her name and zip code, then each child's name, birth month and year, with the grade list box appearing under the birth month once it is filled in, and it has no skip link. The account prompt on 0c holds Continue with Apple, the email field, Continue and Not now, and with a skipped capture the same prompt opens over 0a as 0c-b. Allowing the calendar goes straight to 0f, which shows the connected calendar's line, and 0f holds the household and the adults who help, with Done pinned at the foot. Remove 0k, 0k-b, 0e, 0q-c and 0g as screens, reusing their components inside the merged screens rather than copying them, and remove StepCounter from onboarding. Change the copy in src/copy and the seed to the fixtures' words, and update the dev links in README.md so &screen= names only screens that still exist. The fixtures test checks the words, so change a test only where the requirement changed, and say which. Until the frames are redrawn, build each screen from the fixtures' words with the parts the screen map names, and list each frame as out of date in your report.
+
+For line 2 (C86), measure the tab bar in Safari and from the Home Screen at 440 x 956 beside its frame. Apply the safe-area inset in place of the frame's bottom padding, not in addition to it, and check that the anchored feet on other layout types still clear the home indicator.
+
+Line 3 (F39, L7, L8 and U5) is built only from F39's section in docs/spec.md. If that section does not exist yet, stop after line 2 and say so.
+
+Before you change any code, write a plan and wait for my review of it. The plan should list each line with the files it touches, the screens it removes, and the frames you will compare against.
+
+When each line is done, commit with npm run check && git commit. Play C-00 from the splash to her first board on the captured path and on the skipped-capture path, render each onboarding screen at 440 beside its frame or parts source, and count the taps from the splash to Today. A difference you can't fix goes in docs/issues.csv with the frame ID.
+
+End the stage with the commands you ran and their output, screenshots of each onboarding screen, the tab bar beside its frame in Safari and from the Home Screen, the tap count, and the issue rows you added.
+```
+
+**Why this stage is shaped this way.** Onboarding is the first thing an investor or a parent in testing sees, so a long flow costs more there than anywhere else, and it runs before Alpha 2 so the playbook isn't demonstrated behind a flow Greg already knows is too long. The prompt names every retired screen, because a build agent left to infer the merge tends to keep the old screens reachable through dev links and Back.
+
+---
+
 ## Alpha 2: The weekend Charlotte is away
 
 Y19 and Y5 landed on November 23, 2026, and Greg accepted starting point C as drawn (Y14), so this prompt is ready to run. Edward's view after he answers, frame 3160:16646, keeps an older layout that Greg accepted for now (Y20), so the agent builds it as drawn.

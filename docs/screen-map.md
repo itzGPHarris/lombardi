@@ -1,6 +1,6 @@
 # Most Valuable Parent (Lombardi): screen map
 
-*Last updated November 23, 2026 · Fixtures 3.53 · Spec 0.54 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
+*Last updated November 24, 2026 · Fixtures 3.54 · Spec 0.55 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
 
 This file ties every screen in the alpha to the one Figma frame it is built from. Use the frame ID in this file and no other. The Figma file holds older frames with the same or similar names on other pages, and none of those is a target.
 
@@ -26,26 +26,29 @@ Since October 15, 2026, every Today frame and every tab screen is drawn one phon
 
 The order is the fixtures' order. Each frame is named "C-00", then its fixtures ID, then the screen.
 
+Onboarding was shortened on November 24, 2026 (issue O35, fixtures 3.54). Four frames are redrawn in place and keep their IDs: 0w takes in the children and grades, 0w-b is 0k-c's frame redrawn as the welcome with a list open, 0c gains the sign-in, and 0f takes in the household. 0c-b is a new frame. Until the redraws land, build each screen from the fixtures' words, take its parts from the frames named in its row, and log the frame as out of date. The frames for 0k, 0k-b, 0e, 0q-c and 0g are retired and move to "Archive - not for build" in the next Figma pass. Onboarding has no step counter, so ignore every counter drawn on these frames.
+
 | Step | Screen | Frame ID | Notes | Type |
 | ----- | ----- | ----- | ----- | ----- |
 | 1 | C-00 · 0s · Splash | `2853:12205` | | Still |
-| 2 | C-00 · 0w · Welcome | `2853:12929` | Continue looks disabled on the board although both fields are filled. Build it enabled (issue O18). | Onboarding and setup |
-| 3 | C-00 · 0k · Who are you planning for | `2853:12050` | Asks for each child's first name and birth month and year. | Onboarding and setup |
-| 3b | C-00 · 0k-b · The coach suggests grades | `2858:11639` | Each grade is a list box with a chevron. | Onboarding and setup |
-| 3c | C-00 · 0k-c · Grade list open | `2863:11708` | Alexis's list open over Mallory's field, with Fourth grade selected. | Onboarding and setup |
+| 2 | C-00 · 0w · Welcome | `2853:12929` | To be redrawn in place with the children and grades below the zip code (O35). Until then, take the name and zip fields from this frame, the child fields from `2853:12050` and the grade list boxes from `2858:11639`. Continue works once every child has a name and a birth month (issue O18). | Onboarding and setup |
+| 3 | C-00 · 0k · Who are you planning for | Retired | Joined 0w on November 24, 2026 (O35). The frame `2853:12050` is a parts source for 0w until 0w is redrawn. Do not build it as a screen. | |
+| 3b | C-00 · 0k-b · The coach suggests grades | Retired | Joined 0w on November 24, 2026 (O35). The frame `2858:11639` is a parts source for 0w's grade list boxes. Do not build it as a screen. | |
+| 3c | C-00 · 0w-b · Welcome, grade list open | `2863:11708` | Was 0k-c. To be redrawn in place as the welcome with Alexis's list open and Fourth grade selected (O35). | Onboarding and setup |
 | 4 | C-00 · 0a · Show me one thing | `2853:11894` | | Onboarding and setup |
 | 5 | C-00 · 0v · Check the photo | `2853:11916` | The prepared photo on the board still reads "SEPTEMBER 2026". The build uses the prepared photo the fixtures describe, headed "Westview Kindergarten" with "October 2026", which Greg supplies (issues O9, O18). Until it arrives, use the board's photo and log it. | Onboarding and setup |
 | 6 | C-00 · 0r · Reading | `2853:11922` | One set of dots under the headline, drawn with the library's ThinkingDots, whose three steps show the pulse (O27). | Still |
 | 7 | C-00 · 0b · Read-back and hand-off | `2853:11972` | The conversation runs in the fixtures' order: the photo, the read-back, the "Whose calendar is this?" control, the coach's question, Charlotte's answer, then the hand-off. The coach's lines are in the Voice style (but see issue C33). | Onboarding and setup |
 | 8 | C-00 · 0t · Making the draft | `2853:11947` | The same dots as 0r (O27). | Still |
-| 9 | C-00 · 0c · Draft and account prompt | `2853:12011` | | Onboarding and setup |
-| 10 | C-00 · 0e · Create your account, 01 of 05 | `2853:12979` | The counter reads 01 of 04 since fixtures 3.46 (issue G46). | Onboarding and setup |
+| 9 | C-00 · 0c · Draft and account prompt | `2853:12011` | To be redrawn in place with Continue with Apple, the email field, Continue and Not now on the prompt (O35). Until then, take the sign-in parts from `2853:12979`. | Onboarding and setup |
+| 9b | C-00 · 0c-b · Account prompt, nothing captured | Not drawn yet | The same prompt over 0a, headed "Create your account", with no line and no Not now (O35). Build from the fixtures' words and 0c's prompt. | Sheet, over 0a |
+| 10 | C-00 · 0e · Create your account | Retired | Joined 0c on November 24, 2026 (O35). The frame `2853:12979` is a parts source for 0c's sign-in. Do not build it as a screen. | |
 | 11 | C-00 · 0e-p · Choose a plan | `2853:12857` | Staged. Either Buy button moves on to 0q, and nothing opens Stripe. The words are proposed (issue O17). Build the frame at 440 px with Hearth colors, and show "Most Valuable Parent" as the wordmark in place of "MVP" alone. | Onboarding and setup |
-| 12 | C-00 · 0q · Connect your calendar, 02 of 05 | `2853:13014` | The counter reads 02 of 04 since fixtures 3.46 (issue G46). | Onboarding and setup |
+| 12 | C-00 · 0q · Connect your calendar | `2853:13014` | Ignore the step counter (O35). | Onboarding and setup |
 | 13 | C-00 · 0q-b · Calendar permission, staged | `2853:13034` | Drawn generic, with no calendar's brand. | Still |
-| 14 | C-00 · 0q-c · Connected | `2853:13176` | | Onboarding and setup |
-| 15 | C-00 · 0f · Who's on your calendar, 03 of 05 | `2853:13052` | Since fixtures 3.46 the heading reads "Where do they go to school?" and the counter 03 of 04 (issues O11 and G46). | Onboarding and setup |
-| 16 | Draft · C-00 · 0g · Your household and who helps | `3088:12922` | Greg approved the combined screen on November 20, 2026 (issue O22). Build 0g from this frame, with the counter 04 of 04, and build no 0h. `2853:13080` and `2853:13105` are superseded and move to the archive in step 5. | Onboarding and setup |
+| 14 | C-00 · 0q-c · Connected | Retired | Retired on November 24, 2026 (O35). Allowing the calendar goes straight to 0f, which opens with the line "Your Google Calendar is connected." Do not build it. | |
+| 15 | C-00 · 0f · Where do they go to school | `2853:13052` | To be redrawn in place with the calendar line under the heading's line and the household below the children, under the subheadings "Your household" and "Who else helps?", with Done pinned at the foot (O35). Until then, take the household parts from `3088:12922`. Ignore the step counter. | Onboarding and setup |
+| 16 | Draft · C-00 · 0g · Your household and who helps | Retired | Joined 0f on November 24, 2026 (O35). The frame `3088:12922` is a parts source for 0f's household. Do not build it as a screen. `2853:13080` and `2853:13105` are already superseded. | |
 | 18 | C-00 · 0p · Getting everything ready | `2853:12907` | Add the MVP mark above the headline, as the fixtures show (issue O18). | Still |
 | 19 | C-00 · 0j · Welcome to the team | `2853:12168` | | Onboarding and setup |
 | 20 | C-00 · 0i-a · First board, on arrival | `2853:13795` | The coach card recommends "Take both girls at 7:40am". Out of date since fixtures 3.27: the board needs the trip pass marked "Needs an owner", with the reminders as its checklist (issue T63). Mallory's reminders are ReminderItem instances from the library (issue C55). | Today |
@@ -238,7 +241,7 @@ Heather's second wording review (fixtures 3.30) was applied to the frames on Nov
 | Screen | Frame ID | Type |
 | ----- | ----- | ----- |
 | C-03 · Draft · Say you can't this week | `3088:12855` | Composer |
-| Draft · C-00 · 0g · Your household and who helps. Approved by Greg on November 20, 2026 and the build target for 0g (issue O22, fixtures item 113) | `3088:12922` | Onboarding and setup |
+| Draft · C-00 · 0g · Your household and who helps. Approved by Greg on November 20, 2026 (issue O22, fixtures item 113), and since November 24, 2026 a parts source for 0f only (O35) | `3088:12922` | Onboarding and setup |
 
 ## Starting point C: the weekend Charlotte is away
 

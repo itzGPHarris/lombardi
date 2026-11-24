@@ -141,6 +141,7 @@ Build around these rather than settling them in code. Each is a row in `docs/iss
 
 - **Words that wait on Heather.** The tab names (C21), the onboarding order (O3), how the calendar connection is described (C22), "Needs an owner" on the pass, "At home" and the evening fold line (T62 and T69), the coach's lines and answers (K1 and K2), and the playbook journey's words (Y4). Build the words the fixtures give today, and expect them to change.
 - **Frames that lag the fixtures (G46, O22).** Greg's decisions of November 20, 2026 changed words and one screen that some frames still show: the therapy and dance rows' chips, 0i-d's card, 0i-h's sheet, the school screen's heading, two sheet titles, and 0g and 0h, which are now one screen. Build the fixtures' words on the frame's layout, as "Who decides what" says.
+- **Onboarding frames that lag the fixtures (O35).** Onboarding was shortened on November 24, 2026. Until 0w, 0w-b, 0c and 0f are redrawn and 0c-b is drawn, build them from the fixtures' words with the parts the screen map names, and ignore any step counter a frame draws.
 - **The plan screen's words (O17).** Build 0e-p from its frame with the fixtures' words, and expect them to change.
 - **The title style's size (C33).** Title's 20px size has no type size variable in the library yet, so use `--text-title` from `src/tokens.css` as exported.
 - **The articles (R15 and R10).** The bylines are placeholders, and an article with no approved text shows its title over placeholder lines, as its frame does.
