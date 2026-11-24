@@ -1437,7 +1437,7 @@ MVP Editorial articles are written by staff in their own voice and follow only t
 | C-03a | Monday, Oct. 12, 7:45am | Min-jung leaves Hana with Charlotte for the run to Westview Kindergarten and hands her a Westview Kindergarten flyer, and Charlotte tells the coach through the capture bar on Today | Today, the capture bar | Core |
 | C-03b | Monday, Oct. 12, 2:00pm | The afternoon run as a line: the reminder, two pickups and therapy, and the Leave sheet | Lock screen, the reminder, then Today | Core |
 | C-04 | Monday, Oct. 12, 8:50pm | Working the game plan without the coach: adding the second tutoring session from the review card, moving it to next Tuesday, two notes, and asking Edward to take the library run | Game plan | Optional |
-| C-04b | Tuesday, Oct. 13, 7:05am | Edward says yes to the library run and adds a note | Edward's request card, through View as | Optional |
+| C-04b | Tuesday, Oct. 13, 7:20am | Edward says yes to the library run and adds a note | Edward's request card, through View as | Optional |
 | C-05 | Tuesday, Oct. 13, 12:20pm | Asking her people about a new therapist | Today, the coach card | Core |
 | C-05b | Tuesday, Oct. 13, 3:40pm | A Westview Kindergarten email updates the Westview Kindergarten card | Coach, the read-back | Optional |
 | C-05c | Tuesday, Oct. 13, 8:15pm | Charlotte asks Edward and Claire together how to tell Alexis about her therapist | Team | Core |
@@ -1873,6 +1873,7 @@ Follows story fixtures 3.55 and Greg's change request before Heather's review.
 | ----- | ----- | ----- |
 | 1 | §15 | The switcher groups moments by week and day and shows each as its time and title, the ID moves to the debug menu, and a moment the seed doesn't hold reads Coming soon and can't be opened (X6). |
 | 2 | §19 | The Home Screen label reads "MVP", and the wordmark keeps "Most Valuable Parent" (C87). |
+| 3 | §15 | C-04b is at 7:20am, as its fixtures heading and the seed give it (X7). |
 
 ## **v0.55, November 24, 2026**
 
