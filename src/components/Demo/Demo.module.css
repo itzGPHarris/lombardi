@@ -41,7 +41,7 @@
 .moments { display: flex; flex-direction: column; }
 .moment {
   display: grid;
-  grid-template-columns: calc(var(--space-56) + var(--space-4)) 1fr;
+  grid-template-columns: calc(var(--space-56) + var(--space-16)) 1fr;
   gap: var(--space-12);
   width: 100%;
   min-height: var(--size-tap-target);
@@ -50,8 +50,18 @@
   text-align: left;
 }
 .moment[aria-current='true'] { background: var(--interactive-tint); }
-.momentId { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--interactive-default); }
-.momentLabel { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-secondary); }
+.momentGroup { display: flex; flex-direction: column; gap: var(--space-12); }
+.momentGroup + .momentGroup { margin-top: var(--space-16); }
+.momentGroupTitle { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-secondary); }
+.momentDay { display: flex; flex-direction: column; gap: var(--space-4); }
+.momentDayTitle { margin: 0; padding: 0 var(--space-12); font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.momentTime { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--interactive-default); }
+.momentText { display: flex; flex-direction: column; }
+.momentTitle { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.momentSoon { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); }
+.moment[aria-disabled='true'] { cursor: default; }
+.moment[aria-disabled='true'] .momentTime,
+.moment[aria-disabled='true'] .momentTitle { color: var(--ink-muted); }
 .facts { display: flex; flex-direction: column; gap: var(--space-4); margin: 0; }
 .facts div { display: flex; gap: var(--space-8); }
 .facts dt { font: var(--text-meta); color: var(--ink-muted); }

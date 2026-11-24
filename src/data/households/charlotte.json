@@ -2552,7 +2552,7 @@
   "moments": [
     {
       "id": "C-00",
-      "label": "Charlotte names herself and the girls, photographs Westview Kindergarten's rotation calendar, hands it to the coach and sees Mallory's plan for the week, then creates her account, connects her Google Calendar, gives each school's start time, meets the coach and agrees to its first recommendation on her first board.",
+      "label": "Charlotte's first night",
       "time": {"week":-1,"day":"mon","time":"20:30"},
       "opensOn": "splash",
       "state": {
@@ -2790,7 +2790,7 @@
     },
     {
       "id": "C-01",
-      "label": "Charlotte reads the newsletter read-back, shares Jenna's message from WhatsApp and talks for twenty seconds, and the coach offers three ways Thursday could go.",
+      "label": "Charlotte talks to the coach",
       "time": {"week":0,"day":"mon","time":"06:15"},
       "opensOn": "coach",
       "state": {
@@ -2981,7 +2981,7 @@
     },
     {
       "id": "C-02",
-      "label": "Charlotte asks Edward to take Thursday's pickups, and Edward sees the request in his own MVP.",
+      "label": "Charlotte asks Edward",
       "time": {"week":0,"day":"mon","time":"06:40"},
       "opensOn": "coach",
       "state": {
@@ -3186,7 +3186,7 @@
     },
     {
       "id": "C-03",
-      "label": "Charlotte gets both girls out of the house using Today.",
+      "label": "Getting the girls out the door",
       "time": {"week":0,"day":"mon","time":"07:25"},
       "opensOn": "today",
       "state": {
@@ -3403,7 +3403,7 @@
     },
     {
       "id": "C-03a",
-      "label": "Min-jung leaves Hana with Charlotte for the run to Westview Kindergarten and hands her a Westview Kindergarten flyer. Charlotte types it into the capture bar on Today and adds a photo of the flyer, and the read-back lands on the coach card.",
+      "label": "A flyer and a passenger",
       "time": {"week":0,"day":"mon","time":"07:45"},
       "opensOn": "today",
       "state": {
@@ -3630,7 +3630,7 @@
     },
     {
       "id": "C-03b",
-      "label": "Charlotte's reminder goes off, and she collects both girls and takes them to Brightwater Family Therapy, a run that never passes home.",
+      "label": "The afternoon run",
       "time": {"week":0,"day":"mon","time":"14:00"},
       "opensOn": "lock-screen",
       "state": {
@@ -3868,7 +3868,7 @@
     },
     {
       "id": "C-04",
-      "label": "Charlotte works the game plan without the coach.",
+      "label": "Charlotte works the game plan",
       "time": {"week":0,"day":"mon","time":"20:50"},
       "opensOn": "game-plan",
       "state": {
@@ -4127,7 +4127,7 @@
     },
     {
       "id": "C-04b",
-      "label": "Edward says yes to the library run and adds a note.",
+      "label": "Edward takes the library run",
       "time": {"week":0,"day":"tue","time":"07:20"},
       "opensOn": "view-as:edward",
       "state": {
@@ -4380,7 +4380,7 @@
     },
     {
       "id": "C-05",
-      "label": "Alexis's therapist is leaving, and Charlotte asks her group.",
+      "label": "Asking her people",
       "time": {"week":0,"day":"tue","time":"12:20"},
       "opensOn": "today",
       "state": {
@@ -4641,7 +4641,7 @@
     },
     {
       "id": "C-05b",
-      "label": "A Westview Kindergarten email changes the pickup rule, and the coach updates the Westview Kindergarten card.",
+      "label": "The Westview Kindergarten card changes",
       "time": {"week":0,"day":"tue","time":"15:40"},
       "opensOn": "coach",
       "state": {
@@ -4894,7 +4894,7 @@
     },
     {
       "id": "C-05c",
-      "label": "Charlotte asks Edward and Claire together how to tell Alexis about her therapist.",
+      "label": "Asking Edward and Claire",
       "time": {"week":0,"day":"tue","time":"20:15"},
       "opensOn": "team",
       "state": {
@@ -5169,7 +5169,7 @@
     },
     {
       "id": "C-06",
-      "label": "Edward can't collect Mallory after all, and Charlotte chooses a different option from the one the coach recommends.",
+      "label": "Edward can't do Mallory",
       "time": {"week":0,"day":"wed","time":"11:45"},
       "opensOn": "today",
       "state": {
@@ -5508,7 +5508,7 @@
     },
     {
       "id": "C-06b",
-      "label": "Charlotte books Mallory's checkup outside MVP, it joins her plan through her Google Calendar, and it runs into Friday's tutoring.",
+      "label": "A checkup lands on Friday",
       "time": {"week":0,"day":"wed","time":"13:15"},
       "opensOn": "today",
       "state": {
@@ -5826,7 +5826,7 @@
     },
     {
       "id": "C-06c",
-      "label": "Charlotte messages Claire about dinner, and Claire's reply arrives as a notification.",
+      "label": "A message to Claire",
       "time": {"week":0,"day":"wed","time":"16:50"},
       "opensOn": "team",
       "state": {
@@ -6109,7 +6109,7 @@
     },
     {
       "id": "C-07",
-      "label": "The dateline turns to the evening and the board turns to preparation for Thursday.",
+      "label": "Tonight",
       "time": {"week":0,"day":"wed","time":"21:10"},
       "opensOn": "today",
       "state": {
@@ -6408,7 +6408,7 @@
     },
     {
       "id": "C-08",
-      "label": "Charlotte asks the coach how to get through picture day morning.",
+      "label": "A question for the coach",
       "time": {"week":0,"day":"thu","time":"20:40"},
       "opensOn": "coach",
       "state": {
@@ -6703,7 +6703,7 @@
     },
     {
       "id": "C-08b",
-      "label": "Charlotte asks whether Mallory's cough should keep her home, and the coach names Dr. Ortiz.",
+      "label": "A question for Dr. Ortiz",
       "time": {"week":0,"day":"thu","time":"21:05"},
       "opensOn": "coach",
       "state": {
@@ -7006,7 +7006,7 @@
     },
     {
       "id": "C-09",
-      "label": "The Sunday look-ahead names next week's harvest fair, Charlotte adds it, the coach offers a way through its overlap with Friday's tutoring, and she tells the coach one new thing from the game plan.",
+      "label": "Looking ahead to next week",
       "time": {"week":0,"day":"sun","time":"19:30"},
       "opensOn": "today",
       "state": {
@@ -7350,31 +7350,31 @@
     },
     {
       "id": "C-10",
-      "label": "Charlotte forwards her flights to a weekend board offsite, and the coach sees four things that weekend are hers and recommends a playbook for Edward.",
+      "label": "The coach sees the weekend",
       "time": {"week":1,"day":"mon","time":"20:20"},
       "opensOn": "today"
     },
     {
       "id": "C-11",
-      "label": "Charlotte chooses Edward from her circle to have the weekend, adding Ruth as she does, builds the weekend playbook with the coach in the game plan, changes the parts that won't work, chooses who Edward can call, gives Ruth Sophie's party, for both girls, because Saturday at 12:30pm is Edward's tee time, ticks the line that sends Edward anything new for those days, and sends it.",
+      "label": "Building the weekend playbook",
       "time": {"week":1,"day":"mon","time":"20:22"},
       "opensOn": "game-plan"
     },
     {
       "id": "C-12",
-      "label": "A notification opens the weekend playbook in Edward's game plan, with Charlotte's request at the top, and he takes the parts suggested for him, with Ruth's part already marked.",
+      "label": "Edward looks over the weekend",
       "time": {"week":1,"day":"tue","time":"06:20"},
       "opensOn": "view-as:edward-notification"
     },
     {
       "id": "C-13",
-      "label": "Edward's Today runs the afternoon: Alexis's pickup and the harvest fair, where Mallory joins them.",
+      "label": "Edward's Friday",
       "time": {"week":1,"day":"fri","time":"14:05"},
       "opensOn": "view-as:edward"
     },
     {
       "id": "C-15",
-      "label": "Charlotte's first morning back opens with one look-back at the weekend.",
+      "label": "Charlotte's first morning back",
       "time": {"week":2,"day":"mon","time":"06:30"},
       "opensOn": "today"
     }

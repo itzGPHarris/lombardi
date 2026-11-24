@@ -13,3 +13,6 @@ export const demoTime = 'Demo time';
 export const scriptedResponses = 'Scripted responses';
 export const liveModel = 'A live model';
 export const close = 'Close';
+export const charlottesWeek = "Charlotte's week";
+export const weekendAway = 'The weekend Charlotte is away';
+export const comingSoon = 'Coming soon';
