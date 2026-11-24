@@ -237,7 +237,7 @@ From tablet width up, the sidebar replaces the tab bar and every rule above appl
 * **One shell per type.** The build has one layout component for each type, and every screen is built inside the shell its screen map entry names. A screen that needs to behave differently is a new issue, not a local exception.
 * **The page scrolls, not a box inside it,** on every type, so the browser's own scrolling and the scroll position on returning from a page or a sheet work as they do on any web page. Fixed and anchored parts use sticky or fixed positioning, as Today does.
 * **The title fade is worked out from scroll position.** The build watches how far the large title has passed under the title bar and sets both titles' opacity from it.
-* **The keyboard is handled with the visual viewport.** The viewport is set to resize the content when the keyboard opens, and anchored feet sit at the bottom of the visual viewport, so they ride above the keyboard on iOS Safari as they would in a native app.
+* **The keyboard is handled with the visual viewport.** The viewport is set to resize the content when the keyboard opens, and anchored feet sit at the bottom of the visual viewport, so they ride above the keyboard on iOS Safari as they would in a native app. Text she types sits at 16 px or larger in every field, the capture bar and every text area, so iOS Safari never zooms the page when a field takes focus. A smaller size makes Safari zoom in on focus and leave the page zoomed, wider than the screen and drifting sideways, until she pinches it back (issue C88). Typed text uses Body large (17 px), and labels, helper lines and placeholders keep their own styles. The viewport is never locked with maximum-scale or user-scalable, because she must still be able to zoom.
 * **The Figma prototype can show only part of this.** Figma cannot fade a layer as she scrolls, so each tab list and page board draws its title bar fixed and its large title inside the scroll frame, and one reference board per type shows the scrolled state with the small title in the bar. Figma also cannot raise a keyboard, so anchored feet are drawn at rest.
 
 ## **At wider screens**
@@ -1882,6 +1882,7 @@ Follows story fixtures 3.57 and Greg's redraw of the draft.
 | ----- | ----- | ----- |
 | 1 | §3 | The draft shows each school day as a card under "Mallory's plan: Oct. 6 to 9". Every coach suggestion ends with Keep, Change and Skip, and Continue keeps every card she didn't skip. Standing decision 14 is added (issue O46). |
 | 2 | §3 | Keeping the plan asks "Keep Mallory's plan?", labels its field with its line, and keeps Continue disabled until she types an email. |
+| 3 | §2 | Text she types sits at 16 px or larger, in Body large, so iOS Safari never zooms the page when a field takes focus, and the viewport is never locked (issue C88). |
 
 ## **v0.57, November 24, 2026**
 
