@@ -27,7 +27,7 @@ export default function OnboardingShell({ onBack, counter, primary, skip, foot, 
       <main className={styles.content}>{children}</main>
       <Foot surface="canvas">
         {foot ?? (
-          <div className={styles.primaryFoot}>
+          <div className={`${styles.primaryFoot} ${styles.onboardingFoot}`}>
             {primary}
             {skip}
           </div>
