@@ -139,6 +139,8 @@ export function momentState(householdId, momentId, carry = {}) {
     arrival: null,
     stack: [],
     switcherOpen: false,
+    // The plan she kept at the end of C-00's draft, set when she reaches her first board.
+    draftOutcome: null,
     // The presenter's own choices carry over a jump; nothing of the household's does.
     phoneFrame: carry.phoneFrame ?? false,
     coachMode: carry.coachMode ?? 'scripted',
@@ -222,6 +224,9 @@ export function sessionReducer(state, action) {
       still: null,
       tab: 'today',
       today: emptyToday(state.onboarding?.flags.skippedCapture ? 'skipped-capture' : null),
+      // The plan she kept at the end of the draft, which her first board shows (spec §3, standing
+      // decisions 13 and 14; issue O46). A jump, Reset or Not now starts a moment without it.
+      draftOutcome: state.onboarding?.flags.skippedCapture ? null : state.onboarding?.flags.keptPlan ?? null,
     };
     // Her answer plays the moment's scripted step for it, such as agreeing on her first board (0i-c),
     // and Undo plays it back. playedFrom holds where the moment stood before she answered.

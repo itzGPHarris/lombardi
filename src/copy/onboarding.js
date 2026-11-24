@@ -28,14 +28,20 @@ export const checkPhoto = { use: 'Use this photo', retake: 'Retake' };
 export const handOff = { make: "Make {child}'s plan", somethingWrong: "Something's not right" };
 export const thinking = { photo: 'Reading your photo…', file: 'Reading your file…', listening: 'Listening…', making: "Making {child}'s plan…" };
 export const confirm = { calendar: 'Whose calendar is this?', newsletter: 'Whose newsletter is this?', choice: '{child} · {grade}' };
-// The draft can be changed before the account (0c, fixtures 3.56, issue O36): each reminder has
-// Remove, each day with reminders ends with "Add something else for" the child (copy/today.js), the
-// suggested event has two choices, and removing a reminder raises the notice with Undo.
+// The draft (0c, fixtures 3.57 section 4, "Heading of the draft" and "Editing the draft"; issue O46):
+// each school day is a card, every coach suggestion on it is marked Suggested and ends with Keep,
+// Change and Skip, and removing a reminder inside Change raises the notice with Undo. "Add something
+// else for" the child comes from copy/today.js.
 export const draft = {
-  heading: "{child}'s plan for this week",
+  // The draft's dates follow the colon, such as "Oct. 6 to 9", worked out from the demo calendar.
+  heading: "{child}'s plan:",
   suggested: 'Suggested',
-  addToPlan: 'Add to the plan',
-  notThisTime: 'Not this time',
+  keep: 'Keep',
+  change: 'Change',
+  skip: 'Skip',
+  kept: 'Kept',
+  skipped: 'Skipped',
+  done: 'Done',
   tellCoach: "Tell the MVP Coach what's wrong",
   removed: "{item} is off {child}'s list for {day}.",
 };
@@ -49,12 +55,13 @@ export const failures = {
   slow: 'This is taking longer than it should. Your photo is safe, and you can try again.',
   tryAgain: 'Try again',
 };
-// Keeping the plan sits at the end of the draft (0c-c). With nothing captured, a sheet headed "Create
-// your account" opens over 0a with the same field and Continue, and no line and no Not now (0c-b).
-// There is no Continue with Apple (fixtures 3.56, issue O36).
+// Keeping the plan sits at the end of the draft (0c, 0c-c): its line labels the field, and Continue is
+// disabled until the field holds an email. With nothing captured, a sheet headed "Create your account"
+// opens over 0a with the field labeled on its own, Continue, and no line and no Not now (0c-b). There
+// is no Continue with Apple (fixtures 3.57, issues O36 and O46).
 export const accountPrompt = {
-  heading: "Keep {child}'s plan",
-  line: 'Create an account to save this plan and add the rest of your family.',
+  heading: "Keep {child}'s plan?",
+  line: 'Create an account to save this plan and add the rest of your family. Enter the email connected to your school:',
   emailLabel: 'The email your school writes to',
   email: 'Email',
   helper: 'MVP uses it to recognize school emails you forward.',

@@ -9,12 +9,14 @@ export function Mark() {
 
 // A labeled text field (library TextInput), filled with what she entered, with a placeholder and a
 // helper line beneath it where the fixtures write them, such as the email on 0c-c.
-export function Field({ label, value, onChange, type = 'text', inputMode, autoComplete, id, helper, placeholder }) {
+// A field labeled by a line elsewhere on the screen, such as keeping the plan's line on 0c, takes that
+// line's id as labelledBy and shows no label of its own (issue O46).
+export function Field({ label, labelledBy, value, onChange, type = 'text', inputMode, autoComplete, id, helper, placeholder }) {
   return (
     <label className={styles.field} htmlFor={id}>
-      <span className={styles.fieldLabel}>{label}</span>
+      {!labelledBy && <span className={styles.fieldLabel}>{label}</span>}
       <span className={styles.box}>
-        <input id={id} className={styles.input} type={type} inputMode={inputMode} autoComplete={autoComplete} value={value} placeholder={placeholder} onChange={(event) => onChange(event.target.value)} />
+        <input id={id} className={styles.input} type={type} inputMode={inputMode} autoComplete={autoComplete} value={value} placeholder={placeholder} aria-labelledby={labelledBy} onChange={(event) => onChange(event.target.value)} />
       </span>
       {helper && <span className={styles.helper}>{helper}</span>}
     </label>

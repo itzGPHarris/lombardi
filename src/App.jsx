@@ -30,6 +30,7 @@ import HouseholdSwitcher from './components/Demo/HouseholdSwitcher.jsx';
 import Arrival from './components/shared/Arrival.jsx';
 import { PhoneFrameView, useIsDesktop } from './components/Demo/PhoneFrame.jsx';
 import { householdById } from './demo/households.js';
+import { seedWithDraft } from './demo/onboarding.js';
 import { teamView } from './demo/tabs.js';
 import { initialSession, sessionReducer } from './demo/session.js';
 import { settings, tabs } from './copy/navigation.js';
@@ -90,7 +91,12 @@ function useScrollMemory(stack, memory) {
 
 export default function App({ start = {}, embedded = false }) {
   const [session, dispatch] = useReducer(sessionReducer, start, initialSession);
-  const household = householdById(session.householdId);
+  // Her first board shows the plan she kept at the end of the draft (spec §3, issue O46).
+  const stored = householdById(session.householdId);
+  const household = useMemo(
+    () => (session.draftOutcome ? { ...stored, seed: seedWithDraft(stored.seed, session.draftOutcome) } : stored),
+    [stored, session.draftOutcome],
+  );
   const isDesktop = useIsDesktop();
   const page = session.stack.at(-1);
 

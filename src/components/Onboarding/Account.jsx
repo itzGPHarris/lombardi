@@ -10,11 +10,12 @@ import own from './Account.module.css';
 // The one field the account asks for: the email the school writes to, with its placeholder and helper
 // line (fixtures 3.56 section 4). Her name is already known from the welcome, and there is no Continue
 // with Apple, because the account has to match how the school reaches her (issue O36).
-function EmailField({ id, email, setEmail }) {
+function EmailField({ id, email, setEmail, labelledBy }) {
   return (
     <Field
       id={id}
       label={words.emailLabel}
+      labelledBy={labelledBy}
       placeholder={words.email}
       helper={words.helper}
       type="email"
@@ -25,17 +26,18 @@ function EmailField({ id, email, setEmail }) {
   );
 }
 
-// Keeping the plan, at the end of the draft page under a hairline (0c-c, 3282:17819): the heading,
-// its line, the email field, Continue and Not now. Continue goes on to the plan screen and creates
-// nothing; Not now ends the session.
-export function KeepPlan({ heading, email, setEmail, onContinue, onNotNow, sectionRef }) {
+// Keeping the plan, at the end of the draft page under a hairline (0c, 0c-c, 3282:17819): the
+// heading, its line, which labels the email field, Continue and Not now. Continue is disabled until
+// the field holds an email, goes on to the plan screen and creates nothing; Not now ends the session
+// (fixtures 3.57, issue O46).
+export function KeepPlan({ heading, email, setEmail, canContinue, onContinue, onNotNow, sectionRef }) {
   return (
     <section ref={sectionRef} className={own.keep} aria-labelledby="keep-plan">
       <h2 id="keep-plan" className={own.heading}>{heading}</h2>
-      <p className={own.line}>{words.line}</p>
-      <EmailField id="keep-email" email={email} setEmail={setEmail} />
+      <p id="keep-plan-line" className={own.line}>{words.line}</p>
+      <EmailField id="keep-email" email={email} setEmail={setEmail} labelledBy="keep-plan-line" />
       <div className={own.actions}>
-        <Button kind="primary" full onClick={onContinue}>{words.continue}</Button>
+        <Button kind="primary" full disabled={!canContinue} onClick={onContinue}>{words.continue}</Button>
         <Button kind="text" onClick={onNotNow}>{words.notNow}</Button>
       </div>
     </section>
@@ -43,10 +45,11 @@ export function KeepPlan({ heading, email, setEmail, onContinue, onNotNow, secti
 }
 
 // The account sheet over the capture conversation when she skipped the capture (0c-b, 3282:18620):
-// "Create your account", the email field and Continue, with no line, no Not now and no Close. Back
+// "Create your account", the email field with its own label and Continue, disabled until the field
+// holds an email, with no line, no Not now and no Close (issue O46). Back
 // closes it, so the screen's Back is laid over the scrim where the top bar holds it (fixtures C-00;
 // Greg's correction 2 on the onboarding plan).
-export function AccountSheet({ open, email, setEmail, onContinue, onBack }) {
+export function AccountSheet({ open, email, setEmail, canContinue, onContinue, onBack }) {
   return (
     <Sheet
       open={open}
@@ -60,7 +63,7 @@ export function AccountSheet({ open, email, setEmail, onContinue, onBack }) {
           </button>
         </div>
       )}
-      footer={<Button kind="primary" full onClick={onContinue}>{words.continue}</Button>}
+      footer={<Button kind="primary" full disabled={!canContinue} onClick={onContinue}>{words.continue}</Button>}
     >
       <div className={own.sheetBody}>
         <EmailField id="account-email" email={email} setEmail={setEmail} />

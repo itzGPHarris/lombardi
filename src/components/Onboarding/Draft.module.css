@@ -1,28 +1,35 @@
-/* The draft on 0c: the heading in Header (Fraunces), the dates in Meta, the coach's line in Voice, then
-   the days on one card. Each day is a row of its name and letter beside what the letter means, over a
-   hairline, then its reminders as ReminderItem rows and the add link. Keeping the plan ends the page. */
-.draft { display: flex; flex-direction: column; gap: var(--space-24); padding: var(--space-16) 0 var(--space-24); }
-.header { display: flex; flex-direction: column; gap: var(--space-4); }
+/* The draft on 0c (2853:12011, 3282:17866): the heading in Header (Fraunces), then a card for each
+   school day on the canvas. Each card has its title in Subtitle over what the letter means in Body,
+   over a hairline, with the Suggested tag at the right; then its reminders as ReminderItem rows; then
+   Keep, Change and Skip sharing the width, or Kept and Undo, or Change's add link and Done. A skipped
+   card folds to its title over Skipped, with Undo. Keeping the plan ends the page. */
+.draft { display: flex; flex-direction: column; gap: var(--space-10); padding: var(--space-16) 0 var(--space-24); }
 .heading { font: var(--text-header); letter-spacing: var(--text-header-tracking); color: var(--ink-primary); }
-.dates { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-primary); }
-.line { padding-top: var(--space-24); font: var(--text-voice); letter-spacing: var(--text-voice-tracking); color: var(--ink-primary); }
 
-.rows { display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-12) var(--space-16) var(--space-16); border-radius: var(--radius-lg); background: var(--bg-control); }
-.day { display: flex; flex-direction: column; gap: var(--space-12); }
-.dayRow { display: flex; align-items: baseline; gap: var(--space-12); padding: var(--space-8) 0; border-bottom: thin solid var(--border-hairline); }
-.dayName, .meaning, .event { flex: 1; min-width: 0; font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
-.event { flex: 1 1 auto; }
-.suggested {
+.cards { display: flex; flex-direction: column; gap: var(--space-8); }
+.card { display: flex; flex-direction: column; gap: var(--space-10); padding: var(--space-16); border-radius: var(--radius-lg); background: var(--bg-card); }
+.cardHead { display: flex; align-items: center; gap: var(--space-12); padding-bottom: var(--space-10); border-bottom: thin solid var(--border-hairline); }
+.cardTitle { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.title { font: var(--text-subtitle); letter-spacing: var(--text-subtitle-tracking); color: var(--ink-primary); }
+.meaning { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+
+/* The Suggested tag, a local frame in the drafts (O39): the coach's colour, with the card's own ink. */
+.tag {
   flex-shrink: 0;
-  align-self: center;
   padding: var(--space-4) var(--space-8);
   border-radius: var(--radius-pill);
-  background: var(--coach-bg);
+  background: var(--coach);
   font: var(--text-meta);
   letter-spacing: var(--text-meta-tracking);
-  color: var(--coach-ink);
+  color: var(--bg-card);
 }
-.reminders { display: flex; flex-direction: column; gap: var(--space-8); }
-.choices { display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.add { justify-content: flex-start; }
+
+.reminders { display: flex; flex-direction: column; gap: var(--space-10); }
+.choices { display: flex; gap: var(--space-8); }
+.choice { flex: 1; min-width: 0; }
+
+/* After Keep: a check and Kept in muted ink, with Undo at the right. */
+.status { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
+.kept { display: flex; align-items: center; gap: var(--space-8); font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-muted); }
+
 .tellCoach { align-self: center; }

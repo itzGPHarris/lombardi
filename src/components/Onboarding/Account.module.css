@@ -1,15 +1,16 @@
-/* Keeping the plan at the end of the draft (0c-c): under a hairline, the heading in Header (Fraunces),
-   the line in Body large, the email field, then Continue and Not now centered beneath it. */
+/* Keeping the plan at the end of the draft (0c, 0c-c): under a hairline, the heading in Title, the
+   line in Body, which labels the email field, then Continue and Not now centered beneath it
+   (3282:17819). */
 .keep {
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
-  padding-top: var(--space-24);
+  gap: var(--space-8);
+  padding-top: var(--space-32);
   border-top: thin solid var(--border-hairline);
 }
-.heading { font: var(--text-header); letter-spacing: var(--text-header-tracking); color: var(--ink-primary); }
-.line { font: var(--text-body-large); letter-spacing: var(--text-body-large-tracking); color: var(--ink-primary); }
-.actions { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }
+.heading { font: var(--text-title); letter-spacing: var(--text-title-tracking); color: var(--ink-primary); }
+.line { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-primary); }
+.actions { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); padding-top: var(--space-12); }
 
 /* The account sheet's body (0c-b): the field under the heading. */
 .sheetBody { display: flex; flex-direction: column; }

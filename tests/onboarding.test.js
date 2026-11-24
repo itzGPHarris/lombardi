@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import seed from '../src/data/households/charlotte.json';
 import {
-  backFrom, childrenInWords, draftDates, draftReminder, draftView, introRecap, onboardingReducer, reminderDay, screens,
-  startOnboarding, startTimeSource, suggestGrade, welcomeComplete,
+  backFrom, childrenInWords, draftDates, draftOutcome, draftReminder, draftView, introRecap, isEmail, onboardingReducer, reminderDay,
+  screens, seedWithDraft, startOnboarding, startTimeSource, suggestGrade, welcomeComplete,
 } from '../src/demo/onboarding.js';
 import { monthYear } from '../src/demo/dateTokens.js';
 import { initialSession, sessionReducer } from '../src/demo/session.js';
@@ -106,43 +106,137 @@ describe('she moves through onboarding in the fixtures\' order (O35, O36)', () =
   });
 });
 
-describe('the draft can be changed before the account (0c, O36)', () => {
+// The requirement changed with fixtures 3.57 and spec 0.58 (issue O46): the reminders show without
+// Remove on arrival, every coach suggestion ends with Keep, Change and Skip in place of Add to the
+// plan and Not this time, and 0c-d shows Tuesday kept, Thursday open in Change, back-to-school night
+// skipped and Friday left alone. These tests replace the 3.56 draft's.
+describe('every suggestion on the draft can be kept, changed or skipped (0c, O46)', () => {
   const draft = c00.state.onboarding.draft;
   const view = (state) => draftView(draft, state.flags.draft);
+  const card = (state, letter) => view(state).find((day) => (letter ? day.row.letter === letter : day.kind === 'event'));
   const reminders = (state) => view(state).filter((day) => day.kind === 'day').flatMap((day) => day.reminders.map((reminder) => reminder.text));
+  const row = (letter) => card(start(), letter).index;
 
-  it('shows each reminder, and an add link after each day with reminders', () => {
-    const days = view(start());
+  it('opens with each day with reminders and the event suggested, and Wednesday for reference', () => {
+    expect(view(start()).map((day) => [day.row.letter ?? day.row.event, day.state])).toEqual([
+      ['D', 'suggested'], ['E', 'reference'], ['F', 'suggested'], ['Back-to-school night', 'suggested'], ['A', 'suggested'],
+    ]);
     expect(reminders(start())).toEqual(['Sneakers', 'Sneakers', 'Library book']);
-    expect(days.filter((day) => day.kind === 'day' && day.hasReminders).map((day) => day.row.letter)).toEqual(['D', 'F', 'A']);
-    expect(days.find((day) => day.kind === 'event').event).toBe('suggested');
   });
 
-  it('removes a reminder at once with a notice and Undo, and keeps the add link on its day', () => {
-    const library = view(start()).find((day) => day.row.letter === 'A').reminders[0].key;
-    const removed = play(start(), { type: 'REMOVE_REMINDER', key: library });
+  it('Keep leaves Kept with Undo, and Skip folds the card with Undo back to the state it had', () => {
+    const kept = play(start(), { type: 'KEEP', row: row('D') });
+    expect(card(kept, 'D').state).toBe('kept');
+    expect(card(play(kept, { type: 'UNDO_CARD', row: row('D') }), 'D').state).toBe('suggested');
+    const skipped = play(kept, { type: 'SKIP', row: row('D') });
+    expect(card(skipped, 'D').state).toBe('skipped');
+    expect(card(play(skipped, { type: 'UNDO_CARD', row: row('D') }), 'D').state).toBe('kept');
+    const event = play(start(), { type: 'SKIP', row: row() });
+    expect(card(play(event, { type: 'UNDO_CARD', row: row() })).state).toBe('suggested');
+  });
+
+  it('removes and adds reminders only inside Change, with the notice and Undo, and Done keeps the day', () => {
+    const library = card(start(), 'A').reminders[0].key;
+    expect(reminders(play(start(), { type: 'REMOVE_REMINDER', key: library }))).toEqual(['Sneakers', 'Sneakers', 'Library book']);
+    const open = play(start(), { type: 'CHANGE', row: row('A') });
+    expect(card(open, 'A').state).toBe('changing');
+    const removed = play(open, { type: 'REMOVE_REMINDER', key: library });
     expect(reminders(removed)).toEqual(['Sneakers', 'Sneakers']);
-    expect(view(removed).find((day) => day.row.letter === 'A').hasReminders).toBe(true);
     const notice = draftReminder(draft, removed.flags.draft, removed.flags.draft.notice);
     expect([notice.text, reminderDay(notice.row, c00.time, seed.meta.demoWeekStart)]).toEqual(['Library book', 'this Friday']);
     expect(reminders(play(removed, { type: 'UNDO_REMOVE' }))).toEqual(['Sneakers', 'Sneakers', 'Library book']);
+    const added = play(open, { type: 'ADD_REMINDER', row: row('A'), text: 'Rain boots' }, { type: 'ADD_REMINDER', row: row('D'), text: 'Hat' });
+    expect(card(added, 'A').reminders.map((reminder) => reminder.text)).toEqual(['Library book', 'Rain boots']);
+    expect(card(added, 'D').reminders.map((reminder) => reminder.text)).toEqual(['Sneakers']);
+    expect(card(play(added, { type: 'DONE' }), 'A').state).toBe('kept');
   });
 
-  it('adds a reminder after a day, and the event takes her choice', () => {
-    const tuesday = view(start()).find((day) => day.row.letter === 'D').index;
-    const added = play(start(), { type: 'ADD_REMINDER', row: tuesday, text: 'Rain boots' });
-    expect(view(added).find((day) => day.row.letter === 'D').reminders.map((reminder) => reminder.text)).toEqual(['Sneakers', 'Rain boots']);
-    expect(view(play(start(), { type: 'EVENT', choice: 'added' })).find((day) => day.kind === 'event').event).toBe('added');
+  it('Change on back-to-school night opens the capture conversation in the capture bar, and the card waits', () => {
+    const changed = play(start(), { type: 'GO', screen: '0c' }, { type: 'TELL_COACH' });
+    expect(changed).toMatchObject({ screen: '0a', flags: { capture: 'handoff', correcting: true } });
+    expect(card(changed).state).toBe('suggested');
   });
 
-  it('opens 0c-d with the library book removed and back-to-school night added', () => {
+  it('opens 0c-d with Tuesday kept, Thursday in Change, back-to-school night skipped and Friday left alone', () => {
     const edited = startOnboarding(seed, c00, { screen: '0c-d' });
-    expect(reminders(edited)).toEqual(['Sneakers', 'Sneakers']);
-    expect(view(edited).find((day) => day.kind === 'event').event).toBe('added');
+    expect(view(edited).map((day) => day.state)).toEqual(['kept', 'reference', 'changing', 'skipped', 'suggested']);
+    expect(edited.flags.draft.notice).toBeNull();
   });
 
   it('"Tell the MVP Coach what\'s wrong" reopens the capture conversation at the hand-off, in the capture bar', () => {
     expect(play(start(), { type: 'GO', screen: '0c' }, { type: 'TELL_COACH' })).toMatchObject({ screen: '0a', flags: { capture: 'handoff', correcting: true } });
+  });
+});
+
+describe('keeping the plan waits for an email (0c, 0c-b, 0c-c; O46)', () => {
+  it('holds Continue until the field holds an email', () => {
+    expect(['', 'charlotte', 'charlotte@', 'charlotte@mail', ' charlotte@mail.example ', 'charlotte@mail.example'].map(isEmail))
+      .toEqual([false, false, false, false, true, true]);
+  });
+
+  it('opens 0c-c with her email typed, and 0c with the field empty', () => {
+    expect(startOnboarding(seed, c00, { screen: '0c-c' }).entries.email).toBe('charlotte@mail.example');
+    expect(startOnboarding(seed, c00, { screen: '0c' }).entries.email).toBe('');
+  });
+});
+
+describe('Continue keeps every card she didn\'t skip, and her first board shows it (spec §3, standing decision 14)', () => {
+  const draft = c00.state.onboarding.draft;
+  const rows = draft.rows;
+  const at = (test) => rows.findIndex(test);
+  const tuesday = at((row) => row.letter === 'D');
+  const thursday = at((row) => row.letter === 'F');
+  const friday = at((row) => row.letter === 'A');
+  const event = at((row) => row.event);
+  const outcome = (...actions) => draftOutcome(draft, play(start(), ...actions).flags.draft);
+  const firstBoard = (kept) => {
+    const moment = seedWithDraft(seed, kept).moments.find((entry) => entry.id === 'C-00');
+    return {
+      item: moment.state.planItems.find((item) => item.id === 'w-1-thu-back-to-school'),
+      reviewCard: moment.state.reviewCard,
+      checklist: moment.state.today.now.checklist.groups.find((group) => group.child === 'mallory').items,
+    };
+  };
+  const seeded = ['Sneakers and socks by the door', 'Lunchbox', 'Snack bag', 'Water bottle'];
+
+  it('leaving every card alone keeps them Suggested, and the board is the seed\'s', () => {
+    const untouched = outcome();
+    expect(untouched.cards).toEqual({ [tuesday]: 'suggested', [thursday]: 'suggested', [event]: 'suggested', [friday]: 'suggested' });
+    expect(firstBoard(untouched)).toEqual({ item: expect.objectContaining({ inPlan: false, status: { state: 'proposed' } }), reviewCard: ['w-1-thu-back-to-school'], checklist: seeded });
+  });
+
+  it('keeping every card puts back-to-school night on Thursday as hers, and the checklist is the same', () => {
+    const kept = outcome(...[tuesday, thursday, event, friday].map((index) => ({ type: 'KEEP', row: index })));
+    expect(Object.values(kept.cards)).toEqual(['kept', 'kept', 'kept', 'kept']);
+    expect(firstBoard(kept)).toEqual({ item: expect.objectContaining({ inPlan: true, owner: 'charlotte', status: null }), reviewCard: [], checklist: seeded });
+  });
+
+  it('skipping back-to-school night takes it off the plan and the review card', () => {
+    expect(firstBoard(outcome({ type: 'SKIP', row: event }))).toEqual({ item: expect.objectContaining({ inPlan: false, status: null }), reviewCard: [], checklist: seeded });
+  });
+
+  it('skipping Tuesday, or removing its sneakers, takes them off tonight\'s checklist, and what she adds joins it', () => {
+    const withoutSneakers = seeded.slice(1);
+    expect(firstBoard(outcome({ type: 'SKIP', row: tuesday })).checklist).toEqual(withoutSneakers);
+    expect(firstBoard(outcome({ type: 'CHANGE', row: tuesday }, { type: 'REMOVE_REMINDER', key: `${tuesday}` })).checklist).toEqual(withoutSneakers);
+    expect(firstBoard(outcome({ type: 'CHANGE', row: tuesday }, { type: 'ADD_REMINDER', row: tuesday, text: 'Rain boots' })).checklist).toEqual([...seeded, 'Rain boots']);
+    expect(firstBoard(outcome({ type: 'CHANGE', row: friday }, { type: 'REMOVE_REMINDER', key: `${friday}` })).checklist).toEqual(seeded);
+  });
+
+  it('a day still open in Change at Continue is kept', () => {
+    expect(outcome({ type: 'CHANGE', row: friday }).cards[friday]).toBe('kept');
+  });
+
+  it('carries to her first board through the session, and a jump starts without it', () => {
+    let session = initialSession({ momentId: 'C-00' });
+    const act = (action) => { session = sessionReducer(session, { type: 'ONBOARDING', action }); };
+    act({ type: 'GO', screen: '0c' });
+    act({ type: 'SKIP', row: event });
+    act({ type: 'KEEP_PLAN', outcome: draftOutcome(draft, session.onboarding.flags.draft) });
+    expect(session.onboarding.screen).toBe('0e-p');
+    session = sessionReducer(session, { type: 'FINISH_ONBOARDING' });
+    expect(session.draftOutcome.cards[event]).toBe('skipped');
+    expect(sessionReducer(session, { type: 'JUMP', momentId: 'C-00' }).draftOutcome).toBeNull();
   });
 });
 

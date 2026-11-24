@@ -2169,13 +2169,6 @@
       "link": {"label":"Something's not right","action":"reopen-input"}
     },
     {
-      "id": "c00-draft",
-      "from": "coach",
-      "kind": "plan",
-      "at": {"week":-1,"day":"mon","time":"20:33"},
-      "text": "Here is the rest of this week for Mallory. Sneakers go with Mallory tomorrow and this Thursday, and the library book goes back this Friday. Back-to-school night is this Thursday evening."
-    },
-    {
       "id": "c00-welcome",
       "from": "coach",
       "kind": "taught",
