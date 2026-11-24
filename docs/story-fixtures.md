@@ -1775,7 +1775,7 @@ The recap opens with "Here is what I have so far." whichever sentences follow. T
 
 *These are the four other tabs as they stand at the end of C-00, after she agrees on her first board. The words follow from what onboarding collected and nothing more, and Greg approved them on November 21, 2026 before they are drawn (issue P4).*
 
-**Coach, as shown.** The conversation from onboarding, under the heading "Today", oldest first: her photo of the rotation calendar, the coach's read-back, "Whose calendar is this?" with her choice, "Mallory · K", the coach's question about the highlights, her answer, the hand-off, and "Welcome to the team, Charlotte." with its recap. In the history, the welcome shows without its tick boxes and Next, and the hand-off without its button, Make Mallory's plan, and its link, Something's not right, because those belong to onboarding (issue K12).
+**Coach, as shown.** The conversation from onboarding, under the heading "Today", oldest first: her photo of the rotation calendar, the coach's line naming it, "Whose calendar is this?" with her choice, "Mallory · K", the coach's read-back, the coach's question about the highlights, her answer, the hand-off, and "Welcome to the team, Charlotte." with its recap. In the history, the welcome shows without its tick boxes and Next, and the hand-off without its button, Make Mallory's plan, and its link, Something's not right, because those belong to onboarding (issue K12).
 
 **Game plan, as shown.** The agenda opens at today, Monday, Oct. 5.
 
