@@ -1,10 +1,10 @@
 # Most Valuable Parent (Lombardi): screen map
 
-*Last updated November 24, 2026 · Fixtures 3.56 · Spec 0.57 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
+*Last updated November 24, 2026 (onboarding redrawn) · Fixtures 3.56 · Spec 0.57 · Figma file `mvp-lombardi` (`RK2JTfwao4mV4JgUA193M1`), page "Design - lombardi · post-review" (`2853:11893`)*
 
 This file ties every screen in the alpha to the one Figma frame it is built from. Use the frame ID in this file and no other. The Figma file holds older frames with the same or similar names on other pages, and none of those is a target.
 
-Every frame listed here sits on the page "Design - lombardi · post-review", except the accepted onboarding drafts that "Onboarding, C-00" names until they are redrawn (O36), which holds every change made after Heather's first wording pass on October 27, 2026. Its frames are clones of the frames on "Design - lombardi" (`2177:1136`), with the same names and new IDs, and that page is now the untouched baseline from before the review, so nothing on it is a build target. Greg reviews each one and marks it Ready for dev in Figma before the build runs. If a frame listed here is not marked Ready for dev when you reach it, build it anyway from this file and note it in your report, because the frame and this file were agreed together.
+Every frame listed here sits on the page "Design - lombardi · post-review", which holds every change made after Heather's first wording pass on October 27, 2026. Its frames are clones of the frames on "Design - lombardi" (`2177:1136`), with the same names and new IDs, and that page is now the untouched baseline from before the review, so nothing on it is a build target. Greg reviews each one and marks it Ready for dev in Figma before the build runs. If a frame listed here is not marked Ready for dev when you reach it, build it anyway from this file and note it in your report, because the frame and this file were agreed together.
 
 ## How boards are named
 
@@ -26,38 +26,38 @@ Since October 15, 2026, every Today frame and every tab screen is drawn one phon
 
 The order is the fixtures' order. Each frame is named "C-00", then its fixtures ID, then the screen.
 
-Onboarding was shortened twice on November 24, 2026. O35 (fixtures 3.54) merged the children, the grades, the sign-in and the household into fewer screens, and the same day Greg accepted drafts of a ten-screen flow (O36, fixtures 3.56). The accepted drafts are on the page "Drafts - onboarding, November 24" (`3260:16008`), in the section "Proposed onboarding" (`3260:16009`), and they are the build source for onboarding until each is redrawn in place on "Design - lombardi · post-review". Where a post-review frame exists, it keeps its ID and is redrawn from the draft. Where it doesn't, the redraw adds a frame and this table gains its ID. Where a draft and the fixtures disagree, the fixtures win, and the notes on the canvas beside each draft say where they do. The frames for 0k, 0k-b, 0e, 0q-c, 0g, 0v, 0r and 0b are retired and move to "Archive - not for build" in the next Figma pass. Onboarding has no step counter, so ignore every counter drawn on these frames.
+Onboarding was shortened twice on November 24, 2026. O35 (fixtures 3.54) merged the children, the grades, the sign-in and the household into fewer screens, and the same day Greg accepted drafts of a ten-screen flow (O36, fixtures 3.56). The accepted drafts are on the page "Drafts - onboarding, November 24" (`3260:16008`) as a record, and on November 24 every onboarding frame on "Design - lombardi · post-review" was redrawn in place from them, keeping its ID, with new frames added for the states that had none. Where a frame and the fixtures disagree, the fixtures win. The frames for 0k, 0k-b, 0e, 0g and 0h are on "Archive - not for build" (`3282:18619`). Onboarding has no step counter, so ignore every counter drawn on these frames.
 
 | Step | Screen | Frame ID | Notes | Type |
 | ----- | ----- | ----- | ----- | ----- |
-| 1 | C-00 · 0s · Splash | `2853:12205` | | Still |
-| 2 | C-00 · 0w · Welcome | `2853:12929` | To be redrawn in place from the draft `3260:16662`: her name and zip code, then the fields for one child, with "+ Add another child" directly under them (O36). Build from the draft. | Onboarding and setup |
-| 2b | C-00 · 0w-c · Welcome, second child added | Draft `3266:16493` | Mallory's fields under Alexis's, with the link below them. Drawn at full height. Build from the draft until a post-review frame is added (O36). | Onboarding and setup |
-| 3 | C-00 · 0k · Who are you planning for | Retired | Joined 0w on November 24, 2026 (O35). Do not build it as a screen. | |
-| 3b | C-00 · 0k-b · The coach suggests grades | Retired | Joined 0w on November 24, 2026 (O35). The frame `2858:11639` is a parts source for the grade list boxes. Do not build it as a screen. | |
-| 3c | C-00 · 0w-b · Welcome, grade list open | `2863:11708` | Was 0k-c. To be redrawn in place as the one-child welcome with Alexis's list open and Fourth grade selected (O35, O36). | Onboarding and setup |
-| 4 | C-00 · 0a · Capture conversation | `2853:11894` | To be redrawn in place from the draft `3260:16710`: Back, the coach's line under the MVP Coach label in Voice, and Take a photo, Attach a file, Talk or type and Skip for now at the foot (O36). Build from the draft. | Conversation |
-| 4b | C-00 · 0a-b · Capture conversation, photo in place | Draft `3260:16732` | The photo as a large preview in place of the three buttons, with Use this photo and Retake at the foot. The draft's photo still reads "SEPTEMBER 2026"; the build uses the prepared October photo with "School day begins at 8:30am", which Greg supplies (O18). | Conversation |
-| 4c | C-00 · 0a-c · Capture conversation, reading | Draft `3260:16754` | The photo as her thumbnail, then "Reading your photo…" with ThinkingDots (O27). | Conversation |
-| 4d | C-00 · 0a-d · Capture conversation, whose calendar it is | Draft `3272:16509` | The coach's naming line and "Whose calendar is this?" with neither chip chosen (O36). The draft's Mallory chip is a copy of the Alexis chip, because the library chip's Default variant keeps its check (O39). | Conversation |
-| 4e | C-00 · 0a-e · Capture conversation, read-back and hand-off | Draft `3260:16782` | Scrolled to the end, in the fixtures' order, with Make Mallory's plan and "Something's not right" anchored at the foot. The capture bar where Charlotte answers the coach's question is not drawn yet (O36). | Conversation |
-| 5 | C-00 · 0v · Check the photo | Retired | Joined 0a as 0a-b on November 24, 2026 (O36). The frame `2853:11916` is not a build target. | |
-| 6 | C-00 · 0r · Reading | Retired | Joined 0a as 0a-c on November 24, 2026 (O36). The frame `2853:11922` is not a build target. | |
-| 7 | C-00 · 0b · Read-back and hand-off | Retired | Joined 0a as 0a-d and 0a-e on November 24, 2026 (O36). The frame `2853:11972` is a parts source for the conversation's message styles only. | |
-| 8 | C-00 · 0t · Making the draft | `2853:11947` | The same dots as 0a-c (O27). The frame reads "Formatting Mallory's game plan…", and the build uses the fixtures' "Making Mallory's plan…" (O36). | Still |
-| 9 | C-00 · 0c · Draft | `2853:12011` | To be redrawn in place from the draft `3262:16262`: the top of the page, with each reminder as a ReminderItem with Remove and "Add something else for Mallory" after each day with reminders (O36). Build from the draft. | Onboarding and setup |
-| 9a | C-00 · 0c-c · Draft, keeping the plan | Draft `3262:16484` | The end of the page: the suggested event with Add to the plan and Not this time, the coach link, then "Keep Mallory's plan" as part of the page under a hairline, with the email TextInput, Continue and Not now. | Onboarding and setup |
-| 9c | C-00 · 0c-d · Draft, after an edit | Draft `3262:16380` | Library book removed, with the Notice and Undo at the foot of the screen, and back-to-school night added. | Onboarding and setup |
-| 9b | C-00 · 0c-b · Account prompt, nothing captured | Not drawn yet | A prompt over 0a, headed "Create your account", with the email TextInput and Continue, no line, no Not now and no Continue with Apple (O35, O36). Build from the fixtures' words and the draft 0c-c's parts. | Sheet, over 0a |
-| 10 | C-00 · 0e · Create your account | Retired | Joined 0c on November 24, 2026 (O35). Do not build it as a screen. | |
+| 1 | C-00 · 0s · Splash | `2853:12205` | Redrawn in place from the draft on November 24, 2026. | Still |
+| 2 | C-00 · 0w · Welcome | `2853:12929` | Her name and zip code, then the fields for one child, with "+ Add another child" directly under them (O36). Drawn at full height. | Onboarding and setup |
+| 2b | C-00 · 0w-c · Welcome, second child added | `3282:17717` | Mallory's fields under Alexis's, with the link below them. Drawn at full height. | Onboarding and setup |
+| 3 | C-00 · 0k · Who are you planning for | Retired | Joined 0w on November 24, 2026 (O35). The frame `2853:12050` is on "Archive - not for build". Do not build it. | |
+| 3b | C-00 · 0k-b · The coach suggests grades | Retired | Joined 0w on November 24, 2026 (O35). The frame `2858:11639` is on "Archive - not for build". Do not build it. | |
+| 3c | C-00 · 0w-b · Welcome, grade list open | `2863:11708` | Was 0k-c. The one-child welcome with Alexis's grade list open below her field and Fourth grade selected (O35, O36). | Onboarding and setup |
+| 4 | C-00 · 0a · Capture conversation | `2853:11894` | Back, the coach's line under the MVP Coach label in Voice, and Take a photo, Attach a file, Talk or type and Skip for now at the foot (O36). | Conversation |
+| 4b | C-00 · 0a-b · Capture conversation, photo in place | `2853:11916` | Was 0v. The photo as a large preview in place of the three buttons, with Use this photo and Retake at the foot. The photo is Greg's October placeholder, which is the September sheet relabeled, so its dates and events are not the fixtures' (O18). | Conversation |
+| 4c | C-00 · 0a-c · Capture conversation, reading | `2853:11922` | Was 0r. The photo as her thumbnail, then "Reading your photo…" with ThinkingDots (O27). | Conversation |
+| 4d | C-00 · 0a-d · Capture conversation, whose calendar it is | `3282:17800` | The coach's naming line and "Whose calendar is this?" with neither chip chosen, and the capture bar anchored at the foot (O36). The Mallory chip is a copy of the Alexis chip, because the library chip's Default variant keeps its check (O39). | Conversation |
+| 4e | C-00 · 0a-e · Capture conversation, read-back and hand-off | `2853:11972` | Was 0b. Scrolled to the end, in the fixtures' order, with Make Mallory's plan and "Something's not right" anchored at the foot. | Conversation |
+| 5 | C-00 · 0v · Check the photo | Retired | Joined 0a as 0a-b on November 24, 2026 (O36), and its frame was redrawn as 0a-b. | |
+| 6 | C-00 · 0r · Reading | Retired | Joined 0a as 0a-c on November 24, 2026 (O36), and its frame was redrawn as 0a-c. | |
+| 7 | C-00 · 0b · Read-back and hand-off | Retired | Joined 0a as 0a-d and 0a-e on November 24, 2026 (O36), and its frame was redrawn as 0a-e. | |
+| 8 | C-00 · 0t · Making the draft | `2853:11947` | The same dots as 0a-c (O27), with "Making Mallory's plan…". | Still |
+| 9 | C-00 · 0c · Draft | `2853:12011` | The top of the page, with each reminder as a ReminderItem with Remove and "Add something else for Mallory" after each day with reminders (O36). | Onboarding and setup |
+| 9a | C-00 · 0c-c · Draft, keeping the plan | `3282:17819` | The end of the page: the suggested event with Add to the plan and Not this time, the coach link, then "Keep Mallory's plan" as part of the page under a hairline, with the email TextInput, Continue and Not now. | Onboarding and setup |
+| 9c | C-00 · 0c-d · Draft, after an edit | `3282:17866` | Library book removed, with the Notice and Undo at the foot of the screen, and back-to-school night added. | Onboarding and setup |
+| 9b | C-00 · 0c-b · Account prompt, nothing captured | `3282:18620` | A prompt over 0a, headed "Create your account", with the email TextInput and Continue, no line, no Not now and no Continue with Apple (O35, O36). The scrim is the same unbound rectangle as 0q-b's (O39). | Sheet, over 0a |
+| 10 | C-00 · 0e · Create your account | Retired | Joined 0c on November 24, 2026 (O35). The frame `2853:12979` is on "Archive - not for build". Do not build it. | |
 | 11 | C-00 · 0e-p · Choose a plan | `2853:12857` | Staged. Either Buy button moves on to 0q, and nothing opens Stripe. The words are proposed (issue O17). Build the frame at 440 px with Hearth colors, and show "Most Valuable Parent" as the wordmark in place of "MVP" alone. | Onboarding and setup |
-| 12 | C-00 · 0q · Connect your calendar | `2853:13014` | Ignore the step counter. The draft `3260:16953` is the same screen without it. | Onboarding and setup |
-| 13 | C-00 · 0q-b · Calendar permission, staged | `2853:13034` | To be redrawn in place from the draft `3260:16973`: the permission as a sheet over the dimmed calendar screen, drawn generic (O36). The draft's scrim and buttons wait on library additions (O39). | Sheet, over 0q |
-| 14 | C-00 · 0q-c · Connected | Retired | Retired on November 24, 2026 (O35). Its ID is not reused. | |
-| 14b | C-00 · 0q-d · Calendar connected | Draft `3260:16993` | "Your Google Calendar is connected." with a check, the row "Google Calendar · Connected", Apple Calendar and Outlook as Outlined buttons, and Continue at the foot (O36, F40). | Onboarding and setup |
-| 15 | C-00 · 0f · Where do they go to school | `2853:13052` | To be redrawn in place from the draft `3260:17271` (option C): the coach's line, a ListRow for each child with the school, start time and source, the household and helpers as rows, and Done pinned at the foot (O36). Build from the draft, and wrap the source marks that ListRow cuts off (O38). Option B, `3260:17270`, was not chosen and is not a build target. | Onboarding and setup |
-| 15b | C-00 · 0f-b · School screen, start time missing | Draft `3260:17272` | Alexis's row without a start time, the coach's question and an empty "Alexis's start time" field. It runs past Done on a phone (O38). Not in Charlotte's path. | Onboarding and setup |
-| 16 | Draft · C-00 · 0g · Your household and who helps | Retired | Joined 0f on November 24, 2026 (O35). Do not build it as a screen. `2853:13080` and `2853:13105` are already superseded. | |
+| 12 | C-00 · 0q · Connect your calendar | `2853:13014` | Redrawn from the draft without the step counter. | Onboarding and setup |
+| 13 | C-00 · 0q-b · Calendar permission, staged | `2853:13034` | The permission as a sheet over the dimmed calendar screen, drawn generic (O36). The scrim and buttons wait on library additions (O39). | Sheet, over 0q |
+| 14 | C-00 · 0q-c · Connected | Retired | Retired on November 24, 2026 (O35). Its frame was redrawn as 0q-d. | |
+| 14b | C-00 · 0q-d · Calendar connected | `2853:13176` | Was 0q-c. "Your Google Calendar is connected." with a check, the row "Google Calendar · Connected", Apple Calendar and Outlook as Outlined buttons, and Continue at the foot (O36, F40). | Onboarding and setup |
+| 15 | C-00 · 0f · Where do they go to school | `2853:13052` | Option C: the coach's line, a ListRow for each child with the school, start time and source, the household and helpers as rows, and Done pinned at the foot (O36). Wrap the source marks that ListRow cuts off (O38). Mallory's "8:30am · From your calendar" has no source in the fixtures since the photo changed (O18). Option B, `3260:17270`, stays on the drafts page and is not a build target. | Onboarding and setup |
+| 15b | C-00 · 0f-b · School screen, start time missing | `3282:17908` | Alexis's row without a start time, the coach's question and an empty "Alexis's start time" field. It runs past Done on a phone (O38). Not in Charlotte's path. | Onboarding and setup |
+| 16 | C-00 · 0g and 0h · Your household and who helps | Retired | Joined 0f on November 24, 2026 (O35). `2853:13080`, `2853:13105` and the draft `3088:12922` are on "Archive - not for build". Do not build them. | |
 | 18 | C-00 · 0p · Getting everything ready | `2853:12907` | Add the MVP mark above the headline, as the fixtures show (issue O18). | Still |
 | 19 | C-00 · 0j · Welcome to the team | `2853:12168` | | Onboarding and setup |
 | 20 | C-00 · 0i-a · First board, on arrival | `2853:13795` | The coach card recommends "Take both girls at 7:40am". Out of date since fixtures 3.27: the board needs the trip pass marked "Needs an owner", with the reminders as its checklist (issue T63). Mallory's reminders are ReminderItem instances from the library (issue C55). | Today |
@@ -250,7 +250,6 @@ Heather's second wording review (fixtures 3.30) was applied to the frames on Nov
 | Screen | Frame ID | Type |
 | ----- | ----- | ----- |
 | C-03 · Draft · Say you can't this week | `3088:12855` | Composer |
-| Draft · C-00 · 0g · Your household and who helps. Approved by Greg on November 20, 2026 (issue O22, fixtures item 113), and since November 24, 2026 a parts source for 0f only (O35) | `3088:12922` | Onboarding and setup |
 
 ## Starting point C: the weekend Charlotte is away
 
