@@ -76,9 +76,9 @@ X3, D3, T27, O9, T8, T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48,
 
 ## Before Alpha 2: shorter onboarding and editing in the demo
 
-*Greg set this stage on November 24, 2026, after playing the Stage 7 build on his phone, and put X6 and C87 first the same day, before he shares Alpha 1 with Heather. He accepted the ten-screen onboarding drafts the same day, before line 2 was built, so line 2 builds O35 and O36 together. Line 4 waits for F39's spec section.*
+*Greg set this stage on November 24, 2026, after playing the Stage 7 build on his phone, and put X6 and C87 first the same day, before he shares Alpha 1 with Heather. The ten-screen onboarding is built. Greg redrew the draft the same afternoon (O46), which goes first. The F39 line waits for its spec section.*
 
-1. O35, O36, F40: onboarding at ten screens, as spec 0.57 §3 sets out
+1. O46: Keep, Change and Skip on the draft, as spec 0.58 §3 sets out
 2. F39, L7, L8, U5: editing a child, a school and Settings, and adding a child
 
 ## Alpha 2: The weekend Charlotte is away

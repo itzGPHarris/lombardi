@@ -1,6 +1,6 @@
 # Demo fixtures: the MVP families
 
-*MVP (Lombardi) · Version 3.56 · November 24, 2026 · Charlotte and Edward only*
+*MVP (Lombardi) · Version 3.57 · November 24, 2026 · Charlotte and Edward only*
 
 # 1. What this document is for
 
@@ -165,7 +165,7 @@ Onboarding has three parts. In the first part, before any account, the parent te
 | 0w | Welcome: her first name and zip code, then each child's first name and birth month and year, with the grade the MVP Coach suggests in a list box she can change, and 0w-b showing a list open | Before the account | None | No, though her name and zip code can be left blank |
 | 0a | The capture conversation: the coach asks for one thing, and the photo's preview (0a-b), the reading (0a-c), the question of whose it is (0a-d), the read-back, the coach's one question and the hand-off (0a-e) all happen on this one screen | Before the account | None | Yes, to the account prompt with nothing captured (0c-b) |
 | 0t | Thinking, while the coach builds the draft | Before the account | None | No |
-| 0c | The draft, with the dates it covers, a row with Remove for each reminder, "Add something else for" the child after each day with reminders, two choices on the suggested event and "Tell the MVP Coach what's wrong", then keeping the plan at the end of the page (0c-c), and the draft after an edit (0c-d). 0c-b is a prompt over 0a when she skipped the capture. | Before the account | None | Not now ends the session |
+| 0c | The draft, headed with the dates it covers, each school day as a card, Keep, Change and Skip on every coach suggestion, and "Tell the MVP Coach what's wrong", then keeping the plan at the end of the page with Continue disabled until she types her email (0c-c), and the draft after she keeps, changes and skips (0c-d). 0c-b is a prompt over 0a when she skipped the capture. | Before the account | None | Not now ends the session |
 | 0e-p | Choose a plan: Basic or Family, each with a free trial | Setup | None | No |
 | 0q | Connect your calendar: Google Calendar, Apple Calendar or Outlook, with the staged permission as a sheet over the screen (0q-b) and the connected state (0q-d), from which she can connect another calendar or continue | Setup | None | Not now, to 0f |
 | 0f | Where do they go to school: the coach's review of what it found, each child's school and start time with where each came from, then her household type, home language and the adults she counts on, and 0f-b when the coach could not find a start time | Setup | None | No |
@@ -197,7 +197,7 @@ Onboarding has three parts. In the first part, before any account, the parent te
 
 **Onboarding has no step counter.** Once the account moved into the draft and the household joined the school screen, setup is three screens, the plan, the calendar and the school screen, and a counter that runs to three tells her less than the screens themselves do. Versions 3.46 to 3.53 counted from 01 of 04 to 04 of 04.
 
-**She keeps the plan at the end of the draft.** The draft page ends with "Keep Mallory's plan", one field for the email her school writes to, Continue and Not now, so keeping her plan and creating her account are one step, and she reaches it only after she has read the whole plan. There is no Continue with Apple, because the account has to match how the school reaches her, and MVP uses the address only to recognize the school emails she forwards. If she skipped the capture, a prompt opens over the capture conversation with the heading "Create your account" (0c-b), because there is no draft to keep.
+**She keeps the plan at the end of the draft.** The draft page ends with "Keep Mallory's plan?", one field for the email connected to her school, Continue and Not now, so keeping her plan and creating her account are one step, and she reaches it only after she has read the whole plan. There is no Continue with Apple, because the account has to match how the school reaches her, and MVP uses the address only to recognize the school emails she forwards. If she skipped the capture, a prompt opens over the capture conversation with the heading "Create your account" (0c-b), because there is no draft to keep.
 
 **Headlines are display type.** The large headline on every onboarding and setup screen is set in Fraunces, the display face. Fields, labels, helper lines and buttons are set in Inter, and so are the coach's lines, which use the Voice style described in "Type". This corrects version 3.4, which said the setup screens were set entirely in sans.
 
@@ -1413,38 +1413,36 @@ Picture day at Westview Kindergarten on Friday came in an email the week before,
 
 **Onboarding, as shown: the draft week · 8:33pm**
 
-> Mallory's plan for this week
->
-> Oct. 6 to 9
->
-> Here is the rest of this week for Mallory. Sneakers go with Mallory tomorrow and this Thursday, and the library book goes back this Friday. Back-to-school night is this Thursday evening.
+> Mallory's plan: Oct. 6 to 9
 
 | Shows | Example rows |
 | ----- | ----- |
-| Each remaining school day with its letter and what it means | Tuesday · D · Motor skills |
-| Each reminder on that morning, as a checklist row with Remove | Sneakers · [✕] |
-| At the end of each day that carries reminders | Add something else for Mallory |
-| A school day with no reminders | Wednesday · E · Art and music |
-| Sneaker days, continued | Thursday · F · Science and motor skills, then Sneakers · [✕] and Add something else for Mallory |
-| The week's school event, marked Suggested, with its two choices | Thursday · Back-to-school night · Suggested · [Add to the plan] [Not this time] |
-| Library days | Friday · A · Library, then Library book · [✕] and Add something else for Mallory |
+| Each remaining school day as a card, with its date, its letter and what the letter means | Tuesday, Oct. 6 · D · Motor skills |
+| A day that carries reminders is a coach suggestion: the card is marked Suggested, lists the reminders and ends with three buttons | Sneakers, then [Keep] [Change] [Skip] |
+| A school day with no reminders, shown for reference with no buttons | Wednesday, Oct. 7 · E · Art and music |
+| Sneaker days, continued | Thursday, Oct. 8 · F · Science and motor skills, then Sneakers and [Keep] [Change] [Skip] |
+| The week's school event, on a card of its own | Thursday, Oct. 8 · Back-to-school night · Suggested · [Keep] [Change] [Skip] |
+| Library days | Friday, Oct. 9 · A · Library, then Library book and [Keep] [Change] [Skip] |
+| After Keep | The Suggested tag goes, and the buttons give way to "Kept" with a check, in muted ink, and Undo |
+| After Change, on a day with reminders | Each reminder gains its remove button, "Add something else for Mallory" appears, and Done closes the card |
+| After Skip | The card folds to one line, such as "Thursday, Oct. 8 · Back-to-school night" over "Skipped", with Undo |
 
 > Tell the MVP Coach what's wrong
 
-*Nothing the coach proposed is final until she has had the chance to change it (issue O36). Each reminder can be removed, each day with reminders can take one more, and the suggested event waits for "Add to the plan" or "Not this time". Removing a reminder raises the notice Today uses, such as "Library book is off Mallory's list for this Friday." with Undo, and adding back-to-school night takes away its Suggested label and its buttons (0c-d). "Tell the MVP Coach what's wrong" reopens the capture conversation with the draft still in view, she says what to fix, the coach reads it back, and the corrected draft returns. "As a suggestion" and "None of it is saved yet." came off the line in the wording review, because the Suggested label and the account section already say both.*
+*Every coach suggestion offers the same three choices, Keep, Change and Skip, so she can accept, adjust or turn down anything the coach proposes (issue O46). On arrival the reminders show without their remove buttons, so the page reads as a plan rather than a form. Change opens whatever that suggestion lets her edit in place. On a day with reminders, each reminder can be removed and one more can be added, and removing one raises the notice Today uses, such as "Library book is off Mallory's list for this Friday." with Undo (0c-d). Back-to-school night has nothing MVP can edit in place, so Change on it opens the capture conversation with that suggestion in view. She doesn't have to answer every card: Continue keeps every card she didn't skip, and a card she left alone enters her plan still marked Suggested, as any suggestion does. "Tell the MVP Coach what's wrong" is for the draft as a whole, such as the wrong child or the wrong calendar. It reopens the capture conversation with the draft still in view, she says what to fix, the coach reads it back, and the corrected draft returns. The coach's opening paragraph came off the draft on November 24, 2026, because the cards say the same thing.*
 
 **Onboarding, as shown: keeping the plan, at the end of the draft**
 
 *Keeping the plan is part of the draft page, under a hairline after the coach link, rather than a prompt over the draft, so Charlotte reads the whole plan before she is asked to keep it (0c-c, issue O36). On arrival the plan fills the screen.*
 
-> Keep Mallory's plan
+> Keep Mallory's plan?
 >
-> Create an account to save this plan and add the rest of your family.
+> Create an account to save this plan and add the rest of your family. Enter the email connected to your school:
 >
-> The email your school writes to: Email
+> Email
 > MVP uses it to recognize school emails you forward.
 >
-> [Continue]
+> [Continue], disabled until the field holds an email
 >
 > Not now
 
@@ -4484,9 +4482,9 @@ These are the labels, headings, buttons and placeholders on the demo screens tha
 | Confirmation before a read-back | The coach's line naming the capture, such as "This is Westview Kindergarten's calendar for October." · Question: Whose calendar is this?, with the kind of document named, such as "Whose newsletter is this?" · Choices: each child's name and grade, such as "Mallory · K", none chosen |
 | Hand-off | The coach's line, saying what the draft will hold and what it keeps for later · Button: "Make" followed by the draft's name, such as "Make Mallory's plan" · Link: Something's not right · Both anchored at the foot of the capture conversation once the hand-off appears |
 | Thinking screen for the draft | "Making" followed by the draft's name, such as "Making Mallory's plan…" |
-| Heading of the draft | The child's name, "plan" and what the draft covers, such as "Mallory's plan for this week", with the dates beneath it in Meta, such as "Oct. 6 to 9" |
-| Editing the draft | Each reminder as a checklist row with Remove · Link after each day with reminders: "Add something else for" and the child, such as "Add something else for Mallory" · On the suggested event: Add to the plan · Not this time · Link under the rows: Tell the MVP Coach what's wrong · Notice after removing a reminder: the item and "is off" the child's "list for" the day, such as "Library book is off Mallory's list for this Friday.", with Undo |
-| Keeping the plan, at the end of the draft | Heading: "Keep" followed by the draft's subject, such as "Keep Mallory's plan" · Line: Create an account to save this plan and add the rest of your family. · Field: The email your school writes to, with the placeholder Email and the helper line "MVP uses it to recognize school emails you forward." · Button: Continue · Link: Not now |
+| Heading of the draft | The child's name, "plan", a colon and the dates the draft covers, such as "Mallory's plan: Oct. 6 to 9" |
+| Editing the draft | Each school day as a card with its date, letter and meaning, such as "Tuesday, Oct. 6 · D" over "Motor skills" · A day with reminders, and the week's school event, marked Suggested, with the buttons Keep · Change · Skip · After Keep: Kept, with a check, and Undo · After Skip: the card folded to its title over Skipped, with Undo · After Change on a day with reminders: each reminder with Remove, the link "Add something else for" and the child, such as "Add something else for Mallory", and the button Done · Link under the cards: Tell the MVP Coach what's wrong · Notice after removing a reminder: the item and "is off" the child's "list for" the day, such as "Library book is off Mallory's list for this Friday.", with Undo |
+| Keeping the plan, at the end of the draft | Heading: "Keep" followed by the draft's subject, as a question, such as "Keep Mallory's plan?" · Line, which also labels the field: Create an account to save this plan and add the rest of your family. Enter the email connected to your school: · Field: the placeholder Email and the helper line "MVP uses it to recognize school emails you forward." · Button: Continue, disabled until the field holds an email · Link: Not now |
 | Account prompt with nothing captured | Heading: Create your account · Field: The email your school writes to, with the placeholder Email and the helper line "MVP uses it to recognize school emails you forward." · Button: Continue, with no line and no Not now |
 | Plan screen, proposed | Headline: Pick a plan and start your free trial today! · Toggle: monthly · annual · Plan: Basic · $8.99 / month · 7-day free trial · Monthly membership · AI coach · Team feedback · Button: Buy · Plan: Family · $13.99 / month · 7-day free trial · Monthly membership · AI Coach · Up to six users · Team feedback · Button: Buy · Line: Purchases will open Stripe in a new tab. |
 | Calendar screen | Heading: Connect your calendar · Line: Connect the calendar you already use, and the MVP Coach brings in what's on it and tells you when something new runs into the plan. MVP reads your calendar and never changes it. · Buttons: Google Calendar · Apple Calendar · Outlook · Link: Not now |
@@ -4891,7 +4889,20 @@ The user stories left gaps, and everything in this table is a fact we invented t
 155. **Decided November 24, 2026: onboarding is shorter (issue O35).** Greg played the alpha on his phone and found too many steps. The children and grades join the welcome, sign-in moves onto the account prompt, the calendar's connected state becomes a line on the school screen, and the household joins the school screen. The plan screen stays in the flow, and the household questions stay as Heather wrote them. Three pieces of wording are new and need Heather's review: the subheading "Who are you planning for?" on the welcome, which replaces the children screen's heading with her name, the grade line "The MVP Coach works out each grade from the birth month. Change any grade that's wrong.", which replaces the grades screen's heading and line, and "Your Google Calendar is connected." on the school screen. The welcome loses its skip link, because her name and zip code can be left blank. The frames for 0w, 0w-b, 0c and 0f are redrawn in place, and 0c-b is a new frame.
 156. **Decided November 24, 2026: onboarding is ten screens (issue O36).** Greg reviewed drafts of the flow on the Figma page "Drafts - onboarding, November 24" and accepted them. The welcome opens with one child and "+ Add another child" under that child's fields. The capture conversation (0a) takes in 0v, 0r and 0b, and the coach confirms whose calendar it is before the read-back, with no child preselected. The draft is editable, and keeping the plan sits at the end of the draft page, with one field for the email the school writes to and no Continue with Apple. The calendar's permission is a sheet over the calendar screen, which then confirms the connection with "Your Google Calendar is connected.", moved from the school screen, and lets her connect a second calendar (F40). The school screen is the coach's review of what it found, as option C of the drafts, and 0f-b shows it when the coach could not find a start time. New wording for Heather's review: "Add to the plan" and "Not this time" on the draft's suggested event, "Tell the MVP Coach what's wrong", "The email your school writes to", "MVP uses it to recognize school emails you forward.", "Library book is off Mallory's list for this Friday.", "Google Calendar · Connected", "Here's what I found. Change anything that's wrong.", "From your Google Calendar", "I couldn't find Alexis's start time. What time does school start at Cedar Grove Elementary?", "Alexis's start time", and the read-back's first sentence, split into "This is Westview Kindergarten's calendar for October." and "Westview Kindergarten uses a six-day letter rotation." The calendar's error states are still to be written (issue O37).
 
+157. **Decided November 24, 2026: every coach suggestion offers Keep, Change and Skip (issue O46).** Greg redrew the draft as a card for each school day and asked that she be able to keep, change or remove any coach recommendation or suggestion, with one treatment everywhere. Each suggestion card is marked Suggested and ends with Keep, Change and Skip. Continue keeps every card she didn't skip, and a card she left alone enters the plan still Suggested. The draft is headed "Mallory's plan: Oct. 6 to 9" without the coach's opening paragraph, and the account section asks "Keep Mallory's plan?", labels its field with the line "Enter the email connected to your school:", and keeps Continue disabled until she types an email. New wording for Heather's review: Keep, Change, Skip, Kept, Skipped, "Mallory's plan: Oct. 6 to 9", "Keep Mallory's plan?" and "Enter the email connected to your school:". Whether the same three choices replace the choices on suggestions elsewhere, such as the review card in the game plan and the coach card on Today, is not decided yet.
+
 # Appendix C: change log
+
+## Version 3.57, November 24, 2026
+
+Greg's redraw of the draft (issue O46). Version 3.56 is kept in the archive.
+
+| # | Change |
+| ----- | ----- |
+| 1 | The draft is headed "Mallory's plan: Oct. 6 to 9", shows each school day as a card, and loses the coach's opening paragraph. |
+| 2 | Every coach suggestion on the draft, the days with reminders and back-to-school night, ends with Keep, Change and Skip, replacing the remove buttons on arrival and the event's Add to the plan and Not this time. Continue keeps every card she didn't skip. |
+| 3 | Keeping the plan asks "Keep Mallory's plan?", its line ends "Enter the email connected to your school:" and labels the field, and Continue is disabled until she types an email. 0c-b keeps its labeled field. |
+| 4 | Appendix B item 157 records the decision and the wording for Heather's review. |
 
 ## Version 3.56, November 24, 2026
 
