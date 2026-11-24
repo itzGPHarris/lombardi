@@ -17,8 +17,8 @@
   border: thin solid var(--border-hairline);
   border-radius: var(--radius-lg);
   background: var(--bg-control);
-  font: var(--text-body);
-  letter-spacing: var(--text-body-tracking);
+  font: var(--text-body-large);
+  letter-spacing: var(--text-body-large-tracking);
   color: var(--ink-primary);
 }
 .noteField[data-empty] { color: var(--ink-muted); }
@@ -41,7 +41,7 @@ textarea.noteField { resize: none; }
   border: thin solid var(--border-hairline);
   border-radius: var(--radius-md);
   background: var(--bg-control);
-  font: var(--text-body);
-  letter-spacing: var(--text-body-tracking);
+  font: var(--text-body-large);
+  letter-spacing: var(--text-body-large-tracking);
   color: var(--ink-primary);
 }

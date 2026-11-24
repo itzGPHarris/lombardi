@@ -19,10 +19,10 @@
   border: 0;
   padding: 0;
   background: transparent;
-  font: var(--text-body);
-  letter-spacing: var(--text-body-tracking);
+  font: var(--text-body-large);
+  letter-spacing: var(--text-body-large-tracking);
   color: var(--ink-primary);
   outline: none;
 }
-.input::placeholder { color: var(--ink-placeholder); }
+.input::placeholder { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-placeholder); }
 .helper { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); text-align: center; }

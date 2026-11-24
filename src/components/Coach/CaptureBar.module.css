@@ -18,13 +18,13 @@
   border: 0;
   padding: 0;
   background: transparent;
-  font: var(--text-body);
-  letter-spacing: var(--text-body-tracking);
+  font: var(--text-body-large);
+  letter-spacing: var(--text-body-large-tracking);
   color: var(--ink-primary);
   outline: none;
   overflow-y: auto;
 }
-.field::placeholder { color: var(--ink-secondary); }
+.field::placeholder { font: var(--text-body); letter-spacing: var(--text-body-tracking); color: var(--ink-secondary); }
 .controls { display: flex; align-items: center; justify-content: flex-end; flex-shrink: 0; }
 .control, .give {
   position: relative;

@@ -134,6 +134,7 @@ Fixtures section 2 holds the same rules as they apply to the households, and fix
 14. **No uppercase labels and no letter-spaced eyebrows.** Labels are written in sentence case, as the fixtures give them.
 15. **The live model is never on in a presented demo,** and it never writes as another person.
 16. **Only what spec §19 "Motion" lists moves, and each motion has its reduced form.** Add no transition, animation or hover effect of your own, including library defaults. Under reduced motion, anything that slides, rises, tilts or changes size appears in place, fades keep their timing and the stars stand still, so a blanket rule that sets every duration to zero is not enough.
+17. **Typed text is never smaller than 16 px.** Every input, text area and the capture bar sets the text she types in Body large (17 px), because iOS Safari zooms the page on focus below 16 px and leaves it zoomed. Never fix this by locking the viewport with maximum-scale or user-scalable, which takes zoom away from her (spec §2, issue C88).
 
 ## Decisions that are still open
 
