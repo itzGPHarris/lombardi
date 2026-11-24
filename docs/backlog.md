@@ -47,11 +47,10 @@ This file holds IDs and sequence. Nothing else.
 2. T63, O21: C-09, the wireframe-only Today boards and the 0b confirmation
 3. R13: the conference article frame
 4. G46, C62: the frames that still show words fixtures 3.46 changed, and every phone number with its area code
-5. O35, O36: the onboarding frames redrawn in place from the accepted drafts on "Drafts - onboarding, November 24", 0c-b drawn, the capture bar drawn on 0a-d and 0a-e, and 0k, 0k-b, 0e, 0q-c, 0g, 0v, 0r and 0b archived, with no StepCounter on any onboarding frame
-6. T61: the anytime task's item page
-7. P3, P11: For You as an overlay on 0c set to Bottom center, and the Cedar Grove card as a 956 px page
-8. P8, P12, P13: the jump screen opened by the M key and from Settings, Skip for now off 0w, and the three stranded frames archived
-9. Greg's review: check the boards on "Design - lombardi · post-review" against `docs/screen-map.md`, and mark each one Ready for dev
+5. T61: the anytime task's item page
+6. P3, P11: For You as an overlay on 0c set to Bottom center, and the Cedar Grove card as a 956 px page
+7. P8, P12, P13: the jump screen opened by the M key and from Settings, Skip for now off 0w, and the three stranded frames archived
+8. Greg's review: check the boards on "Design - lombardi · post-review" against `docs/screen-map.md`, and mark each one Ready for dev
 
 ### Step 6: Get the repository ready
 
