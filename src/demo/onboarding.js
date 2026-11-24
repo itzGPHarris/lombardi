@@ -364,9 +364,12 @@ const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 //   game plan would (spec §8); skipped, it leaves the plan and the review card; left alone, it stays
 //   Suggested on the review card;
 // - the reminders for tomorrow, the evening checklist on her first board, lose any she removed or
-//   whose day she skipped, and gain any she added. The draft's reminder is matched to the checklist's
-//   by its first words, such as "Sneakers" to "Sneakers and socks by the door", because the seed
-//   holds no link between them (docs/issues.csv).
+//   whose day she skipped, and gain any she added. A draft reminder names what goes with the child
+//   on that day, and the Rule that creates it names the checklist item it creates, such as "Sneakers
+//   and socks by the door" for the draft's "Sneakers" (spec §16, "Rule"; issue O47);
+// - once nothing is left on the review card, because she kept or skipped the event, the coach card's
+//   follow-up after she agrees takes its shorter form, which the seed holds beside the longer one
+//   (fixtures section 4, "Coach card after she agrees"; issue O47).
 // A kept card and one left alone look the same on Today, because a checklist carries no status. The
 // later days' outcomes are held and show on no board in C-00.
 export function seedWithDraft(seed, outcome) {
@@ -392,12 +395,13 @@ export function seedWithDraft(seed, outcome) {
     }
     if (row.day.week !== tomorrow.week || row.day.day !== tomorrow.day) return;
     const added = outcome.added[index] ?? [];
-    if (row.checklistItem && (state === 'skipped' || outcome.removed.includes(`${index}`))) off.push(row.checklistItem);
+    const created = seed.rules.find((rule) => row.goingWith && rule.goingWith === row.goingWith)?.checklistItem;
+    if (created && (state === 'skipped' || outcome.removed.includes(`${index}`))) off.push(created);
     if (state !== 'skipped') on.push(...added.filter((_, at) => !outcome.removed.includes(`${index}-${at}`)));
   });
 
   const child = answers.draft.child;
-  const matches = (entry) => typeof entry === 'string' && off.some((text) => entry === text || entry.startsWith(`${text} `));
+  const matches = (entry) => typeof entry === 'string' && off.includes(entry);
   const patchGroups = (groups) => groups?.map((group) => (group.child === child
     ? { ...group, items: [...group.items.filter((entry) => !matches(entry)), ...on] }
     : group));
@@ -423,7 +427,13 @@ export function seedWithDraft(seed, outcome) {
     ...(step.show?.today ? { show: { ...step.show, today: patchToday(step.show.today) } } : {}),
   }));
   const moments = seed.moments.map((entry, index) => (index === momentIndex ? { ...moment, state, steps } : entry));
-  return { ...seed, moments };
+  const nothingWaiting = offCard.size > 0 && !state.reviewCard?.length;
+  const cardId = moment.state.today?.coachCard?.id;
+  const coachCards = !nothingWaiting ? seed.coachCards : seed.coachCards.map((card) => (card.id !== cardId || !card.after ? card : {
+    ...card,
+    after: Object.fromEntries(Object.entries(card.after).map(([answer, after]) => [answer, after.textNothingWaiting ? { ...after, text: after.textNothingWaiting } : after])),
+  }));
+  return { ...seed, moments, coachCards };
 }
 
 // Continue on the welcome works once every child has a name and a birth month (spec §3, issue O18).

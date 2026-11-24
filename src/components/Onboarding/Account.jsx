@@ -1,18 +1,18 @@
 import Button from '../shared/Button.jsx';
 import Icon from '../shared/Icon.jsx';
 import Sheet from '../shared/Sheet.jsx';
-import { Field } from './parts.jsx';
+import TextInput from '../shared/TextInput.jsx';
 import { back } from '../../copy/navigation.js';
 import { accountPrompt as words } from '../../copy/onboarding.js';
 import layout from '../Layout/Layout.module.css';
 import own from './Account.module.css';
 
-// The one field the account asks for: the email the school writes to, with its placeholder and helper
-// line (fixtures 3.56 section 4). Her name is already known from the welcome, and there is no Continue
+// The one field the account asks for: the email the school writes to, in the library TextInput, with
+// its placeholder and helper line (fixtures 3.57 section 4; issue O48). Her name is already known from the welcome, and there is no Continue
 // with Apple, because the account has to match how the school reaches her (issue O36).
 function EmailField({ id, email, setEmail, labelledBy }) {
   return (
-    <Field
+    <TextInput
       id={id}
       label={words.emailLabel}
       labelledBy={labelledBy}

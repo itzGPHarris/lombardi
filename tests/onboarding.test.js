@@ -223,6 +223,28 @@ describe('Continue keeps every card she didn\'t skip, and her first board shows 
     expect(firstBoard(outcome({ type: 'CHANGE', row: friday }, { type: 'REMOVE_REMINDER', key: `${friday}` })).checklist).toEqual(seeded);
   });
 
+  // O47: the coach card's follow-up after she agrees has a shorter form once nothing waits on the
+  // review card (fixtures 3.57 section 4, "Coach card after she agrees").
+  it('the coach follow-up drops the review-card sentence when she kept or skipped back-to-school night', () => {
+    const followUps = (kept) => {
+      const card = seedWithDraft(seed, kept).coachCards.find((entry) => entry.id === 'cc-first-board');
+      return [card.after.agree.text, card.after['plan-b'].text];
+    };
+    const full = 'The rest of this week is in your game plan. Back-to-school night at Westview Kindergarten this Thursday is the one thing waiting there for you to add.';
+    const short = 'The rest of this week is in your game plan.';
+    expect(followUps(outcome())).toEqual([full, full]);
+    expect(followUps(outcome({ type: 'KEEP', row: tuesday }))).toEqual([full, full]);
+    expect(followUps(outcome({ type: 'KEEP', row: event }))).toEqual([short, short]);
+    expect(followUps(outcome({ type: 'SKIP', row: event }))).toEqual([short, short]);
+  });
+
+  // O47: each draft reminder reaches the checklist through the Rule that creates it (spec §16, "Rule").
+  it('finds the checklist item each draft reminder becomes through its Rule', () => {
+    const created = rows.filter((entry) => entry.checklistItem)
+      .map((entry) => [entry.checklistItem, seed.rules.find((rule) => rule.goingWith === entry.goingWith)?.checklistItem]);
+    expect(created).toEqual([['Sneakers', 'Sneakers and socks by the door'], ['Sneakers', 'Sneakers and socks by the door'], ['Library book', 'Library book']]);
+  });
+
   it('a day still open in Change at Continue is kept', () => {
     expect(outcome({ type: 'CHANGE', row: friday }).cards[friday]).toBe('kept');
   });

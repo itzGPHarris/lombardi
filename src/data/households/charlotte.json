@@ -1828,8 +1828,8 @@
     }
   ],
   "rules": [
-    {"id":"rule-sneakers","school":"westview","kind":"letter-day","letters":["B","D","F"],"child":"mallory","goingWith":"mallory-sneakers"},
-    {"id":"rule-library","school":"westview","kind":"letter-day","letters":["A"],"child":"mallory","goingWith":"mallory-library-book"},
+    {"id":"rule-sneakers","school":"westview","kind":"letter-day","letters":["B","D","F"],"child":"mallory","goingWith":"mallory-sneakers","checklistItem":"Sneakers and socks by the door"},
+    {"id":"rule-library","school":"westview","kind":"letter-day","letters":["A"],"child":"mallory","goingWith":"mallory-library-book","checklistItem":"Library book"},
     {"id":"rule-pickup-list","school":"westview","kind":"pickup-list","fact":"wv-pickup-list"}
   ],
   "captures": [
@@ -2401,12 +2401,14 @@
         "agree": {
           "chosenText": null,
           "text": "The rest of this week is in your game plan. Back-to-school night at Westview Kindergarten this Thursday is the one thing waiting there for you to add.",
+          "textNothingWaiting": "The rest of this week is in your game plan.",
           "button": {"label":"Open the game plan","action":"open-tab:game-plan"},
           "link": "Undo"
         },
         "plan-b": {
           "chosenText": "Take Alexis to Cedar Grove Elementary at 7:40am, then come home and leave with Mallory for Westview Kindergarten at 8:15am.",
           "text": "The rest of this week is in your game plan. Back-to-school night at Westview Kindergarten this Thursday is the one thing waiting there for you to add.",
+          "textNothingWaiting": "The rest of this week is in your game plan.",
           "button": {"label":"Open the game plan","action":"open-tab:game-plan"},
           "link": "Undo"
         }
@@ -2675,9 +2677,9 @@
           "draft": {
             "child": "mallory",
             "rows": [
-              {"day":{"week":-1,"day":"tue","time":null},"letter":"D","meaning":"Motor skills","checklistItem":"Sneakers"},
+              {"day":{"week":-1,"day":"tue","time":null},"letter":"D","meaning":"Motor skills","checklistItem":"Sneakers","goingWith":"mallory-sneakers"},
               {"day":{"week":-1,"day":"wed","time":null},"letter":"E","meaning":"Art and music","checklistItem":null},
-              {"day":{"week":-1,"day":"thu","time":null},"letter":"F","meaning":"Science and motor skills","checklistItem":"Sneakers"},
+              {"day":{"week":-1,"day":"thu","time":null},"letter":"F","meaning":"Science and motor skills","checklistItem":"Sneakers","goingWith":"mallory-sneakers"},
               {
                 "day": {"week":-1,"day":"thu","time":null},
                 "letter": null,
@@ -2685,7 +2687,7 @@
                 "event": "Back-to-school night",
                 "planItem": "w-1-thu-back-to-school"
               },
-              {"day":{"week":-1,"day":"fri","time":null},"letter":"A","meaning":"Library","checklistItem":"Library book"}
+              {"day":{"week":-1,"day":"fri","time":null},"letter":"A","meaning":"Library","checklistItem":"Library book","goingWith":"mallory-library-book"}
             ]
           },
           "calendar": "google",

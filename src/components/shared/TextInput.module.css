@@ -1,0 +1,28 @@
+/* The library's TextInput (3285:17000): the label, a 44 px field with a hairline and the medium
+   radius on the control surface, and the helper line centered beneath it. */
+.textInput { display: flex; flex-direction: column; gap: var(--space-8); width: 100%; }
+.label { font: var(--text-body-strong); letter-spacing: var(--text-body-strong-tracking); color: var(--ink-primary); }
+.field {
+  display: flex;
+  align-items: center;
+  height: var(--size-tap-target);
+  padding: 0 var(--space-16);
+  border: thin solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--bg-control);
+}
+.field:has(:focus-visible) { outline: var(--space-4) solid var(--focus-ring); outline-offset: calc(var(--space-4) / -2); }
+.input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: var(--text-body);
+  letter-spacing: var(--text-body-tracking);
+  color: var(--ink-primary);
+  outline: none;
+}
+.input::placeholder { color: var(--ink-placeholder); }
+.helper { font: var(--text-meta); letter-spacing: var(--text-meta-tracking); color: var(--ink-muted); text-align: center; }
