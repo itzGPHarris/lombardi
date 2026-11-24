@@ -2,35 +2,26 @@
 // in onboarding come from the seed's conversation, not from here.
 export const splash = 'Most Valuable Parent';
 export const splashTagline = 'Master the parental logistics of life for every season. Build community. Solve for the win. Be the MVP.';
+// The welcome holds her name and zip code, then each child and the grade the MVP Coach suggests (0w,
+// fixtures 3.54, issue O35). It has no skip link.
 export const welcome = {
   headline: 'Your week has a lot of moving parts, and the MVP Coach helps you keep track of everything.',
   line: 'Just the basics to start us off in the right direction.',
   name: 'Your name',
   zip: 'Zip code',
-  continue: 'Continue',
-  skip: 'Skip for now',
-};
-export const children = {
-  heading: 'Who are you planning for, {person}?',
-  headingNoName: 'Who are you planning for?',
+  subheading: 'Who are you planning for?',
+  gradesLine: "The MVP Coach works out each grade from the birth month. Change any grade that's wrong.",
   firstName: "Your kiddo's first name",
   birth: 'Birth month and year',
+  grade: "{child}'s grade",
   addAnother: '+ Add another child',
   continue: 'Continue',
 };
-export const grades = {
-  headingTwo: '{child} is likely in {grade}, and {child2} is likely in {grade2}.',
-  headingOne: '{child} is likely in {grade}.',
-  headingMany: 'Here are the grades the MVP Coach suggests.',
-  line: "The MVP Coach works these out from each child's birth month. Change any grade that's wrong.",
-  label: "{child}'s grade",
-  list: [
-    'Not in school yet', 'Pre-K', 'Kindergarten', 'First grade', 'Second grade', 'Third grade', 'Fourth grade',
-    'Fifth grade', 'Sixth grade', 'Seventh grade', 'Eighth grade', 'Ninth grade', 'Tenth grade', 'Eleventh grade',
-    'Twelfth grade',
-  ],
-  continue: 'Continue',
-};
+export const grades = [
+  'Not in school yet', 'Pre-K', 'Kindergarten', 'First grade', 'Second grade', 'Third grade', 'Fourth grade',
+  'Fifth grade', 'Sixth grade', 'Seventh grade', 'Eighth grade', 'Ninth grade', 'Tenth grade', 'Eleventh grade',
+  'Twelfth grade',
+];
 export const coachFirstCapture = "Show me one thing from this week, such as a school handout, an email or a voice note, and I'll turn it into a plan.";
 export const firstCapture = { takeAPhoto: 'Take a photo', attachAFile: 'Attach a file', talkOrType: 'Talk or type', skip: 'Skip for now' };
 export const checkPhoto = { use: 'Use this photo', retake: 'Retake' };
@@ -48,9 +39,17 @@ export const failures = {
   slow: 'This is taking longer than it should. Your photo is safe, and you can try again.',
   tryAgain: 'Try again',
 };
-export const accountPrompt = { heading: "Keep {child}'s plan", line: 'Create an account to save this plan and add the rest of your family.', create: 'Create account', notNow: 'Not now' };
-export const stepCounter = '0{count} of 04';
-export const account = { heading: 'Create your account', email: 'Email', apple: 'Continue with Apple', continue: 'Continue' };
+// The account prompt holds the sign-in (0c). With nothing captured it opens over 0a headed "Create your
+// account", with no line and no Not now (0c-b).
+export const accountPrompt = {
+  heading: "Keep {child}'s plan",
+  line: 'Create an account to save this plan and add the rest of your family.',
+  apple: 'Continue with Apple',
+  email: 'Email',
+  continue: 'Continue',
+  notNow: 'Not now',
+  headingNoCapture: 'Create your account',
+};
 export const plan = {
   headline: 'Pick a plan and start your free trial today!',
   toggle: ['monthly', 'annual'],
@@ -64,8 +63,6 @@ export const calendar = {
   line: "Connect the calendar you already use, and the MVP Coach brings in what's on it and tells you when something new runs into the plan. MVP reads your calendar and never changes it.",
   choices: ['Google Calendar', 'Apple Calendar', 'Outlook'],
   notNow: 'Not now',
-  connected: 'Connected · {calendar}',
-  continue: 'Continue',
   permission: 'Most Valuable Parent wants to see your calendar',
   allow: 'Allow',
   cancel: 'Cancel',
@@ -73,13 +70,14 @@ export const calendar = {
 export const school = {
   heading: 'Where do they go to school?',
   line: 'Add each child\'s school and start time, so the MVP Coach knows whose emails and handouts are whose and when to leave.',
+  connected: 'Your {calendar} is connected.',
   school: 'School',
   startTime: 'Start time',
   fromCalendarPhoto: 'From your calendar photo',
   age: 'Age',
   addAnother: '+ Add another child',
-  continue: 'Continue',
 };
+// The household sits on the school screen under its own subheadings, with Done at the foot (0f).
 export const household = {
   heading: 'Your household',
   question: 'How is your household set up?',

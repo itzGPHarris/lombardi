@@ -1,19 +1,24 @@
 import Button from '../shared/Button.jsx';
 import OnboardingShell from '../Layout/OnboardingShell.jsx';
-import { Field, StepCounter } from './parts.jsx';
-import { school as words } from '../../copy/onboarding.js';
+import HouseholdFields from './Household.jsx';
+import { Field } from './parts.jsx';
+import { fill } from '../../demo/today.js';
+import { household, school as words } from '../../copy/onboarding.js';
 import styles from './Onboarding.module.css';
 import own from './Schools.module.css';
 
-// Where do they go to school (0f, 2853:13052), 03 of 04: each child's school and start time, with the
-// note under a school filled in from her capture. A child marked Not in school yet has an Age field in
-// place of School and Start time. The screen scrolls, because it is taller than a phone.
-export default function Schools({ kids, schools, notInSchool, capturedFrom, setSchool, onAdd, onContinue, onBack }) {
+// Where do they go to school (0f, 2853:13052): the line naming her calendar when she connected one,
+// which replaced the connected screen 0q-c, then each child's school and start time, with the note
+// under a school filled in from her capture, then the household and the adults who help, which 0g
+// asked on a screen of its own until fixtures 3.54 (issue O35). A child marked Not in school yet has
+// an Age field in place of School and Start time. The screen scrolls while Done stays at the foot.
+export default function Schools({ kids, schools, notInSchool, capturedFrom, calendar, entries, set, setSchool, setHelper, addHelper, onAdd, onDone, onBack }) {
   return (
-    <OnboardingShell onBack={onBack} counter={<StepCounter step={3} />} primary={<Button kind="primary" full onClick={onContinue}>{words.continue}</Button>}>
+    <OnboardingShell onBack={onBack} primary={<Button kind="primary" full onClick={onDone}>{household.done}</Button>}>
       <div className={styles.page} data-top="none">
         <h1 className={styles.headline}>{words.heading}</h1>
         <p className={styles.line}>{words.line}</p>
+        {calendar && <p className={styles.line}>{fill(words.connected, { calendar })}</p>}
         {kids.map((child, index) => {
           const entry = schools[index] ?? {};
           return (
@@ -35,6 +40,7 @@ export default function Schools({ kids, schools, notInSchool, capturedFrom, setS
           );
         })}
         <Button kind="text" className={styles.add} onClick={onAdd}>{words.addAnother}</Button>
+        <HouseholdFields entries={entries} set={set} setHelper={setHelper} addHelper={addHelper} />
       </div>
     </OnboardingShell>
   );
