@@ -5,12 +5,19 @@
   /* The home indicator's inset, which every anchored foot clears. While the keyboard is up it covers
      the indicator, so the inset drops to nothing. */
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  /* The status bar's inset. The viewport covers the whole screen (viewport-fit=cover), so iOS reports
+     it whenever the page runs under the status bar, and 0 in the browser, where the browser's own bar
+     sits above the page. */
+  --safe-top: env(safe-area-inset-top, 0px);
 }
-/* The room the frames leave above the first row for the phone's status bar (issue C81). In the
-   browser the page starts under the browser's own bar, so --layout-status keeps the frames' 56 from
-   src/tokens.css. Opened from the Home Screen, the page starts beneath the phone's opaque status bar,
-   so only the gap the frames leave below that bar is kept. */
+/* The room above the first row (issues C81 and C89). Every fixed top row takes it from
+   --layout-status: Today's header, the title bar on tab lists and pages, the fixed header, onboarding's
+   Back, and the tall sheet's gap above it. In the browser the page starts under the browser's own bar,
+   so --layout-status keeps the frames' 56 from src/tokens.css. Opened from the Home Screen, the page
+   runs under the status bar, and iOS blurs a strip below it, so a row placed at a fixed 8 reads as
+   smeared. The room is the status bar's inset plus the 8 the frames leave below the status bar, so the
+   first row starts below the strip on every phone, whatever its status bar's height. */
 @media (display-mode: standalone) {
-  :root { --layout-status: var(--space-8); }
+  :root { --layout-status: calc(var(--safe-top) + var(--space-8)); }
 }
 :root[data-keyboard='open'] { --safe-bottom: 0px; }
