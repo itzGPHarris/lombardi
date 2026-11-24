@@ -31,6 +31,7 @@ This file holds IDs and sequence. Nothing else.
 3. A12: C-03a, capture on Today
 4. K2: the coach's options wherever a problem still lacks them
 5. R13: the conference article's screen, with its title over placeholder lines
+6. O37: the calendar's error states
 
 ### Step 4: Heather's batch, alongside steps 5 and 6
 
@@ -38,6 +39,7 @@ This file holds IDs and sequence. Nothing else.
 2. K1: Charlotte's coach lines and the C-08 and C-08b answers
 3. O17: the plan screen's words
 4. R15: who writes the two approved articles
+5. O35, O36: the new onboarding wording in fixtures Appendix B items 155 and 156
 
 ### Step 5: The missing frames
 
@@ -45,7 +47,7 @@ This file holds IDs and sequence. Nothing else.
 2. T63, O21: C-09, the wireframe-only Today boards and the 0b confirmation
 3. R13: the conference article frame
 4. G46, C62: the frames that still show words fixtures 3.46 changed, and every phone number with its area code
-5. O35: 0w, 0w-b, 0c and 0f redrawn in place, 0c-b drawn, and 0k, 0k-b, 0e, 0q-c and 0g archived, with no StepCounter on any onboarding frame
+5. O35, O36: the onboarding frames redrawn in place from the accepted drafts on "Drafts - onboarding, November 24", 0c-b drawn, the capture bar drawn on 0a-d and 0a-e, and 0k, 0k-b, 0e, 0q-c, 0g, 0v, 0r and 0b archived, with no StepCounter on any onboarding frame
 6. T61: the anytime task's item page
 7. P3, P11: For You as an overlay on 0c set to Bottom center, and the Cedar Grove card as a 956 px page
 8. P8, P12, P13: the jump screen opened by the M key and from Settings, Skip for now off 0w, and the three stranded frames archived
@@ -60,6 +62,7 @@ This file holds IDs and sequence. Nothing else.
 *Figma library and prototype work. It makes the Figma file tidy for the engineer and the Figma prototype complete for Heather, and the code build does not wait on it.*
 
 - C51, C55, C30, O18, C33: the library's remaining states and components, the onboarding components, the October photo and the Voice style
+- O38, O39: a list row with a source line, a scrim variable, a neutral button for staged system sheets and the tag choice chip's variants
 - P5, P6, P7, P10: the Figma prototype's remaining substitutions and dead ends
 
 ## Confirm and close
@@ -74,10 +77,10 @@ X3, D3, T27, O9, T8, T32, T36, T37, T38, T39, T40, T43, T44, T45, T46, T47, T48,
 
 ## Before Alpha 2: shorter onboarding and editing in the demo
 
-*Greg set this stage on November 24, 2026, after playing the Stage 7 build on his phone, and put X6 and C87 first the same day, before he shares Alpha 1 with Heather. Line 4 waits for F39's spec section.*
+*Greg set this stage on November 24, 2026, after playing the Stage 7 build on his phone, and put X6 and C87 first the same day, before he shares Alpha 1 with Heather. He accepted the ten-screen onboarding drafts the same day, before line 2 was built, so line 2 builds O35 and O36 together. Line 4 waits for F39's spec section.*
 
 1. X6, C87: the switcher for Heather's review, and MVP on the Home Screen
-2. O35: onboarding at fourteen screens, as spec 0.55 §3 sets out
+2. O35, O36, F40: onboarding at ten screens, as spec 0.57 §3 sets out
 4. F39, L7, L8, U5: editing a child, a school and Settings, and adding a child
 
 ## Alpha 2: The weekend Charlotte is away
