@@ -2,7 +2,7 @@
    control, so a tap passes through it, such as the long press on the monogram beneath it. */
 .layer {
   position: fixed;
-  inset: var(--space-8) 0 auto;
+  inset: calc(var(--safe-top) + var(--space-8)) 0 auto;
   z-index: 40;
   pointer-events: none;
 }

@@ -11,7 +11,7 @@
   width: 100%;
   max-width: var(--layout-phone-column);
   margin-inline: auto;
-  max-height: calc(100dvh - var(--space-56));
+  max-height: calc(100dvh - var(--layout-status));
   padding: var(--space-12) var(--space-20) calc(max(var(--space-32), var(--safe-bottom)) + var(--keyboard-inset, 0px));
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   background: var(--bg-card);
@@ -35,7 +35,7 @@
   .layer[data-closing] .sheet { animation-name: sheetFadeOut; }
 }
 .sheet:focus { outline: none; }
-.sheet[data-height='tall'] { height: calc(100dvh - var(--space-56)); }
+.sheet[data-height='tall'] { height: calc(100dvh - var(--layout-status)); }
 .header { display: flex; flex-direction: column; gap: var(--space-4); }
 .top { display: flex; align-items: center; touch-action: none; cursor: grab; }
 .spacer { width: var(--size-tap-target); height: var(--size-tap-target); flex-shrink: 0; }
