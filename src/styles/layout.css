@@ -5,19 +5,20 @@
   /* The home indicator's inset, which every anchored foot clears. While the keyboard is up it covers
      the indicator, so the inset drops to nothing. */
   --safe-bottom: env(safe-area-inset-bottom, 0px);
-  /* The status bar's inset. The viewport covers the whole screen (viewport-fit=cover), so iOS reports
-     it whenever the page runs under the status bar, and 0 in the browser, where the browser's own bar
-     sits above the page. */
+  /* The status bar's inset, reported when the page runs under the status bar and 0 when it starts
+     beneath it, as it does in the browser and from the Home Screen with the default status bar. */
   --safe-top: env(safe-area-inset-top, 0px);
 }
 /* The room above the first row (issues C81 and C89). Every fixed top row takes it from
    --layout-status: Today's header, the title bar on tab lists and pages, the fixed header, onboarding's
-   Back, and the tall sheet's gap above it. In the browser the page starts under the browser's own bar,
-   so --layout-status keeps the frames' 56 from src/tokens.css. Opened from the Home Screen, the page
-   runs under the status bar, and iOS blurs a strip below it, so a row placed at a fixed 8 reads as
-   smeared. The room is the status bar's inset plus the 8 the frames leave below the status bar, so the
-   first row starts below the strip on every phone, whatever its status bar's height. */
+   Back, the tall sheet's gap above it and, from the Home Screen, the arrival notice. In the browser the
+   page starts under the browser's own bar, so --layout-status keeps the frames' 56 from
+   src/tokens.css. Opened from the Home Screen, the page starts beneath the status bar (iOS reports an
+   inset of 0 there with the default status bar), and iOS blurs a strip across the top of the page, so
+   a row 8 from the top reads as smeared. 24 clears the strip, measured on Greg's iPhone on November 24,
+   2026, so the room is 24 plus the status bar's inset, which keeps the row clear on a phone or status
+   bar style that lets the page run under the status bar. */
 @media (display-mode: standalone) {
-  :root { --layout-status: calc(var(--safe-top) + var(--space-8)); }
+  :root { --layout-status: calc(var(--safe-top) + var(--space-24)); }
 }
 :root[data-keyboard='open'] { --safe-bottom: 0px; }

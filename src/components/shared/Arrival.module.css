@@ -15,3 +15,8 @@
   .layer { left: var(--layout-sidebar); }
   .column { max-width: var(--layout-phone-column); }
 }
+/* From the Home Screen, iOS blurs a strip across the top of the page, so the notice starts where the
+   first row does (issue C89). */
+@media (display-mode: standalone) {
+  .layer { top: var(--layout-status); }
+}
