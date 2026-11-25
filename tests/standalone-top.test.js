@@ -1,6 +1,8 @@
 // The room above the first row (issues C81 and C89, spec §2). Opened from the Home Screen, the page
-// runs under the status bar, so --layout-status is the status bar's inset plus the frames' 8. In the
-// browser it keeps the frames' 56. Neither jsdom nor any other DOM library is in the repository, and
+// starts beneath the status bar and iOS blurs a strip across its top, so --layout-status is 24 plus the
+// status bar's inset, which iOS reports when the page runs under the status bar (measured on Greg's
+// iPhone, November 24, 2026). In the browser it keeps the frames' 56. Neither jsdom nor any other DOM
+// library is in the repository, and
 // none of them evaluates env() or display-mode, so the test reads the CSS as text: it checks the
 // standalone rule derives the offset from env(safe-area-inset-top), the browser value is the token's
 // 56, and every fixed top row takes its top from --layout-status rather than a value of its own.
@@ -29,12 +31,12 @@ describe('the room above the first row', () => {
     expect(tokens).toMatch(/--space-56:\s*56px;/);
   });
 
-  it('is the status bar\'s inset plus the frames\' 8 when opened from the Home Screen', () => {
+  it('is the status bar\'s inset plus 24 when opened from the Home Screen', () => {
     expect(layout).toMatch(/--safe-top:\s*env\(safe-area-inset-top,\s*0px\);/);
     const standalone = layout.match(/@media\s*\(display-mode:\s*standalone\)\s*{([\s\S]*?)}\s*}/);
     expect(standalone, 'a display-mode: standalone rule in src/styles/layout.css').not.toBeNull();
     const value = standalone[1].match(/--layout-status:\s*([^;]+);/)?.[1].trim();
-    expect(value).toBe('calc(var(--safe-top) + var(--space-8))');
+    expect(value).toBe('calc(var(--safe-top) + var(--space-24))');
   });
 
   it('places every fixed top row from --layout-status', () => {
